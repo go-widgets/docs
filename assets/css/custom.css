@@ -1,0 +1,30 @@
+/* go-widgets branding on Hextra (github.com/go-widgets/brand).
+ *
+ * The teal of the org mark (#0D9488) and of the landing page, which uses
+ * #14B8A6 as its accent in the dark theme. Hextra derives its whole primary
+ * scale (links, active sidebar entry, buttons) from these three variables.
+ *
+ * Light theme: #0D9488 = hsl(175 84% 32%), the mark's own colour.
+ * Dark theme:  #14B8A6 = hsl(173 80% 40%), the landing page's dark accent. */
+:root {
+  --primary-hue: 175deg;
+  --primary-saturation: 84%;
+  --primary-lightness: 32%;
+}
+.dark {
+  --primary-hue: 173deg;
+  --primary-saturation: 80%;
+  --primary-lightness: 40%;
+}
+
+/* Tables carry much of these pages -- which back-end does what, which
+ * binder owns which field -- so their headers stand out in the brand colour,
+ * a size smaller than the prose. The header is a shade deeper than the mark
+ * (#0F766E): white on #0D9488 is 3.7:1, under the 4.5:1 small text needs;
+ * on #0F766E it is 5.5:1. The same shade serves both themes. */
+.content table { font-size: 0.875em; }
+.content table th { background: #0F766E; color: #fff; }
+
+/* The version selector's list hangs from its button's right edge, so that it
+ * stays on screen at the end of the navbar. */
+.fs-version-select .hextra-nav-menu-items { left: auto !important; right: 0; transform: none !important; }
