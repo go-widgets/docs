@@ -21,8 +21,8 @@ version**:
 
 | Source | Published under |
 | --- | --- |
-| branch `main`, with `params.docs.version: v0.2.0` in `hugo.yaml` | `https://go-widgets.github.io/docs/0.2/` |
-| the newest version | also `https://go-widgets.github.io/docs/latest/` |
+| branch `main`, with `params.docs.version: v0.2.0` in `hugo.yaml` | `go-widgets.github.io/docs/0.2/` |
+| the newest version | also `go-widgets.github.io/docs/latest/` |
 
 `https://go-widgets.github.io/docs/` redirects to `latest/`. Each push to `main`
 replaces the directory of the version it describes, and nothing else.
