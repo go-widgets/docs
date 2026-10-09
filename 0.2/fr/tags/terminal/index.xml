@@ -1,0 +1,76 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Terminal</title><link>https://go-widgets.github.io/docs/0.2/fr/tags/terminal/</link><description>Recent content in Terminal on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>fr</language><atom:link href="https://go-widgets.github.io/docs/0.2/fr/tags/terminal/index.xml" rel="self" type="application/rss+xml"/><item><title>Un terminal</title><link>https://go-widgets.github.io/docs/0.2/fr/surfaces/terminal/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/fr/surfaces/terminal/</guid><description>
+&lt;p&gt;&lt;a href="https://github.com/go-widgets/tui" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/tui&lt;/code&gt;&lt;/a&gt; transforme un arbre de widgets en
+image de terminal à travers le &lt;a href="https://go-widgets.github.io/docs/0.2/fr/rendering/painter/"&gt;painter en cellules&lt;/a&gt;.
+Bibliothèque standard uniquement — pas de &lt;code&gt;x/term&lt;/code&gt;, pas de cgo.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="one-frame"&gt;Une image&lt;span class="hx:absolute hx:-mt-20" id="one-frame"&gt;&lt;/span&gt;
+&lt;a href="#one-frame" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;_&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;tui&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;RenderOnce&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;os&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Stdout&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;widgets&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// nil theme: light&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copier le code"
+aria-label="Copier le code"
+data-copied-label="Copié !"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;RenderOnceSized(w, cols, rows, widgets, theme)&lt;/code&gt; prend la taille explicitement ;
+&lt;code&gt;RenderOnce&lt;/code&gt; lit &lt;code&gt;COLUMNS&lt;/code&gt; et &lt;code&gt;LINES&lt;/code&gt; et se replie sur 80×24. Lire
+l&amp;rsquo;environnement plutôt qu&amp;rsquo;appeler &lt;code&gt;TIOCGWINSZ&lt;/code&gt; garde le paquet exempt de
+code propre à chaque plateforme.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="an-interactive-program"&gt;Un programme interactif&lt;span class="hx:absolute hx:-mt-20" id="an-interactive-program"&gt;&lt;/span&gt;
+&lt;a href="#an-interactive-program" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;app&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;tui&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewApp&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;app&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Root&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;buildScene&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;app&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Keys&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;q&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;a&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nx"&gt;tui&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;App&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Quit&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;app&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Keys&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Ctrl+C&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;a&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nx"&gt;tui&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;App&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Quit&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;os&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Exit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;app&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Run&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copier le code"
+aria-label="Copier le code"
+data-copied-label="Copié !"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;Run&lt;/code&gt; passe sur l&amp;rsquo;écran alternatif et en mode brut, distribue les entrées à &lt;code&gt;Root&lt;/code&gt;
+(les gestionnaires de touches globaux d&amp;rsquo;abord), suit &lt;code&gt;SIGWINCH&lt;/code&gt;, et restaure toujours le
+terminal — y compris lors d&amp;rsquo;une panique. Un gestionnaire de touche appelle &lt;code&gt;Consume&lt;/code&gt; pour soustraire un événement à
+&lt;code&gt;Root&lt;/code&gt; ; &lt;code&gt;InputTarget&lt;/code&gt; envoie chaque événement non consommé à un seul widget, ce qui permet
+à une palette de commandes d&amp;rsquo;avaler la frappe tant qu&amp;rsquo;elle est ouverte. &lt;code&gt;NewFocusRing&lt;/code&gt; donne à un
+formulaire le parcours par Tab et Maj+Tab.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="widgets-sized-for-cells"&gt;Des widgets dimensionnés pour les cellules&lt;span class="hx:absolute hx:-mt-20" id="widgets-sized-for-cells"&gt;&lt;/span&gt;
+&lt;a href="#widgets-sized-for-cells" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;La plupart des widgets de la boîte à outils sont conçus en pixels : leurs constantes de marge comptent
+des cellules sous le painter en cellules et gonflent. &lt;code&gt;tui&lt;/code&gt; a donc son propre jeu &lt;strong&gt;natif en cellules&lt;/strong&gt;
+— &lt;code&gt;TextEditor&lt;/code&gt;, &lt;code&gt;Entry&lt;/code&gt;, &lt;code&gt;Button&lt;/code&gt;, &lt;code&gt;CheckButton&lt;/code&gt;, &lt;code&gt;RadioButton&lt;/code&gt;, &lt;code&gt;Scale&lt;/code&gt;,
+&lt;code&gt;ProgressBar&lt;/code&gt;, &lt;code&gt;Sparkline&lt;/code&gt;, &lt;code&gt;ListBox&lt;/code&gt;, &lt;code&gt;TreeView&lt;/code&gt;, &lt;code&gt;Table&lt;/code&gt;, &lt;code&gt;MenuBar&lt;/code&gt;,
+&lt;code&gt;Notebook&lt;/code&gt;, &lt;code&gt;HSplit&lt;/code&gt;, &lt;code&gt;VSplit&lt;/code&gt;, &lt;code&gt;Dialog&lt;/code&gt;, &lt;code&gt;Dropdown&lt;/code&gt;, &lt;code&gt;Spinner&lt;/code&gt; et d&amp;rsquo;autres —
+où un glyphe occupe une cellule. Chacun reste un &lt;code&gt;toolkit.Widget&lt;/code&gt;, si bien que la même
+instance dessine aussi en pixels.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;TextEditor&lt;/code&gt; est un éditeur de code en lecture-écriture : gouttière, annuler et rétablir, rechercher et
+remplacer, sélection, déplacement de lignes, et coloration syntaxique pour Go (via
+&lt;code&gt;go/scanner&lt;/code&gt;), JavaScript et TypeScript, Python, Ruby, shell, C et C++,
+Rust, JSON, YAML, HCL, TOML, LaTeX et Markdown, sans aucune dépendance externe.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-sh" data-lang="sh"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;go run ./cmd/tui-widgets &lt;span class="p"&gt;|&lt;/span&gt; less -R &lt;span class="c1"&gt;# every cell-native widget, one per slot&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;go run ./cmd/tui-widget-explorer &lt;span class="c1"&gt;# the same, interactive&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;go run ./cmd/tui-explorer &lt;span class="c1"&gt;# a file browser&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;go run ./cmd/tui-editor --file&lt;span class="o"&gt;=&lt;/span&gt;x.go &lt;span class="c1"&gt;# a modal editor&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copier le code"
+aria-label="Copier le code"
+data-copied-label="Copié !"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Les deux programmes de démonstration sont testés de bout en bout dans un vrai pty : de vrais octets de touches en entrée,
+l&amp;rsquo;image rendue vérifiée.&lt;/p&gt;</description></item></channel></rss>

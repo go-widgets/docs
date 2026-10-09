@@ -1,0 +1,162 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Windows</title><link>https://go-widgets.github.io/docs/0.2/es/tags/windows/</link><description>Recent content in Windows on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>es</language><atom:link href="https://go-widgets.github.io/docs/0.2/es/tags/windows/index.xml" rel="self" type="application/rss+xml"/><item><title>Una ventana nativa</title><link>https://go-widgets.github.io/docs/0.2/es/surfaces/native-window/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/es/surfaces/native-window/</guid><description>
+&lt;p&gt;&lt;a href="https://github.com/go-widgets/window" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/window&lt;/code&gt;&lt;/a&gt; abre una ventana
+real y ejecuta en ella un árbol de widgets: layout, dibujo, presentación,
+traducción de la entrada a &lt;code&gt;toolkit.Event&lt;/code&gt;, y vuelta a empezar hasta que la
+ventana se cierra.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Config&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;Title&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Demo&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;!=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;defer&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Close&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;root&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// root is any toolkit.Widget&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copiar código"
+aria-label="Copiar código"
+data-copied-label="¡Copiado!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;Config&lt;/code&gt; recibe además el tamaño inicial en &lt;strong&gt;puntos lógicos&lt;/strong&gt; (cero pide un
+tamaño por defecto legible), la instancia y la clase de &lt;code&gt;WM_CLASS&lt;/code&gt;, un &lt;code&gt;Theme&lt;/code&gt;
+y un &lt;code&gt;RenderScale&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="how-open-chooses"&gt;Cómo elige Open&lt;span class="hx:absolute hx:-mt-20" id="how-open-chooses"&gt;&lt;/span&gt;
+&lt;a href="#how-open-chooses" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Plataforma y entorno&lt;/th&gt;
+&lt;th&gt;Backend&lt;/th&gt;
+&lt;th&gt;Cómo llega a la pantalla&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Linux, &lt;code&gt;$GO_WIDGETS_GTK&lt;/code&gt; definida&lt;/td&gt;
+&lt;td&gt;GTK4&lt;/td&gt;
+&lt;td&gt;GTK posee la ventana; el framebuffer es un &lt;code&gt;GtkPicture&lt;/code&gt;, y los controles nativos son widgets GTK reales por encima de él. Necesita el runtime de libgtk-4.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Linux, &lt;code&gt;$WAYLAND_DISPLAY&lt;/code&gt; definida&lt;/td&gt;
+&lt;td&gt;Wayland&lt;/td&gt;
+&lt;td&gt;xdg-shell sobre el socket unix del compositor&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Linux, en otro caso &lt;code&gt;$DISPLAY&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;X11&lt;/td&gt;
+&lt;td&gt;el protocolo central de X11 sobre el socket unix, con MIT-SHM&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;macOS&lt;/td&gt;
+&lt;td&gt;Cocoa&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;NSWindow&lt;/code&gt; y &lt;code&gt;NSView&lt;/code&gt; a través de &lt;a href="https://github.com/go-macos/objc" target="_blank" rel="noopener"&gt;go-macos/objc&lt;/a&gt; (purego)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Windows&lt;/td&gt;
+&lt;td&gt;Win32&lt;/td&gt;
+&lt;td&gt;un &lt;code&gt;HWND&lt;/code&gt; de nivel superior mediante llamadas al sistema de user32 y gdi32, &lt;code&gt;StretchDIBits&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Android, &lt;code&gt;$GW_ANDROID_SOCKET&lt;/code&gt; definida&lt;/td&gt;
+&lt;td&gt;Host Android&lt;/td&gt;
+&lt;td&gt;un protocolo por tramas hacia &lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/android/"&gt;el host Java&lt;/a&gt;, píxeles en un memfd compartido&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Android, en otro caso&lt;/td&gt;
+&lt;td&gt;Wayland o X11&lt;/td&gt;
+&lt;td&gt;un shell bajo Termux sigue teniendo un servidor gráfico al que conectarse&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;js/wasm&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;wasmbox&lt;/td&gt;
+&lt;td&gt;un cliente del &lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/browser/#a-window-on-the-wasmdesk-desktop"&gt;compositor wasmdesk&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;cualquier otra cosa&lt;/td&gt;
+&lt;td&gt;—&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;window.ErrUnsupported&lt;/code&gt;, para que una compilación cruzada siga compilando&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Todos los backends son &lt;code&gt;CGO_ENABLED=0&lt;/code&gt;. El de X11 es el protocolo central
+escrito desde cero sobre el socket —sin Xlib, sin XCB—, con ambos órdenes de
+bytes, la cookie de Xauthority, el mapeo de keysyms, &lt;code&gt;PutImage&lt;/code&gt; troceado por
+debajo del tamaño máximo de petición del servidor y la vía rápida MIT-SHM, con
+el segmento compartido pasado por &lt;code&gt;SCM_RIGHTS&lt;/code&gt;. A Windows se llega a través de
+las propias DLL del proceso con &lt;code&gt;syscall.NewLazyDLL&lt;/code&gt; y un procedimiento de
+ventana &lt;code&gt;syscall.NewCallback&lt;/code&gt;; a macOS, a través del runtime de Objective-C con
+purego.&lt;/p&gt;
+&lt;p&gt;La parte de cada backend que no depende de la plataforma —mapeo de eventos,
+cálculo de coordenadas, empaquetado de píxeles, rectángulos dañados— vive en un
+códec cubierto al 100 %, en todos los sistemas operativos. La fina capa de
+unión con la plataforma se demuestra en vivo: consulte
+&lt;a href="https://go-widgets.github.io/docs/0.2/es/status/"&gt;Estado&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="only-what-changed"&gt;Solo lo que ha cambiado&lt;span class="hx:absolute hx:-mt-20" id="only-what-changed"&gt;&lt;/span&gt;
+&lt;a href="#only-what-changed" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Una raíz que implementa &lt;code&gt;DamageRenderer&lt;/code&gt; (como hace &lt;code&gt;toolkit/scene.HostRoot&lt;/code&gt;)
+informa de los rectángulos que ha repintado, y los backends Cocoa, Win32 y
+wasmbox presentan solo esos.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="hidpi"&gt;HiDPI&lt;span class="hx:absolute hx:-mt-20" id="hidpi"&gt;&lt;/span&gt;
+&lt;a href="#hidpi" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Por defecto hay un píxel de framebuffer por punto lógico: la interfaz se
+organiza y se pinta a un tamaño legible, y el compositor la sobremuestrea. En
+Windows, la ventana declara compatibilidad con DPI por monitor y el sistema
+operativo escala el fotograma lógico al área cliente física. &lt;code&gt;RenderScale&lt;/code&gt; pide
+un framebuffer a la resolución real del panel, lo cual solo es correcto para una
+raíz que organiza su layout en píxeles del dispositivo.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="screens-and-showing-and-hiding"&gt;Pantallas, y mostrar y ocultar&lt;span class="hx:absolute hx:-mt-20" id="screens-and-showing-and-hiding"&gt;&lt;/span&gt;
+&lt;a href="#screens-and-showing-and-hiding" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;window.Screens()&lt;/code&gt; enumera las pantallas conectadas, la principal primero, en
+puntos lógicos y descontando los paneles del escritorio, y puede llamarse antes
+de &lt;code&gt;Open&lt;/code&gt;. El nombre de una pantalla es el del propio panel (&lt;code&gt;&amp;quot;DELL U2720Q&amp;quot;&lt;/code&gt;,
+tomado de su EDID), y recurre al conector (&lt;code&gt;&amp;quot;HDMI-1&amp;quot;&lt;/code&gt;) cuando el panel no
+publica ninguno, y también cuando dos paneles conectados publican el mismo,
+porque un nombre que no permite distinguirlos no es un nombre.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;window.Show&lt;/code&gt;, &lt;code&gt;Hide&lt;/code&gt; y &lt;code&gt;Raise&lt;/code&gt; retiran de la pantalla una ventana abierta sin
+cerrarla y la traen de vuelta: lo que necesita una
+&lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/application/#the-tray"&gt;aplicación de bandeja&lt;/a&gt;.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Backend&lt;/th&gt;
+&lt;th&gt;Show&lt;/th&gt;
+&lt;th&gt;Hide&lt;/th&gt;
+&lt;th&gt;Raise&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;X11&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;MapWindow&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;retirada ICCCM, para que salga de la barra de tareas&lt;/td&gt;
+&lt;td&gt;mapear, elevar, &lt;code&gt;_NET_ACTIVE_WINDOW&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Wayland&lt;/td&gt;
+&lt;td&gt;volver a hacer commit&lt;/td&gt;
+&lt;td&gt;búfer nulo y commit&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;ErrNotSupported&lt;/code&gt;: xdg-shell no tiene esa petición&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;macOS&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;orderFront:&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;orderOut:&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;activar la aplicación, &lt;code&gt;makeKeyAndOrderFront:&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Windows&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SW_SHOWNA&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SW_HIDE&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SW_RESTORE&lt;/code&gt; y &lt;code&gt;SetForegroundWindow&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;GTK, Android, wasmbox&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;ErrNotSupported&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;ErrNotSupported&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;ErrNotSupported&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Conceder el foco corresponde a la plataforma: con la prevención del robo de
+foco, &lt;code&gt;Raise&lt;/code&gt; puede limitarse a marcar la ventana como necesitada de atención,
+y no puede saberlo.&lt;/p&gt;</description></item></channel></rss>

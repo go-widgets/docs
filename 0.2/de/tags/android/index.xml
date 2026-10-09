@@ -1,0 +1,69 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Android</title><link>https://go-widgets.github.io/docs/0.2/de/tags/android/</link><description>Recent content in Android on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>de</language><atom:link href="https://go-widgets.github.io/docs/0.2/de/tags/android/index.xml" rel="self" type="application/rss+xml"/><item><title>Android</title><link>https://go-widgets.github.io/docs/0.2/de/surfaces/android/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/de/surfaces/android/</guid><description>
+&lt;p&gt;Android ist die einzige Plattform, auf der ein CGO-freier Prozess kein Fenster besitzen kann: Jeder
+Weg zu einer zeichenbaren Oberfläche führt über JNI, und JNI braucht cgo. Es gibt kein
+Wire-Protokoll, das man stattdessen sprechen könnte, so wie X11 und Wayland eines haben.&lt;/p&gt;
+&lt;p&gt;Deshalb besteht &lt;a href="https://github.com/go-widgets/android" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/android&lt;/code&gt;&lt;/a&gt; aus zwei
+Prozessen:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Java-Host&lt;/strong&gt; (&lt;code&gt;host/&lt;/code&gt;)&lt;/td&gt;
+&lt;td&gt;besitzt die &lt;code&gt;Activity&lt;/code&gt;, die &lt;code&gt;SurfaceView&lt;/code&gt;, Touch, Tasten und den Lebenszyklus. Überträgt Pixel per Blit; weiß nichts über Widgets.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Go-Anwendung&lt;/strong&gt; (&lt;code&gt;cmd/gwapp&lt;/code&gt;)&lt;/td&gt;
+&lt;td&gt;ein gewöhnliches &lt;code&gt;CGO_ENABLED=0 GOOS=android&lt;/code&gt;-Executable. Besitzt Layout, Widgets, Theme, Hit-Testing und Fokus, unverändert gegenüber jedem anderen Back-End.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Der Java-Host steht dort, wo unter Linux der X-Server steht. Pixel reisen durch
+ein &lt;strong&gt;memfd&lt;/strong&gt;, das die Anwendung anlegt und dem Host über den Socket übergibt;
+die Go-Seite schreibt RGBA_8888, was Byte für Byte Androids ARGB_8888 entspricht, sodass
+der Blit eine Kopie ohne Umwandlung ist, und zwar nur des geschädigten Rechtecks. Eingaben,
+Insets, IME-Text und der Barrierefreiheitsbaum gehen über ein gerahmtes Protokoll über einen
+abstrakten &lt;code&gt;LocalSocket&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;c&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;android&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Dial&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;my app&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// nil theme: toolkit.DefaultDark()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;errors&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Is&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;android&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ErrUnsupported&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// not under a host&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;defer&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Close&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;myWidgetTree&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Code kopieren"
+aria-label="Code kopieren"
+data-copied-label="Kopiert!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;Client&lt;/code&gt; erfüllt das &lt;code&gt;Backend&lt;/code&gt; von &lt;code&gt;window&lt;/code&gt;, sodass eine Anwendung zwischen
+Android und den Desktop-Back-Ends wechselt, ohne eine Zeile oberhalb des Fensters zu ändern –
+und &lt;a href="https://go-widgets.github.io/docs/0.2/de/surfaces/native-window/#how-open-chooses"&gt;&lt;code&gt;window.Open&lt;/code&gt;&lt;/a&gt;
+wählt es von selbst, wenn der Socket des Hosts vorhanden ist.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="arm64-only"&gt;Nur arm64&lt;span class="hx:absolute hx:-mt-20" id="arm64-only"&gt;&lt;/span&gt;
+&lt;a href="#arm64-only" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;android/arm64&lt;/code&gt; ist das einzige Android-Ziel, das Go ohne cgo linkt; &lt;code&gt;arm&lt;/code&gt;,
+&lt;code&gt;amd64&lt;/code&gt; und &lt;code&gt;386&lt;/code&gt; erfordern externes Linken. Die CI prüft beide Hälften – das eine Ziel,
+das baut, und die drei, die es nicht tun –, sodass der Build es meldet, sobald Go die Einschränkung aufhebt.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="accessibility"&gt;Barrierefreiheit&lt;span class="hx:absolute hx:-mt-20" id="accessibility"&gt;&lt;/span&gt;
+&lt;a href="#accessibility" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Ein Screenreader würde die &lt;code&gt;SurfaceView&lt;/code&gt; als ein einziges undurchsichtiges Rechteck sehen. Der Host
+gibt ihm stattdessen eine virtuelle View-Hierarchie: einen Knoten pro zugänglichem Widget,
+mit der &lt;code&gt;android.widget.*&lt;/code&gt;-Klasse, nach der Android seine Ansagen auswählt, dem
+Text, den Grenzen und einer Aktivierungsaktion. Der Baum wird &lt;strong&gt;abgeholt&lt;/strong&gt;, wenn
+etwas ihn liest, nie gepusht, sodass eine App ohne angeschlossenen Barrierefreiheitsdienst
+nie einen aufbaut. Eine Aktivierung kommt als gewöhnlicher Klick in der
+Mitte des Elements zurück, über denselben Code, den eine Berührung nimmt.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="touch-and-animation"&gt;Touch und Animation&lt;span class="hx:absolute hx:-mt-20" id="touch-and-animation"&gt;&lt;/span&gt;
+&lt;a href="#touch-and-animation" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Jede Touch-Abtastung erreicht den Baum als Touch-Ereignis und dann als Maus-Ereignis: das
+erste für gestenfähige Widgets, das zweite für die vielen, die nur auf
+Klicks hören. Animierte Widgets laufen auf einer Frame-Schleife weiter, die startet, wenn etwas
+zu animieren beginnt, und stoppt, wenn nichts mehr animiert.&lt;/p&gt;</description></item></channel></rss>

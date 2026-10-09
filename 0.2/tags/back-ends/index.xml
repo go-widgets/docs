@@ -1,0 +1,58 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Back-Ends</title><link>https://go-widgets.github.io/docs/0.2/tags/back-ends/</link><description>Recent content in Back-Ends on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>en</language><atom:link href="https://go-widgets.github.io/docs/0.2/tags/back-ends/index.xml" rel="self" type="application/rss+xml"/><item><title>Where it paints</title><link>https://go-widgets.github.io/docs/0.2/surfaces/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/surfaces/</guid><description>
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Surface&lt;/th&gt;
+&lt;th&gt;Module&lt;/th&gt;
+&lt;th&gt;Painter&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/surfaces/native-window/"&gt;A native window&lt;/a&gt; on X11, Wayland, macOS, Windows&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;window&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;pixels&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/surfaces/application/"&gt;An application&lt;/a&gt; with a tray icon and the system appearance&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;application&lt;/code&gt;, &lt;code&gt;tray&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;pixels&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/surfaces/browser/"&gt;A browser tab&lt;/a&gt;: a plain &lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;webcanvas&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;pixels&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/surfaces/browser/#a-window-on-the-wasmdesk-desktop"&gt;A browser desktop&lt;/a&gt;: a window of the wasmdesk compositor&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;window&lt;/code&gt; (wasmbox)&lt;/td&gt;
+&lt;td&gt;pixels&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/surfaces/terminal/"&gt;A terminal&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;tui&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;cells&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/surfaces/android/"&gt;An Android APK&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;android&lt;/code&gt;, &lt;code&gt;window&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;pixels&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/surfaces/snapshots/"&gt;A picture&lt;/a&gt;: SVG or PNG&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;svg&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;pixels&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;The widget tree does not change between them. What changes is who owns the
+buffer and who delivers input — a display server, a browser, a terminal, a
+Java host — and each back-end turns that input into the same &lt;code&gt;toolkit.Event&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="chosen-by-what-is-there"&gt;Chosen by what is there&lt;span class="hx:absolute hx:-mt-20" id="chosen-by-what-is-there"&gt;&lt;/span&gt;
+&lt;a href="#chosen-by-what-is-there" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;window.Open&lt;/code&gt; takes no back-end argument. It looks at the environment — the
+platform it was built for, &lt;code&gt;$WAYLAND_DISPLAY&lt;/code&gt;, &lt;code&gt;$DISPLAY&lt;/code&gt;, the socket an
+Android host exports — and picks the one that can work. A binary built for
+Linux opens a Wayland window under a Wayland session and an X11 window under
+X; the same Android binary dials its host inside an APK and opens an ordinary
+Linux window under Termux. See
+&lt;a href="https://go-widgets.github.io/docs/0.2/surfaces/native-window/#how-open-chooses"&gt;how &lt;code&gt;Open&lt;/code&gt; chooses&lt;/a&gt;.&lt;/p&gt;</description></item></channel></rss>

@@ -1,0 +1,71 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Grpc</title><link>https://go-widgets.github.io/docs/0.2/fr/tags/grpc/</link><description>Recent content in Grpc on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>fr</language><atom:link href="https://go-widgets.github.io/docs/0.2/fr/tags/grpc/index.xml" rel="self" type="application/rss+xml"/><item><title>La colonne vertébrale des données</title><link>https://go-widgets.github.io/docs/0.2/fr/state/data/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/fr/state/data/</guid><description>
+&lt;p&gt;&lt;a href="https://github.com/go-widgets/data" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/data&lt;/code&gt;&lt;/a&gt; est sans interface : il
+importe la bibliothèque standard et &lt;a href="https://go-widgets.github.io/docs/0.2/fr/state/mvvm/"&gt;&lt;code&gt;mvvm&lt;/code&gt;&lt;/a&gt;,
+et aucun widget.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Élément&lt;/th&gt;
+&lt;th&gt;Ce que c&amp;rsquo;est&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Value&lt;/code&gt;, &lt;code&gt;Kind&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;un scalaire typé comparable : chaîne, entier, flottant, booléen&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Record&lt;/code&gt;, &lt;code&gt;Schema&lt;/code&gt;, &lt;code&gt;Field&lt;/code&gt;, &lt;code&gt;Rule&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;une ligne typée et sa validation&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Query&lt;/code&gt; → &lt;code&gt;Apply&lt;/code&gt; → &lt;code&gt;View&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;le moteur de requêtes : filtrer, trier, grouper, paginer, agréger&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Proxy&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;la jonction avec le back-end : &lt;code&gt;List&lt;/code&gt;, &lt;code&gt;Query&lt;/code&gt;, &lt;code&gt;Mutate&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;MemoryProxy&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;le back-end dans le processus&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;grpcproxy.Server&lt;/code&gt;, &lt;code&gt;grpcproxy.Client&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;le même contrat via gRPC, transporté sur une WebSocket&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Store[R]&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;une collection typée, publiée sous forme d&amp;rsquo;&lt;code&gt;mvvm.ObservableList&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 data-hextra-search-id="the-same-answer-local-or-remote"&gt;La même réponse, en local ou à distance&lt;span class="hx:absolute hx:-mt-20" id="the-same-answer-local-or-remote"&gt;&lt;/span&gt;
+&lt;a href="#the-same-answer-local-or-remote" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Store&lt;/code&gt; parle à un &lt;code&gt;Proxy&lt;/code&gt; sans jamais savoir lequel. &lt;code&gt;Apply&lt;/code&gt; est une fonction
+pure des enregistrements et de la requête, si bien que le client et le serveur exécutent le
+même code sur les mêmes lignes — et un &lt;code&gt;MemoryProxy&lt;/code&gt; et un &lt;code&gt;grpcproxy.Client&lt;/code&gt;
+renvoient des vues identiques à l&amp;rsquo;octet près. Le test de conformité vérifie exactement cela : une
+batterie de requêtes de tri, de filtre, de groupement, de pagination et d&amp;rsquo;agrégation à travers les deux
+proxys et à travers le moteur, chaque résultat mis sous forme canonique, les trois
+comparés octet par octet.&lt;/p&gt;
+&lt;p&gt;Le transport WebSocket se compile pour &lt;code&gt;js/wasm&lt;/code&gt;, si bien qu&amp;rsquo;une application de navigateur
+atteint le même service par le même client.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;store&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewStore&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;mem&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;codec&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// or a grpcproxy.Client: nothing else changes&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;store&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;SetQuery&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Query&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;Sorts&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt;&lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Sort&lt;/span&gt;&lt;span class="p"&gt;{{&lt;/span&gt;&lt;span class="nx"&gt;Field&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;salary&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Desc&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;}},&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Limit&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;store&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;ctx&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;items&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;store&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Items&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// bind this to a view&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copier le code"
+aria-label="Copier le code"
+data-copied-label="Copié !"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;tkbind.BindTable&lt;/code&gt; place un stockage derrière une &lt;code&gt;Table&lt;/code&gt; de la boîte à outils : un clic sur l&amp;rsquo;en-tête
+trie, un regroupement groupe, et une modification de cellule validée devient une mutation via
+le proxy — le même aller-retour, en local ou à distance.&lt;/p&gt;</description></item></channel></rss>

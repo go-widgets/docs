@@ -1,0 +1,71 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Data</title><link>https://go-widgets.github.io/docs/0.2/tags/data/</link><description>Recent content in Data on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>en</language><atom:link href="https://go-widgets.github.io/docs/0.2/tags/data/index.xml" rel="self" type="application/rss+xml"/><item><title>The data spine</title><link>https://go-widgets.github.io/docs/0.2/state/data/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/state/data/</guid><description>
+&lt;p&gt;&lt;a href="https://github.com/go-widgets/data" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/data&lt;/code&gt;&lt;/a&gt; is headless: it
+imports the standard library and &lt;a href="https://go-widgets.github.io/docs/0.2/state/mvvm/"&gt;&lt;code&gt;mvvm&lt;/code&gt;&lt;/a&gt;,
+and no widget.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Piece&lt;/th&gt;
+&lt;th&gt;What it is&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Value&lt;/code&gt;, &lt;code&gt;Kind&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;a comparable typed scalar: string, int, float, bool&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Record&lt;/code&gt;, &lt;code&gt;Schema&lt;/code&gt;, &lt;code&gt;Field&lt;/code&gt;, &lt;code&gt;Rule&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;a typed row and its validation&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Query&lt;/code&gt; → &lt;code&gt;Apply&lt;/code&gt; → &lt;code&gt;View&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;the query engine: filter, sort, group, page, aggregate&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Proxy&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;the back-end seam: &lt;code&gt;List&lt;/code&gt;, &lt;code&gt;Query&lt;/code&gt;, &lt;code&gt;Mutate&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;MemoryProxy&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;the in-process back-end&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;grpcproxy.Server&lt;/code&gt;, &lt;code&gt;grpcproxy.Client&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;the same contract over gRPC, carried over a WebSocket&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Store[R]&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;a typed collection, published as an &lt;code&gt;mvvm.ObservableList&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 data-hextra-search-id="the-same-answer-local-or-remote"&gt;The same answer, local or remote&lt;span class="hx:absolute hx:-mt-20" id="the-same-answer-local-or-remote"&gt;&lt;/span&gt;
+&lt;a href="#the-same-answer-local-or-remote" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Store&lt;/code&gt; talks to a &lt;code&gt;Proxy&lt;/code&gt; and never knows which one. &lt;code&gt;Apply&lt;/code&gt; is a pure
+function of the records and the query, so the client and the server run the
+same code on the same rows — and a &lt;code&gt;MemoryProxy&lt;/code&gt; and a &lt;code&gt;grpcproxy.Client&lt;/code&gt;
+return byte-identical views. The conformance test checks exactly that: a
+battery of sort, filter, group, page and aggregate queries through both
+proxies and through the engine, every result canonicalised, all three
+compared byte for byte.&lt;/p&gt;
+&lt;p&gt;The WebSocket transport compiles to &lt;code&gt;js/wasm&lt;/code&gt;, so a browser application
+reaches the same service through the same client.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;store&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewStore&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;mem&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;codec&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// or a grpcproxy.Client: nothing else changes&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;store&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;SetQuery&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Query&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;Sorts&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt;&lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Sort&lt;/span&gt;&lt;span class="p"&gt;{{&lt;/span&gt;&lt;span class="nx"&gt;Field&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;salary&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Desc&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;}},&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Limit&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;store&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;ctx&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;items&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;store&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Items&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// bind this to a view&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copy code"
+aria-label="Copy code"
+data-copied-label="Copied!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;tkbind.BindTable&lt;/code&gt; puts a store behind a toolkit &lt;code&gt;Table&lt;/code&gt;: a header click
+sorts, a group-by groups, and a validated cell edit becomes a mutation through
+the proxy — the same round trip, local or remote.&lt;/p&gt;</description></item></channel></rss>

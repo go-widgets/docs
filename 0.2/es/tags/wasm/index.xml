@@ -1,0 +1,50 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Wasm</title><link>https://go-widgets.github.io/docs/0.2/es/tags/wasm/</link><description>Recent content in Wasm on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>es</language><atom:link href="https://go-widgets.github.io/docs/0.2/es/tags/wasm/index.xml" rel="self" type="application/rss+xml"/><item><title>Una pestaña del navegador</title><link>https://go-widgets.github.io/docs/0.2/es/surfaces/browser/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/es/surfaces/browser/</guid><description>
+&lt;p&gt;El toolkit es Go puro sin dependencia del DOM, así que &lt;code&gt;GOOS=js GOARCH=wasm&lt;/code&gt; lo
+compila como cualquier otro destino. Hay dos maneras de poner el resultado
+delante de alguien:&lt;/p&gt;
+&lt;h2 data-hextra-search-id="a-plain-canvas"&gt;Un simple canvas&lt;span class="hx:absolute hx:-mt-20" id="a-plain-canvas"&gt;&lt;/span&gt;
+&lt;a href="#a-plain-canvas" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;a href="https://github.com/go-widgets/webcanvas" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/webcanvas&lt;/code&gt;&lt;/a&gt; copia un
+framebuffer RGBA en un &lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; y devuelve a la escena los eventos de puntero
+y de teclado del DOM. Sin compositor, sin &lt;code&gt;SharedArrayBuffer&lt;/code&gt;, sin cabeceras de
+aislamiento de origen cruzado: cualquier alojamiento estático lo sirve.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;//go:build js &amp;amp;&amp;amp; wasm&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;package&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;main&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;github.com/go-widgets/webcanvas&amp;#34;&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;webcanvas&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;screen&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;myScene&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copiar código"
+aria-label="Copiar código"
+data-copied-label="¡Copiado!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;La escena implementa &lt;code&gt;App&lt;/code&gt;: &lt;code&gt;Size&lt;/code&gt;, &lt;code&gt;Draw(buf []byte)&lt;/code&gt; y un método por tipo de
+evento, cada uno indicando si algo ha cambiado para que un fotograma sin
+cambios no se repinte. También puede implementar &lt;code&gt;Ticker&lt;/code&gt;, &lt;code&gt;Animator&lt;/code&gt;,
+&lt;code&gt;Resizer&lt;/code&gt; o &lt;code&gt;Scroller&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;La &lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;galería&lt;/a&gt; y
+&lt;a href="https://go-widgets.github.io/docs/0.2/es/getting-started/"&gt;&lt;code&gt;app-template&lt;/code&gt;&lt;/a&gt; funcionan así.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="a-window-on-the-wasmdesk-desktop"&gt;Una ventana en el escritorio wasmdesk&lt;span class="hx:absolute hx:-mt-20" id="a-window-on-the-wasmdesk-desktop"&gt;&lt;/span&gt;
+&lt;a href="#a-window-on-the-wasmdesk-desktop" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;En &lt;code&gt;js/wasm&lt;/code&gt;, &lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/native-window/"&gt;&lt;code&gt;window.Open&lt;/code&gt;&lt;/a&gt;
+devuelve un cliente del compositor de navegador
+&lt;a href="https://github.com/wasmdesk/wasmbox" target="_blank" rel="noopener"&gt;wasmdesk/wasmbox&lt;/a&gt;. Asigna su superficie
+en un &lt;code&gt;SharedArrayBuffer&lt;/code&gt;, dice &lt;code&gt;hello&lt;/code&gt; por su &lt;code&gt;MessagePort&lt;/code&gt;, espera &lt;code&gt;welcome&lt;/code&gt;,
+pinta en el búfer compartido y envía &lt;code&gt;commit&lt;/code&gt;: la superficie entera, o solo los
+rectángulos dañados. Los mensajes &lt;code&gt;input&lt;/code&gt; del compositor se convierten en
+&lt;code&gt;toolkit.Event&lt;/code&gt;, como en X11.&lt;/p&gt;
+&lt;p&gt;Así, una aplicación escrita contra &lt;code&gt;window&lt;/code&gt; funciona sin cambios como ventana
+nativa y como ventana de un escritorio en una pestaña del navegador. La
+&lt;a href="https://github.com/go-widgets/desktop" target="_blank" rel="noopener"&gt;demo del shell de escritorio&lt;/a&gt; hace
+exactamente eso, a partir de un solo código fuente.&lt;/p&gt;
+&lt;p&gt;El códec del protocolo está cubierto al 100 % en todas las plataformas. La
+prueba en vivo ejecuta Chromium headless contra el compositor wasmdesk real:
+lanza el cliente, lee los píxeles compuestos por el propio compositor, hace clic
+y comprueba que el clic ha llegado al widget.&lt;/p&gt;</description></item></channel></rss>

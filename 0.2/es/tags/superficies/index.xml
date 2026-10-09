@@ -1,0 +1,559 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Superficies</title><link>https://go-widgets.github.io/docs/0.2/es/tags/superficies/</link><description>Recent content in Superficies on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>es</language><atom:link href="https://go-widgets.github.io/docs/0.2/es/tags/superficies/index.xml" rel="self" type="application/rss+xml"/><item><title>Una ventana nativa</title><link>https://go-widgets.github.io/docs/0.2/es/surfaces/native-window/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/es/surfaces/native-window/</guid><description>
+&lt;p&gt;&lt;a href="https://github.com/go-widgets/window" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/window&lt;/code&gt;&lt;/a&gt; abre una ventana
+real y ejecuta en ella un árbol de widgets: layout, dibujo, presentación,
+traducción de la entrada a &lt;code&gt;toolkit.Event&lt;/code&gt;, y vuelta a empezar hasta que la
+ventana se cierra.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Config&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;Title&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Demo&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;!=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;defer&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Close&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;root&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// root is any toolkit.Widget&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copiar código"
+aria-label="Copiar código"
+data-copied-label="¡Copiado!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;Config&lt;/code&gt; recibe además el tamaño inicial en &lt;strong&gt;puntos lógicos&lt;/strong&gt; (cero pide un
+tamaño por defecto legible), la instancia y la clase de &lt;code&gt;WM_CLASS&lt;/code&gt;, un &lt;code&gt;Theme&lt;/code&gt;
+y un &lt;code&gt;RenderScale&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="how-open-chooses"&gt;Cómo elige Open&lt;span class="hx:absolute hx:-mt-20" id="how-open-chooses"&gt;&lt;/span&gt;
+&lt;a href="#how-open-chooses" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Plataforma y entorno&lt;/th&gt;
+&lt;th&gt;Backend&lt;/th&gt;
+&lt;th&gt;Cómo llega a la pantalla&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Linux, &lt;code&gt;$GO_WIDGETS_GTK&lt;/code&gt; definida&lt;/td&gt;
+&lt;td&gt;GTK4&lt;/td&gt;
+&lt;td&gt;GTK posee la ventana; el framebuffer es un &lt;code&gt;GtkPicture&lt;/code&gt;, y los controles nativos son widgets GTK reales por encima de él. Necesita el runtime de libgtk-4.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Linux, &lt;code&gt;$WAYLAND_DISPLAY&lt;/code&gt; definida&lt;/td&gt;
+&lt;td&gt;Wayland&lt;/td&gt;
+&lt;td&gt;xdg-shell sobre el socket unix del compositor&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Linux, en otro caso &lt;code&gt;$DISPLAY&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;X11&lt;/td&gt;
+&lt;td&gt;el protocolo central de X11 sobre el socket unix, con MIT-SHM&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;macOS&lt;/td&gt;
+&lt;td&gt;Cocoa&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;NSWindow&lt;/code&gt; y &lt;code&gt;NSView&lt;/code&gt; a través de &lt;a href="https://github.com/go-macos/objc" target="_blank" rel="noopener"&gt;go-macos/objc&lt;/a&gt; (purego)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Windows&lt;/td&gt;
+&lt;td&gt;Win32&lt;/td&gt;
+&lt;td&gt;un &lt;code&gt;HWND&lt;/code&gt; de nivel superior mediante llamadas al sistema de user32 y gdi32, &lt;code&gt;StretchDIBits&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Android, &lt;code&gt;$GW_ANDROID_SOCKET&lt;/code&gt; definida&lt;/td&gt;
+&lt;td&gt;Host Android&lt;/td&gt;
+&lt;td&gt;un protocolo por tramas hacia &lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/android/"&gt;el host Java&lt;/a&gt;, píxeles en un memfd compartido&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Android, en otro caso&lt;/td&gt;
+&lt;td&gt;Wayland o X11&lt;/td&gt;
+&lt;td&gt;un shell bajo Termux sigue teniendo un servidor gráfico al que conectarse&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;js/wasm&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;wasmbox&lt;/td&gt;
+&lt;td&gt;un cliente del &lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/browser/#a-window-on-the-wasmdesk-desktop"&gt;compositor wasmdesk&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;cualquier otra cosa&lt;/td&gt;
+&lt;td&gt;—&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;window.ErrUnsupported&lt;/code&gt;, para que una compilación cruzada siga compilando&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Todos los backends son &lt;code&gt;CGO_ENABLED=0&lt;/code&gt;. El de X11 es el protocolo central
+escrito desde cero sobre el socket —sin Xlib, sin XCB—, con ambos órdenes de
+bytes, la cookie de Xauthority, el mapeo de keysyms, &lt;code&gt;PutImage&lt;/code&gt; troceado por
+debajo del tamaño máximo de petición del servidor y la vía rápida MIT-SHM, con
+el segmento compartido pasado por &lt;code&gt;SCM_RIGHTS&lt;/code&gt;. A Windows se llega a través de
+las propias DLL del proceso con &lt;code&gt;syscall.NewLazyDLL&lt;/code&gt; y un procedimiento de
+ventana &lt;code&gt;syscall.NewCallback&lt;/code&gt;; a macOS, a través del runtime de Objective-C con
+purego.&lt;/p&gt;
+&lt;p&gt;La parte de cada backend que no depende de la plataforma —mapeo de eventos,
+cálculo de coordenadas, empaquetado de píxeles, rectángulos dañados— vive en un
+códec cubierto al 100 %, en todos los sistemas operativos. La fina capa de
+unión con la plataforma se demuestra en vivo: consulte
+&lt;a href="https://go-widgets.github.io/docs/0.2/es/status/"&gt;Estado&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="only-what-changed"&gt;Solo lo que ha cambiado&lt;span class="hx:absolute hx:-mt-20" id="only-what-changed"&gt;&lt;/span&gt;
+&lt;a href="#only-what-changed" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Una raíz que implementa &lt;code&gt;DamageRenderer&lt;/code&gt; (como hace &lt;code&gt;toolkit/scene.HostRoot&lt;/code&gt;)
+informa de los rectángulos que ha repintado, y los backends Cocoa, Win32 y
+wasmbox presentan solo esos.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="hidpi"&gt;HiDPI&lt;span class="hx:absolute hx:-mt-20" id="hidpi"&gt;&lt;/span&gt;
+&lt;a href="#hidpi" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Por defecto hay un píxel de framebuffer por punto lógico: la interfaz se
+organiza y se pinta a un tamaño legible, y el compositor la sobremuestrea. En
+Windows, la ventana declara compatibilidad con DPI por monitor y el sistema
+operativo escala el fotograma lógico al área cliente física. &lt;code&gt;RenderScale&lt;/code&gt; pide
+un framebuffer a la resolución real del panel, lo cual solo es correcto para una
+raíz que organiza su layout en píxeles del dispositivo.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="screens-and-showing-and-hiding"&gt;Pantallas, y mostrar y ocultar&lt;span class="hx:absolute hx:-mt-20" id="screens-and-showing-and-hiding"&gt;&lt;/span&gt;
+&lt;a href="#screens-and-showing-and-hiding" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;window.Screens()&lt;/code&gt; enumera las pantallas conectadas, la principal primero, en
+puntos lógicos y descontando los paneles del escritorio, y puede llamarse antes
+de &lt;code&gt;Open&lt;/code&gt;. El nombre de una pantalla es el del propio panel (&lt;code&gt;&amp;quot;DELL U2720Q&amp;quot;&lt;/code&gt;,
+tomado de su EDID), y recurre al conector (&lt;code&gt;&amp;quot;HDMI-1&amp;quot;&lt;/code&gt;) cuando el panel no
+publica ninguno, y también cuando dos paneles conectados publican el mismo,
+porque un nombre que no permite distinguirlos no es un nombre.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;window.Show&lt;/code&gt;, &lt;code&gt;Hide&lt;/code&gt; y &lt;code&gt;Raise&lt;/code&gt; retiran de la pantalla una ventana abierta sin
+cerrarla y la traen de vuelta: lo que necesita una
+&lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/application/#the-tray"&gt;aplicación de bandeja&lt;/a&gt;.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Backend&lt;/th&gt;
+&lt;th&gt;Show&lt;/th&gt;
+&lt;th&gt;Hide&lt;/th&gt;
+&lt;th&gt;Raise&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;X11&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;MapWindow&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;retirada ICCCM, para que salga de la barra de tareas&lt;/td&gt;
+&lt;td&gt;mapear, elevar, &lt;code&gt;_NET_ACTIVE_WINDOW&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Wayland&lt;/td&gt;
+&lt;td&gt;volver a hacer commit&lt;/td&gt;
+&lt;td&gt;búfer nulo y commit&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;ErrNotSupported&lt;/code&gt;: xdg-shell no tiene esa petición&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;macOS&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;orderFront:&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;orderOut:&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;activar la aplicación, &lt;code&gt;makeKeyAndOrderFront:&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Windows&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SW_SHOWNA&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SW_HIDE&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SW_RESTORE&lt;/code&gt; y &lt;code&gt;SetForegroundWindow&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;GTK, Android, wasmbox&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;ErrNotSupported&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;ErrNotSupported&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;ErrNotSupported&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Conceder el foco corresponde a la plataforma: con la prevención del robo de
+foco, &lt;code&gt;Raise&lt;/code&gt; puede limitarse a marcar la ventana como necesitada de atención,
+y no puede saberlo.&lt;/p&gt;</description></item><item><title>Una aplicación y su bandeja</title><link>https://go-widgets.github.io/docs/0.2/es/surfaces/application/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/es/surfaces/application/</guid><description>
+&lt;h2 data-hextra-search-id="the-application"&gt;La aplicación&lt;span class="hx:absolute hx:-mt-20" id="the-application"&gt;&lt;/span&gt;
+&lt;a href="#the-application" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;a href="https://github.com/go-widgets/application" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/application&lt;/code&gt;&lt;/a&gt; es la
+capa situada por encima de &lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/native-window/"&gt;&lt;code&gt;window&lt;/code&gt;&lt;/a&gt;:
+abre la ventana, hace girar su bucle, coloca un icono en la bandeja en cuanto
+el primer fotograma está listo, pasa a la aplicación la apariencia del sistema
+en vivo (oscura o clara, color de acento, fuente del sistema), publica el árbol
+de accesibilidad y llama a &lt;code&gt;onReady&lt;/code&gt; en cuanto el primer fotograma está en
+pantalla.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;spec&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;application&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Spec&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;News Reader&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Identifier&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;com.example.reader&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Version&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;1.0.0&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Tray&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nx"&gt;tray&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Menu&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;tray&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewMenu&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="nf"&gt;Add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;tray&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Item&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Refresh&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;refresh&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;tray&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Item&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Quit&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;quit&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;cfg&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;application&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Config&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;Title&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;News Reader&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Width&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;1200&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Height&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;800&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;application&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;spec&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;cfg&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;handler&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Println&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;on screen&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copiar código"
+aria-label="Copiar código"
+data-copied-label="¡Copiado!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;handler&lt;/code&gt; implementa &lt;code&gt;Handler&lt;/code&gt; —&lt;code&gt;Frame&lt;/code&gt;, &lt;code&gt;Resize&lt;/code&gt;, eventos de ratón, de
+desplazamiento y de teclado— y puede implementar cualquiera de las capacidades
+opcionales: apariencia, atajos, clics y teclas con modificadores, clic
+secundario, menús contextuales, portapapeles, accesibilidad, controles nativos.
+El bucle nunca envuelve el manejador; hace una aserción de tipo para cada
+capacidad y respeta las que encuentra. Una prueba recorre el paquete en busca de
+esas aserciones y falla si la documentación del paquete no las nombra todas.&lt;/p&gt;
+&lt;p&gt;Una bandeja que no puede colocarse es un error de &lt;code&gt;Run&lt;/code&gt;, no un silencio:
+&lt;code&gt;errors.Is(err, tray.ErrNoBackend)&lt;/code&gt; dice por qué. Una aplicación que quiere su
+ventana pase lo que pase con la bandeja deja &lt;code&gt;Spec.Tray&lt;/code&gt; a nil y ejecuta una
+por su cuenta.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Run&lt;/code&gt; cierra su ventana cuando el bucle termina, de modo que el «Open» de una
+aplicación de bandeja puede volver a llamar a &lt;code&gt;Run&lt;/code&gt; para obtener una ventana
+nueva. Para un host que no es una ventana —un shell de escritorio, una pestaña
+del navegador—, &lt;code&gt;Bind&lt;/code&gt; y &lt;code&gt;BindScaled&lt;/code&gt; devuelven un &lt;code&gt;*toolkit.Surface&lt;/code&gt;
+conectado al mismo manejador.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="the-tray"&gt;La bandeja&lt;span class="hx:absolute hx:-mt-20" id="the-tray"&gt;&lt;/span&gt;
+&lt;a href="#the-tray" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Un icono de bandeja es integración con el sistema operativo, no un widget
+pintado, así que &lt;a href="https://github.com/go-widgets/tray" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/tray&lt;/code&gt;&lt;/a&gt; usa la
+API propia de cada plataforma, siempre con &lt;code&gt;CGO_ENABLED=0&lt;/code&gt;:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Plataforma&lt;/th&gt;
+&lt;th&gt;API&lt;/th&gt;
+&lt;th&gt;A través de&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;macOS&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;NSStatusItem&lt;/code&gt;, &lt;code&gt;NSMenu&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;purego y el runtime de Objective-C&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Windows&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Shell_NotifyIcon&lt;/code&gt;, &lt;code&gt;TrackPopupMenu&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;golang.org/x/sys/windows&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Linux&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;StatusNotifierItem&lt;/code&gt;, &lt;code&gt;com.canonical.dbusmenu&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;DBus, en Go&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;menu&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;tray&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewMenu&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="nf"&gt;Add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;tray&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Item&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Open&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;open&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;tray&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Checkbox&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Notifications&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;setNotify&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;tray&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;SubMenu&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Recent&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;tray&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewMenu&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="nf"&gt;Add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;tray&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Item&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;file.txt&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;))),&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;tray&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Separator&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;tray&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Item&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Quit&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;t&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Quit&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}),&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;t&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;tray&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;New&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;iconPNG&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;SetTooltip&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;My App&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;SetMenu&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;menu&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;t&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Run&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// blocks on the platform&amp;#39;s loop until Quit&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copiar código"
+aria-label="Copiar código"
+data-copied-label="¡Copiado!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Un programa que ya ejecuta el bucle de una ventana no puede ceder a &lt;code&gt;Run&lt;/code&gt; su
+hilo principal: &lt;code&gt;Attach&lt;/code&gt; coloca el mismo icono y retorna, y &lt;code&gt;Quit&lt;/code&gt; lo retira.&lt;/p&gt;
+&lt;p&gt;Los backends nativos están activados por defecto; no hay ninguna etiqueta de
+compilación que recordar. En una plataforma sin ninguno, &lt;code&gt;Run&lt;/code&gt; devuelve
+&lt;code&gt;ErrNoBackend&lt;/code&gt;: la diferencia entre «aquí no hay bandeja» y una bandeja que en
+silencio no hace nada. Una prueba o un servicio sin interfaz pasa
+&lt;code&gt;WithBackend(tray.NewHeadless())&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>Una pestaña del navegador</title><link>https://go-widgets.github.io/docs/0.2/es/surfaces/browser/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/es/surfaces/browser/</guid><description>
+&lt;p&gt;El toolkit es Go puro sin dependencia del DOM, así que &lt;code&gt;GOOS=js GOARCH=wasm&lt;/code&gt; lo
+compila como cualquier otro destino. Hay dos maneras de poner el resultado
+delante de alguien:&lt;/p&gt;
+&lt;h2 data-hextra-search-id="a-plain-canvas"&gt;Un simple canvas&lt;span class="hx:absolute hx:-mt-20" id="a-plain-canvas"&gt;&lt;/span&gt;
+&lt;a href="#a-plain-canvas" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;a href="https://github.com/go-widgets/webcanvas" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/webcanvas&lt;/code&gt;&lt;/a&gt; copia un
+framebuffer RGBA en un &lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; y devuelve a la escena los eventos de puntero
+y de teclado del DOM. Sin compositor, sin &lt;code&gt;SharedArrayBuffer&lt;/code&gt;, sin cabeceras de
+aislamiento de origen cruzado: cualquier alojamiento estático lo sirve.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;//go:build js &amp;amp;&amp;amp; wasm&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;package&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;main&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;github.com/go-widgets/webcanvas&amp;#34;&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;webcanvas&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;screen&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;myScene&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copiar código"
+aria-label="Copiar código"
+data-copied-label="¡Copiado!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;La escena implementa &lt;code&gt;App&lt;/code&gt;: &lt;code&gt;Size&lt;/code&gt;, &lt;code&gt;Draw(buf []byte)&lt;/code&gt; y un método por tipo de
+evento, cada uno indicando si algo ha cambiado para que un fotograma sin
+cambios no se repinte. También puede implementar &lt;code&gt;Ticker&lt;/code&gt;, &lt;code&gt;Animator&lt;/code&gt;,
+&lt;code&gt;Resizer&lt;/code&gt; o &lt;code&gt;Scroller&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;La &lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;galería&lt;/a&gt; y
+&lt;a href="https://go-widgets.github.io/docs/0.2/es/getting-started/"&gt;&lt;code&gt;app-template&lt;/code&gt;&lt;/a&gt; funcionan así.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="a-window-on-the-wasmdesk-desktop"&gt;Una ventana en el escritorio wasmdesk&lt;span class="hx:absolute hx:-mt-20" id="a-window-on-the-wasmdesk-desktop"&gt;&lt;/span&gt;
+&lt;a href="#a-window-on-the-wasmdesk-desktop" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;En &lt;code&gt;js/wasm&lt;/code&gt;, &lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/native-window/"&gt;&lt;code&gt;window.Open&lt;/code&gt;&lt;/a&gt;
+devuelve un cliente del compositor de navegador
+&lt;a href="https://github.com/wasmdesk/wasmbox" target="_blank" rel="noopener"&gt;wasmdesk/wasmbox&lt;/a&gt;. Asigna su superficie
+en un &lt;code&gt;SharedArrayBuffer&lt;/code&gt;, dice &lt;code&gt;hello&lt;/code&gt; por su &lt;code&gt;MessagePort&lt;/code&gt;, espera &lt;code&gt;welcome&lt;/code&gt;,
+pinta en el búfer compartido y envía &lt;code&gt;commit&lt;/code&gt;: la superficie entera, o solo los
+rectángulos dañados. Los mensajes &lt;code&gt;input&lt;/code&gt; del compositor se convierten en
+&lt;code&gt;toolkit.Event&lt;/code&gt;, como en X11.&lt;/p&gt;
+&lt;p&gt;Así, una aplicación escrita contra &lt;code&gt;window&lt;/code&gt; funciona sin cambios como ventana
+nativa y como ventana de un escritorio en una pestaña del navegador. La
+&lt;a href="https://github.com/go-widgets/desktop" target="_blank" rel="noopener"&gt;demo del shell de escritorio&lt;/a&gt; hace
+exactamente eso, a partir de un solo código fuente.&lt;/p&gt;
+&lt;p&gt;El códec del protocolo está cubierto al 100 % en todas las plataformas. La
+prueba en vivo ejecuta Chromium headless contra el compositor wasmdesk real:
+lanza el cliente, lee los píxeles compuestos por el propio compositor, hace clic
+y comprueba que el clic ha llegado al widget.&lt;/p&gt;</description></item><item><title>Dónde pinta</title><link>https://go-widgets.github.io/docs/0.2/es/surfaces/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/es/surfaces/</guid><description>
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Superficie&lt;/th&gt;
+&lt;th&gt;Módulo&lt;/th&gt;
+&lt;th&gt;Painter&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/native-window/"&gt;Una ventana nativa&lt;/a&gt; en X11, Wayland, macOS, Windows&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;window&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;píxeles&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/application/"&gt;Una aplicación&lt;/a&gt; con un icono en la bandeja y la apariencia del sistema&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;application&lt;/code&gt;, &lt;code&gt;tray&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;píxeles&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/browser/"&gt;Una pestaña del navegador&lt;/a&gt;: un simple &lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;webcanvas&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;píxeles&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/browser/#a-window-on-the-wasmdesk-desktop"&gt;Un escritorio en el navegador&lt;/a&gt;: una ventana del compositor wasmdesk&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;window&lt;/code&gt; (wasmbox)&lt;/td&gt;
+&lt;td&gt;píxeles&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/terminal/"&gt;Un terminal&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;tui&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;celdas&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/android/"&gt;Un APK de Android&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;android&lt;/code&gt;, &lt;code&gt;window&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;píxeles&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/snapshots/"&gt;Una imagen&lt;/a&gt;: SVG o PNG&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;svg&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;píxeles&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;El árbol de widgets no cambia de una a otra. Lo que cambia es quién posee el
+búfer y quién entrega la entrada —un servidor gráfico, un navegador, un
+terminal, un host Java—, y cada backend convierte esa entrada en el mismo
+&lt;code&gt;toolkit.Event&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="chosen-by-what-is-there"&gt;Elegido según lo que hay&lt;span class="hx:absolute hx:-mt-20" id="chosen-by-what-is-there"&gt;&lt;/span&gt;
+&lt;a href="#chosen-by-what-is-there" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;window.Open&lt;/code&gt; no recibe ningún argumento de backend. Examina el entorno —la
+plataforma para la que se compiló, &lt;code&gt;$WAYLAND_DISPLAY&lt;/code&gt;, &lt;code&gt;$DISPLAY&lt;/code&gt;, el socket
+que exporta un host Android— y elige el que puede funcionar. Un binario
+compilado para Linux abre una ventana Wayland en una sesión Wayland y una
+ventana X11 bajo X; el mismo binario de Android se conecta a su host dentro de
+un APK y abre una ventana Linux corriente bajo Termux. Consulte
+&lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/native-window/#how-open-chooses"&gt;cómo elige &lt;code&gt;Open&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;</description></item><item><title>Un terminal</title><link>https://go-widgets.github.io/docs/0.2/es/surfaces/terminal/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/es/surfaces/terminal/</guid><description>
+&lt;p&gt;&lt;a href="https://github.com/go-widgets/tui" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/tui&lt;/code&gt;&lt;/a&gt; convierte un árbol de
+widgets en un fotograma de terminal a través del
+&lt;a href="https://go-widgets.github.io/docs/0.2/es/rendering/painter/"&gt;painter de celdas&lt;/a&gt;.
+Solo la biblioteca estándar: sin &lt;code&gt;x/term&lt;/code&gt;, sin cgo.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="one-frame"&gt;Un fotograma&lt;span class="hx:absolute hx:-mt-20" id="one-frame"&gt;&lt;/span&gt;
+&lt;a href="#one-frame" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;_&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;tui&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;RenderOnce&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;os&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Stdout&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;widgets&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// nil theme: light&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copiar código"
+aria-label="Copiar código"
+data-copied-label="¡Copiado!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;RenderOnceSized(w, cols, rows, widgets, theme)&lt;/code&gt; recibe el tamaño de forma
+explícita; &lt;code&gt;RenderOnce&lt;/code&gt; lee &lt;code&gt;COLUMNS&lt;/code&gt; y &lt;code&gt;LINES&lt;/code&gt; y, en su defecto, usa 80×24.
+Leer el entorno en lugar de llamar a &lt;code&gt;TIOCGWINSZ&lt;/code&gt; mantiene el paquete libre de
+código específico de cada plataforma.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="an-interactive-program"&gt;Un programa interactivo&lt;span class="hx:absolute hx:-mt-20" id="an-interactive-program"&gt;&lt;/span&gt;
+&lt;a href="#an-interactive-program" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;app&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;tui&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewApp&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;app&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Root&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;buildScene&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;app&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Keys&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;q&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;a&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nx"&gt;tui&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;App&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Quit&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;app&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Keys&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Ctrl+C&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;a&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nx"&gt;tui&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;App&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Quit&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;os&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Exit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;app&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Run&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copiar código"
+aria-label="Copiar código"
+data-copied-label="¡Copiado!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;Run&lt;/code&gt; entra en la pantalla alternativa y en modo raw, despacha la entrada a
+&lt;code&gt;Root&lt;/code&gt; (primero los manejadores de teclas globales), sigue &lt;code&gt;SIGWINCH&lt;/code&gt; y siempre
+restaura el terminal, también ante un panic. Un manejador de teclas llama a
+&lt;code&gt;Consume&lt;/code&gt; para que un evento no llegue a &lt;code&gt;Root&lt;/code&gt;; &lt;code&gt;InputTarget&lt;/code&gt; envía todos los
+eventos no consumidos a un único widget, que es como una paleta de comandos se
+traga lo que se teclea mientras está abierta. &lt;code&gt;NewFocusRing&lt;/code&gt; da a un formulario
+el recorrido con Tab y Mayús+Tab.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="widgets-sized-for-cells"&gt;Widgets dimensionados para celdas&lt;span class="hx:absolute hx:-mt-20" id="widgets-sized-for-cells"&gt;&lt;/span&gt;
+&lt;a href="#widgets-sized-for-cells" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;La mayoría de los widgets del toolkit están diseñados en píxeles: sus
+constantes de relleno cuentan celdas bajo el painter de celdas y se inflan. Por
+eso &lt;code&gt;tui&lt;/code&gt; tiene su propio conjunto &lt;strong&gt;nativo de celdas&lt;/strong&gt; —&lt;code&gt;TextEditor&lt;/code&gt;, &lt;code&gt;Entry&lt;/code&gt;,
+&lt;code&gt;Button&lt;/code&gt;, &lt;code&gt;CheckButton&lt;/code&gt;, &lt;code&gt;RadioButton&lt;/code&gt;, &lt;code&gt;Scale&lt;/code&gt;, &lt;code&gt;ProgressBar&lt;/code&gt;, &lt;code&gt;Sparkline&lt;/code&gt;,
+&lt;code&gt;ListBox&lt;/code&gt;, &lt;code&gt;TreeView&lt;/code&gt;, &lt;code&gt;Table&lt;/code&gt;, &lt;code&gt;MenuBar&lt;/code&gt;, &lt;code&gt;Notebook&lt;/code&gt;, &lt;code&gt;HSplit&lt;/code&gt;, &lt;code&gt;VSplit&lt;/code&gt;,
+&lt;code&gt;Dialog&lt;/code&gt;, &lt;code&gt;Dropdown&lt;/code&gt;, &lt;code&gt;Spinner&lt;/code&gt; y más—, donde un glifo es una celda. Cada uno
+sigue siendo un &lt;code&gt;toolkit.Widget&lt;/code&gt;, así que la misma instancia también dibuja en
+píxeles.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;TextEditor&lt;/code&gt; es un editor de código de lectura y escritura: margen de números,
+deshacer y rehacer, buscar y reemplazar, selección, desplazamiento de líneas y
+resaltado de sintaxis para Go (mediante &lt;code&gt;go/scanner&lt;/code&gt;), JavaScript y TypeScript,
+Python, Ruby, shell, C y C++, Rust, JSON, YAML, HCL, TOML, LaTeX y Markdown, sin
+ninguna dependencia externa.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-sh" data-lang="sh"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;go run ./cmd/tui-widgets &lt;span class="p"&gt;|&lt;/span&gt; less -R &lt;span class="c1"&gt;# every cell-native widget, one per slot&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;go run ./cmd/tui-widget-explorer &lt;span class="c1"&gt;# the same, interactive&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;go run ./cmd/tui-explorer &lt;span class="c1"&gt;# a file browser&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;go run ./cmd/tui-editor --file&lt;span class="o"&gt;=&lt;/span&gt;x.go &lt;span class="c1"&gt;# a modal editor&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copiar código"
+aria-label="Copiar código"
+data-copied-label="¡Copiado!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Los dos programas de demostración se prueban de extremo a extremo en un pty
+real: bytes de teclas reales de entrada, y el fotograma renderizado comprobado.&lt;/p&gt;</description></item><item><title>Android</title><link>https://go-widgets.github.io/docs/0.2/es/surfaces/android/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/es/surfaces/android/</guid><description>
+&lt;p&gt;Android es la única plataforma en la que un proceso sin CGO no puede poseer una
+ventana: todos los caminos hacia una superficie dibujable pasan por JNI, y JNI
+necesita cgo. No hay ningún protocolo de red que hablar en su lugar, como sí
+tienen X11 y Wayland.&lt;/p&gt;
+&lt;p&gt;Por eso &lt;a href="https://github.com/go-widgets/android" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/android&lt;/code&gt;&lt;/a&gt; son dos
+procesos:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Host Java&lt;/strong&gt; (&lt;code&gt;host/&lt;/code&gt;)&lt;/td&gt;
+&lt;td&gt;posee la &lt;code&gt;Activity&lt;/code&gt;, el &lt;code&gt;SurfaceView&lt;/code&gt;, el táctil, las teclas y el ciclo de vida. Copia píxeles; no sabe nada de widgets.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Aplicación Go&lt;/strong&gt; (&lt;code&gt;cmd/gwapp&lt;/code&gt;)&lt;/td&gt;
+&lt;td&gt;un ejecutable &lt;code&gt;CGO_ENABLED=0 GOOS=android&lt;/code&gt; corriente. Posee el layout, los widgets, el tema, la detección de impactos y el foco, sin cambios respecto a cualquier otro backend.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;El host Java ocupa el lugar que ocupa el servidor X en Linux. Los píxeles
+viajan a través de un &lt;strong&gt;memfd&lt;/strong&gt; que la aplicación crea y entrega al host por el
+socket; el lado Go escribe RGBA_8888, que es byte a byte el ARGB_8888 de
+Android, así que la copia se hace sin conversión y solo del rectángulo dañado.
+La entrada, los márgenes de inserción, el texto del IME y el árbol de
+accesibilidad atraviesan un protocolo por tramas sobre un &lt;code&gt;LocalSocket&lt;/code&gt;
+abstracto.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;c&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;android&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Dial&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;my app&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// nil theme: toolkit.DefaultDark()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;errors&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Is&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;android&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ErrUnsupported&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// not under a host&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;defer&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Close&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;myWidgetTree&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copiar código"
+aria-label="Copiar código"
+data-copied-label="¡Copiado!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;Client&lt;/code&gt; satisface el &lt;code&gt;Backend&lt;/code&gt; de &lt;code&gt;window&lt;/code&gt;, de modo que una aplicación pasa de
+Android a los backends de escritorio sin cambiar una línea por encima de la
+ventana, y &lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/native-window/#how-open-chooses"&gt;&lt;code&gt;window.Open&lt;/code&gt;&lt;/a&gt;
+lo elige por sí solo cuando el socket del host está presente.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="arm64-only"&gt;Solo arm64&lt;span class="hx:absolute hx:-mt-20" id="arm64-only"&gt;&lt;/span&gt;
+&lt;a href="#arm64-only" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;android/arm64&lt;/code&gt; es el único destino Android que Go enlaza sin cgo; &lt;code&gt;arm&lt;/code&gt;,
+&lt;code&gt;amd64&lt;/code&gt; y &lt;code&gt;386&lt;/code&gt; requieren enlazado externo. La CI comprueba ambas mitades —el
+que compila y los tres que no—, de modo que el día en que Go levante la
+restricción, la compilación lo dirá.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="accessibility"&gt;Accesibilidad&lt;span class="hx:absolute hx:-mt-20" id="accessibility"&gt;&lt;/span&gt;
+&lt;a href="#accessibility" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Un lector de pantalla vería el &lt;code&gt;SurfaceView&lt;/code&gt; como un único rectángulo opaco. En
+su lugar, el host le ofrece una jerarquía de vistas virtual: un nodo por cada
+widget accesible, con la clase &lt;code&gt;android.widget.*&lt;/code&gt; a partir de la cual Android
+elige sus anuncios, el texto, los límites y una acción de activación. El árbol
+se &lt;strong&gt;extrae&lt;/strong&gt; cuando algo lo lee, nunca se envía por iniciativa propia, así que
+una aplicación sin ningún servicio de accesibilidad conectado nunca lo
+construye. Una activación vuelve como un clic corriente en el centro del
+elemento, por el mismo código que recorre un toque.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="touch-and-animation"&gt;Táctil y animación&lt;span class="hx:absolute hx:-mt-20" id="touch-and-animation"&gt;&lt;/span&gt;
+&lt;a href="#touch-and-animation" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Cada muestra táctil llega al árbol como un evento táctil y luego como un evento
+de ratón: el primero para los widgets que reconocen gestos, el segundo para los
+muchos que solo escuchan clics. Los widgets animados avanzan en un bucle de
+fotogramas que empieza cuando algo comienza a animarse y se detiene cuando
+nada lo hace.&lt;/p&gt;</description></item><item><title>Instantáneas: un widget como SVG o PNG</title><link>https://go-widgets.github.io/docs/0.2/es/surfaces/snapshots/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/es/surfaces/snapshots/</guid><description>
+&lt;p&gt;&lt;a href="https://github.com/go-widgets/svg" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/svg&lt;/code&gt;&lt;/a&gt; convierte un búfer RGBA en
+un SVG autocontenido: un &lt;code&gt;viewBox&lt;/code&gt; fijado al tamaño en píxeles del renderizado,
+y los píxeles como un PNG en base 64 bajo &lt;code&gt;image-rendering: pixelated&lt;/code&gt;. Cada
+píxel mostrado es el píxel que dibujó el widget —sin revectorización, sin
+sustitución de fuentes— y se mantiene nítido a cualquier nivel de zoom.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;// any RGBA producer&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;svg&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Snapshot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;f&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;surface&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;h&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;my image&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;// a toolkit widget&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;btn&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewButton&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Click me&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;btn&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;SetBounds&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Rect&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;W&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;200&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;H&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;40&lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;widget&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Snapshot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;f&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;btn&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;200&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;40&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;DefaultLight&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;widget: button&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;widget&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;PNG&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;p&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;btn&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;200&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;40&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;DefaultLight&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copiar código"
+aria-label="Copiar código"
+data-copied-label="¡Copiado!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;La etiqueta se convierte en el &lt;code&gt;&amp;lt;title&amp;gt;&lt;/code&gt; y el &lt;code&gt;aria-label&lt;/code&gt; del SVG, escapada. El
+paquete raíz no depende de nada; el subpaquete &lt;code&gt;widget&lt;/code&gt; está separado para que
+un consumidor con su propio productor de píxeles no arrastre el toolkit a su
+grafo de módulos.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;svg/cmd/gallery-render&lt;/code&gt; renderiza el catálogo de widgets, en claro y en oscuro:
+&lt;a href="https://go-widgets.github.io/svg/" target="_blank" rel="noopener"&gt;go-widgets.github.io/svg&lt;/a&gt;.&lt;/p&gt;</description></item></channel></rss>

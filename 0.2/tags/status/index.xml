@@ -1,0 +1,112 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Status</title><link>https://go-widgets.github.io/docs/0.2/tags/status/</link><description>Recent content in Status on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>en</language><atom:link href="https://go-widgets.github.io/docs/0.2/tags/status/index.xml" rel="self" type="application/rss+xml"/><item><title>Status</title><link>https://go-widgets.github.io/docs/0.2/status/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/status/</guid><description>
+&lt;p&gt;These pages were checked against the modules at the tags listed under
+&lt;a href="https://go-widgets.github.io/docs/0.2/modules/"&gt;Modules&lt;/a&gt;. Where a module&amp;rsquo;s README and its code
+disagree, the pages follow the code.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="proven-live"&gt;Proven live&lt;span class="hx:absolute hx:-mt-20" id="proven-live"&gt;&lt;/span&gt;
+&lt;a href="#proven-live" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;A codec tested in-process proves the codec. These are the places where the
+platform itself was asked:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;What&lt;/th&gt;
+&lt;th&gt;Where it was proven&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;X11 window&lt;/td&gt;
+&lt;td&gt;CI, under Xvfb: a known pattern presented, captured and sampled; a click and a key synthesised with &lt;code&gt;xdotool&lt;/code&gt; and the dispatched &lt;code&gt;toolkit.Event&lt;/code&gt; asserted; &lt;code&gt;Show&lt;/code&gt;/&lt;code&gt;Hide&lt;/code&gt;/&lt;code&gt;Raise&lt;/code&gt; read back from the server&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Cocoa window&lt;/td&gt;
+&lt;td&gt;a macOS CI lane: a window opened and rendered, pixels sampled, a click and a key synthesised; &lt;code&gt;Show&lt;/code&gt;/&lt;code&gt;Hide&lt;/code&gt;/&lt;code&gt;Raise&lt;/code&gt; asked of a real &lt;code&gt;NSWindow&lt;/code&gt; from another goroutine and read back from AppKit&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Win32 window&lt;/td&gt;
+&lt;td&gt;a Windows 11 arm64 VM: a real window rendering a &lt;code&gt;VBox&lt;/code&gt;, a &lt;code&gt;Label&lt;/code&gt; and a &lt;code&gt;Button&lt;/code&gt;, three injected clicks driving its counter from 0 to 3 through the window procedure&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Wayland window&lt;/td&gt;
+&lt;td&gt;against a fake compositor that enforces xdg-shell&amp;rsquo;s map and unmap rules&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;wasmbox window&lt;/td&gt;
+&lt;td&gt;headless Chromium driving the real wasmdesk compositor: the composited pixels read back, a real click routed to the widget&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Android&lt;/td&gt;
+&lt;td&gt;an Android 15 arm64 device: damage-only blits measured, memfd dirty memory measured, the accessibility tree benchmarked on the device&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;macOS tray&lt;/td&gt;
+&lt;td&gt;a real macOS session: the icon leaves the menu bar when the program stops, returns when it starts, and opens its menu&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Linux tray&lt;/td&gt;
+&lt;td&gt;CI against a real session bus: the name is claimed, the menu answers &lt;code&gt;GetLayout&lt;/code&gt;, &lt;code&gt;Quit&lt;/code&gt; withdraws it&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Windows tray&lt;/td&gt;
+&lt;td&gt;the icon and its menu on a Windows 11 VM&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Terminal demos&lt;/td&gt;
+&lt;td&gt;a real pty in CI: key bytes sent, the rendered frame asserted&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 data-hextra-search-id="compiled-not-run"&gt;Compiled, not run&lt;span class="hx:absolute hx:-mt-20" id="compiled-not-run"&gt;&lt;/span&gt;
+&lt;a href="#compiled-not-run" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;Win32 &lt;code&gt;Show&lt;/code&gt;/&lt;code&gt;Hide&lt;/code&gt;/&lt;code&gt;Raise&lt;/code&gt;: the decision table is unit-tested, the calls
+on the window&amp;rsquo;s thread are only compiled.&lt;/li&gt;
+&lt;li&gt;The Windows tray&amp;rsquo;s &lt;code&gt;Attach&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;webcanvas&lt;/code&gt;&amp;rsquo;s DOM loop (&lt;code&gt;run_js.go&lt;/code&gt;): behind a &lt;code&gt;js &amp;amp;&amp;amp; wasm&lt;/code&gt; build tag, so it
+is outside the measured coverage; the applications that use it exercise it.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;application&lt;/code&gt;&amp;rsquo;s native &lt;code&gt;Run&lt;/code&gt;: opening a real window is excluded from its
+coverage gate; the contract, the event translation and the ready counter
+are covered.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 data-hextra-search-id="not-done"&gt;Not done&lt;span class="hx:absolute hx:-mt-20" id="not-done"&gt;&lt;/span&gt;
+&lt;a href="#not-done" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;The Windows and Linux trays ignore &lt;code&gt;MenuItem.Icon&lt;/code&gt;: a row with an icon
+draws without it.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;window&lt;/code&gt;&amp;rsquo;s Wayland back-end cannot &lt;code&gt;Raise&lt;/code&gt;: xdg-shell has no such request,
+and xdg-activation needs a token from the user&amp;rsquo;s own input.&lt;/li&gt;
+&lt;li&gt;Android: &lt;code&gt;android/arm64&lt;/code&gt; only, because it is the only Android target Go
+links without cgo.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;window.Screens&lt;/code&gt; returns &lt;code&gt;ErrScreensUnsupported&lt;/code&gt; on &lt;code&gt;js/wasm&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 data-hextra-search-id="what-ci-does-not-cover-yet"&gt;What CI does not cover yet&lt;span class="hx:absolute hx:-mt-20" id="what-ci-does-not-cover-yet"&gt;&lt;/span&gt;
+&lt;a href="#what-ci-does-not-cover-yet" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Measured from each repository&amp;rsquo;s workflows at the tags above:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Module&lt;/th&gt;
+&lt;th&gt;Gap&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mvvmtk&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;no coverage gate; cross-builds amd64 and arm64 only, on six operating systems&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;application&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;cross-builds Linux, macOS and Windows on amd64 only&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;tray&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;cross-builds four OS/architecture pairs&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mvvmlint&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;no cross-build&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;bricolint&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;its &amp;ldquo;6 arches&amp;rdquo; step builds five: loong64 is missing&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;code&gt;app-template&lt;/code&gt; and &lt;code&gt;gallery&lt;/code&gt; are browser applications and build for &lt;code&gt;js/wasm&lt;/code&gt;,
+which is their only target.&lt;/p&gt;</description></item></channel></rss>

@@ -1,0 +1,59 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Backends</title><link>https://go-widgets.github.io/docs/0.2/es/tags/backends/</link><description>Recent content in Backends on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>es</language><atom:link href="https://go-widgets.github.io/docs/0.2/es/tags/backends/index.xml" rel="self" type="application/rss+xml"/><item><title>Dónde pinta</title><link>https://go-widgets.github.io/docs/0.2/es/surfaces/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/es/surfaces/</guid><description>
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Superficie&lt;/th&gt;
+&lt;th&gt;Módulo&lt;/th&gt;
+&lt;th&gt;Painter&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/native-window/"&gt;Una ventana nativa&lt;/a&gt; en X11, Wayland, macOS, Windows&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;window&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;píxeles&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/application/"&gt;Una aplicación&lt;/a&gt; con un icono en la bandeja y la apariencia del sistema&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;application&lt;/code&gt;, &lt;code&gt;tray&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;píxeles&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/browser/"&gt;Una pestaña del navegador&lt;/a&gt;: un simple &lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;webcanvas&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;píxeles&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/browser/#a-window-on-the-wasmdesk-desktop"&gt;Un escritorio en el navegador&lt;/a&gt;: una ventana del compositor wasmdesk&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;window&lt;/code&gt; (wasmbox)&lt;/td&gt;
+&lt;td&gt;píxeles&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/terminal/"&gt;Un terminal&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;tui&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;celdas&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/android/"&gt;Un APK de Android&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;android&lt;/code&gt;, &lt;code&gt;window&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;píxeles&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/snapshots/"&gt;Una imagen&lt;/a&gt;: SVG o PNG&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;svg&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;píxeles&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;El árbol de widgets no cambia de una a otra. Lo que cambia es quién posee el
+búfer y quién entrega la entrada —un servidor gráfico, un navegador, un
+terminal, un host Java—, y cada backend convierte esa entrada en el mismo
+&lt;code&gt;toolkit.Event&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="chosen-by-what-is-there"&gt;Elegido según lo que hay&lt;span class="hx:absolute hx:-mt-20" id="chosen-by-what-is-there"&gt;&lt;/span&gt;
+&lt;a href="#chosen-by-what-is-there" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;window.Open&lt;/code&gt; no recibe ningún argumento de backend. Examina el entorno —la
+plataforma para la que se compiló, &lt;code&gt;$WAYLAND_DISPLAY&lt;/code&gt;, &lt;code&gt;$DISPLAY&lt;/code&gt;, el socket
+que exporta un host Android— y elige el que puede funcionar. Un binario
+compilado para Linux abre una ventana Wayland en una sesión Wayland y una
+ventana X11 bajo X; el mismo binario de Android se conecta a su host dentro de
+un APK y abre una ventana Linux corriente bajo Termux. Consulte
+&lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/native-window/#how-open-chooses"&gt;cómo elige &lt;code&gt;Open&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;</description></item></channel></rss>

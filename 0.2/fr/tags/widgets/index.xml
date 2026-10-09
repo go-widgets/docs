@@ -1,0 +1,101 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Widgets</title><link>https://go-widgets.github.io/docs/0.2/fr/tags/widgets/</link><description>Recent content in Widgets on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>fr</language><atom:link href="https://go-widgets.github.io/docs/0.2/fr/tags/widgets/index.xml" rel="self" type="application/rss+xml"/><item><title>La boîte à outils</title><link>https://go-widgets.github.io/docs/0.2/fr/rendering/toolkit/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/fr/rendering/toolkit/</guid><description>
+&lt;p&gt;&lt;a href="https://github.com/go-widgets/toolkit" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/toolkit&lt;/code&gt;&lt;/a&gt; est le jeu de
+widgets. Chaque widget implémente la même interface — &lt;code&gt;Bounds&lt;/code&gt;, &lt;code&gt;SetBounds&lt;/code&gt;,
+&lt;code&gt;Draw(p painter.Painter, theme *Theme)&lt;/code&gt;, &lt;code&gt;HitTest&lt;/code&gt;, &lt;code&gt;OnEvent&lt;/code&gt; — si bien qu&amp;rsquo;un hôte
+traite de la même façon un bouton, un tableau et un calendrier d&amp;rsquo;événements. Bibliothèque standard uniquement,
+&lt;code&gt;CGO_ENABLED=0&lt;/code&gt;, 100 % de couverture des instructions.&lt;/p&gt;
+&lt;p&gt;En v0.328.0, elle compte &lt;strong&gt;160 types de widgets exportés&lt;/strong&gt; en environ &lt;strong&gt;69 000 lignes&lt;/strong&gt; de
+code de widgets. Ces deux nombres sont mesurés à cette étiquette, pas reportés : le
+README de la boîte à outils donne les commandes, et il vaut mieux les relancer que
+répéter les chiffres.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="the-families"&gt;Les familles&lt;span class="hx:absolute hx:-mt-20" id="the-families"&gt;&lt;/span&gt;
+&lt;a href="#the-families" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Famille&lt;/th&gt;
+&lt;th&gt;Widgets&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Action&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Button&lt;/code&gt;, &lt;code&gt;ToggleButton&lt;/code&gt;, &lt;code&gt;CheckButton&lt;/code&gt;, &lt;code&gt;RadioButton&lt;/code&gt; + &lt;code&gt;RadioGroup&lt;/code&gt;, &lt;code&gt;Switch&lt;/code&gt;, &lt;code&gt;SplitButton&lt;/code&gt;, &lt;code&gt;IconButton&lt;/code&gt;, &lt;code&gt;CycleButton&lt;/code&gt;, &lt;code&gt;Chip&lt;/code&gt;, &lt;code&gt;SegmentedBar&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Saisie&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Entry&lt;/code&gt;, &lt;code&gt;TextView&lt;/code&gt; (sélection, aperçu IME, plages de syntaxe, numéros de ligne), &lt;code&gt;SpinButton&lt;/code&gt;, &lt;code&gt;Scale&lt;/code&gt;, &lt;code&gt;RangeSlider&lt;/code&gt;, &lt;code&gt;SearchEntry&lt;/code&gt;, &lt;code&gt;TagField&lt;/code&gt;, &lt;code&gt;ComboBox&lt;/code&gt;, &lt;code&gt;FormField&lt;/code&gt; avec &lt;code&gt;Validate&lt;/code&gt;/&lt;code&gt;Rule&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Sélection&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;ListBox&lt;/code&gt;, &lt;code&gt;TreeView&lt;/code&gt;, &lt;code&gt;DropDown&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Conteneurs&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Container&lt;/code&gt; avec un &lt;code&gt;Layout&lt;/code&gt; interchangeable (&lt;code&gt;FitLayout&lt;/code&gt;, &lt;code&gt;BoxLayout&lt;/code&gt;, &lt;code&gt;BorderLayout&lt;/code&gt;, &lt;code&gt;CardLayout&lt;/code&gt;, &lt;code&gt;FlowLayout&lt;/code&gt;) ; &lt;code&gt;HBox&lt;/code&gt;, &lt;code&gt;VBox&lt;/code&gt;, &lt;code&gt;Grid&lt;/code&gt;, &lt;code&gt;Frame&lt;/code&gt;, &lt;code&gt;Dock&lt;/code&gt;, &lt;code&gt;Border&lt;/code&gt;, &lt;code&gt;Stack&lt;/code&gt;, &lt;code&gt;Overlay&lt;/code&gt;, &lt;code&gt;Paned&lt;/code&gt;, &lt;code&gt;Expander&lt;/code&gt;, &lt;code&gt;Accordion&lt;/code&gt; ; un constructeur déclaratif &lt;code&gt;Node&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Navigation&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Menu&lt;/code&gt;, &lt;code&gt;MenuBar&lt;/code&gt; (avec &lt;code&gt;Alt&lt;/code&gt;+lettre), &lt;code&gt;ContextMenu&lt;/code&gt;, &lt;code&gt;Popover&lt;/code&gt;, &lt;code&gt;CommandPalette&lt;/code&gt;, &lt;code&gt;Dialog&lt;/code&gt;, &lt;code&gt;MessageDialog&lt;/code&gt;, &lt;code&gt;Wizard&lt;/code&gt;, &lt;code&gt;Notebook&lt;/code&gt;, &lt;code&gt;ViewSwitcher&lt;/code&gt;, &lt;code&gt;Carousel&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Retour&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;ProgressBar&lt;/code&gt;, &lt;code&gt;ProgressCircle&lt;/code&gt;, &lt;code&gt;LevelBar&lt;/code&gt;, &lt;code&gt;Spinner&lt;/code&gt;, &lt;code&gt;Tooltip&lt;/code&gt;, &lt;code&gt;Notification&lt;/code&gt;, &lt;code&gt;Toast&lt;/code&gt;, &lt;code&gt;Banner&lt;/code&gt;, &lt;code&gt;Alert&lt;/code&gt;, &lt;code&gt;Badge&lt;/code&gt;, &lt;code&gt;Skeleton&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Données&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Table&lt;/code&gt; (édition de cellules, colonnes figées, lignes de groupe, agrégats, lignes dépliables), &lt;code&gt;TreeTable&lt;/code&gt;, &lt;code&gt;PropertyGrid&lt;/code&gt;, &lt;code&gt;Kanban&lt;/code&gt;, &lt;code&gt;Gantt&lt;/code&gt;, &lt;code&gt;Agenda&lt;/code&gt; (semaine, mois, trimestre, année ; plusieurs calendriers)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Graphiques&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;LineChart&lt;/code&gt;, &lt;code&gt;BarChart&lt;/code&gt;, &lt;code&gt;PieChart&lt;/code&gt;, &lt;code&gt;AreaChart&lt;/code&gt;, &lt;code&gt;ScatterChart&lt;/code&gt;, &lt;code&gt;RadarChart&lt;/code&gt;, &lt;code&gt;Gauge&lt;/code&gt;, &lt;code&gt;Sparkline&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Composites&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;FileChooser&lt;/code&gt;, &lt;code&gt;ColorChooser&lt;/code&gt;, &lt;code&gt;ColorPicker&lt;/code&gt;, &lt;code&gt;FontChooser&lt;/code&gt;, &lt;code&gt;Calendar&lt;/code&gt;, &lt;code&gt;DatePicker&lt;/code&gt;, &lt;code&gt;DateRangePicker&lt;/code&gt;, &lt;code&gt;TimePicker&lt;/code&gt;, &lt;code&gt;MarkdownView&lt;/code&gt;, &lt;code&gt;MarkdownEditor&lt;/code&gt;, &lt;code&gt;TerminalView&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Shell&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Window&lt;/code&gt; avec décorations côté client, &lt;code&gt;HeaderBar&lt;/code&gt;, &lt;code&gt;Toolbar&lt;/code&gt;, &lt;code&gt;Statusbar&lt;/code&gt;, &lt;code&gt;StatusIcon&lt;/code&gt;, &lt;code&gt;StatusArea&lt;/code&gt;, &lt;code&gt;Wallpaper&lt;/code&gt;, &lt;code&gt;Thumbnail&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Tous, en direct : la &lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;galerie&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="themes"&gt;Thèmes&lt;span class="hx:absolute hx:-mt-20" id="themes"&gt;&lt;/span&gt;
+&lt;a href="#themes" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Une seule valeur &lt;code&gt;Theme&lt;/code&gt; se propage en cascade dans tout l&amp;rsquo;arbre : changez une couleur à la
+racine et chaque widget se repeint avec elle. &lt;code&gt;DefaultLight()&lt;/code&gt; et &lt;code&gt;DefaultDark()&lt;/code&gt;
+sont intégrés, et &lt;code&gt;LoadGTKTheme(css)&lt;/code&gt; lit le bloc &lt;code&gt;@define-color&lt;/code&gt; de n&amp;rsquo;importe quel
+thème GTK 3 ou libadwaita — Adwaita, WhiteSur, Solarized — dans un &lt;code&gt;Theme&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="text"&gt;Texte&lt;span class="hx:absolute hx:-mt-20" id="text"&gt;&lt;/span&gt;
+&lt;a href="#text" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Par défaut, la police compilée est une police bitmap 5×7, pour que les tests au pixel gardent leur
+géométrie. Un seul appel fait passer toute l&amp;rsquo;interface à un texte anticrénelé et mis en forme :&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;UseOpenTypeText&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// Atkinson Hyperlegible, bundled; js/wasm-safe&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copier le code"
+aria-label="Copier le code"
+data-copied-label="Copié !"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;La police vient de &lt;a href="https://github.com/go-opentype/fonts" target="_blank" rel="noopener"&gt;go-opentype/fonts&lt;/a&gt;
+et est rastérisée par &lt;a href="https://github.com/go-opentype/opentype" target="_blank" rel="noopener"&gt;go-opentype&lt;/a&gt;,
+en Go, sans bibliothèque de polices en C ni recherche de polices système.
+&lt;code&gt;NewTrueTypeFont(ttf, px)&lt;/code&gt; charge une autre police ; &lt;code&gt;NewFallbackFont&lt;/code&gt; en enchaîne
+plusieurs, par exemple pour ajouter une police CJK ou arabe ; le champ &lt;code&gt;Font&lt;/code&gt; propre à un widget
+remplace la police globale pour ce seul widget.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="input"&gt;Saisie&lt;span class="hx:absolute hx:-mt-20" id="input"&gt;&lt;/span&gt;
+&lt;a href="#input" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Souris, clavier, composition IME, tactile (&lt;code&gt;EventTouchStart&lt;/code&gt;/&lt;code&gt;Move&lt;/code&gt;/&lt;code&gt;End&lt;/code&gt;, avec
+&lt;code&gt;GestureRecognizer&lt;/code&gt; pour les tapes, les appuis longs et les balayages), glisser-déposer
+(&lt;code&gt;DragSource&lt;/code&gt;, &lt;code&gt;DropTarget&lt;/code&gt;). La sélection de plusieurs lignes dans &lt;code&gt;ListBox&lt;/code&gt;, &lt;code&gt;Table&lt;/code&gt; et
+&lt;code&gt;TreeView&lt;/code&gt; fonctionne à la souris comme au clavier, et respecte ⌘ aussi bien
+que Ctrl, car sous macOS Ctrl-clic est le clic secondaire.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="accessibility"&gt;Accessibilité&lt;span class="hx:absolute hx:-mt-20" id="accessibility"&gt;&lt;/span&gt;
+&lt;a href="#accessibility" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Une boîte à outils qui peint ses propres pixels ne donne rien à lire à un lecteur d&amp;rsquo;écran
+à moins de dire ce qu&amp;rsquo;elle a dessiné. Les widgets implémentent &lt;code&gt;Accessible&lt;/code&gt; — un rôle, un nom,
+une valeur — et &lt;code&gt;CollectA11y&lt;/code&gt; les rassemble pour que l&amp;rsquo;hôte les publie : AT-SPI sous
+Linux via &lt;a href="https://go-widgets.github.io/docs/0.2/fr/surfaces/native-window/"&gt;&lt;code&gt;window&lt;/code&gt;&lt;/a&gt;, et une
+hiérarchie de vues virtuelle sur &lt;a href="https://go-widgets.github.io/docs/0.2/fr/surfaces/android/#accessibility"&gt;Android&lt;/a&gt;.&lt;/p&gt;</description></item></channel></rss>

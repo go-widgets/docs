@@ -1,0 +1,363 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – État</title><link>https://go-widgets.github.io/docs/0.2/fr/tags/%C3%A9tat/</link><description>Recent content in État on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>fr</language><atom:link href="https://go-widgets.github.io/docs/0.2/fr/tags/%C3%A9tat/index.xml" rel="self" type="application/rss+xml"/><item><title>MVVM : observables, commandes, binders</title><link>https://go-widgets.github.io/docs/0.2/fr/state/mvvm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/fr/state/mvvm/</guid><description>
+&lt;p&gt;&lt;a href="https://github.com/go-widgets/mvvm" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/mvvm&lt;/code&gt;&lt;/a&gt; repose uniquement sur les génériques, sans
+réflexion. Son paquet central n&amp;rsquo;importe aucun paquet de widgets, si bien qu&amp;rsquo;un même
+view-model pilote aussi bien la &lt;a href="https://go-widgets.github.io/docs/0.2/fr/rendering/toolkit/"&gt;boîte à outils&lt;/a&gt; en pixels
+que les &lt;a href="https://go-widgets.github.io/docs/0.2/fr/surfaces/terminal/"&gt;widgets de terminal&lt;/a&gt;.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Primitive&lt;/th&gt;
+&lt;th&gt;Rôle&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Observable[T]&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;une propriété : &lt;code&gt;Get&lt;/code&gt;, &lt;code&gt;Set&lt;/code&gt;, &lt;code&gt;Subscribe&lt;/code&gt;. Affecter une valeur égale ne fait rien.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Command&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;une action, avec &lt;code&gt;CanExecute&lt;/code&gt; et &lt;code&gt;RaiseCanExecuteChanged&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;ObservableList[T]&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;une collection qui signale chaque insertion, suppression, remplacement, déplacement et réinitialisation&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 data-hextra-search-id="a-form"&gt;Un formulaire&lt;span class="hx:absolute hx:-mt-20" id="a-form"&gt;&lt;/span&gt;
+&lt;a href="#a-form" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kd"&gt;type&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;FormVM&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;struct&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Observable&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Names&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ObservableList&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Save&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Command&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;vm&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nx"&gt;FormVM&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewObservable&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Names&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;NewObservableList&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;]()}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Save&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewCommand&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Names&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Get&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Set&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;bool&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Get&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;!=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// CanExecute&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;BindCanExecute&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Save&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// Save greys out while the name is empty&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copier le code"
+aria-label="Copier le code"
+data-copied-label="Copié !"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 data-hextra-search-id="binding"&gt;Liaison&lt;span class="hx:absolute hx:-mt-20" id="binding"&gt;&lt;/span&gt;
+&lt;a href="#binding" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Les binders génériques atteignent un widget par un &lt;strong&gt;pointeur vers son champ de valeur et
+un pointeur vers son emplacement de callback&lt;/strong&gt; : &lt;code&gt;BindField&lt;/code&gt; (bidirectionnel), &lt;code&gt;OneWay&lt;/code&gt;,
+&lt;code&gt;BindCommand&lt;/code&gt;, &lt;code&gt;BindList&lt;/code&gt;. Un widget déclenche son callback depuis son gestionnaire d&amp;rsquo;événements
+et laisse silencieuse une écriture directe dans le champ, et &lt;code&gt;Observable.Set&lt;/code&gt; ignore une valeur
+égale — si bien qu&amp;rsquo;une liaison bidirectionnelle peut renvoyer l&amp;rsquo;écho sans récursion.&lt;/p&gt;
+&lt;p&gt;La boîte à outils fait évoluer ses widgets pour qu&amp;rsquo;ils exposent leur état &lt;strong&gt;sous forme&lt;/strong&gt; d&amp;rsquo;un
+observable (&lt;code&gt;Label.Text()&lt;/code&gt; renvoie un &lt;code&gt;*mvvm.Observable[string]&lt;/code&gt;). Il n&amp;rsquo;y a
+alors plus de champ à initialiser ni de callback à composer, seulement deux propriétés qui
+doivent s&amp;rsquo;accorder : &lt;code&gt;BindTwoWay(src, dst, invalidate)&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Les widgets dont le callback prend plusieurs arguments reçoivent un petit adaptateur nommé dans un
+paquet propre à chaque back-end, les seuls paquets qui importent un back-end :&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Paquet&lt;/th&gt;
+&lt;th&gt;Adaptateurs&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mvvm/tkbind&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;BindRange&lt;/code&gt; (le &lt;code&gt;RangeSlider&lt;/code&gt; à deux poignées), &lt;code&gt;BindContainer&lt;/code&gt; et &lt;code&gt;BindCardActive&lt;/code&gt; (les enfants d&amp;rsquo;un conteneur et une mise en page en cartes, depuis une liste ou un index), &lt;code&gt;BindStore&lt;/code&gt; et &lt;code&gt;BindTable&lt;/code&gt; (une &lt;code&gt;Table&lt;/code&gt; au-dessus d&amp;rsquo;un &lt;a href="https://go-widgets.github.io/docs/0.2/fr/state/data/"&gt;stockage de données&lt;/a&gt; : tri, regroupement et modifications en ligne validées)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mvvm/tuibind&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;BindDropdown&lt;/code&gt;, &lt;code&gt;BindTableSelection&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 data-hextra-search-id="mvvmtk-one-call-per-widget"&gt;mvvmtk : un appel par widget&lt;span class="hx:absolute hx:-mt-20" id="mvvmtk-one-call-per-widget"&gt;&lt;/span&gt;
+&lt;a href="#mvvmtk-one-call-per-widget" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;a href="https://github.com/go-widgets/mvvmtk" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/mvvmtk&lt;/code&gt;&lt;/a&gt; renseigne les vrais noms de champ et de
+callback de chaque widget de la boîte à outils, si bien que la vue ne les nomme jamais :&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;unbind&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;mvvmtk&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;BindText&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;search&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Query&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;win&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Invalidate&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// search.Text ⇄ vm.Query&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;defer&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;unbind&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copier le code"
+aria-label="Copier le code"
+data-copied-label="Copié !"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Aide&lt;/th&gt;
+&lt;th&gt;Sens&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;BindText&lt;/code&gt; (&lt;code&gt;SearchEntry&lt;/code&gt;), &lt;code&gt;BindEntryText&lt;/code&gt;, &lt;code&gt;BindChecked&lt;/code&gt;, &lt;code&gt;BindSelectedIndex&lt;/code&gt;, &lt;code&gt;BindSpin&lt;/code&gt;, &lt;code&gt;BindListSelection&lt;/code&gt;, &lt;code&gt;BindViewSwitcher&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;bidirectionnel&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;BindLabel&lt;/code&gt;, &lt;code&gt;BindProgress&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;view-model → widget&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;BindListItems&lt;/code&gt;, &lt;code&gt;BindDropDownOptions&lt;/code&gt;, &lt;code&gt;BindViews&lt;/code&gt;, &lt;code&gt;BindTree&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;liste → widget&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;BindCommand&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;le clic d&amp;rsquo;un bouton, son état &lt;code&gt;Disabled&lt;/code&gt; et son grisage suivent la commande&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Chaque aide renvoie un &lt;code&gt;unbind&lt;/code&gt; qui détache la liaison et restaure le
+callback qui était là auparavant. Un bouton lié à une commande qui ne peut pas s&amp;rsquo;exécuter
+n&amp;rsquo;accepte ni clic, ni Entrée ou Espace, ni focus clavier.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="undo-and-redo"&gt;Annuler et rétablir&lt;span class="hx:absolute hx:-mt-20" id="undo-and-redo"&gt;&lt;/span&gt;
+&lt;a href="#undo-and-redo" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;mvvm/undo&lt;/code&gt; est une pile de commandes construite sur les seules primitives centrales ; elle
+fonctionne donc sous n&amp;rsquo;importe quelle vue :&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;undo&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;New&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// unlimited, coalescing on; undo.WithLimit(n), undo.WithCoalescing(false)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Push&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;undo&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewCommand&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Write hello&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;do&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;undoIt&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Undo&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Redo&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;BindCommand&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;UndoCommand&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nx"&gt;undoBtn&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;OnClick&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;setEnabled&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;OneWay&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;UndoTextBinding&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nx"&gt;undoBtn&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Text&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;repaint&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// &amp;#34;Undo Write hello&amp;#34;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copier le code"
+aria-label="Copier le code"
+data-copied-label="Copié !"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Une suite de frappes se fusionne en une seule étape, et un ajout après une annulation abandonne
+la suite des actions à rétablir.&lt;/p&gt;</description></item><item><title>La colonne vertébrale des données</title><link>https://go-widgets.github.io/docs/0.2/fr/state/data/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/fr/state/data/</guid><description>
+&lt;p&gt;&lt;a href="https://github.com/go-widgets/data" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/data&lt;/code&gt;&lt;/a&gt; est sans interface : il
+importe la bibliothèque standard et &lt;a href="https://go-widgets.github.io/docs/0.2/fr/state/mvvm/"&gt;&lt;code&gt;mvvm&lt;/code&gt;&lt;/a&gt;,
+et aucun widget.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Élément&lt;/th&gt;
+&lt;th&gt;Ce que c&amp;rsquo;est&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Value&lt;/code&gt;, &lt;code&gt;Kind&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;un scalaire typé comparable : chaîne, entier, flottant, booléen&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Record&lt;/code&gt;, &lt;code&gt;Schema&lt;/code&gt;, &lt;code&gt;Field&lt;/code&gt;, &lt;code&gt;Rule&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;une ligne typée et sa validation&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Query&lt;/code&gt; → &lt;code&gt;Apply&lt;/code&gt; → &lt;code&gt;View&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;le moteur de requêtes : filtrer, trier, grouper, paginer, agréger&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Proxy&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;la jonction avec le back-end : &lt;code&gt;List&lt;/code&gt;, &lt;code&gt;Query&lt;/code&gt;, &lt;code&gt;Mutate&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;MemoryProxy&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;le back-end dans le processus&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;grpcproxy.Server&lt;/code&gt;, &lt;code&gt;grpcproxy.Client&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;le même contrat via gRPC, transporté sur une WebSocket&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Store[R]&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;une collection typée, publiée sous forme d&amp;rsquo;&lt;code&gt;mvvm.ObservableList&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 data-hextra-search-id="the-same-answer-local-or-remote"&gt;La même réponse, en local ou à distance&lt;span class="hx:absolute hx:-mt-20" id="the-same-answer-local-or-remote"&gt;&lt;/span&gt;
+&lt;a href="#the-same-answer-local-or-remote" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Store&lt;/code&gt; parle à un &lt;code&gt;Proxy&lt;/code&gt; sans jamais savoir lequel. &lt;code&gt;Apply&lt;/code&gt; est une fonction
+pure des enregistrements et de la requête, si bien que le client et le serveur exécutent le
+même code sur les mêmes lignes — et un &lt;code&gt;MemoryProxy&lt;/code&gt; et un &lt;code&gt;grpcproxy.Client&lt;/code&gt;
+renvoient des vues identiques à l&amp;rsquo;octet près. Le test de conformité vérifie exactement cela : une
+batterie de requêtes de tri, de filtre, de groupement, de pagination et d&amp;rsquo;agrégation à travers les deux
+proxys et à travers le moteur, chaque résultat mis sous forme canonique, les trois
+comparés octet par octet.&lt;/p&gt;
+&lt;p&gt;Le transport WebSocket se compile pour &lt;code&gt;js/wasm&lt;/code&gt;, si bien qu&amp;rsquo;une application de navigateur
+atteint le même service par le même client.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;store&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewStore&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;mem&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;codec&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// or a grpcproxy.Client: nothing else changes&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;store&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;SetQuery&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Query&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;Sorts&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt;&lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Sort&lt;/span&gt;&lt;span class="p"&gt;{{&lt;/span&gt;&lt;span class="nx"&gt;Field&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;salary&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Desc&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;}},&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Limit&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;store&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;ctx&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;items&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;store&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Items&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// bind this to a view&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copier le code"
+aria-label="Copier le code"
+data-copied-label="Copié !"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;tkbind.BindTable&lt;/code&gt; place un stockage derrière une &lt;code&gt;Table&lt;/code&gt; de la boîte à outils : un clic sur l&amp;rsquo;en-tête
+trie, un regroupement groupe, et une modification de cellule validée devient une mutation via
+le proxy — le même aller-retour, en local ou à distance.&lt;/p&gt;</description></item><item><title>L'état vit dans un view-model</title><link>https://go-widgets.github.io/docs/0.2/fr/state/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/fr/state/</guid><description>
+&lt;p&gt;Les champs d&amp;rsquo;un widget — le texte d&amp;rsquo;un champ de saisie, les éléments d&amp;rsquo;une liste, les lignes d&amp;rsquo;un tableau — sont sa
+&lt;strong&gt;vue&lt;/strong&gt; de l&amp;rsquo;état, pas l&amp;rsquo;état. Une application qui les affecte depuis
+l&amp;rsquo;endroit où elle se trouve disperse son état entre les sites d&amp;rsquo;appel, et deux de
+ces sites d&amp;rsquo;appel finissent par ne plus s&amp;rsquo;accorder sur ce qui est à l&amp;rsquo;écran.&lt;/p&gt;
+&lt;p&gt;L&amp;rsquo;état vit donc dans un &lt;strong&gt;view-model&lt;/strong&gt; : de simples valeurs Go enveloppées dans des observables,
+sans aucun widget en vue, testables sans fenêtre. La vue lie chaque widget
+au view-model une fois, et à partir de là c&amp;rsquo;est la liaison — pas l&amp;rsquo;application — qui
+les garde synchronisés, dans les deux sens.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/fr/state/mvvm/"&gt;MVVM&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Observable&lt;/code&gt;, &lt;code&gt;Command&lt;/code&gt;, &lt;code&gt;ObservableList&lt;/code&gt; ; des binders pour les widgets de la boîte à outils et du terminal ; annuler et rétablir&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/fr/state/data/"&gt;La colonne vertébrale des données&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;des enregistrements typés avec validation, des requêtes, et un stockage qui exécute le même pipeline en local ou via gRPC&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/fr/guard-rails/mvvmlint/"&gt;&lt;code&gt;mvvmlint&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;le contrôle de CI qui fait échouer une pull request affectant à la main un champ d&amp;rsquo;état d&amp;rsquo;un widget&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;</description></item><item><title>État</title><link>https://go-widgets.github.io/docs/0.2/fr/status/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/fr/status/</guid><description>
+&lt;p&gt;Ces pages ont été vérifiées par rapport aux modules aux étiquettes listées dans
+&lt;a href="https://go-widgets.github.io/docs/0.2/fr/modules/"&gt;Modules&lt;/a&gt;. Quand le README d&amp;rsquo;un module et son code
+divergent, les pages suivent le code.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="proven-live"&gt;Prouvé en conditions réelles&lt;span class="hx:absolute hx:-mt-20" id="proven-live"&gt;&lt;/span&gt;
+&lt;a href="#proven-live" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Un codec testé dans le processus prouve le codec. Voici les endroits où l&amp;rsquo;on a interrogé
+la plateforme elle-même :&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Quoi&lt;/th&gt;
+&lt;th&gt;Où cela a été prouvé&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Fenêtre X11&lt;/td&gt;
+&lt;td&gt;CI, sous Xvfb : un motif connu présenté, capturé et échantillonné ; un clic et une touche synthétisés avec &lt;code&gt;xdotool&lt;/code&gt; et le &lt;code&gt;toolkit.Event&lt;/code&gt; distribué vérifié ; &lt;code&gt;Show&lt;/code&gt;/&lt;code&gt;Hide&lt;/code&gt;/&lt;code&gt;Raise&lt;/code&gt; relus auprès du serveur&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Fenêtre Cocoa&lt;/td&gt;
+&lt;td&gt;une voie de CI macOS : une fenêtre ouverte et rendue, des pixels échantillonnés, un clic et une touche synthétisés ; &lt;code&gt;Show&lt;/code&gt;/&lt;code&gt;Hide&lt;/code&gt;/&lt;code&gt;Raise&lt;/code&gt; demandés à une vraie &lt;code&gt;NSWindow&lt;/code&gt; depuis une autre goroutine et relus auprès d&amp;rsquo;AppKit&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Fenêtre Win32&lt;/td&gt;
+&lt;td&gt;une VM Windows 11 arm64 : une vraie fenêtre rendant une &lt;code&gt;VBox&lt;/code&gt;, un &lt;code&gt;Label&lt;/code&gt; et un &lt;code&gt;Button&lt;/code&gt;, trois clics injectés faisant passer son compteur de 0 à 3 via la procédure de fenêtre&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Fenêtre Wayland&lt;/td&gt;
+&lt;td&gt;face à un faux compositeur qui impose les règles de map et d&amp;rsquo;unmap de xdg-shell&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Fenêtre wasmbox&lt;/td&gt;
+&lt;td&gt;un Chromium headless pilotant le vrai compositeur wasmdesk : les pixels composités relus, un vrai clic acheminé jusqu&amp;rsquo;au widget&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Android&lt;/td&gt;
+&lt;td&gt;un appareil Android 15 arm64 : copies limitées aux zones endommagées mesurées, mémoire sale du memfd mesurée, arbre d&amp;rsquo;accessibilité évalué sur l&amp;rsquo;appareil&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Zone de notification macOS&lt;/td&gt;
+&lt;td&gt;une vraie session macOS : l&amp;rsquo;icône quitte la barre des menus quand le programme s&amp;rsquo;arrête, revient quand il démarre, et ouvre son menu&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Zone de notification Linux&lt;/td&gt;
+&lt;td&gt;CI face à un vrai bus de session : le nom est réclamé, le menu répond à &lt;code&gt;GetLayout&lt;/code&gt;, &lt;code&gt;Quit&lt;/code&gt; le retire&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Zone de notification Windows&lt;/td&gt;
+&lt;td&gt;l&amp;rsquo;icône et son menu sur une VM Windows 11&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Démos en terminal&lt;/td&gt;
+&lt;td&gt;un vrai pty en CI : octets de touches envoyés, image rendue vérifiée&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 data-hextra-search-id="compiled-not-run"&gt;Compilé, non exécuté&lt;span class="hx:absolute hx:-mt-20" id="compiled-not-run"&gt;&lt;/span&gt;
+&lt;a href="#compiled-not-run" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Show&lt;/code&gt;/&lt;code&gt;Hide&lt;/code&gt;/&lt;code&gt;Raise&lt;/code&gt; sous Win32 : la table de décision est testée unitairement, les appels
+sur le thread de la fenêtre sont seulement compilés.&lt;/li&gt;
+&lt;li&gt;L&amp;rsquo;&lt;code&gt;Attach&lt;/code&gt; de la zone de notification Windows.&lt;/li&gt;
+&lt;li&gt;La boucle DOM de &lt;code&gt;webcanvas&lt;/code&gt; (&lt;code&gt;run_js.go&lt;/code&gt;) : derrière une étiquette de compilation &lt;code&gt;js &amp;amp;&amp;amp; wasm&lt;/code&gt;, elle
+est donc hors de la couverture mesurée ; les applications qui l&amp;rsquo;utilisent l&amp;rsquo;exercent.&lt;/li&gt;
+&lt;li&gt;Le &lt;code&gt;Run&lt;/code&gt; natif d&amp;rsquo;&lt;code&gt;application&lt;/code&gt; : l&amp;rsquo;ouverture d&amp;rsquo;une vraie fenêtre est exclue de sa
+barrière de couverture ; le contrat, la traduction des événements et le compteur de disponibilité
+sont couverts.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 data-hextra-search-id="not-done"&gt;Non fait&lt;span class="hx:absolute hx:-mt-20" id="not-done"&gt;&lt;/span&gt;
+&lt;a href="#not-done" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;Les zones de notification Windows et Linux ignorent &lt;code&gt;MenuItem.Icon&lt;/code&gt; : une ligne avec une icône
+se dessine sans elle.&lt;/li&gt;
+&lt;li&gt;Le back-end Wayland de &lt;code&gt;window&lt;/code&gt; ne sait pas faire &lt;code&gt;Raise&lt;/code&gt; : xdg-shell n&amp;rsquo;a pas de telle requête,
+et xdg-activation exige un jeton issu d&amp;rsquo;une action de l&amp;rsquo;utilisateur lui-même.&lt;/li&gt;
+&lt;li&gt;Android : &lt;code&gt;android/arm64&lt;/code&gt; uniquement, car c&amp;rsquo;est la seule cible Android que Go
+sait lier sans cgo.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;window.Screens&lt;/code&gt; renvoie &lt;code&gt;ErrScreensUnsupported&lt;/code&gt; sur &lt;code&gt;js/wasm&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 data-hextra-search-id="what-ci-does-not-cover-yet"&gt;Ce que la CI ne couvre pas encore&lt;span class="hx:absolute hx:-mt-20" id="what-ci-does-not-cover-yet"&gt;&lt;/span&gt;
+&lt;a href="#what-ci-does-not-cover-yet" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Mesuré à partir des workflows de chaque dépôt aux étiquettes ci-dessus :&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Module&lt;/th&gt;
+&lt;th&gt;Manque&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mvvmtk&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;pas de barrière de couverture ; compilation croisée pour amd64 et arm64 seulement, sur six systèmes d&amp;rsquo;exploitation&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;application&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;compilation croisée pour Linux, macOS et Windows sur amd64 seulement&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;tray&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;compilation croisée pour quatre paires système/architecture&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mvvmlint&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;pas de compilation croisée&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;bricolint&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;son étape « 6 arches » en compile cinq : loong64 manque&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;code&gt;app-template&lt;/code&gt; et &lt;code&gt;gallery&lt;/code&gt; sont des applications de navigateur et se compilent pour &lt;code&gt;js/wasm&lt;/code&gt;,
+qui est leur seule cible.&lt;/p&gt;</description></item></channel></rss>

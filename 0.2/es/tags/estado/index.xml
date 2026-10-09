@@ -1,0 +1,114 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Estado</title><link>https://go-widgets.github.io/docs/0.2/es/tags/estado/</link><description>Recent content in Estado on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>es</language><atom:link href="https://go-widgets.github.io/docs/0.2/es/tags/estado/index.xml" rel="self" type="application/rss+xml"/><item><title>Estado</title><link>https://go-widgets.github.io/docs/0.2/es/status/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/es/status/</guid><description>
+&lt;p&gt;Estas páginas se contrastaron con los módulos en las etiquetas indicadas en
+&lt;a href="https://go-widgets.github.io/docs/0.2/es/modules/"&gt;Módulos&lt;/a&gt;. Cuando el README de un módulo y su
+código no coinciden, las páginas siguen al código.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="proven-live"&gt;Demostrado en vivo&lt;span class="hx:absolute hx:-mt-20" id="proven-live"&gt;&lt;/span&gt;
+&lt;a href="#proven-live" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Un códec probado dentro del proceso demuestra el códec. Estos son los casos en
+los que se interrogó a la propia plataforma:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Qué&lt;/th&gt;
+&lt;th&gt;Dónde se demostró&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Ventana X11&lt;/td&gt;
+&lt;td&gt;CI, bajo Xvfb: un patrón conocido presentado, capturado y muestreado; un clic y una tecla sintetizados con &lt;code&gt;xdotool&lt;/code&gt; y el &lt;code&gt;toolkit.Event&lt;/code&gt; despachado comprobado; &lt;code&gt;Show&lt;/code&gt;/&lt;code&gt;Hide&lt;/code&gt;/&lt;code&gt;Raise&lt;/code&gt; releídos desde el servidor&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Ventana Cocoa&lt;/td&gt;
+&lt;td&gt;una línea de CI en macOS: una ventana abierta y renderizada, píxeles muestreados, un clic y una tecla sintetizados; &lt;code&gt;Show&lt;/code&gt;/&lt;code&gt;Hide&lt;/code&gt;/&lt;code&gt;Raise&lt;/code&gt; solicitados a un &lt;code&gt;NSWindow&lt;/code&gt; real desde otra goroutine y releídos desde AppKit&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Ventana Win32&lt;/td&gt;
+&lt;td&gt;una VM Windows 11 arm64: una ventana real que renderiza un &lt;code&gt;VBox&lt;/code&gt;, un &lt;code&gt;Label&lt;/code&gt; y un &lt;code&gt;Button&lt;/code&gt;, con tres clics inyectados que llevan su contador de 0 a 3 a través del procedimiento de ventana&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Ventana Wayland&lt;/td&gt;
+&lt;td&gt;frente a un compositor simulado que aplica las reglas de mapeo y desmapeo de xdg-shell&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Ventana wasmbox&lt;/td&gt;
+&lt;td&gt;Chromium headless controlando el compositor wasmdesk real: los píxeles compuestos releídos, un clic real encaminado al widget&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Android&lt;/td&gt;
+&lt;td&gt;un dispositivo Android 15 arm64: copias limitadas a las zonas dañadas medidas, memoria sucia del memfd medida, el árbol de accesibilidad evaluado en el dispositivo&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Bandeja de macOS&lt;/td&gt;
+&lt;td&gt;una sesión macOS real: el icono sale de la barra de menús cuando el programa se detiene, vuelve cuando arranca y abre su menú&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Bandeja de Linux&lt;/td&gt;
+&lt;td&gt;CI frente a un bus de sesión real: el nombre se reclama, el menú responde a &lt;code&gt;GetLayout&lt;/code&gt;, &lt;code&gt;Quit&lt;/code&gt; lo retira&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Bandeja de Windows&lt;/td&gt;
+&lt;td&gt;el icono y su menú en una VM Windows 11&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Demos de terminal&lt;/td&gt;
+&lt;td&gt;un pty real en la CI: bytes de teclas enviados, el fotograma renderizado comprobado&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 data-hextra-search-id="compiled-not-run"&gt;Compilado, no ejecutado&lt;span class="hx:absolute hx:-mt-20" id="compiled-not-run"&gt;&lt;/span&gt;
+&lt;a href="#compiled-not-run" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Show&lt;/code&gt;/&lt;code&gt;Hide&lt;/code&gt;/&lt;code&gt;Raise&lt;/code&gt; de Win32: la tabla de decisión tiene pruebas unitarias;
+las llamadas en el hilo de la ventana solo se compilan.&lt;/li&gt;
+&lt;li&gt;El &lt;code&gt;Attach&lt;/code&gt; de la bandeja de Windows.&lt;/li&gt;
+&lt;li&gt;El bucle DOM de &lt;code&gt;webcanvas&lt;/code&gt; (&lt;code&gt;run_js.go&lt;/code&gt;): tras una etiqueta de compilación
+&lt;code&gt;js &amp;amp;&amp;amp; wasm&lt;/code&gt;, por lo que queda fuera de la cobertura medida; lo ejercitan las
+aplicaciones que lo usan.&lt;/li&gt;
+&lt;li&gt;El &lt;code&gt;Run&lt;/code&gt; nativo de &lt;code&gt;application&lt;/code&gt;: abrir una ventana real está excluido de su
+barrera de cobertura; el contrato, la traducción de eventos y el contador de
+disponibilidad están cubiertos.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 data-hextra-search-id="not-done"&gt;No hecho&lt;span class="hx:absolute hx:-mt-20" id="not-done"&gt;&lt;/span&gt;
+&lt;a href="#not-done" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;Las bandejas de Windows y Linux ignoran &lt;code&gt;MenuItem.Icon&lt;/code&gt;: una fila con icono
+se dibuja sin él.&lt;/li&gt;
+&lt;li&gt;El backend Wayland de &lt;code&gt;window&lt;/code&gt; no puede hacer &lt;code&gt;Raise&lt;/code&gt;: xdg-shell no tiene esa
+petición, y xdg-activation necesita un token procedente de la propia entrada
+del usuario.&lt;/li&gt;
+&lt;li&gt;Android: solo &lt;code&gt;android/arm64&lt;/code&gt;, porque es el único destino Android que Go
+enlaza sin cgo.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;window.Screens&lt;/code&gt; devuelve &lt;code&gt;ErrScreensUnsupported&lt;/code&gt; en &lt;code&gt;js/wasm&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 data-hextra-search-id="what-ci-does-not-cover-yet"&gt;Lo que la CI aún no cubre&lt;span class="hx:absolute hx:-mt-20" id="what-ci-does-not-cover-yet"&gt;&lt;/span&gt;
+&lt;a href="#what-ci-does-not-cover-yet" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Medido a partir de los workflows de cada repositorio en las etiquetas anteriores:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Módulo&lt;/th&gt;
+&lt;th&gt;Carencia&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mvvmtk&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;sin barrera de cobertura; compilación cruzada solo para amd64 y arm64, en seis sistemas operativos&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;application&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;compilación cruzada para Linux, macOS y Windows solo en amd64&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;tray&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;compilación cruzada para cuatro pares sistema operativo/arquitectura&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mvvmlint&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;sin compilación cruzada&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;bricolint&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;su paso «6 arches» compila cinco: falta loong64&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;code&gt;app-template&lt;/code&gt; y &lt;code&gt;gallery&lt;/code&gt; son aplicaciones de navegador y se compilan para
+&lt;code&gt;js/wasm&lt;/code&gt;, que es su único destino.&lt;/p&gt;</description></item></channel></rss>

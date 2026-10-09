@@ -1,0 +1,146 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Módulos</title><link>https://go-widgets.github.io/docs/0.2/es/tags/m%C3%B3dulos/</link><description>Recent content in Módulos on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>es</language><atom:link href="https://go-widgets.github.io/docs/0.2/es/tags/m%C3%B3dulos/index.xml" rel="self" type="application/rss+xml"/><item><title>Módulos</title><link>https://go-widgets.github.io/docs/0.2/es/modules/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/es/modules/</guid><description>
+&lt;p&gt;La referencia de API la genera a partir del código fuente
+&lt;a href="https://pkg.go.dev/" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;, que sigue las etiquetas publicadas; estas
+páginas explican, y no la copian. La etiqueta es la más reciente en el momento
+de escribir; la autoridad es la lista de etiquetas del propio repositorio.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Módulo&lt;/th&gt;
+&lt;th&gt;Etiqueta&lt;/th&gt;
+&lt;th&gt;Qué es&lt;/th&gt;
+&lt;th&gt;Referencia&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://github.com/go-widgets/painter" target="_blank" rel="noopener"&gt;&lt;code&gt;painter&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;v0.15.0&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/rendering/painter/"&gt;la costura de dibujo&lt;/a&gt;: painters de píxeles y de celdas&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/painter" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://github.com/go-widgets/toolkit" target="_blank" rel="noopener"&gt;&lt;code&gt;toolkit&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;v0.328.0&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/rendering/toolkit/"&gt;el conjunto de widgets&lt;/a&gt;, temas, layouts, texto&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/toolkit" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://github.com/go-widgets/skin" target="_blank" rel="noopener"&gt;&lt;code&gt;skin&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;v0.2.0&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/rendering/skin/"&gt;widgets descritos como datos&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/skin" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://github.com/go-widgets/isoicons" target="_blank" rel="noopener"&gt;&lt;code&gt;isoicons&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;v0.3.0&lt;/td&gt;
+&lt;td&gt;paquetes de iconos isométricos (cloud-native, AWS) para los diagramas isométricos del toolkit&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/isoicons" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://github.com/go-widgets/mvvm" target="_blank" rel="noopener"&gt;&lt;code&gt;mvvm&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;v0.13.0&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/state/mvvm/"&gt;observables, comandos, binders, deshacer&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/mvvm" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://github.com/go-widgets/mvvmtk" target="_blank" rel="noopener"&gt;&lt;code&gt;mvvmtk&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;v0.14.1&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/state/mvvm/#mvvmtk-one-call-per-widget"&gt;binders de una sola llamada para los widgets del toolkit&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/mvvmtk" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://github.com/go-widgets/data" target="_blank" rel="noopener"&gt;&lt;code&gt;data&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;v0.3.0&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/state/data/"&gt;registros tipados, consultas, un almacén local o remoto&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/data" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://github.com/go-widgets/window" target="_blank" rel="noopener"&gt;&lt;code&gt;window&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;v0.86.1&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/native-window/"&gt;una ventana nativa&lt;/a&gt; sobre siete backends&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/window" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://github.com/go-widgets/application" target="_blank" rel="noopener"&gt;&lt;code&gt;application&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;v0.7.0&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/application/"&gt;el ciclo de vida de la aplicación&lt;/a&gt; por encima de una ventana&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/application" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://github.com/go-widgets/tray" target="_blank" rel="noopener"&gt;&lt;code&gt;tray&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;v0.14.0&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/application/#the-tray"&gt;un icono de bandeja y su menú&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/tray" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://github.com/go-widgets/webcanvas" target="_blank" rel="noopener"&gt;&lt;code&gt;webcanvas&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;v0.2.0&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/browser/"&gt;una escena en un &lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; de navegador&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/webcanvas" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://github.com/go-widgets/tui" target="_blank" rel="noopener"&gt;&lt;code&gt;tui&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;v0.61.0&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/terminal/"&gt;renderizado en terminal y widgets nativos de celdas&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/tui" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://github.com/go-widgets/android" target="_blank" rel="noopener"&gt;&lt;code&gt;android&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;v0.15.0&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/android/"&gt;un APK pintado por un proceso sin CGO&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/android" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://github.com/go-widgets/svg" target="_blank" rel="noopener"&gt;&lt;code&gt;svg&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;v0.6.0&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/snapshots/"&gt;un renderizado como SVG o PNG&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/svg" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://github.com/go-widgets/mvvmlint" target="_blank" rel="noopener"&gt;&lt;code&gt;mvvmlint&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;v0.4.0&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/guard-rails/mvvmlint/"&gt;la comprobación MVVM&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/mvvmlint" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://github.com/go-widgets/bricolint" target="_blank" rel="noopener"&gt;&lt;code&gt;bricolint&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;v0.4.0&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/guard-rails/bricolint/"&gt;la comprobación de que no haya interfaz dibujada a mano&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/bricolint" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://github.com/go-widgets/app-template" target="_blank" rel="noopener"&gt;&lt;code&gt;app-template&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;v0.4.0&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/getting-started/"&gt;el punto de partida de una aplicación&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/app-template" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://github.com/go-widgets/gallery" target="_blank" rel="noopener"&gt;&lt;code&gt;gallery&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;v0.6.0&lt;/td&gt;
+&lt;td&gt;la &lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;demo en vivo&lt;/a&gt; de todas las familias de widgets&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/gallery" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://github.com/go-widgets/desktop" target="_blank" rel="noopener"&gt;&lt;code&gt;desktop&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;v0.19.0&lt;/td&gt;
+&lt;td&gt;un shell de escritorio que combina go-freedesktop y go-widgets, nativo y en wasmdesk&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/desktop" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 data-hextra-search-id="what-every-module-is-held-to"&gt;Lo que se exige a cada módulo&lt;span class="hx:absolute hx:-mt-20" id="what-every-module-is-held-to"&gt;&lt;/span&gt;
+&lt;a href="#what-every-module-is-held-to" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;CGO_ENABLED=0&lt;/code&gt;: nada de cgo, ni de invocar una herramienta de línea de
+comandos en lugar de una biblioteca.&lt;/li&gt;
+&lt;li&gt;Compilación cruzada para amd64, arm64, riscv64, loong64, ppc64le y s390x
+—esta última big-endian, lo que mantiene honesta cada codificación binaria— y,
+cuando procede, &lt;code&gt;js/wasm&lt;/code&gt;. Doce de los diecinueve cubren hoy las seis, dos son
+aplicaciones de navegador y los otros cinco figuran en &lt;a href="https://go-widgets.github.io/docs/0.2/es/status/#what-ci-does-not-cover-yet"&gt;Estado&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Una barrera de cobertura de sentencias en la CI: 100 % en dieciocho de los
+diecinueve. Cuando un archivo no puede ejecutarse en una prueba (un bucle de
+navegador, un bucle de ejecución nativo), el módulo indica qué archivo queda
+fuera y por qué. Consulte &lt;a href="https://go-widgets.github.io/docs/0.2/es/status/"&gt;Estado&lt;/a&gt; para las
+excepciones.&lt;/li&gt;
+&lt;li&gt;BSD-3-Clause.&lt;/li&gt;
+&lt;/ul&gt;</description></item></channel></rss>

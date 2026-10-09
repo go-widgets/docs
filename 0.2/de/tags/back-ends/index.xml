@@ -1,0 +1,58 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Back-Ends</title><link>https://go-widgets.github.io/docs/0.2/de/tags/back-ends/</link><description>Recent content in Back-Ends on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>de</language><atom:link href="https://go-widgets.github.io/docs/0.2/de/tags/back-ends/index.xml" rel="self" type="application/rss+xml"/><item><title>Wohin es zeichnet</title><link>https://go-widgets.github.io/docs/0.2/de/surfaces/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/de/surfaces/</guid><description>
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Oberfläche&lt;/th&gt;
+&lt;th&gt;Modul&lt;/th&gt;
+&lt;th&gt;Painter&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/de/surfaces/native-window/"&gt;Ein natives Fenster&lt;/a&gt; unter X11, Wayland, macOS, Windows&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;window&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Pixel&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/de/surfaces/application/"&gt;Eine Anwendung&lt;/a&gt; mit Tray-Symbol und dem Erscheinungsbild des Systems&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;application&lt;/code&gt;, &lt;code&gt;tray&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Pixel&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/de/surfaces/browser/"&gt;Ein Browser-Tab&lt;/a&gt;: ein einfaches &lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;webcanvas&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Pixel&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/de/surfaces/browser/#a-window-on-the-wasmdesk-desktop"&gt;Ein Browser-Desktop&lt;/a&gt;: ein Fenster des wasmdesk-Compositors&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;window&lt;/code&gt; (wasmbox)&lt;/td&gt;
+&lt;td&gt;Pixel&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/de/surfaces/terminal/"&gt;Ein Terminal&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;tui&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Zellen&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/de/surfaces/android/"&gt;Eine Android-APK&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;android&lt;/code&gt;, &lt;code&gt;window&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Pixel&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/de/surfaces/snapshots/"&gt;Ein Bild&lt;/a&gt;: SVG oder PNG&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;svg&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Pixel&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Der Widget-Baum ändert sich zwischen ihnen nicht. Was sich ändert, ist, wem der
+Puffer gehört und wer die Eingaben liefert – ein Display-Server, ein Browser, ein Terminal, ein
+Java-Host –, und jedes Back-End macht aus diesen Eingaben dasselbe &lt;code&gt;toolkit.Event&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="chosen-by-what-is-there"&gt;Ausgewählt nach dem, was vorhanden ist&lt;span class="hx:absolute hx:-mt-20" id="chosen-by-what-is-there"&gt;&lt;/span&gt;
+&lt;a href="#chosen-by-what-is-there" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;window.Open&lt;/code&gt; nimmt kein Back-End-Argument. Es betrachtet die Umgebung – die
+Plattform, für die es gebaut wurde, &lt;code&gt;$WAYLAND_DISPLAY&lt;/code&gt;, &lt;code&gt;$DISPLAY&lt;/code&gt;, den Socket, den ein
+Android-Host exportiert – und wählt dasjenige, das funktionieren kann. Ein für
+Linux gebautes Binary öffnet unter einer Wayland-Sitzung ein Wayland-Fenster und unter
+X ein X11-Fenster; dasselbe Android-Binary verbindet sich in einer APK mit seinem Host und öffnet unter Termux ein gewöhnliches
+Linux-Fenster. Siehe
+&lt;a href="https://go-widgets.github.io/docs/0.2/de/surfaces/native-window/#how-open-chooses"&gt;wie &lt;code&gt;Open&lt;/code&gt; auswählt&lt;/a&gt;.&lt;/p&gt;</description></item></channel></rss>
