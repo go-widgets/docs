@@ -1,0 +1,234 @@
+# go-widgets documentation (Hugo + Hextra), laid out like go-fileshare's.
+#
+# Each documentation version is a separate build under
+# https://go-widgets.github.io/docs/<version>/. go-widgets is nineteen modules
+# released on their own, so no single module's version can label the site:
+# <version> is the documentation's own minor version (params.docs.version
+# below: v0.2.0 -> 0.2), the label format mike used when this site was built
+# with MkDocs. The CI sets it through --baseURL; this default is the same build.
+baseURL: "https://go-widgets.github.io/docs/0.2/"
+title: "go-widgets"
+# themes/hextra is the tannevaled/hextra fork, pinned at a release tag:
+# upstream Hextra plus opt-in features (partial menu items, combos,
+# related-sites menu, page subtitle and history, darkreaderLock).
+theme: hextra
+
+# English is the default language and stays at the root of each version
+# (/docs/<version>/rendering/painter/), so the URL MkDocs published
+# (/docs/latest/modules/) keeps working; the other languages live under their
+# code (/docs/<version>/fr/rendering/painter/). The version MkDocs built (0.1)
+# is English only: the version selector falls back to its English page.
+defaultContentLanguage: en
+defaultContentLanguageInSubdir: false
+
+# Each language has its own content directory, with the same file names, so
+# that a page and its translation are paired. A language is declared here only
+# once its content exists: a declared language without content would be an
+# empty entry in the language switch. The flags are lipis/flag-icons' 4x3
+# flags (MIT, static/images/flags/LICENSE).
+languages:
+  en:
+    label: "English"
+    contentDir: content/en
+    weight: 1
+    params:
+      flag: images/flags/gb.svg
+  fr:
+    label: "Français"
+    contentDir: content/fr
+    weight: 2
+    params:
+      flag: images/flags/fr.svg
+      # Day before month: "5 octobre 2026".
+      dateFormat: "2 January 2006"
+      description: "Une boîte à outils graphique en Go pur, et toutes les surfaces sur lesquelles elle peint : une fenêtre native sur X11, Wayland, macOS et Windows, un canvas de navigateur, un terminal, un APK Android. CGO_ENABLED=0."
+  es:
+    label: "Español"
+    contentDir: content/es
+    weight: 3
+    params:
+      flag: images/flags/es.svg
+      # Day, then "de" month "de" year: "5 de octubre de 2026".
+      dateFormat: "2 de January de 2006"
+      description: "Un conjunto de widgets en Go puro y todas las superficies sobre las que pinta: una ventana nativa en X11, Wayland, macOS y Windows, un canvas de navegador, un terminal, un APK de Android. CGO_ENABLED=0."
+  de:
+    label: "Deutsch"
+    contentDir: content/de
+    weight: 4
+    params:
+      flag: images/flags/de.svg
+      # Day before month: "5. Oktober 2026".
+      dateFormat: "2. January 2006"
+      description: "Ein Widget-Toolkit in reinem Go und alle Flächen, auf die es zeichnet: ein natives Fenster unter X11, Wayland, macOS und Windows, ein Browser-Canvas, ein Terminal, eine Android-APK. CGO_ENABLED=0."
+
+enableRobotsTXT: true
+# Git history dates every page: "Last updated on" at the bottom of each page.
+enableGitInfo: true
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+    parser:
+      # A translated heading keeps the English one's anchor with an explicit
+      # {#id}; attributes are needed for those.
+      attribute:
+        title: true
+  highlight:
+    noClasses: false
+
+module:
+  hugoVersion:
+    extended: false
+    min: 0.146.0
+  # The mark and favicons come from the go-widgets brand repository
+  # (submodule branding/, pinned at a release tag), published under
+  # /images/brand/.
+  mounts:
+    - source: static
+      target: static
+    - source: assets
+      target: assets
+    - source: branding/svg/color
+      target: static/images/brand/svg
+      files: ["go-widgets.svg"]
+    - source: branding/png/color
+      target: static/images/brand/png
+      files: ["*/go-widgets.png"]
+    - source: branding/ico
+      target: static/images/brand/ico
+      files: ["go-widgets.ico"]
+    # The marks' licence (BSD-3-Clause) travels with them.
+    - source: branding
+      target: static/images/brand
+      files: ["LICENSE"]
+
+menu:
+  main:
+    # Navbar, left to right: the sibling projects, version, theme, search,
+    # sources. The siblings are the organisations this one paints through:
+    # go-opentype sets its text, go-macos is the Objective-C bridge the Cocoa
+    # back-end and the tray use, go-freedesktop is what the desktop shell
+    # composes, wasmdesk is the browser compositor the wasmbox back-end joins.
+    - name: Projects
+      identifier: projects
+      weight: 2
+    - name: go-opentype
+      parent: projects
+      url: https://go-opentype.github.io/
+      weight: 1
+    - name: go-macos
+      parent: projects
+      url: https://go-macos.github.io/
+      weight: 2
+    - name: go-freedesktop
+      parent: projects
+      url: https://go-freedesktop.github.io/
+      weight: 3
+    - name: wasmdesk
+      parent: projects
+      url: https://wasmdesk.github.io/
+      weight: 4
+    - name: Version
+      weight: 3
+      params:
+        type: partial
+        partial: custom/version-select.html
+    - name: Theme
+      weight: 4
+      params:
+        type: theme-toggle
+        combo: true
+    - name: Search
+      weight: 5
+      params:
+        type: search
+    - name: GitHub
+      url: https://github.com/go-widgets
+      weight: 6
+      params:
+        icon: github
+
+params:
+  description: "A pure-Go widget toolkit and every surface it paints on: a native window on X11, Wayland, macOS and Windows, a browser canvas, a terminal, an Android APK. CGO_ENABLED=0."
+
+  # The documentation's own release. Its minor version is the version label
+  # (v0.2.0 -> 0.2): the CI reads it here. Raise the minor when a version's
+  # pages should stay readable as they were; a patch replaces them in place.
+  docs:
+    version: "v0.2.0"
+
+  # The language switch (foot of the sidebar) shows the translate icon, then
+  # the language's flag. It appears once a second language is declared.
+  languageSwitch:
+    icon: translate
+
+  navbar:
+    displayTitle: true
+    displayLogo: true
+    logo:
+      # The teal mark reads on both themes; the name is the site title.
+      path: images/brand/svg/go-widgets.svg
+      dark: images/brand/svg/go-widgets.svg
+      width: 32
+      height: 32
+      # Related sites, opened from the chevron beside the title (the logo itself
+      # leads to the documentation's home). The landing page and the two live
+      # demos: the GitHub organisation is already the navbar's last item.
+      menu:
+        - name: go-widgets
+          url: https://go-widgets.github.io/
+          logo: images/brand/svg/go-widgets.svg
+        - name: Gallery (live demo)
+          url: https://go-widgets.github.io/gallery/
+          logo: images/brand/svg/go-widgets.svg
+        - name: SVG snapshots
+          url: https://go-widgets.github.io/svg/
+          logo: images/brand/svg/go-widgets.svg
+
+  theme:
+    default: system
+    # The theme toggle is in the navbar (menu above), not at the foot of the sidebar.
+    displayToggle: false
+    # Dark Reader would darken the light theme itself; with the lock, the dark
+    # theme is our own.
+    darkreaderLock: true
+
+  footer:
+    enable: true
+    displayCopyright: true
+    displayPoweredBy: false
+
+  displayUpdatedDate: true
+  dateFormat: "January 2, 2006"
+
+  editURL:
+    enable: true
+    base: "https://github.com/go-widgets/docs/edit/main/content"
+
+  toc:
+    displayTags: true
+
+  page:
+    width: normal
+    # The front matter description as a subtitle under the title.
+    displayDescription: true
+    # "Created on ... by ... · Modified on ... by ..." at the foot of each page:
+    # creation from data/pagehistory.json, which the build writes with
+    # themes/hextra/scripts/page-history.sh (it needs the full git history);
+    # modification from git (enableGitInfo).
+    history: true
+    contextMenu:
+      enable: false
+
+  highlight:
+    copy:
+      enable: true
+      display: hover
+
+  search:
+    enable: true
+    type: flexsearch
+    flexsearch:
+      index: content
+      tokenize: forward
