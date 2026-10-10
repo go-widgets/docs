@@ -74,8 +74,17 @@ Measured with `govulncheck` (symbol level: only code the module can reach) on
   go1.27.1 (`html/template`, `net/http`, `crypto/tls`, `mime/multipart`; fixed
   in go1.27.2) and in `golang.org/x/net` v0.58.0 (`http2`, through gRPC in
   `data`; fixed in v0.60.0).
-- Every module's CI now builds with go1.27.2, and the dependency updates that
-  bring `x/net` v0.60.0 are the next releases.
+- Fixed the same evening. Every module's CI builds with go1.27.2, and every
+  module requires `x/net` v0.60.0. It is an indirect requirement in most of
+  them, which Renovate does not update, so it was raised by hand. A second
+  `govulncheck` pass over all 19 modules finds no reachable vulnerability.
+- Released: android v0.16.0, app-template v0.5.0, application v0.8.0,
+  bricolint v0.4.1, data v0.4.0, mvvm v0.15.0, mvvmlint v0.4.1, mvvmtk
+  v0.15.0, painter v0.16.0, skin v0.3.0, svg v0.7.0, tray v0.15.0, webcanvas
+  v0.4.1, window v0.89.0, each version derived from its API by `gorelease`.
+  toolkit, tui, desktop, gallery and isoicons are fixed on `main` and not yet
+  tagged: `gorelease` cannot read their module graph, which reaches a module
+  `github.com/ajroetker/go-highway/hwy/goat` that was never published.
 - The workflows of all 23 repositories (31 files) were audited with
   `actionlint` and `wfaudit`: no privileged trigger, no write grant at the
   workflow level, no token left in an uploaded checkout, no untrusted

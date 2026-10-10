@@ -77,8 +77,18 @@ puede alcanzar) el 2026-10-10:
   de go1.27.1 (`html/template`, `net/http`, `crypto/tls`, `mime/multipart`;
   corregido en go1.27.2) y en `golang.org/x/net` v0.58.0 (`http2`, a través de
   gRPC en `data`; corregido en v0.60.0).
-- La CI de todos los módulos compila ya con go1.27.2, y las actualizaciones de
-  dependencias que traen `x/net` v0.60.0 son las próximas versiones.
+- Corregido esa misma noche. La CI de todos los módulos compila con go1.27.2, y
+  todos los módulos requieren `x/net` v0.60.0. En la mayoría es una dependencia
+  indirecta, que Renovate no actualiza, así que se subió a mano. Una segunda
+  pasada de `govulncheck` sobre los 19 módulos no encuentra ninguna
+  vulnerabilidad alcanzable.
+- Publicados: android v0.16.0, app-template v0.5.0, application v0.8.0,
+  bricolint v0.4.1, data v0.4.0, mvvm v0.15.0, mvvmlint v0.4.1, mvvmtk
+  v0.15.0, painter v0.16.0, skin v0.3.0, svg v0.7.0, tray v0.15.0, webcanvas
+  v0.4.1, window v0.89.0, cada versión deducida de su API por `gorelease`.
+  toolkit, tui, desktop, gallery e isoicons están corregidos en `main` pero aún
+  sin etiqueta: `gorelease` no puede leer su grafo de módulos, que alcanza un
+  módulo `github.com/ajroetker/go-highway/hwy/goat` que nunca se publicó.
 - Los workflows de los 23 repositorios (31 archivos) se auditaron con
   `actionlint` y `wfaudit`: ningún disparador privilegiado, ningún permiso de
   escritura a nivel de workflow, ningún token olvidado en un checkout subido,
