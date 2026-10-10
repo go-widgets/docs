@@ -10,7 +10,7 @@ tags: [surfaces, back-ends]
 |---|---|---|
 | [A native window]({{< relref "/surfaces/native-window.md" >}}) on X11, Wayland, macOS, Windows | `window` | pixels |
 | [An application]({{< relref "/surfaces/application.md" >}}) with a tray icon and the system appearance | `application`, `tray` | pixels |
-| [A browser tab]({{< relref "/surfaces/browser.md" >}}): a plain `<canvas>` | `webcanvas` | pixels |
+| [A browser tab]({{< relref "/surfaces/browser.md" >}}): a plain `<canvas>` | `webcanvas`, or `window` | pixels |
 | [A browser desktop]({{< relref "/surfaces/browser.md#a-window-on-the-wasmdesk-desktop" >}}): a window of the wasmdesk compositor | `window` (wasmbox) | pixels |
 | [A terminal]({{< relref "/surfaces/terminal.md" >}}) | `tui` | cells |
 | [An Android APK]({{< relref "/surfaces/android.md" >}}) | `android`, `window` | pixels |

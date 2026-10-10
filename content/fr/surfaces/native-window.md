@@ -2,7 +2,7 @@
 title: "Une fenêtre native"
 linkTitle: "Fenêtre native"
 weight: 10
-description: "go-widgets/window : une seule API Open/Run sur X11, Wayland, Cocoa, Win32, GTK4, Android et wasmbox, toutes avec CGO_ENABLED=0."
+description: "go-widgets/window : une seule API Open/Run sur X11, Wayland, GTK4, Cocoa, Win32, Android, wasmbox et un onglet de navigateur, toutes avec CGO_ENABLED=0."
 tags: [surfaces, window, x11, wayland, macos, windows]
 ---
 
@@ -34,7 +34,8 @@ taille lisible par défaut), l'instance et la classe `WM_CLASS`, un `Theme`, et 
 | Windows | Win32 | un `HWND` de premier niveau via des appels système à user32 et gdi32, `StretchDIBits` |
 | Android, `$GW_ANDROID_SOCKET` défini | hôte Android | un protocole tramé vers [l'hôte Java]({{< relref "/surfaces/android.md" >}}), les pixels dans un memfd partagé |
 | Android, sinon | Wayland ou X11 | un shell sous Termux a toujours un serveur d'affichage à contacter |
-| `js/wasm` | wasmbox | un client du [compositeur wasmdesk]({{< relref "/surfaces/browser.md#a-window-on-the-wasmdesk-desktop" >}}) |
+| `js/wasm`, dans wasmdesk | wasmbox | un client du [compositeur wasmdesk]({{< relref "/surfaces/browser.md#a-window-on-the-wasmdesk-desktop" >}}) |
+| `js/wasm`, une page ordinaire | onglet de navigateur | un `<canvas>` de la page (`Config.Canvas`, par défaut `"screen"`) via `webcanvas` : pas de compositeur, pas de `SharedArrayBuffer`, pas d'isolation cross-origin |
 | tout le reste | — | `window.ErrUnsupported`, pour qu'une compilation croisée compile quand même |
 
 Chaque back-end est `CGO_ENABLED=0`. Celui de X11 est le protocole de base écrit
@@ -53,8 +54,10 @@ sur chaque système d'exploitation. La fine couche de liaison avec la plateforme
 ## Seulement ce qui a changé {#only-what-changed}
 
 Une racine qui implémente `DamageRenderer` (comme le fait `toolkit/scene.HostRoot`)
-signale les rectangles qu'elle a repeints, et les back-ends Cocoa, Win32 et wasmbox
-ne présentent que ceux-là.
+signale les rectangles qu'elle a repeints, et chaque back-end sauf GTK4 ne présente que
+ceux-là : X11 via `ShmPutImage` de MIT-SHM, Wayland via les zones endommagées de `wl_shm`,
+Cocoa, Win32, Android, wasmbox et l'onglet de navigateur. La première image, un
+redimensionnement et un `Expose` X11 présentent encore toute la surface.
 
 ## HiDPI {#hidpi}
 
@@ -83,7 +86,7 @@ la fermer, puis la ramènent — ce dont a besoin une [application de zone de no
 | Wayland | nouveau commit | tampon nul et commit | `ErrNotSupported` : xdg-shell n'a pas de telle requête |
 | macOS | `orderFront:` | `orderOut:` | activer l'application, `makeKeyAndOrderFront:` |
 | Windows | `SW_SHOWNA` | `SW_HIDE` | `SW_RESTORE` et `SetForegroundWindow` |
-| GTK, Android, wasmbox | `ErrNotSupported` | `ErrNotSupported` | `ErrNotSupported` |
+| GTK, Android, wasmbox, onglet de navigateur | `ErrNotSupported` | `ErrNotSupported` | `ErrNotSupported` |
 
 Le focus, c'est à la plateforme de l'accorder : avec la prévention du vol de focus, `Raise`
 peut seulement marquer la fenêtre comme demandant l'attention, sans pouvoir le savoir.

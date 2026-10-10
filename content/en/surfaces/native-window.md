@@ -2,7 +2,7 @@
 title: "A native window"
 linkTitle: "Native window"
 weight: 10
-description: "go-widgets/window: one Open/Run API over X11, Wayland, Cocoa, Win32, GTK4, Android and wasmbox, all with CGO_ENABLED=0."
+description: "go-widgets/window: one Open/Run API over X11, Wayland, GTK4, Cocoa, Win32, Android, wasmbox and a browser tab, all with CGO_ENABLED=0."
 tags: [surfaces, window, x11, wayland, macos, windows]
 ---
 
@@ -34,7 +34,8 @@ readable default), the `WM_CLASS` instance and class, a `Theme`, and a
 | Windows | Win32 | a top-level `HWND` through user32 and gdi32 syscalls, `StretchDIBits` |
 | Android, `$GW_ANDROID_SOCKET` set | Android host | a framed protocol to [the Java host]({{< relref "/surfaces/android.md" >}}), pixels in a shared memfd |
 | Android, otherwise | Wayland or X11 | a shell under Termux still has a display server to dial |
-| `js/wasm` | wasmbox | a client of the [wasmdesk compositor]({{< relref "/surfaces/browser.md#a-window-on-the-wasmdesk-desktop" >}}) |
+| `js/wasm`, inside wasmdesk | wasmbox | a client of the [wasmdesk compositor]({{< relref "/surfaces/browser.md#a-window-on-the-wasmdesk-desktop" >}}) |
+| `js/wasm`, an ordinary page | browser tab | a `<canvas>` of the page (`Config.Canvas`, default `"screen"`) through `webcanvas`: no compositor, no `SharedArrayBuffer`, no cross-origin isolation |
 | anything else | — | `window.ErrUnsupported`, so a cross-build still compiles |
 
 Every back-end is `CGO_ENABLED=0`. The X11 one is the core protocol written
@@ -53,8 +54,10 @@ on every operating system. The thin platform glue is proven live: see
 ## Only what changed
 
 A root that implements `DamageRenderer` (as `toolkit/scene.HostRoot` does)
-reports the rectangles it repainted, and the Cocoa, Win32 and wasmbox
-back-ends present only those.
+reports the rectangles it repainted, and every back-end but GTK4 presents only
+those: X11 through MIT-SHM `ShmPutImage`, Wayland through `wl_shm` damage,
+Cocoa, Win32, Android, wasmbox and the browser tab. The first frame, a
+resize and an X11 `Expose` still present the whole surface.
 
 ## HiDPI
 
@@ -84,7 +87,7 @@ needs.
 | Wayland | commit again | null buffer and commit | `ErrNotSupported`: xdg-shell has no such request |
 | macOS | `orderFront:` | `orderOut:` | activate the app, `makeKeyAndOrderFront:` |
 | Windows | `SW_SHOWNA` | `SW_HIDE` | `SW_RESTORE` and `SetForegroundWindow` |
-| GTK, Android, wasmbox | `ErrNotSupported` | `ErrNotSupported` | `ErrNotSupported` |
+| GTK, Android, wasmbox, browser tab | `ErrNotSupported` | `ErrNotSupported` | `ErrNotSupported` |
 
 Focus is the platform's to grant: under focus-stealing prevention, `Raise`
 may only mark the window as wanting attention, and cannot tell.

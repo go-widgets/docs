@@ -48,17 +48,36 @@ platform itself was asked:
   links without cgo.
 - `window.Screens` returns `ErrScreensUnsupported` on `js/wasm`.
 
-## What CI does not cover yet
+## What CI covers {#what-ci-does-not-cover-yet}
 
-Measured from each repository's workflows at the tags above:
+On 2026-10-10 the five gaps this page listed were closed:
 
-| Module | Gap |
-|---|---|
-| `mvvmtk` | no coverage gate; cross-builds amd64 and arm64 only, on six operating systems |
-| `application` | cross-builds Linux, macOS and Windows on amd64 only |
-| `tray` | cross-builds four OS/architecture pairs |
-| `mvvmlint` | no cross-build |
-| `bricolint` | its "6 arches" step builds five: loong64 is missing |
+| Module | Was | Now |
+|---|---|---|
+| `mvvmtk` | no coverage gate; amd64 and arm64 only | the exact 100% gate the toolkit uses (it stood at 100.0% already); Linux on all six |
+| `application` | Linux, macOS and Windows on amd64 only | Linux on all six; macOS and Windows on amd64 and arm64 |
+| `tray` | five OS/architecture pairs | Linux on all six, macOS on two, Windows on one |
+| `mvvmlint` | no cross-build | Linux on all six, macOS and Windows |
+| `bricolint` | a "6 arches" step that built five | loong64 added |
 
+So all seventeen libraries and tools now cross-build for the six 64-bit
+Linux architectures, and all nineteen gate at 100% statement coverage.
 `app-template` and `gallery` are browser applications and build for `js/wasm`,
 which is their only target.
+
+## Security {#security}
+
+Measured with `govulncheck` (symbol level: only code the module can reach) on
+2026-10-10:
+
+- 15 of the 19 modules reached vulnerable code: in the standard library of
+  go1.27.1 (`html/template`, `net/http`, `crypto/tls`, `mime/multipart`; fixed
+  in go1.27.2) and in `golang.org/x/net` v0.58.0 (`http2`, through gRPC in
+  `data`; fixed in v0.60.0).
+- Every module's CI now builds with go1.27.2, and the dependency updates that
+  bring `x/net` v0.60.0 are the next releases.
+- The workflows of all 23 repositories (31 files) were audited with
+  `actionlint` and `wfaudit`: no privileged trigger, no write grant at the
+  workflow level, no token left in an uploaded checkout, no untrusted
+  expression in a shell step. Every workflow declares its permissions, so
+  none depends on a repository's default token.

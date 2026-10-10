@@ -34,9 +34,16 @@ is not repainted. It may also implement `Ticker`, `Animator`, `Resizer` or
 The [gallery](https://go-widgets.github.io/gallery/) and
 [`app-template`]({{< relref "/getting-started.md" >}}) run this way.
 
+Or let `window` choose. Since window v0.87.0,
+[`window.Open`]({{< relref "/surfaces/native-window.md#how-open-chooses" >}})
+built for `js/wasm` on an ordinary page returns a back-end that draws into the
+page's `<canvas>` (`Config.Canvas`, default `"screen"`) through `webcanvas`. An
+application written against `window` then runs unchanged as a native window, in
+a browser tab, and in wasmdesk.
+
 ## A window on the wasmdesk desktop
 
-On `js/wasm`, [`window.Open`]({{< relref "/surfaces/native-window.md" >}})
+Inside a wasmdesk worker, [`window.Open`]({{< relref "/surfaces/native-window.md" >}})
 returns a client of the [wasmdesk/wasmbox](https://github.com/wasmdesk/wasmbox)
 browser compositor. It allocates its surface in a `SharedArrayBuffer`, says
 `hello` over its `MessagePort`, waits for `welcome`, paints into the shared

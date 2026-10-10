@@ -50,17 +50,38 @@ los que se interrogó a la propia plataforma:
   enlaza sin cgo.
 - `window.Screens` devuelve `ErrScreensUnsupported` en `js/wasm`.
 
-## Lo que la CI aún no cubre {#what-ci-does-not-cover-yet}
+## Lo que cubre la CI {#what-ci-does-not-cover-yet}
 
-Medido a partir de los workflows de cada repositorio en las etiquetas anteriores:
+El 2026-10-10 se cerraron las cinco carencias que esta página enumeraba:
 
-| Módulo | Carencia |
-|---|---|
-| `mvvmtk` | sin barrera de cobertura; compilación cruzada solo para amd64 y arm64, en seis sistemas operativos |
-| `application` | compilación cruzada para Linux, macOS y Windows solo en amd64 |
-| `tray` | compilación cruzada para cuatro pares sistema operativo/arquitectura |
-| `mvvmlint` | sin compilación cruzada |
-| `bricolint` | su paso «6 arches» compila cinco: falta loong64 |
+| Módulo | Antes | Ahora |
+|---|---|---|
+| `mvvmtk` | sin barrera de cobertura; solo amd64 y arm64 | exactamente la barrera del 100 % que usa el toolkit (ya estaba en el 100,0 %); Linux en las seis |
+| `application` | Linux, macOS y Windows solo en amd64 | Linux en las seis; macOS y Windows en amd64 y arm64 |
+| `tray` | cinco pares sistema operativo/arquitectura | Linux en las seis, macOS en dos, Windows en una |
+| `mvvmlint` | sin compilación cruzada | Linux en las seis, macOS y Windows |
+| `bricolint` | un paso «6 arches» que compilaba cinco | loong64 añadida |
 
+Así, las diecisiete bibliotecas y herramientas se compilan ya de forma cruzada
+para las seis arquitecturas Linux de 64 bits, y los diecinueve módulos tienen
+una barrera del 100 % de cobertura de sentencias.
 `app-template` y `gallery` son aplicaciones de navegador y se compilan para
 `js/wasm`, que es su único destino.
+
+## Seguridad {#security}
+
+Medido con `govulncheck` (a nivel de símbolo: solo el código que el módulo
+puede alcanzar) el 2026-10-10:
+
+- 15 de los 19 módulos alcanzaban código vulnerable: en la biblioteca estándar
+  de go1.27.1 (`html/template`, `net/http`, `crypto/tls`, `mime/multipart`;
+  corregido en go1.27.2) y en `golang.org/x/net` v0.58.0 (`http2`, a través de
+  gRPC en `data`; corregido en v0.60.0).
+- La CI de todos los módulos compila ya con go1.27.2, y las actualizaciones de
+  dependencias que traen `x/net` v0.60.0 son las próximas versiones.
+- Los workflows de los 23 repositorios (31 archivos) se auditaron con
+  `actionlint` y `wfaudit`: ningún disparador privilegiado, ningún permiso de
+  escritura a nivel de workflow, ningún token olvidado en un checkout subido,
+  ninguna expresión no confiable en un paso de shell. Todos los workflows
+  declaran sus permisos, de modo que ninguno depende del token por defecto de
+  un repositorio.

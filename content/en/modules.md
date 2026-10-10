@@ -19,7 +19,7 @@ writing — the repository's own tag list is the authority.
 | [`mvvm`](https://github.com/go-widgets/mvvm) | v0.13.0 | [observables, commands, binders, undo]({{< relref "/state/mvvm.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvm) |
 | [`mvvmtk`](https://github.com/go-widgets/mvvmtk) | v0.14.1 | [one-call binders for toolkit widgets]({{< relref "/state/mvvm.md#mvvmtk-one-call-per-widget" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvmtk) |
 | [`data`](https://github.com/go-widgets/data) | v0.3.0 | [typed records, queries, a local or remote store]({{< relref "/state/data.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/data) |
-| [`window`](https://github.com/go-widgets/window) | v0.86.1 | [a native window]({{< relref "/surfaces/native-window.md" >}}) on seven back-ends | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/window) |
+| [`window`](https://github.com/go-widgets/window) | v0.86.1 | [a native window]({{< relref "/surfaces/native-window.md" >}}) on eight back-ends | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/window) |
 | [`application`](https://github.com/go-widgets/application) | v0.7.0 | [the application lifecycle]({{< relref "/surfaces/application.md" >}}) above a window | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/application) |
 | [`tray`](https://github.com/go-widgets/tray) | v0.14.0 | [a tray icon and its menu]({{< relref "/surfaces/application.md#the-tray" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/tray) |
 | [`webcanvas`](https://github.com/go-widgets/webcanvas) | v0.2.0 | [a scene in a browser `<canvas>`]({{< relref "/surfaces/browser.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/webcanvas) |
@@ -38,9 +38,9 @@ writing — the repository's own tag list is the authority.
   of a library.
 - Cross-compiled for amd64, arm64, riscv64, loong64, ppc64le and s390x — the
   last big-endian, which keeps every wire encoding honest — and, where it
-  applies, `js/wasm`. Twelve of the nineteen do all six today, two are
-  browser applications, and the other five are listed in [Status]({{< relref "/status.md#what-ci-does-not-cover-yet" >}}).
-- A statement-coverage gate in CI: 100% in eighteen of the nineteen. Where a
+  applies, `js/wasm`. All seventeen libraries and tools do since 2026-10-10;
+  the other two are browser applications ([Status]({{< relref "/status.md#what-ci-does-not-cover-yet" >}})).
+- A statement-coverage gate in CI: 100%, in all nineteen. Where a
   file cannot run in a test (a browser loop, a native run loop), the module
   says which file is left out and why. See [Status]({{< relref "/status.md" >}})
   for the exceptions.

@@ -19,7 +19,7 @@ de escribir; la autoridad es la lista de etiquetas del propio repositorio.
 | [`mvvm`](https://github.com/go-widgets/mvvm) | v0.13.0 | [observables, comandos, binders, deshacer]({{< relref "/state/mvvm.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvm) |
 | [`mvvmtk`](https://github.com/go-widgets/mvvmtk) | v0.14.1 | [binders de una sola llamada para los widgets del toolkit]({{< relref "/state/mvvm.md#mvvmtk-one-call-per-widget" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvmtk) |
 | [`data`](https://github.com/go-widgets/data) | v0.3.0 | [registros tipados, consultas, un almacén local o remoto]({{< relref "/state/data.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/data) |
-| [`window`](https://github.com/go-widgets/window) | v0.86.1 | [una ventana nativa]({{< relref "/surfaces/native-window.md" >}}) sobre siete backends | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/window) |
+| [`window`](https://github.com/go-widgets/window) | v0.86.1 | [una ventana nativa]({{< relref "/surfaces/native-window.md" >}}) sobre ocho backends | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/window) |
 | [`application`](https://github.com/go-widgets/application) | v0.7.0 | [el ciclo de vida de la aplicación]({{< relref "/surfaces/application.md" >}}) por encima de una ventana | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/application) |
 | [`tray`](https://github.com/go-widgets/tray) | v0.14.0 | [un icono de bandeja y su menú]({{< relref "/surfaces/application.md#the-tray" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/tray) |
 | [`webcanvas`](https://github.com/go-widgets/webcanvas) | v0.2.0 | [una escena en un `<canvas>` de navegador]({{< relref "/surfaces/browser.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/webcanvas) |
@@ -38,10 +38,10 @@ de escribir; la autoridad es la lista de etiquetas del propio repositorio.
   comandos en lugar de una biblioteca.
 - Compilación cruzada para amd64, arm64, riscv64, loong64, ppc64le y s390x
   —esta última big-endian, lo que mantiene honesta cada codificación binaria— y,
-  cuando procede, `js/wasm`. Doce de los diecinueve cubren hoy las seis, dos son
-  aplicaciones de navegador y los otros cinco figuran en [Estado]({{< relref "/status.md#what-ci-does-not-cover-yet" >}}).
-- Una barrera de cobertura de sentencias en la CI: 100 % en dieciocho de los
-  diecinueve. Cuando un archivo no puede ejecutarse en una prueba (un bucle de
+  cuando procede, `js/wasm`. Las diecisiete bibliotecas y herramientas lo hacen
+  desde el 2026-10-10; los otros dos son aplicaciones de navegador ([Estado]({{< relref "/status.md#what-ci-does-not-cover-yet" >}})).
+- Una barrera de cobertura de sentencias en la CI: 100 %, en los diecinueve.
+  Cuando un archivo no puede ejecutarse en una prueba (un bucle de
   navegador, un bucle de ejecución nativo), el módulo indica qué archivo queda
   fuera y por qué. Consulte [Estado]({{< relref "/status.md" >}}) para las
   excepciones.

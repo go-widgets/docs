@@ -48,17 +48,37 @@ die Plattform selbst gefragt wurde:
   ohne cgo linkt.
 - `window.Screens` gibt unter `js/wasm` `ErrScreensUnsupported` zurück.
 
-## Was die CI noch nicht abdeckt {#what-ci-does-not-cover-yet}
+## Was die CI abdeckt {#what-ci-does-not-cover-yet}
 
-Gemessen an den Workflows jedes Repositorys in den oben genannten Tags:
+Am 2026-10-10 wurden die fünf Lücken geschlossen, die diese Seite aufführte:
 
-| Modul | Lücke |
-|---|---|
-| `mvvmtk` | keine Coverage-Schranke; Cross-Builds nur für amd64 und arm64, auf sechs Betriebssystemen |
-| `application` | Cross-Builds für Linux, macOS und Windows nur auf amd64 |
-| `tray` | Cross-Builds für vier Paare aus Betriebssystem und Architektur |
-| `mvvmlint` | kein Cross-Build |
-| `bricolint` | sein Schritt „6 arches" baut fünf: loong64 fehlt |
+| Modul | Vorher | Jetzt |
+|---|---|---|
+| `mvvmtk` | keine Coverage-Schranke; nur amd64 und arm64 | genau die 100-%-Schranke des Toolkits (es lag bereits bei 100,0 %); Linux auf allen sechs |
+| `application` | Linux, macOS und Windows nur auf amd64 | Linux auf allen sechs; macOS und Windows auf amd64 und arm64 |
+| `tray` | fünf Paare aus Betriebssystem und Architektur | Linux auf allen sechs, macOS auf zwei, Windows auf einer |
+| `mvvmlint` | kein Cross-Build | Linux auf allen sechs, macOS und Windows |
+| `bricolint` | ein Schritt „6 arches", der fünf baute | loong64 hinzugefügt |
 
+Damit bauen nun alle siebzehn Bibliotheken und Werkzeuge per Cross-Build für die
+sechs 64-Bit-Linux-Architekturen, und alle neunzehn haben eine Schranke bei 100 %
+Anweisungsabdeckung.
 `app-template` und `gallery` sind Browser-Anwendungen und bauen für `js/wasm`,
 ihr einziges Ziel.
+
+## Sicherheit {#security}
+
+Gemessen mit `govulncheck` (auf Symbolebene: nur Code, den das Modul erreichen kann)
+am 2026-10-10:
+
+- 15 der 19 Module erreichten verwundbaren Code: in der Standardbibliothek von
+  go1.27.1 (`html/template`, `net/http`, `crypto/tls`, `mime/multipart`; behoben
+  in go1.27.2) und in `golang.org/x/net` v0.58.0 (`http2`, über gRPC in
+  `data`; behoben in v0.60.0).
+- Die CI jedes Moduls baut nun mit go1.27.2, und die Abhängigkeitsupdates, die
+  `x/net` v0.60.0 bringen, sind die nächsten Releases.
+- Die Workflows aller 23 Repositorys (31 Dateien) wurden mit
+  `actionlint` und `wfaudit` geprüft: kein privilegierter Trigger, keine
+  Schreibberechtigung auf Workflow-Ebene, kein Token in einem hochgeladenen Checkout,
+  kein nicht vertrauenswürdiger Ausdruck in einem Shell-Schritt. Jeder Workflow
+  deklariert seine Berechtigungen, sodass keiner vom Standard-Token eines Repositorys abhängt.

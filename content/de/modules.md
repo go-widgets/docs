@@ -19,7 +19,7 @@ Schreibens – maßgeblich ist die Tag-Liste des jeweiligen Repositorys.
 | [`mvvm`](https://github.com/go-widgets/mvvm) | v0.13.0 | [Observables, Commands, Binder, Rückgängig]({{< relref "/state/mvvm.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvm) |
 | [`mvvmtk`](https://github.com/go-widgets/mvvmtk) | v0.14.1 | [Binder mit einem Aufruf für Toolkit-Widgets]({{< relref "/state/mvvm.md#mvvmtk-one-call-per-widget" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvmtk) |
 | [`data`](https://github.com/go-widgets/data) | v0.3.0 | [typisierte Datensätze, Abfragen, ein lokaler oder entfernter Speicher]({{< relref "/state/data.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/data) |
-| [`window`](https://github.com/go-widgets/window) | v0.86.1 | [ein natives Fenster]({{< relref "/surfaces/native-window.md" >}}) auf sieben Back-Ends | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/window) |
+| [`window`](https://github.com/go-widgets/window) | v0.86.1 | [ein natives Fenster]({{< relref "/surfaces/native-window.md" >}}) auf acht Back-Ends | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/window) |
 | [`application`](https://github.com/go-widgets/application) | v0.7.0 | [der Anwendungslebenszyklus]({{< relref "/surfaces/application.md" >}}) oberhalb eines Fensters | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/application) |
 | [`tray`](https://github.com/go-widgets/tray) | v0.14.0 | [ein Tray-Symbol und sein Menü]({{< relref "/surfaces/application.md#the-tray" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/tray) |
 | [`webcanvas`](https://github.com/go-widgets/webcanvas) | v0.2.0 | [eine Szene in einem Browser-`<canvas>`]({{< relref "/surfaces/browser.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/webcanvas) |
@@ -38,9 +38,9 @@ Schreibens – maßgeblich ist die Tag-Liste des jeweiligen Repositorys.
   einer Bibliothek.
 - Cross-kompiliert für amd64, arm64, riscv64, loong64, ppc64le und s390x – letzteres
   Big-Endian, was jede Wire-Kodierung ehrlich hält – und, wo es zutrifft,
-  `js/wasm`. Zwölf der neunzehn schaffen heute alle sechs, zwei sind
-  Browser-Anwendungen, und die übrigen fünf sind unter [Stand]({{< relref "/status.md#what-ci-does-not-cover-yet" >}}) aufgeführt.
-- Eine Schranke für die Anweisungsabdeckung in der CI: 100 % bei achtzehn der neunzehn. Wo eine
+  `js/wasm`. Alle siebzehn Bibliotheken und Werkzeuge tun das seit dem 2026-10-10;
+  die übrigen zwei sind Browser-Anwendungen ([Stand]({{< relref "/status.md#what-ci-does-not-cover-yet" >}})).
+- Eine Schranke für die Anweisungsabdeckung in der CI: 100 %, bei allen neunzehn. Wo eine
   Datei nicht in einem Test laufen kann (eine Browser-Schleife, eine native Run-Loop), sagt das Modul,
   welche Datei ausgenommen ist und warum. Die Ausnahmen stehen unter [Stand]({{< relref "/status.md" >}}).
 - BSD-3-Clause.

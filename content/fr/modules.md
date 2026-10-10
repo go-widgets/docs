@@ -19,7 +19,7 @@ rédaction — la liste des étiquettes du dépôt lui-même fait foi.
 | [`mvvm`](https://github.com/go-widgets/mvvm) | v0.13.0 | [observables, commandes, binders, annulation]({{< relref "/state/mvvm.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvm) |
 | [`mvvmtk`](https://github.com/go-widgets/mvvmtk) | v0.14.1 | [des binders en un appel pour les widgets de la boîte à outils]({{< relref "/state/mvvm.md#mvvmtk-one-call-per-widget" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvmtk) |
 | [`data`](https://github.com/go-widgets/data) | v0.3.0 | [enregistrements typés, requêtes, stockage local ou distant]({{< relref "/state/data.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/data) |
-| [`window`](https://github.com/go-widgets/window) | v0.86.1 | [une fenêtre native]({{< relref "/surfaces/native-window.md" >}}) sur sept back-ends | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/window) |
+| [`window`](https://github.com/go-widgets/window) | v0.86.1 | [une fenêtre native]({{< relref "/surfaces/native-window.md" >}}) sur huit back-ends | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/window) |
 | [`application`](https://github.com/go-widgets/application) | v0.7.0 | [le cycle de vie de l'application]({{< relref "/surfaces/application.md" >}}) au-dessus d'une fenêtre | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/application) |
 | [`tray`](https://github.com/go-widgets/tray) | v0.14.0 | [une icône de zone de notification et son menu]({{< relref "/surfaces/application.md#the-tray" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/tray) |
 | [`webcanvas`](https://github.com/go-widgets/webcanvas) | v0.2.0 | [une scène dans un `<canvas>` de navigateur]({{< relref "/surfaces/browser.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/webcanvas) |
@@ -38,9 +38,9 @@ rédaction — la liste des étiquettes du dépôt lui-même fait foi.
   d'une bibliothèque.
 - Compilé de manière croisée pour amd64, arm64, riscv64, loong64, ppc64le et s390x — ce dernier
   en gros-boutiste, ce qui garde chaque encodage binaire honnête — et, quand cela
-  s'applique, `js/wasm`. Douze des dix-neuf couvrent les six aujourd'hui, deux sont des
-  applications de navigateur, et les cinq autres sont listés dans [État]({{< relref "/status.md#what-ci-does-not-cover-yet" >}}).
-- Une barrière de couverture des instructions dans la CI : 100 % dans dix-huit des dix-neuf. Quand un
+  s'applique, `js/wasm`. Les dix-sept bibliothèques et outils le font tous depuis le 2026-10-10 ;
+  les deux autres sont des applications de navigateur ([État]({{< relref "/status.md#what-ci-does-not-cover-yet" >}})).
+- Une barrière de couverture des instructions dans la CI : 100 %, dans les dix-neuf. Quand un
   fichier ne peut pas s'exécuter dans un test (une boucle de navigateur, une boucle d'exécution native), le module
   indique quel fichier est laissé de côté et pourquoi. Voir [État]({{< relref "/status.md" >}})
   pour les exceptions.
