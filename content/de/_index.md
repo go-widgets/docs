@@ -61,7 +61,7 @@ Plattformen cross-kompilieren lässt.
 | [MVVM]({{< relref "/state/mvvm.md" >}}) | Observables, Commands, Binder, Rückgängig |
 | [Das Daten-Rückgrat]({{< relref "/state/data.md" >}}) | typisierte Datensätze, Abfragen, ein lokaler oder entfernter Speicher |
 | [Wohin es zeichnet]({{< relref "/surfaces/_index.md" >}}) | jedes Back-End und wie es ausgewählt wird |
-| [Ein natives Fenster]({{< relref "/surfaces/native-window.md" >}}) | X11, Wayland, Cocoa, Win32, GTK4, Android, wasmbox |
+| [Ein natives Fenster]({{< relref "/surfaces/native-window.md" >}}) | X11, Wayland, Cocoa, Win32, GTK4, Android, wasmbox, ein Browser-Tab |
 | [Eine Anwendung und ihr Tray]({{< relref "/surfaces/application.md" >}}) | Lebenszyklus, Erscheinungsbild, ein Menüleisten-Symbol |
 | [Ein Browser-Tab]({{< relref "/surfaces/browser.md" >}}) | ein einfaches `<canvas>` oder ein wasmdesk-Fenster |
 | [Ein Terminal]({{< relref "/surfaces/terminal.md" >}}) | zellennative Widgets und ein interaktiver Runner |

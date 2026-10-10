@@ -48,17 +48,45 @@ platform itself was asked:
   links without cgo.
 - `window.Screens` returns `ErrScreensUnsupported` on `js/wasm`.
 
-## What CI does not cover yet
+## What CI covers {#what-ci-does-not-cover-yet}
 
-Measured from each repository's workflows at the tags above:
+On 2026-10-10 the five gaps this page listed were closed:
 
-| Module | Gap |
-|---|---|
-| `mvvmtk` | no coverage gate; cross-builds amd64 and arm64 only, on six operating systems |
-| `application` | cross-builds Linux, macOS and Windows on amd64 only |
-| `tray` | cross-builds four OS/architecture pairs |
-| `mvvmlint` | no cross-build |
-| `bricolint` | its "6 arches" step builds five: loong64 is missing |
+| Module | Was | Now |
+|---|---|---|
+| `mvvmtk` | no coverage gate; amd64 and arm64 only | the exact 100% gate the toolkit uses (it stood at 100.0% already); Linux on all six |
+| `application` | Linux, macOS and Windows on amd64 only | Linux on all six; macOS and Windows on amd64 and arm64 |
+| `tray` | five OS/architecture pairs | Linux on all six, macOS on two, Windows on one |
+| `mvvmlint` | no cross-build | Linux on all six, macOS and Windows |
+| `bricolint` | a "6 arches" step that built five | loong64 added |
 
+So all seventeen libraries and tools now cross-build for the six 64-bit
+Linux architectures, and all nineteen gate at 100% statement coverage.
 `app-template` and `gallery` are browser applications and build for `js/wasm`,
 which is their only target.
+
+## Security {#security}
+
+Measured with `govulncheck` (symbol level: only code the module can reach) on
+2026-10-10:
+
+- 15 of the 19 modules reached vulnerable code: in the standard library of
+  go1.27.1 (`html/template`, `net/http`, `crypto/tls`, `mime/multipart`; fixed
+  in go1.27.2) and in `golang.org/x/net` v0.58.0 (`http2`, through gRPC in
+  `data`; fixed in v0.60.0).
+- Fixed the same evening. Every module's CI builds with go1.27.2, and every
+  module requires `x/net` v0.60.0. It is an indirect requirement in most of
+  them, which Renovate does not update, so it was raised by hand. A second
+  `govulncheck` pass over all 19 modules finds no reachable vulnerability.
+- Released: android v0.16.0, app-template v0.5.0, application v0.8.0,
+  bricolint v0.4.1, data v0.4.0, mvvm v0.15.0, mvvmlint v0.4.1, mvvmtk
+  v0.15.0, painter v0.16.0, skin v0.3.0, svg v0.7.0, tray v0.15.0, webcanvas
+  v0.4.1, window v0.89.0, each version derived from its API by `gorelease`.
+  toolkit, tui, desktop, gallery and isoicons are fixed on `main` and not yet
+  tagged: `gorelease` cannot read their module graph, which reaches a module
+  `github.com/ajroetker/go-highway/hwy/goat` that was never published.
+- The workflows of all 23 repositories (31 files) were audited with
+  `actionlint` and `wfaudit`: no privileged trigger, no write grant at the
+  workflow level, no token left in an uploaded checkout, no untrusted
+  expression in a shell step. Every workflow declares its permissions, so
+  none depends on a repository's default token.

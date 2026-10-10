@@ -61,7 +61,7 @@ compila de forma cruzada desde cualquier máquina hacia cualquiera de ellas.
 | [MVVM]({{< relref "/state/mvvm.md" >}}) | observables, comandos, binders, deshacer |
 | [La columna vertebral de datos]({{< relref "/state/data.md" >}}) | registros tipados, consultas, un almacén local o remoto |
 | [Dónde pinta]({{< relref "/surfaces/_index.md" >}}) | cada backend y cómo se elige |
-| [Una ventana nativa]({{< relref "/surfaces/native-window.md" >}}) | X11, Wayland, Cocoa, Win32, GTK4, Android, wasmbox |
+| [Una ventana nativa]({{< relref "/surfaces/native-window.md" >}}) | X11, Wayland, Cocoa, Win32, GTK4, Android, wasmbox, una pestaña del navegador |
 | [Una aplicación y su bandeja]({{< relref "/surfaces/application.md" >}}) | ciclo de vida, apariencia, un icono en la barra de menús |
 | [Una pestaña del navegador]({{< relref "/surfaces/browser.md" >}}) | un simple `<canvas>`, o una ventana de wasmdesk |
 | [Un terminal]({{< relref "/surfaces/terminal.md" >}}) | widgets nativos de celdas y un ejecutor interactivo |
