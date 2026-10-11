@@ -26,7 +26,7 @@ rédaction — la liste des étiquettes du dépôt lui-même fait foi.
 | [`tui`](https://github.com/go-widgets/tui) | v0.62.0 | [rendu en terminal et widgets natifs en cellules]({{< relref "/surfaces/terminal.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/tui) |
 | [`android`](https://github.com/go-widgets/android) | v0.16.0 | [un APK peint par un processus sans CGO]({{< relref "/surfaces/android.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/android) |
 | [`svg`](https://github.com/go-widgets/svg) | v0.7.0 | [un rendu en SVG ou en PNG]({{< relref "/surfaces/snapshots.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/svg) |
-| [`mvvmlint`](https://github.com/go-widgets/mvvmlint) | v0.4.1 | [le contrôle MVVM]({{< relref "/guard-rails/mvvmlint.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvmlint) |
+| [`mvvmlint`](https://github.com/go-widgets/mvvmlint) | v0.4.2 | [le contrôle MVVM]({{< relref "/guard-rails/mvvmlint.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvmlint) |
 | [`bricolint`](https://github.com/go-widgets/bricolint) | v0.4.1 | [le contrôle « pas d'interface dessinée à la main »]({{< relref "/guard-rails/bricolint.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/bricolint) |
 | [`app-template`](https://github.com/go-widgets/app-template) | v0.5.0 | [le point de départ d'une application]({{< relref "/getting-started.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/app-template) |
 | [`gallery`](https://github.com/go-widgets/gallery) | v0.7.0 | la [démonstration en direct](https://go-widgets.github.io/gallery/) de chaque famille de widgets | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/gallery) |

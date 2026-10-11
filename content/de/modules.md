@@ -26,7 +26,7 @@ Schreibens – maßgeblich ist die Tag-Liste des jeweiligen Repositorys.
 | [`tui`](https://github.com/go-widgets/tui) | v0.62.0 | [Terminal-Rendering und zellennative Widgets]({{< relref "/surfaces/terminal.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/tui) |
 | [`android`](https://github.com/go-widgets/android) | v0.16.0 | [eine APK, gezeichnet von einem CGO-freien Prozess]({{< relref "/surfaces/android.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/android) |
 | [`svg`](https://github.com/go-widgets/svg) | v0.7.0 | [ein Rendering als SVG oder PNG]({{< relref "/surfaces/snapshots.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/svg) |
-| [`mvvmlint`](https://github.com/go-widgets/mvvmlint) | v0.4.1 | [die MVVM-Prüfung]({{< relref "/guard-rails/mvvmlint.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvmlint) |
+| [`mvvmlint`](https://github.com/go-widgets/mvvmlint) | v0.4.2 | [die MVVM-Prüfung]({{< relref "/guard-rails/mvvmlint.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvmlint) |
 | [`bricolint`](https://github.com/go-widgets/bricolint) | v0.4.1 | [die Prüfung gegen handgezeichnete UI]({{< relref "/guard-rails/bricolint.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/bricolint) |
 | [`app-template`](https://github.com/go-widgets/app-template) | v0.5.0 | [der Ausgangspunkt für eine Anwendung]({{< relref "/getting-started.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/app-template) |
 | [`gallery`](https://github.com/go-widgets/gallery) | v0.7.0 | die [Live-Demo](https://go-widgets.github.io/gallery/) jeder Widget-Familie | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/gallery) |
