@@ -61,7 +61,7 @@ n'importe quelle machine vers chacune d'elles.
 | [MVVM]({{< relref "/state/mvvm.md" >}}) | observables, commandes, binders, annulation |
 | [La colonne vertébrale des données]({{< relref "/state/data.md" >}}) | enregistrements typés, requêtes, stockage local ou distant |
 | [Où elle peint]({{< relref "/surfaces/_index.md" >}}) | chaque back-end et la façon dont il est choisi |
-| [Une fenêtre native]({{< relref "/surfaces/native-window.md" >}}) | X11, Wayland, Cocoa, Win32, GTK4, Android, wasmbox |
+| [Une fenêtre native]({{< relref "/surfaces/native-window.md" >}}) | X11, Wayland, Cocoa, Win32, GTK4, Android, wasmbox, un onglet de navigateur |
 | [Une application et son icône de zone de notification]({{< relref "/surfaces/application.md" >}}) | cycle de vie, apparence, une icône dans la barre des menus |
 | [Un onglet de navigateur]({{< relref "/surfaces/browser.md" >}}) | un simple `<canvas>`, ou une fenêtre wasmdesk |
 | [Un terminal]({{< relref "/surfaces/terminal.md" >}}) | des widgets natifs en cellules et un exécuteur interactif |

@@ -61,7 +61,7 @@ any of them.
 | [MVVM]({{< relref "/state/mvvm.md" >}}) | observables, commands, binders, undo |
 | [The data spine]({{< relref "/state/data.md" >}}) | typed records, queries, a local or remote store |
 | [Where it paints]({{< relref "/surfaces/_index.md" >}}) | every back-end and how it is chosen |
-| [A native window]({{< relref "/surfaces/native-window.md" >}}) | X11, Wayland, Cocoa, Win32, GTK4, Android, wasmbox |
+| [A native window]({{< relref "/surfaces/native-window.md" >}}) | X11, Wayland, Cocoa, Win32, GTK4, Android, wasmbox, a browser tab |
 | [An application and its tray]({{< relref "/surfaces/application.md" >}}) | lifecycle, appearance, a menu-bar icon |
 | [A browser tab]({{< relref "/surfaces/browser.md" >}}) | a plain `<canvas>`, or a wasmdesk window |
 | [A terminal]({{< relref "/surfaces/terminal.md" >}}) | cell-native widgets and an interactive runner |

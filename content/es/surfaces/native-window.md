@@ -2,7 +2,7 @@
 title: "Una ventana nativa"
 linkTitle: "Ventana nativa"
 weight: 10
-description: "go-widgets/window: una sola API Open/Run sobre X11, Wayland, Cocoa, Win32, GTK4, Android y wasmbox, todo con CGO_ENABLED=0."
+description: "go-widgets/window: una sola API Open/Run sobre X11, Wayland, GTK4, Cocoa, Win32, Android, wasmbox y una pestaña del navegador, todo con CGO_ENABLED=0."
 tags: [superficies, ventana, x11, wayland, macos, windows]
 ---
 
@@ -35,7 +35,8 @@ y un `RenderScale`.
 | Windows | Win32 | un `HWND` de nivel superior mediante llamadas al sistema de user32 y gdi32, `StretchDIBits` |
 | Android, `$GW_ANDROID_SOCKET` definida | Host Android | un protocolo por tramas hacia [el host Java]({{< relref "/surfaces/android.md" >}}), píxeles en un memfd compartido |
 | Android, en otro caso | Wayland o X11 | un shell bajo Termux sigue teniendo un servidor gráfico al que conectarse |
-| `js/wasm` | wasmbox | un cliente del [compositor wasmdesk]({{< relref "/surfaces/browser.md#a-window-on-the-wasmdesk-desktop" >}}) |
+| `js/wasm`, dentro de wasmdesk | wasmbox | un cliente del [compositor wasmdesk]({{< relref "/surfaces/browser.md#a-window-on-the-wasmdesk-desktop" >}}) |
+| `js/wasm`, una página corriente | pestaña del navegador | un `<canvas>` de la página (`Config.Canvas`, por defecto `"screen"`) a través de `webcanvas`: sin compositor, sin `SharedArrayBuffer`, sin aislamiento entre orígenes |
 | cualquier otra cosa | — | `window.ErrUnsupported`, para que una compilación cruzada siga compilando |
 
 Todos los backends son `CGO_ENABLED=0`. El de X11 es el protocolo central
@@ -56,8 +57,11 @@ unión con la plataforma se demuestra en vivo: consulte
 ## Solo lo que ha cambiado {#only-what-changed}
 
 Una raíz que implementa `DamageRenderer` (como hace `toolkit/scene.HostRoot`)
-informa de los rectángulos que ha repintado, y los backends Cocoa, Win32 y
-wasmbox presentan solo esos.
+informa de los rectángulos que ha repintado, y todos los backends salvo GTK4
+presentan solo esos: X11 mediante `ShmPutImage` de MIT-SHM, Wayland mediante
+el daño de `wl_shm`, Cocoa, Win32, Android, wasmbox y la pestaña del navegador.
+El primer fotograma, un cambio de tamaño y un `Expose` de X11 siguen
+presentando toda la superficie.
 
 ## HiDPI {#hidpi}
 
@@ -87,7 +91,7 @@ cerrarla y la traen de vuelta: lo que necesita una
 | Wayland | volver a hacer commit | búfer nulo y commit | `ErrNotSupported`: xdg-shell no tiene esa petición |
 | macOS | `orderFront:` | `orderOut:` | activar la aplicación, `makeKeyAndOrderFront:` |
 | Windows | `SW_SHOWNA` | `SW_HIDE` | `SW_RESTORE` y `SetForegroundWindow` |
-| GTK, Android, wasmbox | `ErrNotSupported` | `ErrNotSupported` | `ErrNotSupported` |
+| GTK, Android, wasmbox, pestaña del navegador | `ErrNotSupported` | `ErrNotSupported` | `ErrNotSupported` |
 
 Conceder el foco corresponde a la plataforma: con la prevención del robo de
 foco, `Raise` puede limitarse a marcar la ventana como necesitada de atención,

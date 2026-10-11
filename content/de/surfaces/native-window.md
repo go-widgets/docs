@@ -2,7 +2,7 @@
 title: "Ein natives Fenster"
 linkTitle: "Natives Fenster"
 weight: 10
-description: "go-widgets/window: eine einzige Open/Run-API über X11, Wayland, Cocoa, Win32, GTK4, Android und wasmbox, alle mit CGO_ENABLED=0."
+description: "go-widgets/window: eine einzige Open/Run-API über X11, Wayland, GTK4, Cocoa, Win32, Android, wasmbox und einen Browser-Tab, alle mit CGO_ENABLED=0."
 tags: [oberflächen, fenster, x11, wayland, macos, windows]
 ---
 
@@ -34,7 +34,8 @@ lesbaren Standardwert), Instanz und Klasse für `WM_CLASS`, ein `Theme` und eine
 | Windows | Win32 | ein Top-Level-`HWND` über Syscalls von user32 und gdi32, `StretchDIBits` |
 | Android, `$GW_ANDROID_SOCKET` gesetzt | Android-Host | ein gerahmtes Protokoll zum [Java-Host]({{< relref "/surfaces/android.md" >}}), Pixel in einem gemeinsamen memfd |
 | Android, sonst | Wayland oder X11 | eine Shell unter Termux hat trotzdem einen Display-Server, mit dem sie sich verbinden kann |
-| `js/wasm` | wasmbox | ein Client des [wasmdesk-Compositors]({{< relref "/surfaces/browser.md#a-window-on-the-wasmdesk-desktop" >}}) |
+| `js/wasm`, innerhalb von wasmdesk | wasmbox | ein Client des [wasmdesk-Compositors]({{< relref "/surfaces/browser.md#a-window-on-the-wasmdesk-desktop" >}}) |
+| `js/wasm`, eine gewöhnliche Seite | Browser-Tab | ein `<canvas>` der Seite (`Config.Canvas`, Standard `"screen"`) über `webcanvas`: kein Compositor, kein `SharedArrayBuffer`, keine Cross-Origin-Isolation |
 | alles andere | — | `window.ErrUnsupported`, damit ein Cross-Build trotzdem kompiliert |
 
 Jedes Back-End ist `CGO_ENABLED=0`. Das X11-Back-End ist das Kernprotokoll, von Grund auf
@@ -53,8 +54,10 @@ auf jedem Betriebssystem. Die dünne Plattformanbindung ist live nachgewiesen: s
 ## Nur was sich geändert hat {#only-what-changed}
 
 Eine Wurzel, die `DamageRenderer` implementiert (wie `toolkit/scene.HostRoot`),
-meldet die Rechtecke, die sie neu gezeichnet hat, und die Back-Ends für Cocoa, Win32 und wasmbox
-stellen nur diese dar.
+meldet die Rechtecke, die sie neu gezeichnet hat, und jedes Back-End außer GTK4 stellt nur
+diese dar: X11 über MIT-SHM `ShmPutImage`, Wayland über `wl_shm`-Damage, Cocoa, Win32,
+Android, wasmbox und der Browser-Tab. Der erste Frame, eine Größenänderung und ein
+X11-`Expose` stellen weiterhin die ganze Oberfläche dar.
 
 ## HiDPI {#hidpi}
 
@@ -84,7 +87,7 @@ braucht.
 | Wayland | erneuter Commit | Null-Puffer und Commit | `ErrNotSupported`: xdg-shell hat keine solche Anfrage |
 | macOS | `orderFront:` | `orderOut:` | die App aktivieren, `makeKeyAndOrderFront:` |
 | Windows | `SW_SHOWNA` | `SW_HIDE` | `SW_RESTORE` und `SetForegroundWindow` |
-| GTK, Android, wasmbox | `ErrNotSupported` | `ErrNotSupported` | `ErrNotSupported` |
+| GTK, Android, wasmbox, Browser-Tab | `ErrNotSupported` | `ErrNotSupported` | `ErrNotSupported` |
 
 Den Fokus gewährt die Plattform: Unter einem Schutz gegen Fokusraub kann `Raise`
 das Fenster möglicherweise nur als aufmerksamkeitsbedürftig markieren und kann das nicht erkennen.

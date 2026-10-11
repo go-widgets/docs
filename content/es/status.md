@@ -50,17 +50,48 @@ los que se interrogó a la propia plataforma:
   enlaza sin cgo.
 - `window.Screens` devuelve `ErrScreensUnsupported` en `js/wasm`.
 
-## Lo que la CI aún no cubre {#what-ci-does-not-cover-yet}
+## Lo que cubre la CI {#what-ci-does-not-cover-yet}
 
-Medido a partir de los workflows de cada repositorio en las etiquetas anteriores:
+El 2026-10-10 se cerraron las cinco carencias que esta página enumeraba:
 
-| Módulo | Carencia |
-|---|---|
-| `mvvmtk` | sin barrera de cobertura; compilación cruzada solo para amd64 y arm64, en seis sistemas operativos |
-| `application` | compilación cruzada para Linux, macOS y Windows solo en amd64 |
-| `tray` | compilación cruzada para cuatro pares sistema operativo/arquitectura |
-| `mvvmlint` | sin compilación cruzada |
-| `bricolint` | su paso «6 arches» compila cinco: falta loong64 |
+| Módulo | Antes | Ahora |
+|---|---|---|
+| `mvvmtk` | sin barrera de cobertura; solo amd64 y arm64 | exactamente la barrera del 100 % que usa el toolkit (ya estaba en el 100,0 %); Linux en las seis |
+| `application` | Linux, macOS y Windows solo en amd64 | Linux en las seis; macOS y Windows en amd64 y arm64 |
+| `tray` | cinco pares sistema operativo/arquitectura | Linux en las seis, macOS en dos, Windows en una |
+| `mvvmlint` | sin compilación cruzada | Linux en las seis, macOS y Windows |
+| `bricolint` | un paso «6 arches» que compilaba cinco | loong64 añadida |
 
+Así, las diecisiete bibliotecas y herramientas se compilan ya de forma cruzada
+para las seis arquitecturas Linux de 64 bits, y los diecinueve módulos tienen
+una barrera del 100 % de cobertura de sentencias.
 `app-template` y `gallery` son aplicaciones de navegador y se compilan para
 `js/wasm`, que es su único destino.
+
+## Seguridad {#security}
+
+Medido con `govulncheck` (a nivel de símbolo: solo el código que el módulo
+puede alcanzar) el 2026-10-10:
+
+- 15 de los 19 módulos alcanzaban código vulnerable: en la biblioteca estándar
+  de go1.27.1 (`html/template`, `net/http`, `crypto/tls`, `mime/multipart`;
+  corregido en go1.27.2) y en `golang.org/x/net` v0.58.0 (`http2`, a través de
+  gRPC en `data`; corregido en v0.60.0).
+- Corregido esa misma noche. La CI de todos los módulos compila con go1.27.2, y
+  todos los módulos requieren `x/net` v0.60.0. En la mayoría es una dependencia
+  indirecta, que Renovate no actualiza, así que se subió a mano. Una segunda
+  pasada de `govulncheck` sobre los 19 módulos no encuentra ninguna
+  vulnerabilidad alcanzable.
+- Publicados: android v0.16.0, app-template v0.5.0, application v0.8.0,
+  bricolint v0.4.1, data v0.4.0, mvvm v0.15.0, mvvmlint v0.4.1, mvvmtk
+  v0.15.0, painter v0.16.0, skin v0.3.0, svg v0.7.0, tray v0.15.0, webcanvas
+  v0.4.1, window v0.89.0, cada versión deducida de su API por `gorelease`.
+  toolkit, tui, desktop, gallery e isoicons están corregidos en `main` pero aún
+  sin etiqueta: `gorelease` no puede leer su grafo de módulos, que alcanza un
+  módulo `github.com/ajroetker/go-highway/hwy/goat` que nunca se publicó.
+- Los workflows de los 23 repositorios (31 archivos) se auditaron con
+  `actionlint` y `wfaudit`: ningún disparador privilegiado, ningún permiso de
+  escritura a nivel de workflow, ningún token olvidado en un checkout subido,
+  ninguna expresión no confiable en un paso de shell. Todos los workflows
+  declaran sus permisos, de modo que ninguno depende del token por defecto de
+  un repositorio.

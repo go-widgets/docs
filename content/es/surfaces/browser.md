@@ -35,9 +35,16 @@ cambios no se repinte. También puede implementar `Ticker`, `Animator`,
 La [galería](https://go-widgets.github.io/gallery/) y
 [`app-template`]({{< relref "/getting-started.md" >}}) funcionan así.
 
+O deje que `window` elija. Desde window v0.87.0,
+[`window.Open`]({{< relref "/surfaces/native-window.md#how-open-chooses" >}})
+compilado para `js/wasm` en una página corriente devuelve un backend que dibuja
+en el `<canvas>` de la página (`Config.Canvas`, por defecto `"screen"`) a través
+de `webcanvas`. Una aplicación escrita contra `window` se ejecuta entonces sin
+cambios como ventana nativa, en una pestaña del navegador y en wasmdesk.
+
 ## Una ventana en el escritorio wasmdesk {#a-window-on-the-wasmdesk-desktop}
 
-En `js/wasm`, [`window.Open`]({{< relref "/surfaces/native-window.md" >}})
+Dentro de un worker de wasmdesk, [`window.Open`]({{< relref "/surfaces/native-window.md" >}})
 devuelve un cliente del compositor de navegador
 [wasmdesk/wasmbox](https://github.com/wasmdesk/wasmbox). Asigna su superficie
 en un `SharedArrayBuffer`, dice `hello` por su `MessagePort`, espera `welcome`,
