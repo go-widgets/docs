@@ -83,9 +83,13 @@ Mesuré avec `govulncheck` (au niveau des symboles : seul le code que le module 
   bricolint v0.4.1, data v0.4.0, mvvm v0.15.0, mvvmlint v0.4.1, mvvmtk
   v0.15.0, painter v0.16.0, skin v0.3.0, svg v0.7.0, tray v0.15.0, webcanvas
   v0.4.1, window v0.89.0, chaque version déduite de son API par `gorelease`.
-  toolkit, tui, desktop, gallery et isoicons sont corrigés sur `main` mais pas
-  encore étiquetés : `gorelease` ne peut pas lire leur graphe de modules, qui
-  atteint un module `github.com/ajroetker/go-highway/hwy/goat` jamais publié.
+  Le 2026-10-11 : toolkit v0.329.0, puis tui v0.62.0, desktop v0.20.0, gallery
+  v0.7.0 et isoicons v0.4.0. Pour ces quatre-là, `gorelease` ne peut pas charger
+  le graphe de modules, qui atteint `github.com/ajroetker/go-highway/hwy/goat`
+  v0.0.0, une version jamais publiée
+  ([ajroetker/go-highway#73](https://github.com/ajroetker/go-highway/issues/73)) :
+  leurs versions ont donc été déduites avec `apidiff` sur linux, darwin et
+  windows, selon la même règle.
 - Les workflows des 23 dépôts (31 fichiers) ont été audités avec
   `actionlint` et `wfaudit` : aucun déclencheur privilégié, aucune permission d'écriture au
   niveau du workflow, aucun jeton laissé dans un checkout téléversé, aucune

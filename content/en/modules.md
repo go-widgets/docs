@@ -13,9 +13,9 @@ writing — the repository's own tag list is the authority.
 | Module | Tag | What it is | Reference |
 |---|---|---|---|
 | [`painter`](https://github.com/go-widgets/painter) | v0.16.0 | [the drawing seam]({{< relref "/rendering/painter.md" >}}): pixel and cell painters | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/painter) |
-| [`toolkit`](https://github.com/go-widgets/toolkit) | v0.328.0 | [the widget set]({{< relref "/rendering/toolkit.md" >}}), themes, layouts, text | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/toolkit) |
+| [`toolkit`](https://github.com/go-widgets/toolkit) | v0.329.0 | [the widget set]({{< relref "/rendering/toolkit.md" >}}), themes, layouts, text | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/toolkit) |
 | [`skin`](https://github.com/go-widgets/skin) | v0.3.0 | [widgets described as data]({{< relref "/rendering/skin.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/skin) |
-| [`isoicons`](https://github.com/go-widgets/isoicons) | v0.3.0 | isometric icon packs (cloud-native, AWS) for the toolkit's isometric diagrams | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/isoicons) |
+| [`isoicons`](https://github.com/go-widgets/isoicons) | v0.4.0 | isometric icon packs (cloud-native, AWS) for the toolkit's isometric diagrams | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/isoicons) |
 | [`mvvm`](https://github.com/go-widgets/mvvm) | v0.15.0 | [observables, commands, binders, undo]({{< relref "/state/mvvm.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvm) |
 | [`mvvmtk`](https://github.com/go-widgets/mvvmtk) | v0.15.0 | [one-call binders for toolkit widgets]({{< relref "/state/mvvm.md#mvvmtk-one-call-per-widget" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvmtk) |
 | [`data`](https://github.com/go-widgets/data) | v0.4.0 | [typed records, queries, a local or remote store]({{< relref "/state/data.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/data) |
@@ -23,14 +23,14 @@ writing — the repository's own tag list is the authority.
 | [`application`](https://github.com/go-widgets/application) | v0.8.0 | [the application lifecycle]({{< relref "/surfaces/application.md" >}}) above a window | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/application) |
 | [`tray`](https://github.com/go-widgets/tray) | v0.15.0 | [a tray icon and its menu]({{< relref "/surfaces/application.md#the-tray" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/tray) |
 | [`webcanvas`](https://github.com/go-widgets/webcanvas) | v0.4.1 | [a scene in a browser `<canvas>`]({{< relref "/surfaces/browser.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/webcanvas) |
-| [`tui`](https://github.com/go-widgets/tui) | v0.61.0 | [terminal rendering and cell-native widgets]({{< relref "/surfaces/terminal.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/tui) |
+| [`tui`](https://github.com/go-widgets/tui) | v0.62.0 | [terminal rendering and cell-native widgets]({{< relref "/surfaces/terminal.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/tui) |
 | [`android`](https://github.com/go-widgets/android) | v0.16.0 | [an APK painted by a CGO-free process]({{< relref "/surfaces/android.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/android) |
 | [`svg`](https://github.com/go-widgets/svg) | v0.7.0 | [a render as SVG or PNG]({{< relref "/surfaces/snapshots.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/svg) |
 | [`mvvmlint`](https://github.com/go-widgets/mvvmlint) | v0.4.1 | [the MVVM check]({{< relref "/guard-rails/mvvmlint.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvmlint) |
 | [`bricolint`](https://github.com/go-widgets/bricolint) | v0.4.1 | [the no-hand-drawn-UI check]({{< relref "/guard-rails/bricolint.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/bricolint) |
 | [`app-template`](https://github.com/go-widgets/app-template) | v0.5.0 | [the starting point for an application]({{< relref "/getting-started.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/app-template) |
-| [`gallery`](https://github.com/go-widgets/gallery) | v0.6.0 | the [live demo](https://go-widgets.github.io/gallery/) of every widget family | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/gallery) |
-| [`desktop`](https://github.com/go-widgets/desktop) | v0.19.0 | a desktop shell composing go-freedesktop and go-widgets, native and in wasmdesk | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/desktop) |
+| [`gallery`](https://github.com/go-widgets/gallery) | v0.7.0 | the [live demo](https://go-widgets.github.io/gallery/) of every widget family | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/gallery) |
+| [`desktop`](https://github.com/go-widgets/desktop) | v0.20.0 | a desktop shell composing go-freedesktop and go-widgets, native and in wasmdesk | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/desktop) |
 
 ## What every module is held to
 

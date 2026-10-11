@@ -12,7 +12,7 @@ set. Every widget implements the same interface — `Bounds`, `SetBounds`,
 treats a button, a table and an event calendar alike. Standard library only,
 `CGO_ENABLED=0`, 100% statement coverage.
 
-At v0.328.0 it has **160 exported widget types** in about **69,000 lines** of
+At v0.329.0 it has **160 exported widget types** in about **69,000 lines** of
 widget code. Those two numbers are measured at that tag, not carried over: the
 toolkit's README gives the commands, and they should be run again rather than
 the figures repeated.
