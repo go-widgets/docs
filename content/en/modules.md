@@ -26,7 +26,7 @@ writing — the repository's own tag list is the authority.
 | [`tui`](https://github.com/go-widgets/tui) | v0.62.0 | [terminal rendering and cell-native widgets]({{< relref "/surfaces/terminal.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/tui) |
 | [`android`](https://github.com/go-widgets/android) | v0.16.0 | [an APK painted by a CGO-free process]({{< relref "/surfaces/android.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/android) |
 | [`svg`](https://github.com/go-widgets/svg) | v0.7.0 | [a render as SVG or PNG]({{< relref "/surfaces/snapshots.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/svg) |
-| [`mvvmlint`](https://github.com/go-widgets/mvvmlint) | v0.4.1 | [the MVVM check]({{< relref "/guard-rails/mvvmlint.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvmlint) |
+| [`mvvmlint`](https://github.com/go-widgets/mvvmlint) | v0.4.2 | [the MVVM check]({{< relref "/guard-rails/mvvmlint.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvmlint) |
 | [`bricolint`](https://github.com/go-widgets/bricolint) | v0.4.1 | [the no-hand-drawn-UI check]({{< relref "/guard-rails/bricolint.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/bricolint) |
 | [`app-template`](https://github.com/go-widgets/app-template) | v0.5.0 | [the starting point for an application]({{< relref "/getting-started.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/app-template) |
 | [`gallery`](https://github.com/go-widgets/gallery) | v0.7.0 | the [live demo](https://go-widgets.github.io/gallery/) of every widget family | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/gallery) |
