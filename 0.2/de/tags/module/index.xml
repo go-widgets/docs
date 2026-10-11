@@ -99,7 +99,7 @@ Schreibens – maßgeblich ist die Tag-Liste des jeweiligen Repositorys.&lt;/p&g
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;a href="https://github.com/go-widgets/mvvmlint" target="_blank" rel="noopener"&gt;&lt;code&gt;mvvmlint&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
-&lt;td&gt;v0.4.1&lt;/td&gt;
+&lt;td&gt;v0.4.2&lt;/td&gt;
 &lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/de/guard-rails/mvvmlint/"&gt;die MVVM-Prüfung&lt;/a&gt;&lt;/td&gt;
 &lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/mvvmlint" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
 &lt;/tr&gt;
