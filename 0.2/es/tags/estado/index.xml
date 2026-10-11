@@ -78,37 +78,73 @@ del usuario.&lt;/li&gt;
 enlaza sin cgo.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;window.Screens&lt;/code&gt; devuelve &lt;code&gt;ErrScreensUnsupported&lt;/code&gt; en &lt;code&gt;js/wasm&lt;/code&gt;.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 data-hextra-search-id="what-ci-does-not-cover-yet"&gt;Lo que la CI aún no cubre&lt;span class="hx:absolute hx:-mt-20" id="what-ci-does-not-cover-yet"&gt;&lt;/span&gt;
-&lt;a href="#what-ci-does-not-cover-yet" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Medido a partir de los workflows de cada repositorio en las etiquetas anteriores:&lt;/p&gt;
+&lt;h2 data-hextra-search-id="what-ci-does-not-cover-yet"&gt;Lo que cubre la CI&lt;span class="hx:absolute hx:-mt-20" id="what-ci-does-not-cover-yet"&gt;&lt;/span&gt;
+&lt;a href="#what-ci-does-not-cover-yet" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;El 2026-10-10 se cerraron las cinco carencias que esta página enumeraba:&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
 &lt;th&gt;Módulo&lt;/th&gt;
-&lt;th&gt;Carencia&lt;/th&gt;
+&lt;th&gt;Antes&lt;/th&gt;
+&lt;th&gt;Ahora&lt;/th&gt;
 &lt;/tr&gt;
 &lt;/thead&gt;
 &lt;tbody&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;code&gt;mvvmtk&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;sin barrera de cobertura; compilación cruzada solo para amd64 y arm64, en seis sistemas operativos&lt;/td&gt;
+&lt;td&gt;sin barrera de cobertura; solo amd64 y arm64&lt;/td&gt;
+&lt;td&gt;exactamente la barrera del 100 % que usa el toolkit (ya estaba en el 100,0 %); Linux en las seis&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;code&gt;application&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;compilación cruzada para Linux, macOS y Windows solo en amd64&lt;/td&gt;
+&lt;td&gt;Linux, macOS y Windows solo en amd64&lt;/td&gt;
+&lt;td&gt;Linux en las seis; macOS y Windows en amd64 y arm64&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;code&gt;tray&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;compilación cruzada para cuatro pares sistema operativo/arquitectura&lt;/td&gt;
+&lt;td&gt;cinco pares sistema operativo/arquitectura&lt;/td&gt;
+&lt;td&gt;Linux en las seis, macOS en dos, Windows en una&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;code&gt;mvvmlint&lt;/code&gt;&lt;/td&gt;
 &lt;td&gt;sin compilación cruzada&lt;/td&gt;
+&lt;td&gt;Linux en las seis, macOS y Windows&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;code&gt;bricolint&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;su paso «6 arches» compila cinco: falta loong64&lt;/td&gt;
+&lt;td&gt;un paso «6 arches» que compilaba cinco&lt;/td&gt;
+&lt;td&gt;loong64 añadida&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;&lt;code&gt;app-template&lt;/code&gt; y &lt;code&gt;gallery&lt;/code&gt; son aplicaciones de navegador y se compilan para
-&lt;code&gt;js/wasm&lt;/code&gt;, que es su único destino.&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;Así, las diecisiete bibliotecas y herramientas se compilan ya de forma cruzada
+para las seis arquitecturas Linux de 64 bits, y los diecinueve módulos tienen
+una barrera del 100 % de cobertura de sentencias.
+&lt;code&gt;app-template&lt;/code&gt; y &lt;code&gt;gallery&lt;/code&gt; son aplicaciones de navegador y se compilan para
+&lt;code&gt;js/wasm&lt;/code&gt;, que es su único destino.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="security"&gt;Seguridad&lt;span class="hx:absolute hx:-mt-20" id="security"&gt;&lt;/span&gt;
+&lt;a href="#security" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Medido con &lt;code&gt;govulncheck&lt;/code&gt; (a nivel de símbolo: solo el código que el módulo
+puede alcanzar) el 2026-10-10:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;15 de los 19 módulos alcanzaban código vulnerable: en la biblioteca estándar
+de go1.27.1 (&lt;code&gt;html/template&lt;/code&gt;, &lt;code&gt;net/http&lt;/code&gt;, &lt;code&gt;crypto/tls&lt;/code&gt;, &lt;code&gt;mime/multipart&lt;/code&gt;;
+corregido en go1.27.2) y en &lt;code&gt;golang.org/x/net&lt;/code&gt; v0.58.0 (&lt;code&gt;http2&lt;/code&gt;, a través de
+gRPC en &lt;code&gt;data&lt;/code&gt;; corregido en v0.60.0).&lt;/li&gt;
+&lt;li&gt;Corregido esa misma noche. La CI de todos los módulos compila con go1.27.2, y
+todos los módulos requieren &lt;code&gt;x/net&lt;/code&gt; v0.60.0. En la mayoría es una dependencia
+indirecta, que Renovate no actualiza, así que se subió a mano. Una segunda
+pasada de &lt;code&gt;govulncheck&lt;/code&gt; sobre los 19 módulos no encuentra ninguna
+vulnerabilidad alcanzable.&lt;/li&gt;
+&lt;li&gt;Publicados: android v0.16.0, app-template v0.5.0, application v0.8.0,
+bricolint v0.4.1, data v0.4.0, mvvm v0.15.0, mvvmlint v0.4.1, mvvmtk
+v0.15.0, painter v0.16.0, skin v0.3.0, svg v0.7.0, tray v0.15.0, webcanvas
+v0.4.1, window v0.89.0, cada versión deducida de su API por &lt;code&gt;gorelease&lt;/code&gt;.
+toolkit, tui, desktop, gallery e isoicons están corregidos en &lt;code&gt;main&lt;/code&gt; pero aún
+sin etiqueta: &lt;code&gt;gorelease&lt;/code&gt; no puede leer su grafo de módulos, que alcanza un
+módulo &lt;code&gt;github.com/ajroetker/go-highway/hwy/goat&lt;/code&gt; que nunca se publicó.&lt;/li&gt;
+&lt;li&gt;Los workflows de los 23 repositorios (31 archivos) se auditaron con
+&lt;code&gt;actionlint&lt;/code&gt; y &lt;code&gt;wfaudit&lt;/code&gt;: ningún disparador privilegiado, ningún permiso de
+escritura a nivel de workflow, ningún token olvidado en un checkout subido,
+ninguna expresión no confiable en un paso de shell. Todos los workflows
+declaran sus permisos, de modo que ninguno depende del token por defecto de
+un repositorio.&lt;/li&gt;
+&lt;/ul&gt;</description></item></channel></rss>

@@ -327,37 +327,71 @@ et xdg-activation exige un jeton issu d&amp;rsquo;une action de l&amp;rsquo;util
 sait lier sans cgo.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;window.Screens&lt;/code&gt; renvoie &lt;code&gt;ErrScreensUnsupported&lt;/code&gt; sur &lt;code&gt;js/wasm&lt;/code&gt;.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 data-hextra-search-id="what-ci-does-not-cover-yet"&gt;Ce que la CI ne couvre pas encore&lt;span class="hx:absolute hx:-mt-20" id="what-ci-does-not-cover-yet"&gt;&lt;/span&gt;
-&lt;a href="#what-ci-does-not-cover-yet" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Mesuré à partir des workflows de chaque dépôt aux étiquettes ci-dessus :&lt;/p&gt;
+&lt;h2 data-hextra-search-id="what-ci-does-not-cover-yet"&gt;Ce que la CI couvre&lt;span class="hx:absolute hx:-mt-20" id="what-ci-does-not-cover-yet"&gt;&lt;/span&gt;
+&lt;a href="#what-ci-does-not-cover-yet" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Le 2026-10-10, les cinq manques que cette page listait ont été comblés :&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
 &lt;th&gt;Module&lt;/th&gt;
-&lt;th&gt;Manque&lt;/th&gt;
+&lt;th&gt;Avant&lt;/th&gt;
+&lt;th&gt;Maintenant&lt;/th&gt;
 &lt;/tr&gt;
 &lt;/thead&gt;
 &lt;tbody&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;code&gt;mvvmtk&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;pas de barrière de couverture ; compilation croisée pour amd64 et arm64 seulement, sur six systèmes d&amp;rsquo;exploitation&lt;/td&gt;
+&lt;td&gt;pas de barrière de couverture ; amd64 et arm64 seulement&lt;/td&gt;
+&lt;td&gt;exactement la barrière de 100 % qu&amp;rsquo;utilise le toolkit (il était déjà à 100,0 %) ; Linux sur les six&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;code&gt;application&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;compilation croisée pour Linux, macOS et Windows sur amd64 seulement&lt;/td&gt;
+&lt;td&gt;Linux, macOS et Windows sur amd64 seulement&lt;/td&gt;
+&lt;td&gt;Linux sur les six ; macOS et Windows sur amd64 et arm64&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;code&gt;tray&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;compilation croisée pour quatre paires système/architecture&lt;/td&gt;
+&lt;td&gt;cinq paires système/architecture&lt;/td&gt;
+&lt;td&gt;Linux sur les six, macOS sur deux, Windows sur une&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;code&gt;mvvmlint&lt;/code&gt;&lt;/td&gt;
 &lt;td&gt;pas de compilation croisée&lt;/td&gt;
+&lt;td&gt;Linux sur les six, macOS et Windows&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;code&gt;bricolint&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;son étape « 6 arches » en compile cinq : loong64 manque&lt;/td&gt;
+&lt;td&gt;une étape « 6 arches » qui en compilait cinq&lt;/td&gt;
+&lt;td&gt;loong64 ajouté&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;&lt;code&gt;app-template&lt;/code&gt; et &lt;code&gt;gallery&lt;/code&gt; sont des applications de navigateur et se compilent pour &lt;code&gt;js/wasm&lt;/code&gt;,
-qui est leur seule cible.&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;Les dix-sept bibliothèques et outils font donc tous désormais une compilation croisée pour les six
+architectures Linux 64 bits, et les dix-neuf ont tous une barrière à 100 % de couverture des instructions.
+&lt;code&gt;app-template&lt;/code&gt; et &lt;code&gt;gallery&lt;/code&gt; sont des applications de navigateur et se compilent pour &lt;code&gt;js/wasm&lt;/code&gt;,
+qui est leur seule cible.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="security"&gt;Sécurité&lt;span class="hx:absolute hx:-mt-20" id="security"&gt;&lt;/span&gt;
+&lt;a href="#security" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Mesuré avec &lt;code&gt;govulncheck&lt;/code&gt; (au niveau des symboles : seul le code que le module peut atteindre) le
+2026-10-10 :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;15 des 19 modules atteignaient du code vulnérable : dans la bibliothèque standard de
+go1.27.1 (&lt;code&gt;html/template&lt;/code&gt;, &lt;code&gt;net/http&lt;/code&gt;, &lt;code&gt;crypto/tls&lt;/code&gt;, &lt;code&gt;mime/multipart&lt;/code&gt; ; corrigé
+dans go1.27.2) et dans &lt;code&gt;golang.org/x/net&lt;/code&gt; v0.58.0 (&lt;code&gt;http2&lt;/code&gt;, via gRPC dans
+&lt;code&gt;data&lt;/code&gt; ; corrigé dans v0.60.0).&lt;/li&gt;
+&lt;li&gt;Corrigé le soir même. La CI de chaque module compile avec go1.27.2, et chaque
+module exige &lt;code&gt;x/net&lt;/code&gt; v0.60.0. C&amp;rsquo;est une dépendance indirecte dans la plupart
+d&amp;rsquo;entre eux, que Renovate ne met pas à jour : elle a donc été relevée à la
+main. Un second passage de &lt;code&gt;govulncheck&lt;/code&gt; sur les 19 modules ne trouve aucune
+vulnérabilité atteignable.&lt;/li&gt;
+&lt;li&gt;Publiés : android v0.16.0, app-template v0.5.0, application v0.8.0,
+bricolint v0.4.1, data v0.4.0, mvvm v0.15.0, mvvmlint v0.4.1, mvvmtk
+v0.15.0, painter v0.16.0, skin v0.3.0, svg v0.7.0, tray v0.15.0, webcanvas
+v0.4.1, window v0.89.0, chaque version déduite de son API par &lt;code&gt;gorelease&lt;/code&gt;.
+toolkit, tui, desktop, gallery et isoicons sont corrigés sur &lt;code&gt;main&lt;/code&gt; mais pas
+encore étiquetés : &lt;code&gt;gorelease&lt;/code&gt; ne peut pas lire leur graphe de modules, qui
+atteint un module &lt;code&gt;github.com/ajroetker/go-highway/hwy/goat&lt;/code&gt; jamais publié.&lt;/li&gt;
+&lt;li&gt;Les workflows des 23 dépôts (31 fichiers) ont été audités avec
+&lt;code&gt;actionlint&lt;/code&gt; et &lt;code&gt;wfaudit&lt;/code&gt; : aucun déclencheur privilégié, aucune permission d&amp;rsquo;écriture au
+niveau du workflow, aucun jeton laissé dans un checkout téléversé, aucune
+expression non fiable dans une étape shell. Chaque workflow déclare ses permissions, si bien
+qu&amp;rsquo;aucun ne dépend du jeton par défaut d&amp;rsquo;un dépôt.&lt;/li&gt;
+&lt;/ul&gt;</description></item></channel></rss>

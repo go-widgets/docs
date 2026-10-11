@@ -20,7 +20,7 @@
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/browser/"&gt;Una pestaña del navegador&lt;/a&gt;: un simple &lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;webcanvas&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;webcanvas&lt;/code&gt;, o &lt;code&gt;window&lt;/code&gt;&lt;/td&gt;
 &lt;td&gt;píxeles&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;

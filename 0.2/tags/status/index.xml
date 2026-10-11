@@ -76,37 +76,70 @@ and xdg-activation needs a token from the user&amp;rsquo;s own input.&lt;/li&gt;
 links without cgo.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;window.Screens&lt;/code&gt; returns &lt;code&gt;ErrScreensUnsupported&lt;/code&gt; on &lt;code&gt;js/wasm&lt;/code&gt;.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 data-hextra-search-id="what-ci-does-not-cover-yet"&gt;What CI does not cover yet&lt;span class="hx:absolute hx:-mt-20" id="what-ci-does-not-cover-yet"&gt;&lt;/span&gt;
-&lt;a href="#what-ci-does-not-cover-yet" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Measured from each repository&amp;rsquo;s workflows at the tags above:&lt;/p&gt;
+&lt;h2 data-hextra-search-id="what-ci-does-not-cover-yet"&gt;What CI covers&lt;span class="hx:absolute hx:-mt-20" id="what-ci-does-not-cover-yet"&gt;&lt;/span&gt;
+&lt;a href="#what-ci-does-not-cover-yet" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;On 2026-10-10 the five gaps this page listed were closed:&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
 &lt;th&gt;Module&lt;/th&gt;
-&lt;th&gt;Gap&lt;/th&gt;
+&lt;th&gt;Was&lt;/th&gt;
+&lt;th&gt;Now&lt;/th&gt;
 &lt;/tr&gt;
 &lt;/thead&gt;
 &lt;tbody&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;code&gt;mvvmtk&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;no coverage gate; cross-builds amd64 and arm64 only, on six operating systems&lt;/td&gt;
+&lt;td&gt;no coverage gate; amd64 and arm64 only&lt;/td&gt;
+&lt;td&gt;the exact 100% gate the toolkit uses (it stood at 100.0% already); Linux on all six&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;code&gt;application&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;cross-builds Linux, macOS and Windows on amd64 only&lt;/td&gt;
+&lt;td&gt;Linux, macOS and Windows on amd64 only&lt;/td&gt;
+&lt;td&gt;Linux on all six; macOS and Windows on amd64 and arm64&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;code&gt;tray&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;cross-builds four OS/architecture pairs&lt;/td&gt;
+&lt;td&gt;five OS/architecture pairs&lt;/td&gt;
+&lt;td&gt;Linux on all six, macOS on two, Windows on one&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;code&gt;mvvmlint&lt;/code&gt;&lt;/td&gt;
 &lt;td&gt;no cross-build&lt;/td&gt;
+&lt;td&gt;Linux on all six, macOS and Windows&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;code&gt;bricolint&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;its &amp;ldquo;6 arches&amp;rdquo; step builds five: loong64 is missing&lt;/td&gt;
+&lt;td&gt;a &amp;ldquo;6 arches&amp;rdquo; step that built five&lt;/td&gt;
+&lt;td&gt;loong64 added&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;&lt;code&gt;app-template&lt;/code&gt; and &lt;code&gt;gallery&lt;/code&gt; are browser applications and build for &lt;code&gt;js/wasm&lt;/code&gt;,
-which is their only target.&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;So all seventeen libraries and tools now cross-build for the six 64-bit
+Linux architectures, and all nineteen gate at 100% statement coverage.
+&lt;code&gt;app-template&lt;/code&gt; and &lt;code&gt;gallery&lt;/code&gt; are browser applications and build for &lt;code&gt;js/wasm&lt;/code&gt;,
+which is their only target.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="security"&gt;Security&lt;span class="hx:absolute hx:-mt-20" id="security"&gt;&lt;/span&gt;
+&lt;a href="#security" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Measured with &lt;code&gt;govulncheck&lt;/code&gt; (symbol level: only code the module can reach) on
+2026-10-10:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;15 of the 19 modules reached vulnerable code: in the standard library of
+go1.27.1 (&lt;code&gt;html/template&lt;/code&gt;, &lt;code&gt;net/http&lt;/code&gt;, &lt;code&gt;crypto/tls&lt;/code&gt;, &lt;code&gt;mime/multipart&lt;/code&gt;; fixed
+in go1.27.2) and in &lt;code&gt;golang.org/x/net&lt;/code&gt; v0.58.0 (&lt;code&gt;http2&lt;/code&gt;, through gRPC in
+&lt;code&gt;data&lt;/code&gt;; fixed in v0.60.0).&lt;/li&gt;
+&lt;li&gt;Fixed the same evening. Every module&amp;rsquo;s CI builds with go1.27.2, and every
+module requires &lt;code&gt;x/net&lt;/code&gt; v0.60.0. It is an indirect requirement in most of
+them, which Renovate does not update, so it was raised by hand. A second
+&lt;code&gt;govulncheck&lt;/code&gt; pass over all 19 modules finds no reachable vulnerability.&lt;/li&gt;
+&lt;li&gt;Released: android v0.16.0, app-template v0.5.0, application v0.8.0,
+bricolint v0.4.1, data v0.4.0, mvvm v0.15.0, mvvmlint v0.4.1, mvvmtk
+v0.15.0, painter v0.16.0, skin v0.3.0, svg v0.7.0, tray v0.15.0, webcanvas
+v0.4.1, window v0.89.0, each version derived from its API by &lt;code&gt;gorelease&lt;/code&gt;.
+toolkit, tui, desktop, gallery and isoicons are fixed on &lt;code&gt;main&lt;/code&gt; and not yet
+tagged: &lt;code&gt;gorelease&lt;/code&gt; cannot read their module graph, which reaches a module
+&lt;code&gt;github.com/ajroetker/go-highway/hwy/goat&lt;/code&gt; that was never published.&lt;/li&gt;
+&lt;li&gt;The workflows of all 23 repositories (31 files) were audited with
+&lt;code&gt;actionlint&lt;/code&gt; and &lt;code&gt;wfaudit&lt;/code&gt;: no privileged trigger, no write grant at the
+workflow level, no token left in an uploaded checkout, no untrusted
+expression in a shell step. Every workflow declares its permissions, so
+none depends on a repository&amp;rsquo;s default token.&lt;/li&gt;
+&lt;/ul&gt;</description></item></channel></rss>
