@@ -57,13 +57,13 @@ Schreibens – maßgeblich ist die Tag-Liste des jeweiligen Repositorys.&lt;/p&g
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;a href="https://github.com/go-widgets/window" target="_blank" rel="noopener"&gt;&lt;code&gt;window&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
-&lt;td&gt;v0.89.0&lt;/td&gt;
+&lt;td&gt;v0.89.1&lt;/td&gt;
 &lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/de/surfaces/native-window/"&gt;ein natives Fenster&lt;/a&gt; auf acht Back-Ends&lt;/td&gt;
 &lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/window" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;a href="https://github.com/go-widgets/application" target="_blank" rel="noopener"&gt;&lt;code&gt;application&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
-&lt;td&gt;v0.8.0&lt;/td&gt;
+&lt;td&gt;v0.8.1&lt;/td&gt;
 &lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/de/surfaces/application/"&gt;der Anwendungslebenszyklus&lt;/a&gt; oberhalb eines Fensters&lt;/td&gt;
 &lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/application" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
 &lt;/tr&gt;
