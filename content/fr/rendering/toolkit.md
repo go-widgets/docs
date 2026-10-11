@@ -12,7 +12,7 @@ widgets. Chaque widget implémente la même interface — `Bounds`, `SetBounds`,
 traite de la même façon un bouton, un tableau et un calendrier d'événements. Bibliothèque standard uniquement,
 `CGO_ENABLED=0`, 100 % de couverture des instructions.
 
-En v0.328.0, elle compte **160 types de widgets exportés** en environ **69 000 lignes** de
+En v0.329.0, elle compte **160 types de widgets exportés** en environ **69 000 lignes** de
 code de widgets. Ces deux nombres sont mesurés à cette étiquette, pas reportés : le
 README de la boîte à outils donne les commandes, et il vaut mieux les relancer que
 répéter les chiffres.

@@ -84,10 +84,14 @@ am 2026-10-10:
   bricolint v0.4.1, data v0.4.0, mvvm v0.15.0, mvvmlint v0.4.1, mvvmtk
   v0.15.0, painter v0.16.0, skin v0.3.0, svg v0.7.0, tray v0.15.0, webcanvas
   v0.4.1, window v0.89.0, jede Version von `gorelease` aus ihrer API
-  abgeleitet. toolkit, tui, desktop, gallery und isoicons sind auf `main`
-  behoben, aber noch nicht getaggt: `gorelease` kann ihren Modulgraphen nicht
-  lesen, der ein nie veröffentlichtes Modul
-  `github.com/ajroetker/go-highway/hwy/goat` erreicht.
+  abgeleitet. Am 2026-10-11: toolkit v0.329.0, dann tui v0.62.0, desktop
+  v0.20.0, gallery v0.7.0 und isoicons v0.4.0. Für diese vier kann `gorelease`
+  den Modulgraphen nicht laden, der
+  `github.com/ajroetker/go-highway/hwy/goat` v0.0.0 erreicht, eine nie
+  veröffentlichte Version
+  ([ajroetker/go-highway#73](https://github.com/ajroetker/go-highway/issues/73));
+  ihre Versionen wurden daher mit `apidiff` unter linux, darwin und windows
+  nach derselben Regel abgeleitet.
 - Die Workflows aller 23 Repositorys (31 Dateien) wurden mit
   `actionlint` und `wfaudit` geprüft: kein privilegierter Trigger, keine
   Schreibberechtigung auf Workflow-Ebene, kein Token in einem hochgeladenen Checkout,

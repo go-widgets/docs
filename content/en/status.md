@@ -82,9 +82,13 @@ Measured with `govulncheck` (symbol level: only code the module can reach) on
   bricolint v0.4.1, data v0.4.0, mvvm v0.15.0, mvvmlint v0.4.1, mvvmtk
   v0.15.0, painter v0.16.0, skin v0.3.0, svg v0.7.0, tray v0.15.0, webcanvas
   v0.4.1, window v0.89.0, each version derived from its API by `gorelease`.
-  toolkit, tui, desktop, gallery and isoicons are fixed on `main` and not yet
-  tagged: `gorelease` cannot read their module graph, which reaches a module
-  `github.com/ajroetker/go-highway/hwy/goat` that was never published.
+  On 2026-10-11: toolkit v0.329.0, and tui v0.62.0, desktop v0.20.0, gallery
+  v0.7.0 and isoicons v0.4.0. For those four `gorelease` cannot load the module
+  graph, which reaches `github.com/ajroetker/go-highway/hwy/goat` v0.0.0, a
+  version that was never published
+  ([ajroetker/go-highway#73](https://github.com/ajroetker/go-highway/issues/73)),
+  so their versions were derived with `apidiff` on linux, darwin and windows
+  instead, under the same rule.
 - The workflows of all 23 repositories (31 files) were audited with
   `actionlint` and `wfaudit`: no privileged trigger, no write grant at the
   workflow level, no token left in an uploaded checkout, no untrusted

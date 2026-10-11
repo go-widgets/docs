@@ -12,7 +12,7 @@ Jedes Widget implementiert dieselbe Schnittstelle – `Bounds`, `SetBounds`,
 einen Button, eine Tabelle und einen Terminkalender gleich behandelt. Nur Standardbibliothek,
 `CGO_ENABLED=0`, 100 % Anweisungsabdeckung.
 
-In v0.328.0 hat es **160 exportierte Widget-Typen** in etwa **69.000 Zeilen**
+In v0.329.0 hat es **160 exportierte Widget-Typen** in etwa **69.000 Zeilen**
 Widget-Code. Beide Zahlen sind an diesem Tag gemessen, nicht übernommen: Das
 README des Toolkits nennt die Befehle, und man sollte sie erneut ausführen, statt
 die Zahlen zu wiederholen.
