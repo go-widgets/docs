@@ -4,7 +4,7 @@ widgets. Chaque widget implémente la même interface — &lt;code&gt;Bounds&lt;
 &lt;code&gt;Draw(p painter.Painter, theme *Theme)&lt;/code&gt;, &lt;code&gt;HitTest&lt;/code&gt;, &lt;code&gt;OnEvent&lt;/code&gt; — si bien qu&amp;rsquo;un hôte
 traite de la même façon un bouton, un tableau et un calendrier d&amp;rsquo;événements. Bibliothèque standard uniquement,
 &lt;code&gt;CGO_ENABLED=0&lt;/code&gt;, 100 % de couverture des instructions.&lt;/p&gt;
-&lt;p&gt;En v0.328.0, elle compte &lt;strong&gt;160 types de widgets exportés&lt;/strong&gt; en environ &lt;strong&gt;69 000 lignes&lt;/strong&gt; de
+&lt;p&gt;En v0.329.0, elle compte &lt;strong&gt;160 types de widgets exportés&lt;/strong&gt; en environ &lt;strong&gt;69 000 lignes&lt;/strong&gt; de
 code de widgets. Ces deux nombres sont mesurés à cette étiquette, pas reportés : le
 README de la boîte à outils donne les commandes, et il vaut mieux les relancer que
 répéter les chiffres.&lt;/p&gt;

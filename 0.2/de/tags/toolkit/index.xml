@@ -49,7 +49,7 @@ Jedes Widget implementiert dieselbe Schnittstelle – &lt;code&gt;Bounds&lt;/cod
 &lt;code&gt;Draw(p painter.Painter, theme *Theme)&lt;/code&gt;, &lt;code&gt;HitTest&lt;/code&gt;, &lt;code&gt;OnEvent&lt;/code&gt; –, sodass ein Host
 einen Button, eine Tabelle und einen Terminkalender gleich behandelt. Nur Standardbibliothek,
 &lt;code&gt;CGO_ENABLED=0&lt;/code&gt;, 100 % Anweisungsabdeckung.&lt;/p&gt;
-&lt;p&gt;In v0.328.0 hat es &lt;strong&gt;160 exportierte Widget-Typen&lt;/strong&gt; in etwa &lt;strong&gt;69.000 Zeilen&lt;/strong&gt;
+&lt;p&gt;In v0.329.0 hat es &lt;strong&gt;160 exportierte Widget-Typen&lt;/strong&gt; in etwa &lt;strong&gt;69.000 Zeilen&lt;/strong&gt;
 Widget-Code. Beide Zahlen sind an diesem Tag gemessen, nicht übernommen: Das
 README des Toolkits nennt die Befehle, und man sollte sie erneut ausführen, statt
 die Zahlen zu wiederholen.&lt;/p&gt;

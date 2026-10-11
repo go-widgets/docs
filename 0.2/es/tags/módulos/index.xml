@@ -21,7 +21,7 @@ de escribir; la autoridad es la lista de etiquetas del propio repositorio.&lt;/p
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;a href="https://github.com/go-widgets/toolkit" target="_blank" rel="noopener"&gt;&lt;code&gt;toolkit&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
-&lt;td&gt;v0.328.0&lt;/td&gt;
+&lt;td&gt;v0.329.0&lt;/td&gt;
 &lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/rendering/toolkit/"&gt;el conjunto de widgets&lt;/a&gt;, temas, layouts, texto&lt;/td&gt;
 &lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/toolkit" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
 &lt;/tr&gt;
@@ -33,7 +33,7 @@ de escribir; la autoridad es la lista de etiquetas del propio repositorio.&lt;/p
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;a href="https://github.com/go-widgets/isoicons" target="_blank" rel="noopener"&gt;&lt;code&gt;isoicons&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
-&lt;td&gt;v0.3.0&lt;/td&gt;
+&lt;td&gt;v0.4.0&lt;/td&gt;
 &lt;td&gt;paquetes de iconos isométricos (cloud-native, AWS) para los diagramas isométricos del toolkit&lt;/td&gt;
 &lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/isoicons" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
 &lt;/tr&gt;
@@ -81,7 +81,7 @@ de escribir; la autoridad es la lista de etiquetas del propio repositorio.&lt;/p
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;a href="https://github.com/go-widgets/tui" target="_blank" rel="noopener"&gt;&lt;code&gt;tui&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
-&lt;td&gt;v0.61.0&lt;/td&gt;
+&lt;td&gt;v0.62.0&lt;/td&gt;
 &lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/terminal/"&gt;renderizado en terminal y widgets nativos de celdas&lt;/a&gt;&lt;/td&gt;
 &lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/tui" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
 &lt;/tr&gt;
@@ -117,13 +117,13 @@ de escribir; la autoridad es la lista de etiquetas del propio repositorio.&lt;/p
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;a href="https://github.com/go-widgets/gallery" target="_blank" rel="noopener"&gt;&lt;code&gt;gallery&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
-&lt;td&gt;v0.6.0&lt;/td&gt;
+&lt;td&gt;v0.7.0&lt;/td&gt;
 &lt;td&gt;la &lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;demo en vivo&lt;/a&gt; de todas las familias de widgets&lt;/td&gt;
 &lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/gallery" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;a href="https://github.com/go-widgets/desktop" target="_blank" rel="noopener"&gt;&lt;code&gt;desktop&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
-&lt;td&gt;v0.19.0&lt;/td&gt;
+&lt;td&gt;v0.20.0&lt;/td&gt;
 &lt;td&gt;un shell de escritorio que combina go-freedesktop y go-widgets, nativo y en wasmdesk&lt;/td&gt;
 &lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/desktop" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
 &lt;/tr&gt;

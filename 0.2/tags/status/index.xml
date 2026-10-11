@@ -134,9 +134,13 @@ them, which Renovate does not update, so it was raised by hand. A second
 bricolint v0.4.1, data v0.4.0, mvvm v0.15.0, mvvmlint v0.4.1, mvvmtk
 v0.15.0, painter v0.16.0, skin v0.3.0, svg v0.7.0, tray v0.15.0, webcanvas
 v0.4.1, window v0.89.0, each version derived from its API by &lt;code&gt;gorelease&lt;/code&gt;.
-toolkit, tui, desktop, gallery and isoicons are fixed on &lt;code&gt;main&lt;/code&gt; and not yet
-tagged: &lt;code&gt;gorelease&lt;/code&gt; cannot read their module graph, which reaches a module
-&lt;code&gt;github.com/ajroetker/go-highway/hwy/goat&lt;/code&gt; that was never published.&lt;/li&gt;
+On 2026-10-11: toolkit v0.329.0, and tui v0.62.0, desktop v0.20.0, gallery
+v0.7.0 and isoicons v0.4.0. For those four &lt;code&gt;gorelease&lt;/code&gt; cannot load the module
+graph, which reaches &lt;code&gt;github.com/ajroetker/go-highway/hwy/goat&lt;/code&gt; v0.0.0, a
+version that was never published
+(&lt;a href="https://github.com/ajroetker/go-highway/issues/73" target="_blank" rel="noopener"&gt;ajroetker/go-highway#73&lt;/a&gt;),
+so their versions were derived with &lt;code&gt;apidiff&lt;/code&gt; on linux, darwin and windows
+instead, under the same rule.&lt;/li&gt;
 &lt;li&gt;The workflows of all 23 repositories (31 files) were audited with
 &lt;code&gt;actionlint&lt;/code&gt; and &lt;code&gt;wfaudit&lt;/code&gt;: no privileged trigger, no write grant at the
 workflow level, no token left in an uploaded checkout, no untrusted

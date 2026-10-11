@@ -179,7 +179,7 @@ set. Every widget implements the same interface — &lt;code&gt;Bounds&lt;/code&
 &lt;code&gt;Draw(p painter.Painter, theme *Theme)&lt;/code&gt;, &lt;code&gt;HitTest&lt;/code&gt;, &lt;code&gt;OnEvent&lt;/code&gt; — so a host
 treats a button, a table and an event calendar alike. Standard library only,
 &lt;code&gt;CGO_ENABLED=0&lt;/code&gt;, 100% statement coverage.&lt;/p&gt;
-&lt;p&gt;At v0.328.0 it has &lt;strong&gt;160 exported widget types&lt;/strong&gt; in about &lt;strong&gt;69,000 lines&lt;/strong&gt; of
+&lt;p&gt;At v0.329.0 it has &lt;strong&gt;160 exported widget types&lt;/strong&gt; in about &lt;strong&gt;69,000 lines&lt;/strong&gt; of
 widget code. Those two numbers are measured at that tag, not carried over: the
 toolkit&amp;rsquo;s README gives the commands, and they should be run again rather than
 the figures repeated.&lt;/p&gt;
