@@ -30,9 +30,31 @@ répéter les chiffres.
 | Données | `Table` (édition de cellules, colonnes figées, lignes de groupe, agrégats, lignes dépliables), `TreeTable`, `PropertyGrid`, `Kanban`, `Gantt`, `Agenda` (semaine, mois, trimestre, année ; plusieurs calendriers) |
 | Graphiques | `LineChart`, `BarChart`, `PieChart`, `AreaChart`, `ScatterChart`, `RadarChart`, `Gauge`, `Sparkline` |
 | Composites | `FileChooser`, `ColorChooser`, `ColorPicker`, `FontChooser`, `Calendar`, `DatePicker`, `DateRangePicker`, `TimePicker`, `MarkdownView`, `MarkdownEditor`, `TerminalView` |
-| Shell | `Window` avec décorations côté client, `HeaderBar`, `Toolbar`, `Statusbar`, `StatusIcon`, `StatusArea`, `Wallpaper`, `Thumbnail` |
+| Shell | `Window` avec décorations côté client, `HeaderBar`, `Toolbar`, `Ribbon`, `Statusbar`, `StatusIcon`, `StatusArea`, `Wallpaper`, `Thumbnail` |
 
 Tous, en direct : la [galerie](https://go-widgets.github.io/gallery/).
+
+## Ruban {#ribbon}
+
+`Ribbon` est un ruban de commandes à la manière d'Office : des onglets de
+groupes étiquetés contenant de grands boutons (icône au-dessus du texte), de
+petits (icône à côté), des bascules, des boutons scindés, des listes
+déroulantes et une petite galerie. Il suit les recommandations des rubans
+Windows : quand la fenêtre se rétrécit, chaque groupe se réduit selon sa
+priorité — complet, compact, icônes seules, puis un seul bouton de menu — de
+sorte que le ruban montre la plus grande combinaison qui tient ; il se replie
+sur ses onglets (Ctrl+F1, ou le chevron) et un onglet laisse alors entrevoir
+son contenu ; Alt affiche les astuces clavier ; les info-bulles donnent le
+raccourci et une description. La navigation par onglets et par barre d'outils
+suit les motifs WAI-ARIA, et ses contours et son anneau de focus gardent un
+contraste de 3:1 en thème clair et sombre.
+
+Chaque contrôle est une vue sur une `Action` — la commande unique que se
+partagent un menu, une palette et le ruban — et `NewCommandAction` en fabrique
+une à partir d'une `mvvm.Command` du modèle de vue, dont `CanExecute` grise le
+contrôle. L'onglet actif, l'état replié, une bascule et le choix d'une liste
+sont des `mvvm.Observable`. Placé sous un `PopoverHost`, ses menus se dessinent
+au-dessus de la page sans code d'hôte.
 
 ## Thèmes {#themes}
 
