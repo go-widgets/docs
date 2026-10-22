@@ -55,11 +55,30 @@ a ejecutarlos en lugar de repetir las cifras.&lt;/p&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;Shell&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;Window&lt;/code&gt; con decoraciones del lado del cliente, &lt;code&gt;HeaderBar&lt;/code&gt;, &lt;code&gt;Toolbar&lt;/code&gt;, &lt;code&gt;Statusbar&lt;/code&gt;, &lt;code&gt;StatusIcon&lt;/code&gt;, &lt;code&gt;StatusArea&lt;/code&gt;, &lt;code&gt;Wallpaper&lt;/code&gt;, &lt;code&gt;Thumbnail&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Window&lt;/code&gt; con decoraciones del lado del cliente, &lt;code&gt;HeaderBar&lt;/code&gt;, &lt;code&gt;Toolbar&lt;/code&gt;, &lt;code&gt;Ribbon&lt;/code&gt;, &lt;code&gt;Statusbar&lt;/code&gt;, &lt;code&gt;StatusIcon&lt;/code&gt;, &lt;code&gt;StatusArea&lt;/code&gt;, &lt;code&gt;Wallpaper&lt;/code&gt;, &lt;code&gt;Thumbnail&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;Todos ellos, en vivo: la &lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;galería&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="ribbon"&gt;Cinta&lt;span class="hx:absolute hx:-mt-20" id="ribbon"&gt;&lt;/span&gt;
+&lt;a href="#ribbon" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Ribbon&lt;/code&gt; es una cinta de comandos al estilo de Office: pestañas de grupos
+rotulados con botones grandes (icono sobre el texto), pequeños (icono al lado),
+interruptores, botones divididos, listas desplegables y una pequeña galería.
+Sigue las pautas de las cintas de Windows: al estrecharse la ventana, cada
+grupo se reduce según su prioridad — completo, compacto, solo iconos y por
+último un único botón de menú —, de modo que la cinta muestra la mayor
+combinación que cabe; se contrae a sus pestañas (Ctrl+F1 o el chevrón) y una
+pestaña deja entonces ver su contenido; Alt muestra las pistas de teclado; las
+descripciones emergentes dan el atajo y una descripción. La navegación por
+pestañas y por barra de herramientas sigue los patrones WAI-ARIA, y sus
+contornos y su anillo de foco mantienen un contraste de 3:1 en temas claros y
+oscuros.&lt;/p&gt;
+&lt;p&gt;Cada control es una vista de una &lt;code&gt;Action&lt;/code&gt; — el comando único que comparten un
+menú, una paleta y la cinta — y &lt;code&gt;NewCommandAction&lt;/code&gt; crea una a partir de un
+&lt;code&gt;mvvm.Command&lt;/code&gt; del modelo de vista, cuyo &lt;code&gt;CanExecute&lt;/code&gt; atenúa el control. La
+pestaña activa, el estado contraído, un interruptor y la elección de una lista
+son &lt;code&gt;mvvm.Observable&lt;/code&gt;. Bajo un &lt;code&gt;PopoverHost&lt;/code&gt;, sus menús se dibujan sobre la
+página sin código del anfitrión.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="themes"&gt;Temas&lt;span class="hx:absolute hx:-mt-20" id="themes"&gt;&lt;/span&gt;
 &lt;a href="#themes" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Un único valor &lt;code&gt;Theme&lt;/code&gt; se propaga en cascada por todo el árbol: cambie un color
 en la raíz y todos los widgets se repintan con él. &lt;code&gt;DefaultLight()&lt;/code&gt; y

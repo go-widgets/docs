@@ -230,11 +230,27 @@ the figures repeated.&lt;/p&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;Shell&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;Window&lt;/code&gt; with client-side decorations, &lt;code&gt;HeaderBar&lt;/code&gt;, &lt;code&gt;Toolbar&lt;/code&gt;, &lt;code&gt;Statusbar&lt;/code&gt;, &lt;code&gt;StatusIcon&lt;/code&gt;, &lt;code&gt;StatusArea&lt;/code&gt;, &lt;code&gt;Wallpaper&lt;/code&gt;, &lt;code&gt;Thumbnail&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Window&lt;/code&gt; with client-side decorations, &lt;code&gt;HeaderBar&lt;/code&gt;, &lt;code&gt;Toolbar&lt;/code&gt;, &lt;code&gt;Ribbon&lt;/code&gt;, &lt;code&gt;Statusbar&lt;/code&gt;, &lt;code&gt;StatusIcon&lt;/code&gt;, &lt;code&gt;StatusArea&lt;/code&gt;, &lt;code&gt;Wallpaper&lt;/code&gt;, &lt;code&gt;Thumbnail&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;Every one of them, live: the &lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;gallery&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="ribbon"&gt;Ribbon&lt;span class="hx:absolute hx:-mt-20" id="ribbon"&gt;&lt;/span&gt;
+&lt;a href="#ribbon" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Ribbon&lt;/code&gt; is an Office-style command ribbon: tabs of labelled groups holding
+large buttons (icon above the text), small ones (icon beside it), toggles, split
+buttons, drop-downs and a small gallery. It follows the Windows ribbon
+guidelines: as the window narrows each group steps down by priority — full,
+compact, icons only, then one pop-up button — so the ribbon shows the largest
+combination that fits; it collapses to its tabs (Ctrl+F1, or the chevron) and a
+tab then peeks at its body; Alt shows keytips; tooltips carry the shortcut and a
+description. Tab and toolbar navigation follow the WAI-ARIA patterns, and its
+boundaries and focus ring keep 3:1 contrast in light and dark themes.&lt;/p&gt;
+&lt;p&gt;Every control is a view on an &lt;code&gt;Action&lt;/code&gt; — the one command a menu, a palette and
+the ribbon share — and &lt;code&gt;NewCommandAction&lt;/code&gt; makes one from a view-model
+&lt;code&gt;mvvm.Command&lt;/code&gt;, so its &lt;code&gt;CanExecute&lt;/code&gt; greys the control. The active tab, the
+collapsed state, a toggle and a drop-down&amp;rsquo;s choice are &lt;code&gt;mvvm.Observable&lt;/code&gt;s. Put
+the ribbon under a &lt;code&gt;PopoverHost&lt;/code&gt; and its menus draw over the page with no host
+code.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="themes"&gt;Themes&lt;span class="hx:absolute hx:-mt-20" id="themes"&gt;&lt;/span&gt;
 &lt;a href="#themes" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;One &lt;code&gt;Theme&lt;/code&gt; value cascades through the whole tree: change a colour at the
 root and every widget repaints with it. &lt;code&gt;DefaultLight()&lt;/code&gt; and &lt;code&gt;DefaultDark()&lt;/code&gt;

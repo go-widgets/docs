@@ -100,11 +100,30 @@ die Zahlen zu wiederholen.&lt;/p&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;Shell&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;Window&lt;/code&gt; mit clientseitigen Dekorationen, &lt;code&gt;HeaderBar&lt;/code&gt;, &lt;code&gt;Toolbar&lt;/code&gt;, &lt;code&gt;Statusbar&lt;/code&gt;, &lt;code&gt;StatusIcon&lt;/code&gt;, &lt;code&gt;StatusArea&lt;/code&gt;, &lt;code&gt;Wallpaper&lt;/code&gt;, &lt;code&gt;Thumbnail&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Window&lt;/code&gt; mit clientseitigen Dekorationen, &lt;code&gt;HeaderBar&lt;/code&gt;, &lt;code&gt;Toolbar&lt;/code&gt;, &lt;code&gt;Ribbon&lt;/code&gt;, &lt;code&gt;Statusbar&lt;/code&gt;, &lt;code&gt;StatusIcon&lt;/code&gt;, &lt;code&gt;StatusArea&lt;/code&gt;, &lt;code&gt;Wallpaper&lt;/code&gt;, &lt;code&gt;Thumbnail&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;Jedes davon, live: die &lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;Galerie&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="ribbon"&gt;Ribbon&lt;span class="hx:absolute hx:-mt-20" id="ribbon"&gt;&lt;/span&gt;
+&lt;a href="#ribbon" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Ribbon&lt;/code&gt; ist ein Befehlsband im Office-Stil: Registerkarten mit beschrifteten
+Gruppen aus großen Schaltflächen (Symbol über dem Text), kleinen (Symbol
+daneben), Umschaltern, geteilten Schaltflächen, Auswahllisten und einer kleinen
+Galerie. Es folgt den Windows-Richtlinien für Ribbons: Wird das Fenster
+schmaler, verkleinert sich jede Gruppe nach ihrer Priorität — voll, kompakt,
+nur Symbole, dann eine einzelne Menüschaltfläche —, sodass das Band die größte
+Kombination zeigt, die passt; es klappt auf seine Registerkarten zusammen
+(Strg+F1 oder der Pfeil), und eine Registerkarte zeigt dann kurz ihren Inhalt;
+Alt blendet Tastenkürzel-Hinweise ein; QuickInfos nennen die Tastenkombination
+und eine Beschreibung. Navigation per Registerkarten und Symbolleiste folgt den
+WAI-ARIA-Mustern, und Umrisse und Fokusring behalten in hellen wie dunklen
+Themes einen Kontrast von 3:1.&lt;/p&gt;
+&lt;p&gt;Jedes Steuerelement ist eine Sicht auf eine &lt;code&gt;Action&lt;/code&gt; — den einen Befehl, den
+sich Menü, Palette und Ribbon teilen —, und &lt;code&gt;NewCommandAction&lt;/code&gt; erzeugt eine aus
+einem &lt;code&gt;mvvm.Command&lt;/code&gt; des Viewmodels, dessen &lt;code&gt;CanExecute&lt;/code&gt; das Element ausgraut.
+Aktive Registerkarte, Zusammenklapp-Zustand, ein Umschalter und die Auswahl
+einer Liste sind &lt;code&gt;mvvm.Observable&lt;/code&gt;s. Unter einem &lt;code&gt;PopoverHost&lt;/code&gt; zeichnen sich
+die Menüs ohne Host-Code über die Seite.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="themes"&gt;Themes&lt;span class="hx:absolute hx:-mt-20" id="themes"&gt;&lt;/span&gt;
 &lt;a href="#themes" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Ein einziger &lt;code&gt;Theme&lt;/code&gt;-Wert kaskadiert durch den ganzen Baum: Ändert man eine Farbe an der
 Wurzel, zeichnet sich jedes Widget damit neu. &lt;code&gt;DefaultLight()&lt;/code&gt; und &lt;code&gt;DefaultDark()&lt;/code&gt;

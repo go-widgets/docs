@@ -100,11 +100,30 @@ répéter les chiffres.&lt;/p&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;Shell&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;Window&lt;/code&gt; avec décorations côté client, &lt;code&gt;HeaderBar&lt;/code&gt;, &lt;code&gt;Toolbar&lt;/code&gt;, &lt;code&gt;Statusbar&lt;/code&gt;, &lt;code&gt;StatusIcon&lt;/code&gt;, &lt;code&gt;StatusArea&lt;/code&gt;, &lt;code&gt;Wallpaper&lt;/code&gt;, &lt;code&gt;Thumbnail&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Window&lt;/code&gt; avec décorations côté client, &lt;code&gt;HeaderBar&lt;/code&gt;, &lt;code&gt;Toolbar&lt;/code&gt;, &lt;code&gt;Ribbon&lt;/code&gt;, &lt;code&gt;Statusbar&lt;/code&gt;, &lt;code&gt;StatusIcon&lt;/code&gt;, &lt;code&gt;StatusArea&lt;/code&gt;, &lt;code&gt;Wallpaper&lt;/code&gt;, &lt;code&gt;Thumbnail&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;Tous, en direct : la &lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;galerie&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="ribbon"&gt;Ruban&lt;span class="hx:absolute hx:-mt-20" id="ribbon"&gt;&lt;/span&gt;
+&lt;a href="#ribbon" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Ribbon&lt;/code&gt; est un ruban de commandes à la manière d&amp;rsquo;Office : des onglets de
+groupes étiquetés contenant de grands boutons (icône au-dessus du texte), de
+petits (icône à côté), des bascules, des boutons scindés, des listes
+déroulantes et une petite galerie. Il suit les recommandations des rubans
+Windows : quand la fenêtre se rétrécit, chaque groupe se réduit selon sa
+priorité — complet, compact, icônes seules, puis un seul bouton de menu — de
+sorte que le ruban montre la plus grande combinaison qui tient ; il se replie
+sur ses onglets (Ctrl+F1, ou le chevron) et un onglet laisse alors entrevoir
+son contenu ; Alt affiche les astuces clavier ; les info-bulles donnent le
+raccourci et une description. La navigation par onglets et par barre d&amp;rsquo;outils
+suit les motifs WAI-ARIA, et ses contours et son anneau de focus gardent un
+contraste de 3:1 en thème clair et sombre.&lt;/p&gt;
+&lt;p&gt;Chaque contrôle est une vue sur une &lt;code&gt;Action&lt;/code&gt; — la commande unique que se
+partagent un menu, une palette et le ruban — et &lt;code&gt;NewCommandAction&lt;/code&gt; en fabrique
+une à partir d&amp;rsquo;une &lt;code&gt;mvvm.Command&lt;/code&gt; du modèle de vue, dont &lt;code&gt;CanExecute&lt;/code&gt; grise le
+contrôle. L&amp;rsquo;onglet actif, l&amp;rsquo;état replié, une bascule et le choix d&amp;rsquo;une liste
+sont des &lt;code&gt;mvvm.Observable&lt;/code&gt;. Placé sous un &lt;code&gt;PopoverHost&lt;/code&gt;, ses menus se dessinent
+au-dessus de la page sans code d&amp;rsquo;hôte.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="themes"&gt;Thèmes&lt;span class="hx:absolute hx:-mt-20" id="themes"&gt;&lt;/span&gt;
 &lt;a href="#themes" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Une seule valeur &lt;code&gt;Theme&lt;/code&gt; se propage en cascade dans tout l&amp;rsquo;arbre : changez une couleur à la
 racine et chaque widget se repeint avec elle. &lt;code&gt;DefaultLight()&lt;/code&gt; et &lt;code&gt;DefaultDark()&lt;/code&gt;
