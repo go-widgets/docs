@@ -30,9 +30,28 @@ the figures repeated.
 | Data | `Table` (cell editing, frozen columns, group rows, aggregates, row expanders), `TreeTable`, `PropertyGrid`, `Kanban`, `Gantt`, `Agenda` (week, month, quarter, year; several calendars) |
 | Charts | `LineChart`, `BarChart`, `PieChart`, `AreaChart`, `ScatterChart`, `RadarChart`, `Gauge`, `Sparkline` |
 | Composite | `FileChooser`, `ColorChooser`, `ColorPicker`, `FontChooser`, `Calendar`, `DatePicker`, `DateRangePicker`, `TimePicker`, `MarkdownView`, `MarkdownEditor`, `TerminalView` |
-| Shell | `Window` with client-side decorations, `HeaderBar`, `Toolbar`, `Statusbar`, `StatusIcon`, `StatusArea`, `Wallpaper`, `Thumbnail` |
+| Shell | `Window` with client-side decorations, `HeaderBar`, `Toolbar`, `Ribbon`, `Statusbar`, `StatusIcon`, `StatusArea`, `Wallpaper`, `Thumbnail` |
 
 Every one of them, live: the [gallery](https://go-widgets.github.io/gallery/).
+
+## Ribbon
+
+`Ribbon` is an Office-style command ribbon: tabs of labelled groups holding
+large buttons (icon above the text), small ones (icon beside it), toggles, split
+buttons, drop-downs and a small gallery. It follows the Windows ribbon
+guidelines: as the window narrows each group steps down by priority — full,
+compact, icons only, then one pop-up button — so the ribbon shows the largest
+combination that fits; it collapses to its tabs (Ctrl+F1, or the chevron) and a
+tab then peeks at its body; Alt shows keytips; tooltips carry the shortcut and a
+description. Tab and toolbar navigation follow the WAI-ARIA patterns, and its
+boundaries and focus ring keep 3:1 contrast in light and dark themes.
+
+Every control is a view on an `Action` — the one command a menu, a palette and
+the ribbon share — and `NewCommandAction` makes one from a view-model
+`mvvm.Command`, so its `CanExecute` greys the control. The active tab, the
+collapsed state, a toggle and a drop-down's choice are `mvvm.Observable`s. Put
+the ribbon under a `PopoverHost` and its menus draw over the page with no host
+code.
 
 ## Themes
 

@@ -30,9 +30,31 @@ a ejecutarlos en lugar de repetir las cifras.
 | Datos | `Table` (edición de celdas, columnas fijas, filas de grupo, agregados, expansores de fila), `TreeTable`, `PropertyGrid`, `Kanban`, `Gantt`, `Agenda` (semana, mes, trimestre, año; varios calendarios) |
 | Gráficos | `LineChart`, `BarChart`, `PieChart`, `AreaChart`, `ScatterChart`, `RadarChart`, `Gauge`, `Sparkline` |
 | Compuestos | `FileChooser`, `ColorChooser`, `ColorPicker`, `FontChooser`, `Calendar`, `DatePicker`, `DateRangePicker`, `TimePicker`, `MarkdownView`, `MarkdownEditor`, `TerminalView` |
-| Shell | `Window` con decoraciones del lado del cliente, `HeaderBar`, `Toolbar`, `Statusbar`, `StatusIcon`, `StatusArea`, `Wallpaper`, `Thumbnail` |
+| Shell | `Window` con decoraciones del lado del cliente, `HeaderBar`, `Toolbar`, `Ribbon`, `Statusbar`, `StatusIcon`, `StatusArea`, `Wallpaper`, `Thumbnail` |
 
 Todos ellos, en vivo: la [galería](https://go-widgets.github.io/gallery/).
+
+## Cinta {#ribbon}
+
+`Ribbon` es una cinta de comandos al estilo de Office: pestañas de grupos
+rotulados con botones grandes (icono sobre el texto), pequeños (icono al lado),
+interruptores, botones divididos, listas desplegables y una pequeña galería.
+Sigue las pautas de las cintas de Windows: al estrecharse la ventana, cada
+grupo se reduce según su prioridad — completo, compacto, solo iconos y por
+último un único botón de menú —, de modo que la cinta muestra la mayor
+combinación que cabe; se contrae a sus pestañas (Ctrl+F1 o el chevrón) y una
+pestaña deja entonces ver su contenido; Alt muestra las pistas de teclado; las
+descripciones emergentes dan el atajo y una descripción. La navegación por
+pestañas y por barra de herramientas sigue los patrones WAI-ARIA, y sus
+contornos y su anillo de foco mantienen un contraste de 3:1 en temas claros y
+oscuros.
+
+Cada control es una vista de una `Action` — el comando único que comparten un
+menú, una paleta y la cinta — y `NewCommandAction` crea una a partir de un
+`mvvm.Command` del modelo de vista, cuyo `CanExecute` atenúa el control. La
+pestaña activa, el estado contraído, un interruptor y la elección de una lista
+son `mvvm.Observable`. Bajo un `PopoverHost`, sus menús se dibujan sobre la
+página sin código del anfitrión.
 
 ## Temas {#themes}
 

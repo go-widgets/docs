@@ -30,9 +30,31 @@ die Zahlen zu wiederholen.
 | Daten | `Table` (Zellbearbeitung, fixierte Spalten, Gruppenzeilen, Aggregate, aufklappbare Zeilen), `TreeTable`, `PropertyGrid`, `Kanban`, `Gantt`, `Agenda` (Woche, Monat, Quartal, Jahr; mehrere Kalender) |
 | Diagramme | `LineChart`, `BarChart`, `PieChart`, `AreaChart`, `ScatterChart`, `RadarChart`, `Gauge`, `Sparkline` |
 | Zusammengesetzt | `FileChooser`, `ColorChooser`, `ColorPicker`, `FontChooser`, `Calendar`, `DatePicker`, `DateRangePicker`, `TimePicker`, `MarkdownView`, `MarkdownEditor`, `TerminalView` |
-| Shell | `Window` mit clientseitigen Dekorationen, `HeaderBar`, `Toolbar`, `Statusbar`, `StatusIcon`, `StatusArea`, `Wallpaper`, `Thumbnail` |
+| Shell | `Window` mit clientseitigen Dekorationen, `HeaderBar`, `Toolbar`, `Ribbon`, `Statusbar`, `StatusIcon`, `StatusArea`, `Wallpaper`, `Thumbnail` |
 
 Jedes davon, live: die [Galerie](https://go-widgets.github.io/gallery/).
+
+## Ribbon {#ribbon}
+
+`Ribbon` ist ein Befehlsband im Office-Stil: Registerkarten mit beschrifteten
+Gruppen aus großen Schaltflächen (Symbol über dem Text), kleinen (Symbol
+daneben), Umschaltern, geteilten Schaltflächen, Auswahllisten und einer kleinen
+Galerie. Es folgt den Windows-Richtlinien für Ribbons: Wird das Fenster
+schmaler, verkleinert sich jede Gruppe nach ihrer Priorität — voll, kompakt,
+nur Symbole, dann eine einzelne Menüschaltfläche —, sodass das Band die größte
+Kombination zeigt, die passt; es klappt auf seine Registerkarten zusammen
+(Strg+F1 oder der Pfeil), und eine Registerkarte zeigt dann kurz ihren Inhalt;
+Alt blendet Tastenkürzel-Hinweise ein; QuickInfos nennen die Tastenkombination
+und eine Beschreibung. Navigation per Registerkarten und Symbolleiste folgt den
+WAI-ARIA-Mustern, und Umrisse und Fokusring behalten in hellen wie dunklen
+Themes einen Kontrast von 3:1.
+
+Jedes Steuerelement ist eine Sicht auf eine `Action` — den einen Befehl, den
+sich Menü, Palette und Ribbon teilen —, und `NewCommandAction` erzeugt eine aus
+einem `mvvm.Command` des Viewmodels, dessen `CanExecute` das Element ausgraut.
+Aktive Registerkarte, Zusammenklapp-Zustand, ein Umschalter und die Auswahl
+einer Liste sind `mvvm.Observable`s. Unter einem `PopoverHost` zeichnen sich
+die Menüs ohne Host-Code über die Seite.
 
 ## Themes {#themes}
 
