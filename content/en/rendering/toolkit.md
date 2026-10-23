@@ -24,7 +24,7 @@ the figures repeated.
 | Action | `Button`, `ToggleButton`, `CheckButton`, `RadioButton` + `RadioGroup`, `Switch`, `SplitButton`, `IconButton`, `CycleButton`, `Chip`, `SegmentedBar` |
 | Input | `Entry`, `TextView` (selection, IME preview, syntax spans, line numbers), `SpinButton`, `Scale`, `RangeSlider`, `SearchEntry`, `TagField`, `ComboBox`, `FormField` with `Validate`/`Rule` |
 | Selection | `ListBox`, `TreeView`, `DropDown` |
-| Containers | `Container` with a swappable `Layout` (`FitLayout`, `BoxLayout`, `BorderLayout`, `CardLayout`, `FlowLayout`); `HBox`, `VBox`, `Grid`, `Frame`, `Dock`, `Border`, `Stack`, `Overlay`, `Paned`, `Expander`, `Accordion`; a declarative `Node` builder |
+| Containers | `Container` with a swappable `Layout` (`FitLayout`, `BoxLayout`, `BorderLayout`, `CardLayout`, `FlowLayout`); `HBox`, `VBox`, `Grid`, `Frame`, `Dock`, `Border`, `Stack`, `Overlay`, `Paned`, `Splitter`, `Expander`, `Accordion`; a declarative `Node` builder |
 | Navigation | `Menu`, `MenuBar` (with `Alt`+letter), `ContextMenu`, `Popover`, `CommandPalette`, `Dialog`, `MessageDialog`, `Wizard`, `Notebook`, `ViewSwitcher`, `Carousel` |
 | Feedback | `ProgressBar`, `ProgressCircle`, `LevelBar`, `Spinner`, `Tooltip`, `Notification`, `Toast`, `Banner`, `Alert`, `Badge`, `Skeleton` |
 | Data | `Table` (cell editing, frozen columns, group rows, aggregates, row expanders), `TreeTable`, `PropertyGrid`, `Kanban`, `Gantt`, `Agenda` (week, month, quarter, year; several calendars) |
@@ -52,6 +52,43 @@ the ribbon share — and `NewCommandAction` makes one from a view-model
 collapsed state, a toggle and a drop-down's choice are `mvvm.Observable`s. Put
 the ribbon under a `PopoverHost` and its menus draw over the page with no host
 code.
+
+## Splitter
+
+`Splitter` lays N panes side by side (or one above the other, with
+`vertical` true) and puts a draggable, focusable divider between each
+neighbouring pair, after the WAI-ARIA window-splitter pattern. A pane is
+either **fixed** — its `Size`, in logical pixels, is an `mvvm.Observable[int]`
+the divider writes — or **flexible**, sharing what the fixed panes leave by its
+`Weight`, also an `Observable`. Each pane has a `Min` and a `Max`. A
+`Collapsible` fixed pane closes (size 0) when the divider is pulled below half
+its `Min`, or on a double-click or Enter, and opens again the same way. A pane's
+`Visible` observable switches it and its divider off. Because the sizes live in
+observables, a view-model can bind, persist and restore them; `OnResized` is
+called once per finished gesture with the panes the person changed, never for a
+layout that merely followed a window resize.
+
+```go
+files := mvvm.NewObservable(240) // fixed pane, logical px
+w := mvvm.NewObservable(1)       // flexible pane, weight
+
+s := toolkit.NewSplitter(false,
+	&toolkit.SplitPane{Widget: tree, Name: "Files", Size: files,
+		Min: 120, Max: 480, Collapsible: true},
+	&toolkit.SplitPane{Widget: editor, Name: "Editor", Weight: w, Min: 200},
+)
+s.OnResized = func(changed []int) { save(files.Get(), w.Get()) }
+```
+
+A divider takes the focus: the arrow keys (Up and Down when vertical) move it
+by `Step` logical pixels, four times that with Shift; Home and End take the pane
+before it to its smallest and largest; Enter collapses or restores the fixed
+pane it controls; Tab moves between dividers. Each divider is a
+`RoleSeparator` with `aria-valuemin`, `aria-valuemax` and `aria-valuenow`, named
+"Resize" and the pane's `Name`. `Cursor(x, y)` returns `"col-resize"` or
+`"row-resize"` over a divider, and `SplitterColors(theme)` gives the divider
+line and accent, which keep 3:1 contrast against the background and surface in
+both default themes, as the focus ring does.
 
 ## Themes
 

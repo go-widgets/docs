@@ -24,7 +24,7 @@ die Zahlen zu wiederholen.
 | Aktion | `Button`, `ToggleButton`, `CheckButton`, `RadioButton` + `RadioGroup`, `Switch`, `SplitButton`, `IconButton`, `CycleButton`, `Chip`, `SegmentedBar` |
 | Eingabe | `Entry`, `TextView` (Auswahl, IME-Vorschau, Syntax-Spans, Zeilennummern), `SpinButton`, `Scale`, `RangeSlider`, `SearchEntry`, `TagField`, `ComboBox`, `FormField` mit `Validate`/`Rule` |
 | Auswahl | `ListBox`, `TreeView`, `DropDown` |
-| Container | `Container` mit austauschbarem `Layout` (`FitLayout`, `BoxLayout`, `BorderLayout`, `CardLayout`, `FlowLayout`); `HBox`, `VBox`, `Grid`, `Frame`, `Dock`, `Border`, `Stack`, `Overlay`, `Paned`, `Expander`, `Accordion`; ein deklarativer `Node`-Builder |
+| Container | `Container` mit austauschbarem `Layout` (`FitLayout`, `BoxLayout`, `BorderLayout`, `CardLayout`, `FlowLayout`); `HBox`, `VBox`, `Grid`, `Frame`, `Dock`, `Border`, `Stack`, `Overlay`, `Paned`, `Splitter`, `Expander`, `Accordion`; ein deklarativer `Node`-Builder |
 | Navigation | `Menu`, `MenuBar` (mit `Alt`+Buchstabe), `ContextMenu`, `Popover`, `CommandPalette`, `Dialog`, `MessageDialog`, `Wizard`, `Notebook`, `ViewSwitcher`, `Carousel` |
 | Rückmeldung | `ProgressBar`, `ProgressCircle`, `LevelBar`, `Spinner`, `Tooltip`, `Notification`, `Toast`, `Banner`, `Alert`, `Badge`, `Skeleton` |
 | Daten | `Table` (Zellbearbeitung, fixierte Spalten, Gruppenzeilen, Aggregate, aufklappbare Zeilen), `TreeTable`, `PropertyGrid`, `Kanban`, `Gantt`, `Agenda` (Woche, Monat, Quartal, Jahr; mehrere Kalender) |
@@ -55,6 +55,46 @@ einem `mvvm.Command` des Viewmodels, dessen `CanExecute` das Element ausgraut.
 Aktive Registerkarte, Zusammenklapp-Zustand, ein Umschalter und die Auswahl
 einer Liste sind `mvvm.Observable`s. Unter einem `PopoverHost` zeichnen sich
 die Menüs ohne Host-Code über die Seite.
+
+## Splitter {#splitter}
+
+`Splitter` ordnet N Bereiche nebeneinander (oder mit `vertical` gleich true
+untereinander) an und setzt zwischen je zwei benachbarte einen ziehbaren,
+fokussierbaren Teiler, nach dem WAI-ARIA-Muster „Window Splitter“. Ein Bereich
+ist entweder **fest** — seine `Size` in logischen Pixeln ist ein
+`mvvm.Observable[int]`, den der Teiler schreibt — oder **flexibel** und teilt
+sich nach seinem `Weight`, ebenfalls ein `Observable`, was die festen Bereiche
+übrig lassen. Jeder Bereich hat ein `Min` und ein `Max`. Ein `Collapsible`
+fester Bereich schließt sich (Größe 0), wenn der Teiler unter die Hälfte seines
+`Min` gezogen wird, oder per Doppelklick oder Enter, und öffnet sich auf
+dieselbe Weise wieder. Das `Visible`-Observable eines Bereichs schaltet ihn samt
+Teiler ab. Da die Größen in Observables liegen, kann ein Viewmodel sie binden,
+speichern und wiederherstellen; `OnResized` wird einmal je beendeter Geste mit
+den Bereichen aufgerufen, die die Person geändert hat, nie für ein Layout, das
+nur einer Fenstergrößenänderung folgte.
+
+```go
+files := mvvm.NewObservable(240) // fixed pane, logical px
+w := mvvm.NewObservable(1)       // flexible pane, weight
+
+s := toolkit.NewSplitter(false,
+	&toolkit.SplitPane{Widget: tree, Name: "Files", Size: files,
+		Min: 120, Max: 480, Collapsible: true},
+	&toolkit.SplitPane{Widget: editor, Name: "Editor", Weight: w, Min: 200},
+)
+s.OnResized = func(changed []int) { save(files.Get(), w.Get()) }
+```
+
+Ein Teiler erhält den Fokus: Die Pfeiltasten (hoch und runter bei vertikaler
+Anordnung) bewegen ihn um `Step` logische Pixel, mit Umschalt um das Vierfache;
+Pos1 und Ende bringen den davorliegenden Bereich auf seine kleinste und größte
+Größe; Enter schließt oder stellt den festen Bereich wieder her, den er steuert;
+Tab wechselt zwischen den Teilern. Jeder Teiler ist ein `RoleSeparator` mit
+`aria-valuemin`, `aria-valuemax` und `aria-valuenow`, benannt „Resize“ plus
+`Name` des Bereichs. `Cursor(x, y)` liefert über einem Teiler `"col-resize"`
+oder `"row-resize"`, und `SplitterColors(theme)` gibt Linie und Akzent des
+Teilers an, die in beiden Standard-Themes einen Kontrast von 3:1 zu Hintergrund
+und Oberfläche behalten, ebenso wie der Fokusring.
 
 ## Themes {#themes}
 

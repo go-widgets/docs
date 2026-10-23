@@ -24,7 +24,7 @@ a ejecutarlos en lugar de repetir las cifras.
 | Acción | `Button`, `ToggleButton`, `CheckButton`, `RadioButton` + `RadioGroup`, `Switch`, `SplitButton`, `IconButton`, `CycleButton`, `Chip`, `SegmentedBar` |
 | Entrada | `Entry`, `TextView` (selección, vista previa de IME, tramos de sintaxis, números de línea), `SpinButton`, `Scale`, `RangeSlider`, `SearchEntry`, `TagField`, `ComboBox`, `FormField` con `Validate`/`Rule` |
 | Selección | `ListBox`, `TreeView`, `DropDown` |
-| Contenedores | `Container` con un `Layout` intercambiable (`FitLayout`, `BoxLayout`, `BorderLayout`, `CardLayout`, `FlowLayout`); `HBox`, `VBox`, `Grid`, `Frame`, `Dock`, `Border`, `Stack`, `Overlay`, `Paned`, `Expander`, `Accordion`; un constructor declarativo `Node` |
+| Contenedores | `Container` con un `Layout` intercambiable (`FitLayout`, `BoxLayout`, `BorderLayout`, `CardLayout`, `FlowLayout`); `HBox`, `VBox`, `Grid`, `Frame`, `Dock`, `Border`, `Stack`, `Overlay`, `Paned`, `Splitter`, `Expander`, `Accordion`; un constructor declarativo `Node` |
 | Navegación | `Menu`, `MenuBar` (con `Alt`+letra), `ContextMenu`, `Popover`, `CommandPalette`, `Dialog`, `MessageDialog`, `Wizard`, `Notebook`, `ViewSwitcher`, `Carousel` |
 | Respuesta | `ProgressBar`, `ProgressCircle`, `LevelBar`, `Spinner`, `Tooltip`, `Notification`, `Toast`, `Banner`, `Alert`, `Badge`, `Skeleton` |
 | Datos | `Table` (edición de celdas, columnas fijas, filas de grupo, agregados, expansores de fila), `TreeTable`, `PropertyGrid`, `Kanban`, `Gantt`, `Agenda` (semana, mes, trimestre, año; varios calendarios) |
@@ -55,6 +55,44 @@ menú, una paleta y la cinta — y `NewCommandAction` crea una a partir de un
 pestaña activa, el estado contraído, un interruptor y la elección de una lista
 son `mvvm.Observable`. Bajo un `PopoverHost`, sus menús se dibujan sobre la
 página sin código del anfitrión.
+
+## Divisor {#splitter}
+
+`Splitter` dispone N paneles uno junto a otro (o uno sobre otro con `vertical`
+en verdadero) y coloca entre cada par vecino un divisor arrastrable y con foco,
+según el patrón WAI-ARIA «window splitter». Un panel es **fijo** — su `Size`, en
+píxeles lógicos, es un `mvvm.Observable[int]` que escribe el divisor — o
+**flexible**, y se reparte lo que dejan los paneles fijos según su `Weight`,
+también un `Observable`. Cada panel tiene un `Min` y un `Max`. Un panel fijo
+`Collapsible` se cierra (tamaño 0) al arrastrar el divisor por debajo de la
+mitad de su `Min`, o con doble clic o Intro, y se vuelve a abrir igual. El
+observable `Visible` de un panel lo apaga junto con su divisor. Como los tamaños
+viven en observables, un modelo de vista puede enlazarlos, guardarlos y
+restaurarlos; `OnResized` se llama una vez por gesto terminado con los paneles
+que la persona cambió, nunca por una disposición que solo siguió el cambio de
+tamaño de la ventana.
+
+```go
+files := mvvm.NewObservable(240) // fixed pane, logical px
+w := mvvm.NewObservable(1)       // flexible pane, weight
+
+s := toolkit.NewSplitter(false,
+	&toolkit.SplitPane{Widget: tree, Name: "Files", Size: files,
+		Min: 120, Max: 480, Collapsible: true},
+	&toolkit.SplitPane{Widget: editor, Name: "Editor", Weight: w, Min: 200},
+)
+s.OnResized = func(changed []int) { save(files.Get(), w.Get()) }
+```
+
+Un divisor recibe el foco: las flechas (arriba y abajo en vertical) lo mueven
+`Step` píxeles lógicos, cuatro veces más con Mayús; Inicio y Fin llevan el panel
+que lo precede a su tamaño mínimo y máximo; Intro cierra o restablece el panel
+fijo que controla; Tab pasa de un divisor a otro. Cada divisor es un
+`RoleSeparator` con `aria-valuemin`, `aria-valuemax` y `aria-valuenow`, llamado
+«Resize» más el `Name` del panel. `Cursor(x, y)` devuelve `"col-resize"` o
+`"row-resize"` sobre un divisor, y `SplitterColors(theme)` da la línea y el
+acento del divisor, que mantienen un contraste de 3:1 frente al fondo y la
+superficie en ambos temas por defecto, igual que el anillo de foco.
 
 ## Temas {#themes}
 
