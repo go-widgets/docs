@@ -56,6 +56,21 @@ pestaña activa, el estado contraído, un interruptor y la elección de una list
 son `mvvm.Observable`. Bajo un `PopoverHost`, sus menús se dibujan sobre la
 página sin código del anfitrión.
 
+`RibbonGrid` es una clase de control cuyo menú emergente es una cuadrícula de
+`GridCols` por `GridRows` celdas (8 por 6 si es cero, 16 por 16 como máximo),
+como el botón Tabla de un procesador de texto. El puntero o las flechas
+iluminan las celdas desde la esquina hasta la que queda debajo y una leyenda
+dice «3 × 2»; un clic o Intro elige y llama a `OnGrid(cols, rows)`; Inicio y
+Fin saltan, Esc cierra. Se dibuja en claro y oscuro y se comunica a las
+tecnologías de apoyo como un botón expandido mientras la cuadrícula está
+abierta.
+
+```go
+&toolkit.RibbonControl{Kind: toolkit.RibbonGrid, Label: "Table",
+	GridCols: 8, GridRows: 8,
+	OnGrid: insertTable}
+```
+
 ## Divisor {#splitter}
 
 `Splitter` dispone N paneles uno junto a otro (o uno sobre otro con `vertical`

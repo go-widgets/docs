@@ -53,6 +53,20 @@ collapsed state, a toggle and a drop-down's choice are `mvvm.Observable`s. Put
 the ribbon under a `PopoverHost` and its menus draw over the page with no host
 code.
 
+`RibbonGrid` is a control kind whose pop-up is a `GridCols` by `GridRows` grid of
+cells (8 by 6 when zero, at most 16 by 16), as the Table button of a word
+processor has. The pointer or the arrow keys light the cells from the corner up
+to the one under them and a caption says "3 × 2"; a click or Enter chooses and
+calls `OnGrid(cols, rows)`; Home and End jump, Escape closes. It is drawn in
+light and dark and reported to assistive technology as a button that is
+expanded while the grid is open.
+
+```go
+&toolkit.RibbonControl{Kind: toolkit.RibbonGrid, Label: "Table",
+	GridCols: 8, GridRows: 8,
+	OnGrid: insertTable}
+```
+
 ## Splitter
 
 `Splitter` lays N panes side by side (or one above the other, with

@@ -56,6 +56,20 @@ contrôle. L'onglet actif, l'état replié, une bascule et le choix d'une liste
 sont des `mvvm.Observable`. Placé sous un `PopoverHost`, ses menus se dessinent
 au-dessus de la page sans code d'hôte.
 
+`RibbonGrid` est un genre de contrôle dont le menu est une grille de `GridCols`
+sur `GridRows` cellules (8 sur 6 si zéro, 16 sur 16 au plus), comme le bouton
+Tableau d'un traitement de texte. Le pointeur ou les flèches allument les
+cellules du coin jusqu'à celle qui est dessous et une légende dit « 3 × 2 » ;
+un clic ou Entrée choisit et appelle `OnGrid(cols, rows)` ; Début et Fin
+sautent, Échap ferme. Il se dessine en thème clair et sombre et est signalé aux
+technologies d'assistance comme un bouton déplié tant que la grille est ouverte.
+
+```go
+&toolkit.RibbonControl{Kind: toolkit.RibbonGrid, Label: "Table",
+	GridCols: 8, GridRows: 8,
+	OnGrid: insertTable}
+```
+
 ## Séparateur {#splitter}
 
 `Splitter` dispose N volets côte à côte (ou l'un au-dessus de l'autre avec

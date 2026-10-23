@@ -56,6 +56,21 @@ Aktive Registerkarte, Zusammenklapp-Zustand, ein Umschalter und die Auswahl
 einer Liste sind `mvvm.Observable`s. Unter einem `PopoverHost` zeichnen sich
 die Menüs ohne Host-Code über die Seite.
 
+`RibbonGrid` ist eine Steuerelementart, deren Popup ein Raster aus `GridCols`
+mal `GridRows` Zellen ist (8 mal 6 bei null, höchstens 16 mal 16), wie die
+Schaltfläche Tabelle einer Textverarbeitung. Zeiger oder Pfeiltasten
+beleuchten die Zellen von der Ecke bis zu der darunter, und eine Beschriftung
+nennt „3 × 2“; Klick oder Eingabe wählt und ruft `OnGrid(cols, rows)` auf;
+Pos1 und Ende springen, Esc schließt. Es wird hell und dunkel gezeichnet und
+Hilfstechnologien als Schaltfläche gemeldet, die aufgeklappt ist, solange das
+Raster offen ist.
+
+```go
+&toolkit.RibbonControl{Kind: toolkit.RibbonGrid, Label: "Table",
+	GridCols: 8, GridRows: 8,
+	OnGrid: insertTable}
+```
+
 ## Splitter {#splitter}
 
 `Splitter` ordnet N Bereiche nebeneinander (oder mit `vertical` gleich true
