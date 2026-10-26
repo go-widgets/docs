@@ -180,6 +180,64 @@ remplace la police globale pour ce seul widget.&lt;/p&gt;
 (&lt;code&gt;DragSource&lt;/code&gt;, &lt;code&gt;DropTarget&lt;/code&gt;). La sélection de plusieurs lignes dans &lt;code&gt;ListBox&lt;/code&gt;, &lt;code&gt;Table&lt;/code&gt; et
 &lt;code&gt;TreeView&lt;/code&gt; fonctionne à la souris comme au clavier, et respecte ⌘ aussi bien
 que Ctrl, car sous macOS Ctrl-clic est le clic secondaire.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="binary-size"&gt;Taille du binaire : un programme lie ce qu&amp;rsquo;il utilise&lt;span class="hx:absolute hx:-mt-20" id="binary-size"&gt;&lt;/span&gt;
+&lt;a href="#binary-size" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;La boîte à outils est un grand paquet, et l&amp;rsquo;éditeur de liens s&amp;rsquo;en accommode :
+l&amp;rsquo;élimination de code mort de Go ne garde que ce qui est atteignable depuis
+&lt;code&gt;main.main&lt;/code&gt; &lt;strong&gt;et depuis les tâches d&amp;rsquo;initialisation de chaque paquet importé&lt;/strong&gt;.
+Les widgets qu&amp;rsquo;un programme ne touche jamais sont retirés. Ce qui n&amp;rsquo;est pas
+retiré, c&amp;rsquo;est tout ce qu&amp;rsquo;atteint un initialiseur de niveau paquet ou le &lt;code&gt;init&lt;/code&gt;
+d&amp;rsquo;un paquet importé ; depuis la v0.345.0, la boîte à outils garde donc ses
+propres initialiseurs sans travail et évite d&amp;rsquo;importer des paquets dont le
+&lt;code&gt;init&lt;/code&gt; entraîne du code :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Material&lt;/code&gt; et &lt;code&gt;Thumbnail&lt;/code&gt; utilisent
+&lt;a href="https://github.com/go-images/images" target="_blank" rel="noopener"&gt;&lt;code&gt;github.com/go-images/images/ops&lt;/code&gt;&lt;/a&gt;, sans
+codec, et non &lt;code&gt;github.com/go-images/images&lt;/code&gt;, dont les décodeurs
+s&amp;rsquo;enregistrent dans &lt;code&gt;init&lt;/code&gt; (environ 1,7 Mo de code WebAssembly).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CollabText&lt;/code&gt;, &lt;code&gt;NewCollabText&lt;/code&gt;, &lt;code&gt;MetaName&lt;/code&gt; et &lt;code&gt;MetaColor&lt;/code&gt; sont passés dans
+&lt;strong&gt;&lt;code&gt;github.com/go-widgets/toolkit/collabui&lt;/code&gt;&lt;/strong&gt; : ils demandent une session
+&lt;code&gt;go-crdt/collab&lt;/code&gt; vivante, dont les transports tirent &lt;code&gt;net/http&lt;/code&gt; et
+&lt;code&gt;crypto/tls&lt;/code&gt;. &lt;code&gt;CollabSheet&lt;/code&gt; et &lt;code&gt;IsoCRDTDocument&lt;/code&gt; ne demandent que
+&lt;code&gt;go-crdt/crdt&lt;/code&gt; et restent dans &lt;code&gt;toolkit&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;La regexp de la &lt;code&gt;Rule&lt;/code&gt; e-mail, le registre d&amp;rsquo;icônes iso intégré et la table
+de boutons de &lt;code&gt;RichEditorToolbar&lt;/code&gt; sont construits à la première utilisation,
+non par des initialiseurs.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;⛔ &lt;strong&gt;Le déplacement est une rupture, sans redirection dépréciée.&lt;/strong&gt; Changez
+l&amp;rsquo;import des quatre noms ci-dessus vers &lt;code&gt;collabui&lt;/code&gt; ; rien d&amp;rsquo;autre ne change.&lt;/p&gt;
+&lt;p&gt;Tailles pour &lt;code&gt;GOOS=js GOARCH=wasm&lt;/code&gt; avec &lt;code&gt;-ldflags=&amp;quot;-s -w&amp;quot;&lt;/code&gt;, brut et gzip -9 :&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Programme&lt;/th&gt;
+&lt;th&gt;avant (brut / gzip)&lt;/th&gt;
+&lt;th&gt;après (brut / gzip)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;un &lt;code&gt;Label&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;10,49 / 2,88 Mo&lt;/td&gt;
+&lt;td&gt;7,48 / 2,13 Mo&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;go-wasmcontainers/dashboard&lt;/td&gt;
+&lt;td&gt;20,42 / 5,17 Mo&lt;/td&gt;
+&lt;td&gt;17,72 / 4,58 Mo&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;la carte de flux du relais&lt;/td&gt;
+&lt;td&gt;22,62 / 5,44 Mo&lt;/td&gt;
+&lt;td&gt;19,95 / 4,85 Mo&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Ce qui reste, c&amp;rsquo;est surtout le runtime et la pile OpenType dont le rendu du
+texte a besoin. Pour voir ce qui retient un symbole dans votre programme,
+compilez avec &lt;code&gt;-ldflags=-dumpdep&lt;/code&gt; et suivez la chaîne de premiers parents du
+symbole jusqu&amp;rsquo;à &lt;code&gt;main.main&lt;/code&gt; ou &lt;code&gt;go:main.inittasks&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;La v0.345.0 ajoute aussi &lt;code&gt;ColorHex&lt;/code&gt; et &lt;code&gt;ParseColorHex&lt;/code&gt;, pour écrire une couleur
+en hexadécimal et la relire.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="accessibility"&gt;Accessibilité&lt;span class="hx:absolute hx:-mt-20" id="accessibility"&gt;&lt;/span&gt;
 &lt;a href="#accessibility" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Une boîte à outils qui peint ses propres pixels ne donne rien à lire à un lecteur d&amp;rsquo;écran
 à moins de dire ce qu&amp;rsquo;elle a dessiné. Les widgets implémentent &lt;code&gt;Accessible&lt;/code&gt; — un rôle, un nom,

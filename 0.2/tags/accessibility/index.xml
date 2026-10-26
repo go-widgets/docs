@@ -174,6 +174,63 @@ overrides the global one for that widget alone.&lt;/p&gt;
 (&lt;code&gt;DragSource&lt;/code&gt;, &lt;code&gt;DropTarget&lt;/code&gt;). Multi-row selection in &lt;code&gt;ListBox&lt;/code&gt;, &lt;code&gt;Table&lt;/code&gt; and
 &lt;code&gt;TreeView&lt;/code&gt; works from the mouse and from the keyboard, and honours ⌘ as well
 as Ctrl, because on macOS Ctrl-click is the secondary click.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="binary-size"&gt;Binary size: a program links what it uses&lt;span class="hx:absolute hx:-mt-20" id="binary-size"&gt;&lt;/span&gt;
+&lt;a href="#binary-size" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;The toolkit is one large package, and that is fine for the linker: Go&amp;rsquo;s
+dead-code elimination keeps only what is reachable from &lt;code&gt;main.main&lt;/code&gt; &lt;strong&gt;and from
+the init tasks of every imported package&lt;/strong&gt;. Widgets a program never touches are
+dropped. What is not dropped is anything a package-level initializer or an
+imported package&amp;rsquo;s &lt;code&gt;init&lt;/code&gt; reaches, so since v0.345.0 the toolkit keeps its own
+initializers empty of work and avoids importing packages whose &lt;code&gt;init&lt;/code&gt; drags
+code in:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Material&lt;/code&gt; and &lt;code&gt;Thumbnail&lt;/code&gt; use the codec-free
+&lt;a href="https://github.com/go-images/images" target="_blank" rel="noopener"&gt;&lt;code&gt;github.com/go-images/images/ops&lt;/code&gt;&lt;/a&gt;,
+not &lt;code&gt;github.com/go-images/images&lt;/code&gt;, whose decoders register themselves in
+&lt;code&gt;init&lt;/code&gt; (about 1.7 MB of WebAssembly code).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CollabText&lt;/code&gt;, &lt;code&gt;NewCollabText&lt;/code&gt;, &lt;code&gt;MetaName&lt;/code&gt; and &lt;code&gt;MetaColor&lt;/code&gt; moved to
+&lt;strong&gt;&lt;code&gt;github.com/go-widgets/toolkit/collabui&lt;/code&gt;&lt;/strong&gt;: they need a live
+&lt;code&gt;go-crdt/collab&lt;/code&gt; session, whose transports pull &lt;code&gt;net/http&lt;/code&gt; and &lt;code&gt;crypto/tls&lt;/code&gt;.
+&lt;code&gt;CollabSheet&lt;/code&gt; and &lt;code&gt;IsoCRDTDocument&lt;/code&gt; need only &lt;code&gt;go-crdt/crdt&lt;/code&gt; and stay in
+&lt;code&gt;toolkit&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;The e-mail &lt;code&gt;Rule&lt;/code&gt;&amp;rsquo;s regexp, the built-in iso icon registry and the
+&lt;code&gt;RichEditorToolbar&lt;/code&gt; button table are built the first time they are used, not
+by initializers.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;⛔ &lt;strong&gt;The move is a breaking change, with no deprecated forwarder.&lt;/strong&gt; Change the
+import of the four names above to &lt;code&gt;collabui&lt;/code&gt;; nothing else changes.&lt;/p&gt;
+&lt;p&gt;Sizes for &lt;code&gt;GOOS=js GOARCH=wasm&lt;/code&gt; with &lt;code&gt;-ldflags=&amp;quot;-s -w&amp;quot;&lt;/code&gt;, raw and gzip -9:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Program&lt;/th&gt;
+&lt;th&gt;before (raw / gzip)&lt;/th&gt;
+&lt;th&gt;after (raw / gzip)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;one &lt;code&gt;Label&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;10.49 / 2.88 MB&lt;/td&gt;
+&lt;td&gt;7.48 / 2.13 MB&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;go-wasmcontainers/dashboard&lt;/td&gt;
+&lt;td&gt;20.42 / 5.17 MB&lt;/td&gt;
+&lt;td&gt;17.72 / 4.58 MB&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;the relay flow map&lt;/td&gt;
+&lt;td&gt;22.62 / 5.44 MB&lt;/td&gt;
+&lt;td&gt;19.95 / 4.85 MB&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;What remains is mostly the runtime and the OpenType stack the text renderer
+needs. To see what keeps a symbol in your own program, build with
+&lt;code&gt;-ldflags=-dumpdep&lt;/code&gt; and follow the first-parent chain from the symbol back to
+&lt;code&gt;main.main&lt;/code&gt; or &lt;code&gt;go:main.inittasks&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;v0.345.0 also adds &lt;code&gt;ColorHex&lt;/code&gt; and &lt;code&gt;ParseColorHex&lt;/code&gt;, to write a colour as hex and
+read it back.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="accessibility"&gt;Accessibility&lt;span class="hx:absolute hx:-mt-20" id="accessibility"&gt;&lt;/span&gt;
 &lt;a href="#accessibility" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;A toolkit that paints its own pixels gives a screen reader nothing to read
 unless it says what it drew. Widgets implement &lt;code&gt;Accessible&lt;/code&gt; — a role, a name,

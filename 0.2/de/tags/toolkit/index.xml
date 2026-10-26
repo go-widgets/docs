@@ -226,6 +226,64 @@ mehrere, etwa um eine CJK- oder arabische Schrift hinzuzufügen; das eigene &lt;
 (&lt;code&gt;DragSource&lt;/code&gt;, &lt;code&gt;DropTarget&lt;/code&gt;). Mehrfachauswahl von Zeilen in &lt;code&gt;ListBox&lt;/code&gt;, &lt;code&gt;Table&lt;/code&gt; und
 &lt;code&gt;TreeView&lt;/code&gt; funktioniert mit der Maus und mit der Tastatur und beachtet ⌘ ebenso
 wie Ctrl, weil unter macOS Ctrl-Klick der Sekundärklick ist.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="binary-size"&gt;Binärgröße: ein Programm linkt, was es benutzt&lt;span class="hx:absolute hx:-mt-20" id="binary-size"&gt;&lt;/span&gt;
+&lt;a href="#binary-size" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Das Toolkit ist ein großes Paket, und für den Linker ist das in Ordnung: Die
+Dead-Code-Eliminierung von Go behält nur, was von &lt;code&gt;main.main&lt;/code&gt; &lt;strong&gt;und von den
+Init-Aufgaben jedes importierten Pakets&lt;/strong&gt; aus erreichbar ist. Widgets, die ein
+Programm nie berührt, fallen weg. Nicht weg fällt alles, was ein Initialisierer
+auf Paketebene oder das &lt;code&gt;init&lt;/code&gt; eines importierten Pakets erreicht; seit
+v0.345.0 hält das Toolkit deshalb seine eigenen Initialisierer frei von Arbeit
+und vermeidet Pakete, deren &lt;code&gt;init&lt;/code&gt; Code nachzieht:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Material&lt;/code&gt; und &lt;code&gt;Thumbnail&lt;/code&gt; nutzen das codec-freie
+&lt;a href="https://github.com/go-images/images" target="_blank" rel="noopener"&gt;&lt;code&gt;github.com/go-images/images/ops&lt;/code&gt;&lt;/a&gt;
+statt &lt;code&gt;github.com/go-images/images&lt;/code&gt;, dessen Decoder sich in &lt;code&gt;init&lt;/code&gt;
+registrieren (etwa 1,7 MB WebAssembly-Code).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CollabText&lt;/code&gt;, &lt;code&gt;NewCollabText&lt;/code&gt;, &lt;code&gt;MetaName&lt;/code&gt; und &lt;code&gt;MetaColor&lt;/code&gt; sind nach
+&lt;strong&gt;&lt;code&gt;github.com/go-widgets/toolkit/collabui&lt;/code&gt;&lt;/strong&gt; umgezogen: Sie brauchen eine
+laufende &lt;code&gt;go-crdt/collab&lt;/code&gt;-Sitzung, deren Transporte &lt;code&gt;net/http&lt;/code&gt; und
+&lt;code&gt;crypto/tls&lt;/code&gt; hineinziehen. &lt;code&gt;CollabSheet&lt;/code&gt; und &lt;code&gt;IsoCRDTDocument&lt;/code&gt; brauchen nur
+&lt;code&gt;go-crdt/crdt&lt;/code&gt; und bleiben in &lt;code&gt;toolkit&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Der reguläre Ausdruck der E-Mail-&lt;code&gt;Rule&lt;/code&gt;, das eingebaute Iso-Icon-Register und
+die Schaltflächentabelle der &lt;code&gt;RichEditorToolbar&lt;/code&gt; werden bei der ersten
+Benutzung gebaut, nicht von Initialisierern.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;⛔ &lt;strong&gt;Der Umzug ist eine inkompatible Änderung, ohne veraltete Weiterleitung.&lt;/strong&gt;
+Ändern Sie den Import der vier Namen oben auf &lt;code&gt;collabui&lt;/code&gt;; sonst ändert sich
+nichts.&lt;/p&gt;
+&lt;p&gt;Größen für &lt;code&gt;GOOS=js GOARCH=wasm&lt;/code&gt; mit &lt;code&gt;-ldflags=&amp;quot;-s -w&amp;quot;&lt;/code&gt;, roh und gzip -9:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Programm&lt;/th&gt;
+&lt;th&gt;vorher (roh / gzip)&lt;/th&gt;
+&lt;th&gt;nachher (roh / gzip)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;ein &lt;code&gt;Label&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;10,49 / 2,88 MB&lt;/td&gt;
+&lt;td&gt;7,48 / 2,13 MB&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;go-wasmcontainers/dashboard&lt;/td&gt;
+&lt;td&gt;20,42 / 5,17 MB&lt;/td&gt;
+&lt;td&gt;17,72 / 4,58 MB&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;die Relay-Flusskarte&lt;/td&gt;
+&lt;td&gt;22,62 / 5,44 MB&lt;/td&gt;
+&lt;td&gt;19,95 / 4,85 MB&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Was übrig bleibt, ist vor allem die Laufzeit und der OpenType-Stack, den das
+Textrendering braucht. Um zu sehen, was ein Symbol in Ihrem Programm hält,
+bauen Sie mit &lt;code&gt;-ldflags=-dumpdep&lt;/code&gt; und folgen der Kette der ersten Eltern vom
+Symbol bis &lt;code&gt;main.main&lt;/code&gt; oder &lt;code&gt;go:main.inittasks&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;v0.345.0 bringt außerdem &lt;code&gt;ColorHex&lt;/code&gt; und &lt;code&gt;ParseColorHex&lt;/code&gt;, um eine Farbe als Hex
+zu schreiben und wieder zu lesen.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="accessibility"&gt;Barrierefreiheit&lt;span class="hx:absolute hx:-mt-20" id="accessibility"&gt;&lt;/span&gt;
 &lt;a href="#accessibility" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Ein Toolkit, das seine eigenen Pixel zeichnet, gibt einem Screenreader nichts zu lesen,
 solange es nicht sagt, was es gezeichnet hat. Widgets implementieren &lt;code&gt;Accessible&lt;/code&gt; – eine Rolle, einen Namen,
