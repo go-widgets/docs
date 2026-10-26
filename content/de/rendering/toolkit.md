@@ -142,6 +142,49 @@ Maus, Tastatur, IME-Komposition, Touch (`EventTouchStart`/`Move`/`End`, mit
 `TreeView` funktioniert mit der Maus und mit der Tastatur und beachtet ⌘ ebenso
 wie Ctrl, weil unter macOS Ctrl-Klick der Sekundärklick ist.
 
+## Binärgröße: ein Programm linkt, was es benutzt {#binary-size}
+
+Das Toolkit ist ein großes Paket, und für den Linker ist das in Ordnung: Die
+Dead-Code-Eliminierung von Go behält nur, was von `main.main` **und von den
+Init-Aufgaben jedes importierten Pakets** aus erreichbar ist. Widgets, die ein
+Programm nie berührt, fallen weg. Nicht weg fällt alles, was ein Initialisierer
+auf Paketebene oder das `init` eines importierten Pakets erreicht; seit
+v0.345.0 hält das Toolkit deshalb seine eigenen Initialisierer frei von Arbeit
+und vermeidet Pakete, deren `init` Code nachzieht:
+
+- `Material` und `Thumbnail` nutzen das codec-freie
+  [`github.com/go-images/images/ops`](https://github.com/go-images/images)
+  statt `github.com/go-images/images`, dessen Decoder sich in `init`
+  registrieren (etwa 1,7 MB WebAssembly-Code).
+- `CollabText`, `NewCollabText`, `MetaName` und `MetaColor` sind nach
+  **`github.com/go-widgets/toolkit/collabui`** umgezogen: Sie brauchen eine
+  laufende `go-crdt/collab`-Sitzung, deren Transporte `net/http` und
+  `crypto/tls` hineinziehen. `CollabSheet` und `IsoCRDTDocument` brauchen nur
+  `go-crdt/crdt` und bleiben in `toolkit`.
+- Der reguläre Ausdruck der E-Mail-`Rule`, das eingebaute Iso-Icon-Register und
+  die Schaltflächentabelle der `RichEditorToolbar` werden bei der ersten
+  Benutzung gebaut, nicht von Initialisierern.
+
+⛔ **Der Umzug ist eine inkompatible Änderung, ohne veraltete Weiterleitung.**
+Ändern Sie den Import der vier Namen oben auf `collabui`; sonst ändert sich
+nichts.
+
+Größen für `GOOS=js GOARCH=wasm` mit `-ldflags="-s -w"`, roh und gzip -9:
+
+| Programm | vorher (roh / gzip) | nachher (roh / gzip) |
+|---|---|---|
+| ein `Label` | 10,49 / 2,88 MB | 7,48 / 2,13 MB |
+| go-wasmcontainers/dashboard | 20,42 / 5,17 MB | 17,72 / 4,58 MB |
+| die Relay-Flusskarte | 22,62 / 5,44 MB | 19,95 / 4,85 MB |
+
+Was übrig bleibt, ist vor allem die Laufzeit und der OpenType-Stack, den das
+Textrendering braucht. Um zu sehen, was ein Symbol in Ihrem Programm hält,
+bauen Sie mit `-ldflags=-dumpdep` und folgen der Kette der ersten Eltern vom
+Symbol bis `main.main` oder `go:main.inittasks`.
+
+v0.345.0 bringt außerdem `ColorHex` und `ParseColorHex`, um eine Farbe als Hex
+zu schreiben und wieder zu lesen.
+
 ## Barrierefreiheit {#accessibility}
 
 Ein Toolkit, das seine eigenen Pixel zeichnet, gibt einem Screenreader nichts zu lesen,

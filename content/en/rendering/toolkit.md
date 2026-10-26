@@ -135,6 +135,48 @@ Mouse, keyboard, IME composition, touch (`EventTouchStart`/`Move`/`End`, with
 `TreeView` works from the mouse and from the keyboard, and honours ⌘ as well
 as Ctrl, because on macOS Ctrl-click is the secondary click.
 
+## Binary size: a program links what it uses {#binary-size}
+
+The toolkit is one large package, and that is fine for the linker: Go's
+dead-code elimination keeps only what is reachable from `main.main` **and from
+the init tasks of every imported package**. Widgets a program never touches are
+dropped. What is not dropped is anything a package-level initializer or an
+imported package's `init` reaches, so since v0.345.0 the toolkit keeps its own
+initializers empty of work and avoids importing packages whose `init` drags
+code in:
+
+- `Material` and `Thumbnail` use the codec-free
+  [`github.com/go-images/images/ops`](https://github.com/go-images/images),
+  not `github.com/go-images/images`, whose decoders register themselves in
+  `init` (about 1.7 MB of WebAssembly code).
+- `CollabText`, `NewCollabText`, `MetaName` and `MetaColor` moved to
+  **`github.com/go-widgets/toolkit/collabui`**: they need a live
+  `go-crdt/collab` session, whose transports pull `net/http` and `crypto/tls`.
+  `CollabSheet` and `IsoCRDTDocument` need only `go-crdt/crdt` and stay in
+  `toolkit`.
+- The e-mail `Rule`'s regexp, the built-in iso icon registry and the
+  `RichEditorToolbar` button table are built the first time they are used, not
+  by initializers.
+
+⛔ **The move is a breaking change, with no deprecated forwarder.** Change the
+import of the four names above to `collabui`; nothing else changes.
+
+Sizes for `GOOS=js GOARCH=wasm` with `-ldflags="-s -w"`, raw and gzip -9:
+
+| Program | before (raw / gzip) | after (raw / gzip) |
+|---|---|---|
+| one `Label` | 10.49 / 2.88 MB | 7.48 / 2.13 MB |
+| go-wasmcontainers/dashboard | 20.42 / 5.17 MB | 17.72 / 4.58 MB |
+| the relay flow map | 22.62 / 5.44 MB | 19.95 / 4.85 MB |
+
+What remains is mostly the runtime and the OpenType stack the text renderer
+needs. To see what keeps a symbol in your own program, build with
+`-ldflags=-dumpdep` and follow the first-parent chain from the symbol back to
+`main.main` or `go:main.inittasks`.
+
+v0.345.0 also adds `ColorHex` and `ParseColorHex`, to write a colour as hex and
+read it back.
+
 ## Accessibility
 
 A toolkit that paints its own pixels gives a screen reader nothing to read

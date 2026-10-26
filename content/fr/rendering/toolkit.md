@@ -141,6 +141,49 @@ Souris, clavier, composition IME, tactile (`EventTouchStart`/`Move`/`End`, avec
 `TreeView` fonctionne à la souris comme au clavier, et respecte ⌘ aussi bien
 que Ctrl, car sous macOS Ctrl-clic est le clic secondaire.
 
+## Taille du binaire : un programme lie ce qu'il utilise {#binary-size}
+
+La boîte à outils est un grand paquet, et l'éditeur de liens s'en accommode :
+l'élimination de code mort de Go ne garde que ce qui est atteignable depuis
+`main.main` **et depuis les tâches d'initialisation de chaque paquet importé**.
+Les widgets qu'un programme ne touche jamais sont retirés. Ce qui n'est pas
+retiré, c'est tout ce qu'atteint un initialiseur de niveau paquet ou le `init`
+d'un paquet importé ; depuis la v0.345.0, la boîte à outils garde donc ses
+propres initialiseurs sans travail et évite d'importer des paquets dont le
+`init` entraîne du code :
+
+- `Material` et `Thumbnail` utilisent
+  [`github.com/go-images/images/ops`](https://github.com/go-images/images), sans
+  codec, et non `github.com/go-images/images`, dont les décodeurs
+  s'enregistrent dans `init` (environ 1,7 Mo de code WebAssembly).
+- `CollabText`, `NewCollabText`, `MetaName` et `MetaColor` sont passés dans
+  **`github.com/go-widgets/toolkit/collabui`** : ils demandent une session
+  `go-crdt/collab` vivante, dont les transports tirent `net/http` et
+  `crypto/tls`. `CollabSheet` et `IsoCRDTDocument` ne demandent que
+  `go-crdt/crdt` et restent dans `toolkit`.
+- La regexp de la `Rule` e-mail, le registre d'icônes iso intégré et la table
+  de boutons de `RichEditorToolbar` sont construits à la première utilisation,
+  non par des initialiseurs.
+
+⛔ **Le déplacement est une rupture, sans redirection dépréciée.** Changez
+l'import des quatre noms ci-dessus vers `collabui` ; rien d'autre ne change.
+
+Tailles pour `GOOS=js GOARCH=wasm` avec `-ldflags="-s -w"`, brut et gzip -9 :
+
+| Programme | avant (brut / gzip) | après (brut / gzip) |
+|---|---|---|
+| un `Label` | 10,49 / 2,88 Mo | 7,48 / 2,13 Mo |
+| go-wasmcontainers/dashboard | 20,42 / 5,17 Mo | 17,72 / 4,58 Mo |
+| la carte de flux du relais | 22,62 / 5,44 Mo | 19,95 / 4,85 Mo |
+
+Ce qui reste, c'est surtout le runtime et la pile OpenType dont le rendu du
+texte a besoin. Pour voir ce qui retient un symbole dans votre programme,
+compilez avec `-ldflags=-dumpdep` et suivez la chaîne de premiers parents du
+symbole jusqu'à `main.main` ou `go:main.inittasks`.
+
+La v0.345.0 ajoute aussi `ColorHex` et `ParseColorHex`, pour écrire une couleur
+en hexadécimal et la relire.
+
 ## Accessibilité {#accessibility}
 
 Une boîte à outils qui peint ses propres pixels ne donne rien à lire à un lecteur d'écran
