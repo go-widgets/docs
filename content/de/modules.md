@@ -13,7 +13,7 @@ Schreibens – maßgeblich ist die Tag-Liste des jeweiligen Repositorys.
 | Modul | Tag | Was es ist | Referenz |
 |---|---|---|---|
 | [`painter`](https://github.com/go-widgets/painter) | v0.16.0 | [die Zeichenschnittstelle]({{< relref "/rendering/painter.md" >}}): Pixel- und Zellen-Painter | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/painter) |
-| [`toolkit`](https://github.com/go-widgets/toolkit) | v0.345.0 | [der Widget-Satz]({{< relref "/rendering/toolkit.md" >}}), Themes, Layouts, Text | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/toolkit) |
+| [`toolkit`](https://github.com/go-widgets/toolkit) | v0.345.1 | [der Widget-Satz]({{< relref "/rendering/toolkit.md" >}}), Themes, Layouts, Text | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/toolkit) |
 | [`skin`](https://github.com/go-widgets/skin) | v0.3.0 | [Widgets als Daten beschrieben]({{< relref "/rendering/skin.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/skin) |
 | [`isoicons`](https://github.com/go-widgets/isoicons) | v0.4.0 | isometrische Icon-Pakete (Cloud-native, AWS) für die isometrischen Diagramme des Toolkits | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/isoicons) |
 | [`mvvm`](https://github.com/go-widgets/mvvm) | v0.15.0 | [Observables, Commands, Binder, Rückgängig]({{< relref "/state/mvvm.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvm) |

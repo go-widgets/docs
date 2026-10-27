@@ -13,7 +13,7 @@ writing — the repository's own tag list is the authority.
 | Module | Tag | What it is | Reference |
 |---|---|---|---|
 | [`painter`](https://github.com/go-widgets/painter) | v0.16.0 | [the drawing seam]({{< relref "/rendering/painter.md" >}}): pixel and cell painters | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/painter) |
-| [`toolkit`](https://github.com/go-widgets/toolkit) | v0.345.0 | [the widget set]({{< relref "/rendering/toolkit.md" >}}), themes, layouts, text | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/toolkit) |
+| [`toolkit`](https://github.com/go-widgets/toolkit) | v0.345.1 | [the widget set]({{< relref "/rendering/toolkit.md" >}}), themes, layouts, text | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/toolkit) |
 | [`skin`](https://github.com/go-widgets/skin) | v0.3.0 | [widgets described as data]({{< relref "/rendering/skin.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/skin) |
 | [`isoicons`](https://github.com/go-widgets/isoicons) | v0.4.0 | isometric icon packs (cloud-native, AWS) for the toolkit's isometric diagrams | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/isoicons) |
 | [`mvvm`](https://github.com/go-widgets/mvvm) | v0.15.0 | [observables, commands, binders, undo]({{< relref "/state/mvvm.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvm) |

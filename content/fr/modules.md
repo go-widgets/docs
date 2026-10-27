@@ -13,7 +13,7 @@ rédaction — la liste des étiquettes du dépôt lui-même fait foi.
 | Module | Étiquette | Ce que c'est | Référence |
 |---|---|---|---|
 | [`painter`](https://github.com/go-widgets/painter) | v0.16.0 | [la jonction de dessin]({{< relref "/rendering/painter.md" >}}) : painters en pixels et en cellules | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/painter) |
-| [`toolkit`](https://github.com/go-widgets/toolkit) | v0.345.0 | [le jeu de widgets]({{< relref "/rendering/toolkit.md" >}}), thèmes, mises en page, texte | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/toolkit) |
+| [`toolkit`](https://github.com/go-widgets/toolkit) | v0.345.1 | [le jeu de widgets]({{< relref "/rendering/toolkit.md" >}}), thèmes, mises en page, texte | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/toolkit) |
 | [`skin`](https://github.com/go-widgets/skin) | v0.3.0 | [des widgets décrits par des données]({{< relref "/rendering/skin.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/skin) |
 | [`isoicons`](https://github.com/go-widgets/isoicons) | v0.4.0 | jeux d'icônes isométriques (cloud-native, AWS) pour les diagrammes isométriques de la boîte à outils | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/isoicons) |
 | [`mvvm`](https://github.com/go-widgets/mvvm) | v0.15.0 | [observables, commandes, binders, annulation]({{< relref "/state/mvvm.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvm) |
