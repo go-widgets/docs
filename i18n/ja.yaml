@@ -1,0 +1,4 @@
+# Hextra 自身の文字列（themes/hextra/i18n/ja.yaml）に加えて、このサイトが使う文字列。
+copyright: "© 2026 go-widgets の作者 · BSD-3-Clause"
+version: "バージョン"
+projects: "プロジェクト"

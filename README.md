@@ -43,7 +43,11 @@ Its directory on `gh-pages` is kept as it was published, and it reads the same
 
 English is the default and sits at the root of each version
 (`/docs/<version>/surfaces/terminal/`). French, Spanish and German are under
-their code (`/docs/<version>/fr/surfaces/terminal/`, `/es/`, `/de/`). Version
+their code (`/docs/<version>/fr/surfaces/terminal/`, `/es/`, `/de/`), and so are
+Simplified Chinese (`/zh-cn/`), Korean (`/ko/`) and Japanese (`/ja/`). The CJK
+pages rely on `markup.goldmark.extensions.cjk` (`eastAsianLineBreaks`,
+`css3draft`, not `simple`, which glues Korean words together) and on the system
+CJK font stacks in `assets/css/custom.css`. Version
 0.1 is English only, and the version selector falls back to its English page.
 The language switch at the foot of the sidebar opens the same page in another
 language, in the same version.
@@ -63,7 +67,7 @@ To add a language `<lang>`:
 
 Declare a language only with its content: a declared language without pages
 is an empty entry in the switch. A change to an English page is a change to
-its three translations too.
+its six translations too.
 
 ## Layout
 
