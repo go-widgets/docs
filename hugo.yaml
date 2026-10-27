@@ -60,6 +60,39 @@ languages:
       # Day before month: "5. Oktober 2026".
       dateFormat: "2. January 2006"
       description: "Ein Widget-Toolkit in reinem Go und alle Flächen, auf die es zeichnet: ein natives Fenster unter X11, Wayland, macOS und Windows, ein Browser-Canvas, ein Terminal, eine Android-APK. CGO_ENABLED=0."
+  # Chinese (Simplified), Korean and Japanese. The language codes are the ones
+  # Hextra ships strings for (themes/hextra/i18n/{zh-cn,ko,ja}.yaml); the pages'
+  # CJK line breaks are handled by markup.goldmark.extensions.cjk below.
+  zh-cn:
+    label: "简体中文"
+    contentDir: content/zh-cn
+    weight: 5
+    params:
+      flag: images/flags/cn.svg
+      # Year, month, day with the units: "2026年10月5日".
+      dateFormat: "2006年1月2日"
+      description: "一个纯 Go 编写的控件工具包，以及它绘制的所有表面：X11、Wayland、macOS 和 Windows 上的原生窗口、浏览器 canvas、终端、Android APK。CGO_ENABLED=0。"
+  ko:
+    label: "한국어"
+    contentDir: content/ko
+    weight: 6
+    params:
+      flag: images/flags/kr.svg
+      # "2026년 10월 5일".
+      dateFormat: "2006년 1월 2일"
+      description: "순수 Go로 작성한 위젯 툴킷과 그것이 그리는 모든 서피스: X11, Wayland, macOS, Windows의 네이티브 창, 브라우저 canvas, 터미널, Android APK. CGO_ENABLED=0."
+  ja:
+    label: "日本語"
+    contentDir: content/ja
+    weight: 7
+    params:
+      flag: images/flags/jp.svg
+      # "2026年10月5日".
+      dateFormat: "2006年1月2日"
+      description: "純粋な Go で書かれたウィジェットツールキットと、それが描画するすべてのサーフェス：X11、Wayland、macOS、Windows のネイティブウィンドウ、ブラウザの canvas、ターミナル、Android APK。CGO_ENABLED=0。"
+
+# Word counts and summaries of the CJK pages count characters, not spaces.
+hasCJKLanguage: true
 
 enableRobotsTXT: true
 # Git history dates every page: "Last updated on" at the bottom of each page.
@@ -69,6 +102,15 @@ markup:
   goldmark:
     renderer:
       unsafe: true
+    extensions:
+      # ⛔ CJK line breaks: a soft line break between two East Asian characters
+      # must not become a space (Chinese, Japanese), while between Korean words
+      # it must (Korean is written with spaces). css3draft does both; "simple"
+      # glues Korean words together.
+      cjk:
+        enable: true
+        eastAsianLineBreaks: true
+        eastAsianLineBreaksStyle: css3draft
     parser:
       # A translated heading keeps the English one's anchor with an explicit
       # {#id}; attributes are needed for those.
