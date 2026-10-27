@@ -254,9 +254,14 @@ import of the four names above to &lt;code&gt;collabui&lt;/code&gt;; nothing els
 &lt;/thead&gt;
 &lt;tbody&gt;
 &lt;tr&gt;
-&lt;td&gt;one &lt;code&gt;Label&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;one &lt;code&gt;Label&lt;/code&gt; (v0.345.0)&lt;/td&gt;
 &lt;td&gt;10.49 / 2.88 MB&lt;/td&gt;
 &lt;td&gt;7.48 / 2.13 MB&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;one &lt;code&gt;Label&lt;/code&gt; (v0.345.1)&lt;/td&gt;
+&lt;td&gt;10.49 / 2.88 MB&lt;/td&gt;
+&lt;td&gt;5.66 / 1.61 MB&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;go-wasmcontainers/dashboard&lt;/td&gt;
