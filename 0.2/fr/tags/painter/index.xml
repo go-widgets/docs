@@ -109,8 +109,7 @@ data-copied-label="Copié !"
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;Le tampon reste celui de l&amp;rsquo;appelant. Un &lt;code&gt;PixelPainter&lt;/code&gt; ne fait que traduire les primitives
-en écritures, si bien que le même &lt;code&gt;[]byte&lt;/code&gt; peut être remis à un back-end de fenêtre, à un
-&lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; ou à un encodeur d&amp;rsquo;images sans copie intermédiaire.&lt;/p&gt;
+en écritures, si bien que le même &lt;code&gt;[]byte&lt;/code&gt; peut être remis à un back-end de fenêtre, à un&lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; ou à un encodeur d&amp;rsquo;images sans copie intermédiaire.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="trying-it"&gt;Essayer&lt;span class="hx:absolute hx:-mt-20" id="trying-it"&gt;&lt;/span&gt;
 &lt;a href="#trying-it" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Les démos du dépôt lui-même dessinent les trois mêmes widgets avec les deux painters :&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
@@ -198,8 +197,7 @@ data-copied-label="Copié !"
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Une primitive du painter dans le code applicatif&lt;/strong&gt; : une méthode de dessin (&lt;code&gt;FillRect&lt;/code&gt;,
-&lt;code&gt;StrokeRect&lt;/code&gt;, &lt;code&gt;FillPath&lt;/code&gt;, &lt;code&gt;DrawImage&lt;/code&gt;, &lt;code&gt;Text&lt;/code&gt;, &lt;code&gt;PutPixel&lt;/code&gt;, …) appelée sur un
+&lt;li&gt;&lt;strong&gt;Une primitive du painter dans le code applicatif&lt;/strong&gt; : une méthode de dessin (&lt;code&gt;FillRect&lt;/code&gt;,&lt;code&gt;StrokeRect&lt;/code&gt;, &lt;code&gt;FillPath&lt;/code&gt;, &lt;code&gt;DrawImage&lt;/code&gt;, &lt;code&gt;Text&lt;/code&gt;, &lt;code&gt;PutPixel&lt;/code&gt;, …) appelée sur un
 récepteur dont le type statique est un type du painter. Interroger ou découper la
 surface (&lt;code&gt;Size&lt;/code&gt;, &lt;code&gt;PushClip&lt;/code&gt;, &lt;code&gt;PushTranslate&lt;/code&gt;) n&amp;rsquo;est pas dessiner et n&amp;rsquo;est pas
 signalé. &lt;code&gt;-primitives=&lt;/code&gt; remplace la liste.&lt;/li&gt;

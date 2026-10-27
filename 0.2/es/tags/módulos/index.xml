@@ -1,6 +1,5 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Módulos</title><link>https://go-widgets.github.io/docs/0.2/es/tags/m%C3%B3dulos/</link><description>Recent content in Módulos on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>es</language><atom:link href="https://go-widgets.github.io/docs/0.2/es/tags/m%C3%B3dulos/index.xml" rel="self" type="application/rss+xml"/><item><title>Módulos</title><link>https://go-widgets.github.io/docs/0.2/es/modules/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/es/modules/</guid><description>
-&lt;p&gt;La referencia de API la genera a partir del código fuente
-&lt;a href="https://pkg.go.dev/" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;, que sigue las etiquetas publicadas; estas
+&lt;p&gt;La referencia de API la genera a partir del código fuente&lt;a href="https://pkg.go.dev/" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;, que sigue las etiquetas publicadas; estas
 páginas explican, y no la copian. La etiqueta es la más reciente en el momento
 de escribir; la autoridad es la lista de etiquetas del propio repositorio.&lt;/p&gt;
 &lt;table&gt;
@@ -133,12 +132,9 @@ de escribir; la autoridad es la lista de etiquetas del propio repositorio.&lt;/p
 &lt;a href="#what-every-module-is-held-to" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;code&gt;CGO_ENABLED=0&lt;/code&gt;: nada de cgo, ni de invocar una herramienta de línea de
 comandos en lugar de una biblioteca.&lt;/li&gt;
-&lt;li&gt;Compilación cruzada para amd64, arm64, riscv64, loong64, ppc64le y s390x
-—esta última big-endian, lo que mantiene honesta cada codificación binaria— y,
-cuando procede, &lt;code&gt;js/wasm&lt;/code&gt;. Las diecisiete bibliotecas y herramientas lo hacen
+&lt;li&gt;Compilación cruzada para amd64, arm64, riscv64, loong64, ppc64le y s390x—esta última big-endian, lo que mantiene honesta cada codificación binaria— y,cuando procede, &lt;code&gt;js/wasm&lt;/code&gt;. Las diecisiete bibliotecas y herramientas lo hacen
 desde el 2026-10-10; los otros dos son aplicaciones de navegador (&lt;a href="https://go-widgets.github.io/docs/0.2/es/status/#what-ci-does-not-cover-yet"&gt;Estado&lt;/a&gt;).&lt;/li&gt;
-&lt;li&gt;Una barrera de cobertura de sentencias en la CI: 100 %, en los diecinueve.
-Cuando un archivo no puede ejecutarse en una prueba (un bucle de
+&lt;li&gt;Una barrera de cobertura de sentencias en la CI: 100 %, en los diecinueve.Cuando un archivo no puede ejecutarse en una prueba (un bucle de
 navegador, un bucle de ejecución nativo), el módulo indica qué archivo queda
 fuera y por qué. Consulte &lt;a href="https://go-widgets.github.io/docs/0.2/es/status/"&gt;Estado&lt;/a&gt; para las
 excepciones.&lt;/li&gt;

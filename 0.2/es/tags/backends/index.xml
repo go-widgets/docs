@@ -47,13 +47,11 @@
 &lt;/table&gt;
 &lt;p&gt;El árbol de widgets no cambia de una a otra. Lo que cambia es quién posee el
 búfer y quién entrega la entrada —un servidor gráfico, un navegador, un
-terminal, un host Java—, y cada backend convierte esa entrada en el mismo
-&lt;code&gt;toolkit.Event&lt;/code&gt;.&lt;/p&gt;
+terminal, un host Java—, y cada backend convierte esa entrada en el mismo&lt;code&gt;toolkit.Event&lt;/code&gt;.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="chosen-by-what-is-there"&gt;Elegido según lo que hay&lt;span class="hx:absolute hx:-mt-20" id="chosen-by-what-is-there"&gt;&lt;/span&gt;
 &lt;a href="#chosen-by-what-is-there" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;window.Open&lt;/code&gt; no recibe ningún argumento de backend. Examina el entorno —la
 plataforma para la que se compiló, &lt;code&gt;$WAYLAND_DISPLAY&lt;/code&gt;, &lt;code&gt;$DISPLAY&lt;/code&gt;, el socket
 que exporta un host Android— y elige el que puede funcionar. Un binario
 compilado para Linux abre una ventana Wayland en una sesión Wayland y una
 ventana X11 bajo X; el mismo binario de Android se conecta a su host dentro de
-un APK y abre una ventana Linux corriente bajo Termux. Consulte
-&lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/native-window/#how-open-chooses"&gt;cómo elige &lt;code&gt;Open&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;</description></item></channel></rss>
+un APK y abre una ventana Linux corriente bajo Termux. Consulte&lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/native-window/#how-open-chooses"&gt;cómo elige &lt;code&gt;Open&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;</description></item></channel></rss>

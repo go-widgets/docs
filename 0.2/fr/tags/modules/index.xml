@@ -1,6 +1,5 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Modules</title><link>https://go-widgets.github.io/docs/0.2/fr/tags/modules/</link><description>Recent content in Modules on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>fr</language><atom:link href="https://go-widgets.github.io/docs/0.2/fr/tags/modules/index.xml" rel="self" type="application/rss+xml"/><item><title>Modules</title><link>https://go-widgets.github.io/docs/0.2/fr/modules/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/fr/modules/</guid><description>
-&lt;p&gt;La référence d&amp;rsquo;API est générée à partir de la source par
-&lt;a href="https://pkg.go.dev/" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;, qui suit les étiquettes publiées ; ces
+&lt;p&gt;La référence d&amp;rsquo;API est générée à partir de la source par&lt;a href="https://pkg.go.dev/" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;, qui suit les étiquettes publiées ; ces
 pages expliquent, et ne la recopient pas. L&amp;rsquo;étiquette est la plus récente au moment de la
 rédaction — la liste des étiquettes du dépôt lui-même fait foi.&lt;/p&gt;
 &lt;table&gt;
@@ -135,8 +134,7 @@ rédaction — la liste des étiquettes du dépôt lui-même fait foi.&lt;/p&gt;
 d&amp;rsquo;une bibliothèque.&lt;/li&gt;
 &lt;li&gt;Compilé de manière croisée pour amd64, arm64, riscv64, loong64, ppc64le et s390x — ce dernier
 en gros-boutiste, ce qui garde chaque encodage binaire honnête — et, quand cela
-s&amp;rsquo;applique, &lt;code&gt;js/wasm&lt;/code&gt;. Les dix-sept bibliothèques et outils le font tous depuis le 2026-10-10 ;
-les deux autres sont des applications de navigateur (&lt;a href="https://go-widgets.github.io/docs/0.2/fr/status/#what-ci-does-not-cover-yet"&gt;État&lt;/a&gt;).&lt;/li&gt;
+s&amp;rsquo;applique, &lt;code&gt;js/wasm&lt;/code&gt;. Les dix-sept bibliothèques et outils le font tous depuis le 2026-10-10 ;les deux autres sont des applications de navigateur (&lt;a href="https://go-widgets.github.io/docs/0.2/fr/status/#what-ci-does-not-cover-yet"&gt;État&lt;/a&gt;).&lt;/li&gt;
 &lt;li&gt;Une barrière de couverture des instructions dans la CI : 100 %, dans les dix-neuf. Quand un
 fichier ne peut pas s&amp;rsquo;exécuter dans un test (une boucle de navigateur, une boucle d&amp;rsquo;exécution native), le module
 indique quel fichier est laissé de côté et pourquoi. Voir &lt;a href="https://go-widgets.github.io/docs/0.2/fr/status/"&gt;État&lt;/a&gt;

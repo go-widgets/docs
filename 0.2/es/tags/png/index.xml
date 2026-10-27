@@ -1,7 +1,6 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Png</title><link>https://go-widgets.github.io/docs/0.2/es/tags/png/</link><description>Recent content in Png on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>es</language><atom:link href="https://go-widgets.github.io/docs/0.2/es/tags/png/index.xml" rel="self" type="application/rss+xml"/><item><title>Instantáneas: un widget como SVG o PNG</title><link>https://go-widgets.github.io/docs/0.2/es/surfaces/snapshots/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/es/surfaces/snapshots/</guid><description>
 &lt;p&gt;&lt;a href="https://github.com/go-widgets/svg" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/svg&lt;/code&gt;&lt;/a&gt; convierte un búfer RGBA en
-un SVG autocontenido: un &lt;code&gt;viewBox&lt;/code&gt; fijado al tamaño en píxeles del renderizado,
-y los píxeles como un PNG en base 64 bajo &lt;code&gt;image-rendering: pixelated&lt;/code&gt;. Cada
+un SVG autocontenido: un &lt;code&gt;viewBox&lt;/code&gt; fijado al tamaño en píxeles del renderizado,y los píxeles como un PNG en base 64 bajo &lt;code&gt;image-rendering: pixelated&lt;/code&gt;. Cada
 píxel mostrado es el píxel que dibujó el widget —sin revectorización, sin
 sustitución de fuentes— y se mantiene nítido a cualquier nivel de zoom.&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
@@ -28,5 +27,4 @@ data-copied-label="¡Copiado!"
 paquete raíz no depende de nada; el subpaquete &lt;code&gt;widget&lt;/code&gt; está separado para que
 un consumidor con su propio productor de píxeles no arrastre el toolkit a su
 grafo de módulos.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;svg/cmd/gallery-render&lt;/code&gt; renderiza el catálogo de widgets, en claro y en oscuro:
-&lt;a href="https://go-widgets.github.io/svg/" target="_blank" rel="noopener"&gt;go-widgets.github.io/svg&lt;/a&gt;.&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;&lt;code&gt;svg/cmd/gallery-render&lt;/code&gt; renderiza el catálogo de widgets, en claro y en oscuro:&lt;a href="https://go-widgets.github.io/svg/" target="_blank" rel="noopener"&gt;go-widgets.github.io/svg&lt;/a&gt;.&lt;/p&gt;</description></item></channel></rss>

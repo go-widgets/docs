@@ -1,0 +1,54 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Back-Ends</title><link>https://go-widgets.github.io/docs/0.2/ko/tags/back-ends/</link><description>Recent content in Back-Ends on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>ko</language><atom:link href="https://go-widgets.github.io/docs/0.2/ko/tags/back-ends/index.xml" rel="self" type="application/rss+xml"/><item><title>그려지는 곳</title><link>https://go-widgets.github.io/docs/0.2/ko/surfaces/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/ko/surfaces/</guid><description>
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;서피스&lt;/th&gt;
+&lt;th&gt;모듈&lt;/th&gt;
+&lt;th&gt;페인터&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;X11, Wayland, macOS, Windows의 &lt;a href="https://go-widgets.github.io/docs/0.2/ko/surfaces/native-window/"&gt;네이티브 창&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;window&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;픽셀&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;트레이 아이콘과 시스템 모양을 갖춘 &lt;a href="https://go-widgets.github.io/docs/0.2/ko/surfaces/application/"&gt;애플리케이션&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;application&lt;/code&gt;, &lt;code&gt;tray&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;픽셀&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/ko/surfaces/browser/"&gt;브라우저 탭&lt;/a&gt;: 일반 &lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;webcanvas&lt;/code&gt; 또는 &lt;code&gt;window&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;픽셀&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/ko/surfaces/browser/#a-window-on-the-wasmdesk-desktop"&gt;브라우저 데스크톱&lt;/a&gt;: wasmdesk 컴포지터의 창&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;window&lt;/code&gt; (wasmbox)&lt;/td&gt;
+&lt;td&gt;픽셀&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/ko/surfaces/terminal/"&gt;터미널&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;tui&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;셀&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/ko/surfaces/android/"&gt;Android APK&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;android&lt;/code&gt;, &lt;code&gt;window&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;픽셀&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/ko/surfaces/snapshots/"&gt;그림&lt;/a&gt;: SVG 또는 PNG&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;svg&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;픽셀&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;위젯 트리는 이들 사이에서 바뀌지 않습니다. 바뀌는 것은 버퍼를 누가 소유하고 입력을
+누가 전달하는가(디스플레이 서버, 브라우저, 터미널, Java 호스트)이며, 각 백엔드는
+그 입력을 같은 &lt;code&gt;toolkit.Event&lt;/code&gt;로 변환합니다.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="chosen-by-what-is-there"&gt;있는 환경에 따라 선택됩니다&lt;span class="hx:absolute hx:-mt-20" id="chosen-by-what-is-there"&gt;&lt;/span&gt;
+&lt;a href="#chosen-by-what-is-there" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;window.Open&lt;/code&gt;은 백엔드 인자를 받지 않습니다. 환경, 즉 빌드된 플랫폼,&lt;code&gt;$WAYLAND_DISPLAY&lt;/code&gt;, &lt;code&gt;$DISPLAY&lt;/code&gt;, Android 호스트가 내보내는 소켓을 살펴보고 동작할 수
+있는 것을 고릅니다. Linux용으로 빌드한 바이너리는 Wayland 세션에서는 Wayland 창을,X에서는 X11 창을 엽니다. 같은 Android 바이너리는 APK 안에서는 호스트에 연결하고,Termux에서는 일반 Linux 창을 엽니다.&lt;a href="https://go-widgets.github.io/docs/0.2/ko/surfaces/native-window/#how-open-chooses"&gt;&lt;code&gt;Open&lt;/code&gt;이 선택하는 방법&lt;/a&gt;을
+참고하십시오.&lt;/p&gt;</description></item></channel></rss>

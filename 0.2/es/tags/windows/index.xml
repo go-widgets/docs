@@ -1,7 +1,6 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Windows</title><link>https://go-widgets.github.io/docs/0.2/es/tags/windows/</link><description>Recent content in Windows on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>es</language><atom:link href="https://go-widgets.github.io/docs/0.2/es/tags/windows/index.xml" rel="self" type="application/rss+xml"/><item><title>Una ventana nativa</title><link>https://go-widgets.github.io/docs/0.2/es/surfaces/native-window/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/es/surfaces/native-window/</guid><description>
 &lt;p&gt;&lt;a href="https://github.com/go-widgets/window" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/window&lt;/code&gt;&lt;/a&gt; abre una ventana
-real y ejecuta en ella un árbol de widgets: layout, dibujo, presentación,
-traducción de la entrada a &lt;code&gt;toolkit.Event&lt;/code&gt;, y vuelta a empezar hasta que la
+real y ejecuta en ella un árbol de widgets: layout, dibujo, presentación,traducción de la entrada a &lt;code&gt;toolkit.Event&lt;/code&gt;, y vuelta a empezar hasta que la
 ventana se cierra.&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
 &lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Config&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;Title&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Demo&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;&lt;span class="w"&gt;
@@ -94,17 +93,13 @@ el segmento compartido pasado por &lt;code&gt;SCM_RIGHTS&lt;/code&gt;. A Windows
 las propias DLL del proceso con &lt;code&gt;syscall.NewLazyDLL&lt;/code&gt; y un procedimiento de
 ventana &lt;code&gt;syscall.NewCallback&lt;/code&gt;; a macOS, a través del runtime de Objective-C con
 purego.&lt;/p&gt;
-&lt;p&gt;La parte de cada backend que no depende de la plataforma —mapeo de eventos,
-cálculo de coordenadas, empaquetado de píxeles, rectángulos dañados— vive en un
+&lt;p&gt;La parte de cada backend que no depende de la plataforma —mapeo de eventos,cálculo de coordenadas, empaquetado de píxeles, rectángulos dañados— vive en un
 códec cubierto al 100 %, en todos los sistemas operativos. La fina capa de
-unión con la plataforma se demuestra en vivo: consulte
-&lt;a href="https://go-widgets.github.io/docs/0.2/es/status/"&gt;Estado&lt;/a&gt;.&lt;/p&gt;
+unión con la plataforma se demuestra en vivo: consulte&lt;a href="https://go-widgets.github.io/docs/0.2/es/status/"&gt;Estado&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="only-what-changed"&gt;Solo lo que ha cambiado&lt;span class="hx:absolute hx:-mt-20" id="only-what-changed"&gt;&lt;/span&gt;
-&lt;a href="#only-what-changed" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Una raíz que implementa &lt;code&gt;DamageRenderer&lt;/code&gt; (como hace &lt;code&gt;toolkit/scene.HostRoot&lt;/code&gt;)
-informa de los rectángulos que ha repintado, y todos los backends salvo GTK4
+&lt;a href="#only-what-changed" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Una raíz que implementa &lt;code&gt;DamageRenderer&lt;/code&gt; (como hace &lt;code&gt;toolkit/scene.HostRoot&lt;/code&gt;)informa de los rectángulos que ha repintado, y todos los backends salvo GTK4
 presentan solo esos: X11 mediante &lt;code&gt;ShmPutImage&lt;/code&gt; de MIT-SHM, Wayland mediante
-el daño de &lt;code&gt;wl_shm&lt;/code&gt;, Cocoa, Win32, Android, wasmbox y la pestaña del navegador.
-El primer fotograma, un cambio de tamaño y un &lt;code&gt;Expose&lt;/code&gt; de X11 siguen
+el daño de &lt;code&gt;wl_shm&lt;/code&gt;, Cocoa, Win32, Android, wasmbox y la pestaña del navegador.El primer fotograma, un cambio de tamaño y un &lt;code&gt;Expose&lt;/code&gt; de X11 siguen
 presentando toda la superficie.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="hidpi"&gt;HiDPI&lt;span class="hx:absolute hx:-mt-20" id="hidpi"&gt;&lt;/span&gt;
 &lt;a href="#hidpi" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Por defecto hay un píxel de framebuffer por punto lógico: la interfaz se
@@ -116,13 +111,10 @@ raíz que organiza su layout en píxeles del dispositivo.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="screens-and-showing-and-hiding"&gt;Pantallas, y mostrar y ocultar&lt;span class="hx:absolute hx:-mt-20" id="screens-and-showing-and-hiding"&gt;&lt;/span&gt;
 &lt;a href="#screens-and-showing-and-hiding" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;window.Screens()&lt;/code&gt; enumera las pantallas conectadas, la principal primero, en
 puntos lógicos y descontando los paneles del escritorio, y puede llamarse antes
-de &lt;code&gt;Open&lt;/code&gt;. El nombre de una pantalla es el del propio panel (&lt;code&gt;&amp;quot;DELL U2720Q&amp;quot;&lt;/code&gt;,
-tomado de su EDID), y recurre al conector (&lt;code&gt;&amp;quot;HDMI-1&amp;quot;&lt;/code&gt;) cuando el panel no
-publica ninguno, y también cuando dos paneles conectados publican el mismo,
-porque un nombre que no permite distinguirlos no es un nombre.&lt;/p&gt;
+de &lt;code&gt;Open&lt;/code&gt;. El nombre de una pantalla es el del propio panel (&lt;code&gt;&amp;quot;DELL U2720Q&amp;quot;&lt;/code&gt;,tomado de su EDID), y recurre al conector (&lt;code&gt;&amp;quot;HDMI-1&amp;quot;&lt;/code&gt;) cuando el panel no
+publica ninguno, y también cuando dos paneles conectados publican el mismo,porque un nombre que no permite distinguirlos no es un nombre.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;window.Show&lt;/code&gt;, &lt;code&gt;Hide&lt;/code&gt; y &lt;code&gt;Raise&lt;/code&gt; retiran de la pantalla una ventana abierta sin
-cerrarla y la traen de vuelta: lo que necesita una
-&lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/application/#the-tray"&gt;aplicación de bandeja&lt;/a&gt;.&lt;/p&gt;
+cerrarla y la traen de vuelta: lo que necesita una&lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/application/#the-tray"&gt;aplicación de bandeja&lt;/a&gt;.&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -166,5 +158,4 @@ cerrarla y la traen de vuelta: lo que necesita una
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;Conceder el foco corresponde a la plataforma: con la prevención del robo de
-foco, &lt;code&gt;Raise&lt;/code&gt; puede limitarse a marcar la ventana como necesitada de atención,
-y no puede saberlo.&lt;/p&gt;</description></item></channel></rss>
+foco, &lt;code&gt;Raise&lt;/code&gt; puede limitarse a marcar la ventana como necesitada de atención,y no puede saberlo.&lt;/p&gt;</description></item></channel></rss>

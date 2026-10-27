@@ -54,5 +54,4 @@ plateforme pour laquelle il a été compilé, &lt;code&gt;$WAYLAND_DISPLAY&lt;/c
 hôte Android — et choisit celui qui peut fonctionner. Un binaire compilé pour
 Linux ouvre une fenêtre Wayland dans une session Wayland et une fenêtre X11 sous
 X ; le même binaire Android contacte son hôte dans un APK et ouvre une fenêtre
-Linux ordinaire sous Termux. Voir
-&lt;a href="https://go-widgets.github.io/docs/0.2/fr/surfaces/native-window/#how-open-chooses"&gt;comment &lt;code&gt;Open&lt;/code&gt; choisit&lt;/a&gt;.&lt;/p&gt;</description></item></channel></rss>
+Linux ordinaire sous Termux. Voir&lt;a href="https://go-widgets.github.io/docs/0.2/fr/surfaces/native-window/#how-open-chooses"&gt;comment &lt;code&gt;Open&lt;/code&gt; choisit&lt;/a&gt;.&lt;/p&gt;</description></item></channel></rss>

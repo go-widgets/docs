@@ -2,20 +2,15 @@
 &lt;p&gt;&lt;a href="https://github.com/go-widgets/mvvmlint" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/mvvmlint&lt;/code&gt;&lt;/a&gt; solo actúa en
 los paquetes que importan el toolkit.&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Un campo de estado de un widget asignado a mano.&lt;/strong&gt; &lt;code&gt;entry.Text = &amp;quot;x&amp;quot;&lt;/code&gt;,
-donde el tipo estático de &lt;code&gt;entry&lt;/code&gt; es un widget del toolkit y &lt;code&gt;Text&lt;/code&gt; es un
-campo de estado, se señala. &lt;code&gt;&amp;amp;entry.Text&lt;/code&gt; —lo que reciben los
-&lt;a href="https://go-widgets.github.io/docs/0.2/es/state/mvvm/"&gt;binders&lt;/a&gt;— no es una asignación y nunca se
+&lt;li&gt;&lt;strong&gt;Un campo de estado de un widget asignado a mano.&lt;/strong&gt; &lt;code&gt;entry.Text = &amp;quot;x&amp;quot;&lt;/code&gt;,donde el tipo estático de &lt;code&gt;entry&lt;/code&gt; es un widget del toolkit y &lt;code&gt;Text&lt;/code&gt; es un
+campo de estado, se señala. &lt;code&gt;&amp;amp;entry.Text&lt;/code&gt; —lo que reciben los&lt;a href="https://go-widgets.github.io/docs/0.2/es/state/mvvm/"&gt;binders&lt;/a&gt;— no es una asignación y nunca se
 señala; tampoco un literal compuesto (&lt;code&gt;toolkit.Entry{Text: &amp;quot;x&amp;quot;}&lt;/code&gt;), ni la
 composición de un callback como &lt;code&gt;OnChange&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Widgets y ningún view-model.&lt;/strong&gt; Un paquete que importa el toolkit pero no
-&lt;code&gt;go-widgets/mvvm&lt;/code&gt; recibe un diagnóstico. &lt;code&gt;-requirevm=false&lt;/code&gt; lo desactiva para
+&lt;li&gt;&lt;strong&gt;Widgets y ningún view-model.&lt;/strong&gt; Un paquete que importa el toolkit pero no&lt;code&gt;go-widgets/mvvm&lt;/code&gt; recibe un diagnóstico. &lt;code&gt;-requirevm=false&lt;/code&gt; lo desactiva para
 una biblioteca de widgets que, con razón, no tiene view-model.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Los campos de estado son los de los widgets del toolkit (&lt;code&gt;Text&lt;/code&gt;, &lt;code&gt;Items&lt;/code&gt;,
-&lt;code&gt;Rows&lt;/code&gt;, &lt;code&gt;Root&lt;/code&gt;, &lt;code&gt;Selected&lt;/code&gt;, &lt;code&gt;Value&lt;/code&gt;, &lt;code&gt;Checked&lt;/code&gt;, …); &lt;code&gt;-statefields=&lt;/code&gt; sustituye la
-lista. Un archivo llamado &lt;code&gt;*_binding.go&lt;/code&gt;, o que contenga &lt;code&gt;//mvvmlint:allow&lt;/code&gt;,
-queda exento de la primera regla.&lt;/p&gt;
+&lt;p&gt;Los campos de estado son los de los widgets del toolkit (&lt;code&gt;Text&lt;/code&gt;, &lt;code&gt;Items&lt;/code&gt;,&lt;code&gt;Rows&lt;/code&gt;, &lt;code&gt;Root&lt;/code&gt;, &lt;code&gt;Selected&lt;/code&gt;, &lt;code&gt;Value&lt;/code&gt;, &lt;code&gt;Checked&lt;/code&gt;, …); &lt;code&gt;-statefields=&lt;/code&gt; sustituye la
+lista. Un archivo llamado &lt;code&gt;*_binding.go&lt;/code&gt;, o que contenga &lt;code&gt;//mvvmlint:allow&lt;/code&gt;,queda exento de la primera regla.&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
 &lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-sh" data-lang="sh"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;go install github.com/go-widgets/mvvmlint/cmd/mvvmlint@latest
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;go vet -vettool&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;go env GOPATH&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;/bin/mvvmlint&amp;#34;&lt;/span&gt; ./...&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
@@ -54,8 +49,7 @@ data-copied-label="¡Copiado!"
 &lt;p&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/getting-started/"&gt;&lt;code&gt;app-template&lt;/code&gt;&lt;/a&gt; incluye este trabajo de serie.&lt;/p&gt;</description></item><item><title>bricolint: nada de interfaz dibujada a mano</title><link>https://go-widgets.github.io/docs/0.2/es/guard-rails/bricolint/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/es/guard-rails/bricolint/</guid><description>
 &lt;p&gt;El &lt;em&gt;bricolage&lt;/em&gt; —dibujo improvisado, hecho a mano— es la manera en que una
 interfaz pierde sin hacer ruido su respuesta visual al pulsar, al pasar el
-puntero y al recibir el foco, sus temas, su escalado HiDPI y su accesibilidad.
-&lt;a href="https://github.com/go-widgets/bricolint" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/bricolint&lt;/code&gt;&lt;/a&gt;
+puntero y al recibir el foco, sus temas, su escalado HiDPI y su accesibilidad.&lt;a href="https://github.com/go-widgets/bricolint" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/bricolint&lt;/code&gt;&lt;/a&gt;
 impide que una aplicación que ya se ha pasado al toolkit vuelva atrás.&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
 &lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;p&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;FillRect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;bar&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;theme&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Bg&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// flagged: hand-drawn chrome&lt;/span&gt;&lt;span class="w"&gt;
@@ -78,14 +72,11 @@ data-copied-label="¡Copiado!"
 &lt;/div&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;Una primitiva del painter en el código de la aplicación&lt;/strong&gt;: un método de
-dibujo (&lt;code&gt;FillRect&lt;/code&gt;, &lt;code&gt;StrokeRect&lt;/code&gt;, &lt;code&gt;FillPath&lt;/code&gt;, &lt;code&gt;DrawImage&lt;/code&gt;, &lt;code&gt;Text&lt;/code&gt;,
-&lt;code&gt;PutPixel&lt;/code&gt;, …) invocado sobre un receptor cuyo tipo estático es un tipo de
-painter. Consultar o recortar la superficie (&lt;code&gt;Size&lt;/code&gt;, &lt;code&gt;PushClip&lt;/code&gt;,
-&lt;code&gt;PushTranslate&lt;/code&gt;) no es dibujar y no se señala. &lt;code&gt;-primitives=&lt;/code&gt; sustituye la lista.&lt;/li&gt;
+dibujo (&lt;code&gt;FillRect&lt;/code&gt;, &lt;code&gt;StrokeRect&lt;/code&gt;, &lt;code&gt;FillPath&lt;/code&gt;, &lt;code&gt;DrawImage&lt;/code&gt;, &lt;code&gt;Text&lt;/code&gt;,&lt;code&gt;PutPixel&lt;/code&gt;, …) invocado sobre un receptor cuyo tipo estático es un tipo de
+painter. Consultar o recortar la superficie (&lt;code&gt;Size&lt;/code&gt;, &lt;code&gt;PushClip&lt;/code&gt;,&lt;code&gt;PushTranslate&lt;/code&gt;) no es dibujar y no se señala. &lt;code&gt;-primitives=&lt;/code&gt; sustituye la lista.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Un widget desechado en cada fotograma&lt;/strong&gt;: una llamada &lt;code&gt;toolkit.New…&lt;/code&gt; dentro
 de un método llamado &lt;code&gt;Draw&lt;/code&gt;, &lt;code&gt;Paint&lt;/code&gt; o &lt;code&gt;Render&lt;/code&gt;. Un widget reconstruido en
-cada pintado no conserva ningún estado de interacción. Constrúyalo una vez,
-guárdelo en un campo y contrólelo mediante un enlace. &lt;code&gt;-checkthrow=false&lt;/code&gt;
+cada pintado no conserva ningún estado de interacción. Constrúyalo una vez,guárdelo en un campo y contrólelo mediante un enlace. &lt;code&gt;-checkthrow=false&lt;/code&gt;
 desactiva esta regla.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Hay código que es una auténtica hoja —un framebuffer de juego, un backend de
@@ -136,9 +127,7 @@ data-copied-label="¡Copiado!"
 &lt;/div&gt;</description></item><item><title>Reglas que impone la CI</title><link>https://go-widgets.github.io/docs/0.2/es/guard-rails/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/es/guard-rails/</guid><description>
 &lt;p&gt;Dos convenciones mantienen honesta la interfaz de una aplicación, y ambas se
 irían erosionando, un atajo cómodo tras otro, si solo estuvieran escritas. Por
-eso cada una es un analizador
-&lt;a href="https://pkg.go.dev/golang.org/x/tools/go/analysis" target="_blank" rel="noopener"&gt;&lt;code&gt;go/analysis&lt;/code&gt;&lt;/a&gt;,
-ejecutado mediante &lt;code&gt;go vet&lt;/code&gt;, con un workflow reutilizable que una aplicación
+eso cada una es un analizador&lt;a href="https://pkg.go.dev/golang.org/x/tools/go/analysis" target="_blank" rel="noopener"&gt;&lt;code&gt;go/analysis&lt;/code&gt;&lt;/a&gt;,ejecutado mediante &lt;code&gt;go vet&lt;/code&gt;, con un workflow reutilizable que una aplicación
 marca como comprobación &lt;strong&gt;obligatoria&lt;/strong&gt;.&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;

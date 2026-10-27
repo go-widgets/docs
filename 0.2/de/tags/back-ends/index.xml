@@ -54,5 +54,4 @@ Plattform, für die es gebaut wurde, &lt;code&gt;$WAYLAND_DISPLAY&lt;/code&gt;, 
 Android-Host exportiert – und wählt dasjenige, das funktionieren kann. Ein für
 Linux gebautes Binary öffnet unter einer Wayland-Sitzung ein Wayland-Fenster und unter
 X ein X11-Fenster; dasselbe Android-Binary verbindet sich in einer APK mit seinem Host und öffnet unter Termux ein gewöhnliches
-Linux-Fenster. Siehe
-&lt;a href="https://go-widgets.github.io/docs/0.2/de/surfaces/native-window/#how-open-chooses"&gt;wie &lt;code&gt;Open&lt;/code&gt; auswählt&lt;/a&gt;.&lt;/p&gt;</description></item></channel></rss>
+Linux-Fenster. Siehe&lt;a href="https://go-widgets.github.io/docs/0.2/de/surfaces/native-window/#how-open-chooses"&gt;wie &lt;code&gt;Open&lt;/code&gt; auswählt&lt;/a&gt;.&lt;/p&gt;</description></item></channel></rss>

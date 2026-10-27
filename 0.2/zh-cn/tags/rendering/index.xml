@@ -1,0 +1,401 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Rendering</title><link>https://go-widgets.github.io/docs/0.2/zh-cn/tags/rendering/</link><description>Recent content in Rendering on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://go-widgets.github.io/docs/0.2/zh-cn/tags/rendering/index.xml" rel="self" type="application/rss+xml"/><item><title>绘制器接缝</title><link>https://go-widgets.github.io/docs/0.2/zh-cn/rendering/painter/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/zh-cn/rendering/painter/</guid><description>
+&lt;p&gt;&lt;a href="https://github.com/go-widgets/painter" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/painter&lt;/code&gt;&lt;/a&gt; 定义了所有控件都通过它来绘制的唯一接口：&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kd"&gt;type&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Painter&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;interface&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;FillRect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;r&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Rect&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;RGBA&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;StrokeRect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;r&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Rect&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;RGBA&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;lineW&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;FillRoundRect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;r&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Rect&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;radius&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;RGBA&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;StrokeRoundRect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;r&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Rect&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;radius&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;RGBA&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;lineW&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;PutPixel&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;y&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;RGBA&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;Text&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;y&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;ink&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;RGBA&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;Size&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;h&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+aria-label="复制代码"
+data-copied-label="已复制！"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;这个集合刻意保持小巧：每个后端都必须全部实现，而终端字符网格无法画出圆角，也无法改变描边宽度。因此契约规定了无法实现时的行为——&lt;code&gt;StrokeRect&lt;/code&gt; 的宽度只是一个提示，字符网格会忽略它，而 &lt;code&gt;FillRoundRect&lt;/code&gt; 在那里退化为方形填充。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="optional-capabilities"&gt;可选能力&lt;span class="hx:absolute hx:-mt-20" id="optional-capabilities"&gt;&lt;/span&gt;
+&lt;a href="#optional-capabilities" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;并非每个绘制表面都能做到的事，不在基础接口里。需要它的控件通过类型断言来判断，若答案为否，则绘制出合理的替代效果：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;接口&lt;/th&gt;
+&lt;th&gt;方法&lt;/th&gt;
+&lt;th&gt;用途&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Clipper&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;PushClip&lt;/code&gt;, &lt;code&gt;PopClip&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;让滚动的子控件保持在其父控件的边界之内&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Translator&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;PushTranslate&lt;/code&gt;, &lt;code&gt;PopTranslate&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;在子控件自己的坐标系中绘制它&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;PathPainter&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;FillPath&lt;/code&gt;, &lt;code&gt;StrokePath&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;曲线、图表、抗锯齿图形&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;ImagePainter&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;DrawImage&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;图标、缩略图、图片&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;MaskPainter&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;DrawMask&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;单一颜色的字形及其他覆盖率蒙版&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;FacePainter&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;TextFace&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;使用指定字体字面和字号的文本&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;ok&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;p&lt;/span&gt;&lt;span class="p"&gt;.(&lt;/span&gt;&lt;span class="nx"&gt;painter&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Clipper&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;ok&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;PushClip&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;bounds&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;defer&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;PopClip&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+aria-label="复制代码"
+data-copied-label="已复制！"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 data-hextra-search-id="the-two-painters"&gt;两种绘制器&lt;span class="hx:absolute hx:-mt-20" id="the-two-painters"&gt;&lt;/span&gt;
+&lt;a href="#the-two-painters" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;写入&lt;/th&gt;
+&lt;th&gt;由谁呈现&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NewPixelPainter(buf, w, h)&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;调用方拥有的 RGBA &lt;code&gt;[]byte&lt;/code&gt;（BGRA 绘制表面用 &lt;code&gt;NewPixelPainterBGRA&lt;/code&gt;）&lt;/td&gt;
+&lt;td&gt;原生窗口、浏览器画布、Android 绘制表面、PNG 或 SVG&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NewCellPainter(w, h)&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;由字符单元（字符、前景色、背景色）组成的网格，带 24 位 ANSI 序列化器&lt;/td&gt;
+&lt;td&gt;终端，经由 &lt;a href="https://go-widgets.github.io/docs/0.2/zh-cn/surfaces/terminal/"&gt;&lt;code&gt;tui&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;缓冲区始终归调用方所有。&lt;code&gt;PixelPainter&lt;/code&gt; 只是把图元翻译成写入操作，所以同一个 &lt;code&gt;[]byte&lt;/code&gt; 可以直接交给窗口后端、&lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; 或图像编码器，中间无需拷贝。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="trying-it"&gt;试一试&lt;span class="hx:absolute hx:-mt-20" id="trying-it"&gt;&lt;/span&gt;
+&lt;a href="#trying-it" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;仓库自带的演示通过两种绘制器绘制同样的三个控件：&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-sh" data-lang="sh"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;go run ./cmd/wui-demo --out demo.png &lt;span class="c1"&gt;# pixels, written as a PNG&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;go run ./cmd/tui-demo --theme dark &lt;span class="c1"&gt;# cells, written as ANSI to stdout&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+aria-label="复制代码"
+data-copied-label="已复制！"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;此外，&lt;a href="https://go-widgets.github.io/painter/" target="_blank" rel="noopener"&gt;go-widgets.github.io/painter&lt;/a&gt; 在浏览器中展示了像素绘制器。&lt;/p&gt;</description></item><item><title>控件如何到达屏幕</title><link>https://go-widgets.github.io/docs/0.2/zh-cn/rendering/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/zh-cn/rendering/</guid><description>
+&lt;p&gt;三个层次，每一层只了解它下面的那一层：&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;toolkit widget tree Button, Table, Agenda, VBox ... (or a skin.Object)
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; │ Draw(p painter.Painter, theme *Theme)
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; ▼
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;painter.Painter FillRect, StrokeRect, Text, PutPixel, ...
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; │
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; ├─ PixelPainter → an RGBA []byte → window, browser canvas, PNG, Android
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; └─ CellPainter → a grid of cells → a terminal, as 24-bit ANSI&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+aria-label="复制代码"
+data-copied-label="已复制！"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;控件永远不知道自己拿到的是哪种绘制器。后端永远不知道是哪些控件在绘制。这正是同一棵控件树无需一行条件代码，就能显示在原生窗口、浏览器和终端中的根本原因。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/zh-cn/rendering/painter/"&gt;绘制器接缝&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;图元、可选能力、两种绘制器&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/zh-cn/rendering/toolkit/"&gt;工具包&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;控件集、主题、布局、文本和无障碍&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/zh-cn/rendering/skin/"&gt;皮肤&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;用数据而不是 Go 代码来描述控件的部件和状态&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;</description></item><item><title>工具包</title><link>https://go-widgets.github.io/docs/0.2/zh-cn/rendering/toolkit/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/zh-cn/rendering/toolkit/</guid><description>
+&lt;p&gt;&lt;a href="https://github.com/go-widgets/toolkit" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/toolkit&lt;/code&gt;&lt;/a&gt; 是控件（widget）集。每个控件都实现同一个接口——&lt;code&gt;Bounds&lt;/code&gt;、&lt;code&gt;SetBounds&lt;/code&gt;、&lt;code&gt;Draw(p painter.Painter, theme *Theme)&lt;/code&gt;、&lt;code&gt;HitTest&lt;/code&gt;、&lt;code&gt;OnEvent&lt;/code&gt;——因此宿主对待按钮、表格和事件日历一视同仁。仅使用标准库，&lt;code&gt;CGO_ENABLED=0&lt;/code&gt;，语句覆盖率 100%。&lt;/p&gt;
+&lt;p&gt;在 v0.329.0 中，它共有 &lt;strong&gt;160 种导出的控件类型&lt;/strong&gt;，控件代码约 &lt;strong&gt;69,000 行&lt;/strong&gt;。这两个数字是在该标签处实测得到的，并非沿用旧值：工具包的 README 给出了相应命令，应当重新运行，而不是照抄这些数字。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="the-families"&gt;控件家族&lt;span class="hx:absolute hx:-mt-20" id="the-families"&gt;&lt;/span&gt;
+&lt;a href="#the-families" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;家族&lt;/th&gt;
+&lt;th&gt;控件&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;操作&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Button&lt;/code&gt;、&lt;code&gt;ToggleButton&lt;/code&gt;、&lt;code&gt;CheckButton&lt;/code&gt;、&lt;code&gt;RadioButton&lt;/code&gt; + &lt;code&gt;RadioGroup&lt;/code&gt;、&lt;code&gt;Switch&lt;/code&gt;、&lt;code&gt;SplitButton&lt;/code&gt;、&lt;code&gt;IconButton&lt;/code&gt;、&lt;code&gt;CycleButton&lt;/code&gt;、&lt;code&gt;Chip&lt;/code&gt;、&lt;code&gt;SegmentedBar&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;输入&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Entry&lt;/code&gt;、&lt;code&gt;TextView&lt;/code&gt;（选择、输入法预览、语法着色区间、行号）、&lt;code&gt;SpinButton&lt;/code&gt;、&lt;code&gt;Scale&lt;/code&gt;、&lt;code&gt;RangeSlider&lt;/code&gt;、&lt;code&gt;SearchEntry&lt;/code&gt;、&lt;code&gt;TagField&lt;/code&gt;、&lt;code&gt;ComboBox&lt;/code&gt;、带 &lt;code&gt;Validate&lt;/code&gt;/&lt;code&gt;Rule&lt;/code&gt; 的 &lt;code&gt;FormField&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;选择&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;ListBox&lt;/code&gt;、&lt;code&gt;TreeView&lt;/code&gt;、&lt;code&gt;DropDown&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;容器&lt;/td&gt;
+&lt;td&gt;带可替换 &lt;code&gt;Layout&lt;/code&gt; 的 &lt;code&gt;Container&lt;/code&gt;（&lt;code&gt;FitLayout&lt;/code&gt;、&lt;code&gt;BoxLayout&lt;/code&gt;、&lt;code&gt;BorderLayout&lt;/code&gt;、&lt;code&gt;CardLayout&lt;/code&gt;、&lt;code&gt;FlowLayout&lt;/code&gt;）；&lt;code&gt;HBox&lt;/code&gt;、&lt;code&gt;VBox&lt;/code&gt;、&lt;code&gt;Grid&lt;/code&gt;、&lt;code&gt;Frame&lt;/code&gt;、&lt;code&gt;Dock&lt;/code&gt;、&lt;code&gt;Border&lt;/code&gt;、&lt;code&gt;Stack&lt;/code&gt;、&lt;code&gt;Overlay&lt;/code&gt;、&lt;code&gt;Paned&lt;/code&gt;、&lt;code&gt;Splitter&lt;/code&gt;、&lt;code&gt;Expander&lt;/code&gt;、&lt;code&gt;Accordion&lt;/code&gt;；声明式的 &lt;code&gt;Node&lt;/code&gt; 构建器&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;导航&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Menu&lt;/code&gt;、&lt;code&gt;MenuBar&lt;/code&gt;（支持 &lt;code&gt;Alt&lt;/code&gt;+字母）、&lt;code&gt;ContextMenu&lt;/code&gt;、&lt;code&gt;Popover&lt;/code&gt;、&lt;code&gt;CommandPalette&lt;/code&gt;、&lt;code&gt;Dialog&lt;/code&gt;、&lt;code&gt;MessageDialog&lt;/code&gt;、&lt;code&gt;Wizard&lt;/code&gt;、&lt;code&gt;Notebook&lt;/code&gt;、&lt;code&gt;ViewSwitcher&lt;/code&gt;、&lt;code&gt;Carousel&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;反馈&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;ProgressBar&lt;/code&gt;、&lt;code&gt;ProgressCircle&lt;/code&gt;、&lt;code&gt;LevelBar&lt;/code&gt;、&lt;code&gt;Spinner&lt;/code&gt;、&lt;code&gt;Tooltip&lt;/code&gt;、&lt;code&gt;Notification&lt;/code&gt;、&lt;code&gt;Toast&lt;/code&gt;、&lt;code&gt;Banner&lt;/code&gt;、&lt;code&gt;Alert&lt;/code&gt;、&lt;code&gt;Badge&lt;/code&gt;、&lt;code&gt;Skeleton&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;数据&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Table&lt;/code&gt;（单元格编辑、冻结列、分组行、聚合、行展开器）、&lt;code&gt;TreeTable&lt;/code&gt;、&lt;code&gt;PropertyGrid&lt;/code&gt;、&lt;code&gt;Kanban&lt;/code&gt;、&lt;code&gt;Gantt&lt;/code&gt;、&lt;code&gt;Agenda&lt;/code&gt;（周、月、季度、年；多个日历）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;图表&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;LineChart&lt;/code&gt;、&lt;code&gt;BarChart&lt;/code&gt;、&lt;code&gt;PieChart&lt;/code&gt;、&lt;code&gt;AreaChart&lt;/code&gt;、&lt;code&gt;ScatterChart&lt;/code&gt;、&lt;code&gt;RadarChart&lt;/code&gt;、&lt;code&gt;Gauge&lt;/code&gt;、&lt;code&gt;Sparkline&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;复合&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;FileChooser&lt;/code&gt;、&lt;code&gt;ColorChooser&lt;/code&gt;、&lt;code&gt;ColorPicker&lt;/code&gt;、&lt;code&gt;FontChooser&lt;/code&gt;、&lt;code&gt;Calendar&lt;/code&gt;、&lt;code&gt;DatePicker&lt;/code&gt;、&lt;code&gt;DateRangePicker&lt;/code&gt;、&lt;code&gt;TimePicker&lt;/code&gt;、&lt;code&gt;MarkdownView&lt;/code&gt;、&lt;code&gt;MarkdownEditor&lt;/code&gt;、&lt;code&gt;TerminalView&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;外壳&lt;/td&gt;
+&lt;td&gt;带客户端装饰的 &lt;code&gt;Window&lt;/code&gt;、&lt;code&gt;HeaderBar&lt;/code&gt;、&lt;code&gt;Toolbar&lt;/code&gt;、&lt;code&gt;Ribbon&lt;/code&gt;、&lt;code&gt;Statusbar&lt;/code&gt;、&lt;code&gt;StatusIcon&lt;/code&gt;、&lt;code&gt;StatusArea&lt;/code&gt;、&lt;code&gt;Wallpaper&lt;/code&gt;、&lt;code&gt;Thumbnail&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;每一个控件的实时演示：&lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;画廊（gallery）&lt;/a&gt;。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="ribbon"&gt;功能区&lt;span class="hx:absolute hx:-mt-20" id="ribbon"&gt;&lt;/span&gt;
+&lt;a href="#ribbon" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Ribbon&lt;/code&gt; 是 Office 风格的命令功能区（ribbon）：由若干选项卡组成，每个选项卡含带标签的分组，分组中有大按钮（图标在文字上方）、小按钮（图标在文字旁）、切换按钮、拆分按钮、下拉框和一个小型图库。它遵循 Windows 功能区指南：窗口变窄时，每个分组按优先级逐级降级——完整、紧凑、仅图标，最后是一个弹出按钮——因此功能区总是显示能容纳的最大组合；它可以折叠为仅剩选项卡（Ctrl+F1，或点击箭头），此时选项卡会临时展开其内容；按下 Alt 显示快捷键提示；工具提示带有快捷键和说明。选项卡和工具栏导航遵循 WAI-ARIA 模式，其边界和焦点环在浅色和深色主题下都保持 3:1 的对比度。&lt;/p&gt;
+&lt;p&gt;每个控件都是对某个 &lt;code&gt;Action&lt;/code&gt; 的视图——菜单、命令面板和功能区共享的同一条命令——&lt;code&gt;NewCommandAction&lt;/code&gt; 可由视图模型的 &lt;code&gt;mvvm.Command&lt;/code&gt; 创建一个 &lt;code&gt;Action&lt;/code&gt;，因此其 &lt;code&gt;CanExecute&lt;/code&gt; 会使控件变灰。当前选项卡、折叠状态、切换按钮以及下拉框的选择都是&lt;code&gt;mvvm.Observable&lt;/code&gt;。把功能区放在 &lt;code&gt;PopoverHost&lt;/code&gt; 之下，它的菜单就会绘制在页面之上，无需任何宿主代码。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;RibbonGrid&lt;/code&gt; 是一种控件类型，它的弹出层是由 &lt;code&gt;GridCols&lt;/code&gt; 乘 &lt;code&gt;GridRows&lt;/code&gt; 个单元格组成的网格（为零时为 8 乘 6，最大 16 乘 16），就像文字处理软件的“表格”按钮那样。指针或方向键会从左上角起点亮到当前所指单元格为止的所有单元格，并以标题显示“3 × 2”；点击或按 Enter 即确定并调用&lt;code&gt;OnGrid(cols, rows)&lt;/code&gt;；Home 和 End 跳转，Escape 关闭。它在浅色和深色下都能绘制，并向辅助技术报告为一个按钮，网格打开时处于展开状态。&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;RibbonControl&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;Kind&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;RibbonGrid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Label&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Table&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;GridCols&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;GridRows&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;OnGrid&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;insertTable&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+aria-label="复制代码"
+data-copied-label="已复制！"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 data-hextra-search-id="splitter"&gt;分隔条&lt;span class="hx:absolute hx:-mt-20" id="splitter"&gt;&lt;/span&gt;
+&lt;a href="#splitter" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Splitter&lt;/code&gt; 把 N 个窗格并排（或在 &lt;code&gt;vertical&lt;/code&gt; 为 true 时上下）排列，并在每对相邻窗格之间放置一个可拖动、可聚焦的分隔条，遵循 WAI-ARIA 窗口分隔条模式。窗格要么是&lt;strong&gt;固定&lt;/strong&gt;的——其 &lt;code&gt;Size&lt;/code&gt;
+以逻辑像素为单位，是由分隔条写入的 &lt;code&gt;mvvm.Observable[int]&lt;/code&gt;——要么是&lt;strong&gt;弹性&lt;/strong&gt;的，按其 &lt;code&gt;Weight&lt;/code&gt;
+（同样是一个 &lt;code&gt;Observable&lt;/code&gt;）分享固定窗格剩下的空间。每个窗格都有 &lt;code&gt;Min&lt;/code&gt; 和 &lt;code&gt;Max&lt;/code&gt;。&lt;code&gt;Collapsible&lt;/code&gt; 的固定窗格在分隔条被拖到小于其 &lt;code&gt;Min&lt;/code&gt; 的一半时、或双击或按 Enter 时关闭（大小为 0），并以同样的方式重新打开。窗格的 &lt;code&gt;Visible&lt;/code&gt; 可观察对象可以同时开关该窗格及其分隔条。由于尺寸存放在可观察对象中，视图模型可以绑定、持久化和恢复它们；&lt;code&gt;OnResized&lt;/code&gt; 在每次完成的手势后只调用一次，参数是用户改变过的窗格，对于仅仅跟随窗口缩放而变化的布局则从不调用。&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;files&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewObservable&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;240&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// fixed pane, logical px&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewObservable&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// flexible pane, weight&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewSplitter&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;SplitPane&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;Widget&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;tree&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Files&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Size&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;files&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Min&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;120&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Max&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;480&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Collapsible&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;SplitPane&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;Widget&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;editor&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Editor&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Weight&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Min&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;200&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;OnResized&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;changed&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;save&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;files&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Get&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Get&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+aria-label="复制代码"
+data-copied-label="已复制！"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;分隔条可以获得焦点：方向键（垂直时为上和下）按 &lt;code&gt;Step&lt;/code&gt; 逻辑像素移动它，按住 Shift 时为四倍；Home 和 End 把它前面的窗格调到最小和最大；Enter 折叠或恢复它所控制的固定窗格；Tab 在分隔条之间切换。每个分隔条都是带有 &lt;code&gt;aria-valuemin&lt;/code&gt;、&lt;code&gt;aria-valuemax&lt;/code&gt; 和 &lt;code&gt;aria-valuenow&lt;/code&gt; 的&lt;code&gt;RoleSeparator&lt;/code&gt;，名称为“Resize”加窗格的 &lt;code&gt;Name&lt;/code&gt;。&lt;code&gt;Cursor(x, y)&lt;/code&gt; 在分隔条上方返回 &lt;code&gt;&amp;quot;col-resize&amp;quot;&lt;/code&gt;
+或 &lt;code&gt;&amp;quot;row-resize&amp;quot;&lt;/code&gt;，&lt;code&gt;SplitterColors(theme)&lt;/code&gt; 给出分隔线和强调色，二者与背景和表面的对比度在两个默认主题下都保持3:1，焦点环亦然。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="themes"&gt;主题&lt;span class="hx:absolute hx:-mt-20" id="themes"&gt;&lt;/span&gt;
+&lt;a href="#themes" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;一个 &lt;code&gt;Theme&lt;/code&gt; 值会在整棵树中层层生效：在根上改变一种颜色，每个控件都会随之重绘。&lt;code&gt;DefaultLight()&lt;/code&gt; 和 &lt;code&gt;DefaultDark()&lt;/code&gt; 是内置的，&lt;code&gt;LoadGTKTheme(css)&lt;/code&gt; 会把任何 GTK 3 或 libadwaita主题（Adwaita、WhiteSur、Solarized）的 &lt;code&gt;@define-color&lt;/code&gt; 块读入一个 &lt;code&gt;Theme&lt;/code&gt;。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="text"&gt;文本&lt;span class="hx:absolute hx:-mt-20" id="text"&gt;&lt;/span&gt;
+&lt;a href="#text" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;编译进去的默认字体是 5×7 点阵字体，因此像素测试能保持其几何形状。一次调用即可把整个界面切换为抗锯齿的、经过文本整形（shaping）的文本：&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;UseOpenTypeText&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// Atkinson Hyperlegible, bundled; js/wasm-safe&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+aria-label="复制代码"
+data-copied-label="已复制！"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;该字体来自 &lt;a href="https://github.com/go-opentype/fonts" target="_blank" rel="noopener"&gt;go-opentype/fonts&lt;/a&gt;，由&lt;a href="https://github.com/go-opentype/opentype" target="_blank" rel="noopener"&gt;go-opentype&lt;/a&gt; 用 Go 光栅化，不使用 C 字体库，也不查找系统字体。&lt;code&gt;NewTrueTypeFont(ttf, px)&lt;/code&gt; 加载另一种字体；&lt;code&gt;NewFallbackFont&lt;/code&gt; 把若干字体串成回退链，例如添加 CJK 或阿拉伯文字体；控件自己的 &lt;code&gt;Font&lt;/code&gt; 字段只对该控件覆盖全局字体。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="input"&gt;输入&lt;span class="hx:absolute hx:-mt-20" id="input"&gt;&lt;/span&gt;
+&lt;a href="#input" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;鼠标、键盘、输入法组合、触摸（&lt;code&gt;EventTouchStart&lt;/code&gt;/&lt;code&gt;Move&lt;/code&gt;/&lt;code&gt;End&lt;/code&gt;，并有 &lt;code&gt;GestureRecognizer&lt;/code&gt; 识别轻点、长按和滑动）、拖放（&lt;code&gt;DragSource&lt;/code&gt;、&lt;code&gt;DropTarget&lt;/code&gt;）。&lt;code&gt;ListBox&lt;/code&gt;、&lt;code&gt;Table&lt;/code&gt; 和 &lt;code&gt;TreeView&lt;/code&gt; 中的多行选择可用鼠标和键盘完成，并且除 Ctrl 之外也认 ⌘，因为在 macOS 上 Ctrl 加点击是次要点击。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="binary-size"&gt;二进制体积：程序只链接它用到的部分&lt;span class="hx:absolute hx:-mt-20" id="binary-size"&gt;&lt;/span&gt;
+&lt;a href="#binary-size" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;工具包是一个很大的包，这对链接器来说没有问题：Go 的死代码消除只保留从 &lt;code&gt;main.main&lt;/code&gt; &lt;strong&gt;以及每个被导入包的初始化任务&lt;/strong&gt;
+可达的部分。程序从未碰到的控件会被丢弃。不会被丢弃的，是包级初始化器或被导入包的 &lt;code&gt;init&lt;/code&gt; 所能到达的一切，因此自 v0.345.0 起，工具包让自己的初始化器不做任何工作，并避免导入其 &lt;code&gt;init&lt;/code&gt; 会拖入代码的包：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Material&lt;/code&gt; 和 &lt;code&gt;Thumbnail&lt;/code&gt; 使用不含编解码器的&lt;a href="https://github.com/go-images/images" target="_blank" rel="noopener"&gt;&lt;code&gt;github.com/go-images/images/ops&lt;/code&gt;&lt;/a&gt;，而不是 &lt;code&gt;github.com/go-images/images&lt;/code&gt;——后者的解码器会在 &lt;code&gt;init&lt;/code&gt; 中自行注册（约 1.7 MB 的 WebAssembly 代码）。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CollabText&lt;/code&gt;、&lt;code&gt;NewCollabText&lt;/code&gt;、&lt;code&gt;MetaName&lt;/code&gt; 和 &lt;code&gt;MetaColor&lt;/code&gt; 移到了&lt;strong&gt;&lt;code&gt;github.com/go-widgets/toolkit/collabui&lt;/code&gt;&lt;/strong&gt;：它们需要一个运行中的 &lt;code&gt;go-crdt/collab&lt;/code&gt; 会话，其传输层会引入 &lt;code&gt;net/http&lt;/code&gt; 和 &lt;code&gt;crypto/tls&lt;/code&gt;。&lt;code&gt;CollabSheet&lt;/code&gt; 和 &lt;code&gt;IsoCRDTDocument&lt;/code&gt; 只需要 &lt;code&gt;go-crdt/crdt&lt;/code&gt;，仍留在 &lt;code&gt;toolkit&lt;/code&gt; 中。&lt;/li&gt;
+&lt;li&gt;电子邮件 &lt;code&gt;Rule&lt;/code&gt; 的正则表达式、内置的 iso 图标注册表以及 &lt;code&gt;RichEditorToolbar&lt;/code&gt; 的按钮表，都在首次使用时才构建，而不是由初始化器构建。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;⛔ &lt;strong&gt;这次移动是破坏性变更，没有弃用的转发层。&lt;/strong&gt; 把上述四个名称的导入改为 &lt;code&gt;collabui&lt;/code&gt;；其他一概不变。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;GOOS=js GOARCH=wasm&lt;/code&gt;、使用 &lt;code&gt;-ldflags=&amp;quot;-s -w&amp;quot;&lt;/code&gt; 时的体积，原始大小和 gzip -9 后的大小：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;程序&lt;/th&gt;
+&lt;th&gt;之前（原始 / gzip）&lt;/th&gt;
+&lt;th&gt;之后（原始 / gzip）&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;一个 &lt;code&gt;Label&lt;/code&gt;（v0.345.0）&lt;/td&gt;
+&lt;td&gt;10.49 / 2.88 MB&lt;/td&gt;
+&lt;td&gt;7.48 / 2.13 MB&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;一个 &lt;code&gt;Label&lt;/code&gt;（v0.345.1）&lt;/td&gt;
+&lt;td&gt;10.49 / 2.88 MB&lt;/td&gt;
+&lt;td&gt;5.66 / 1.61 MB&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;go-wasmcontainers/dashboard&lt;/td&gt;
+&lt;td&gt;20.42 / 5.17 MB&lt;/td&gt;
+&lt;td&gt;17.72 / 4.58 MB&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;the relay flow map&lt;/td&gt;
+&lt;td&gt;22.62 / 5.44 MB&lt;/td&gt;
+&lt;td&gt;19.95 / 4.85 MB&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;剩下的主要是运行时和文本渲染器所需的 OpenType 栈。要查看是什么让某个符号留在你自己的程序里，请使用 &lt;code&gt;-ldflags=-dumpdep&lt;/code&gt; 构建，并沿着第一个父节点链从该符号追溯到 &lt;code&gt;main.main&lt;/code&gt; 或 &lt;code&gt;go:main.inittasks&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;v0.345.0 还新增了 &lt;code&gt;ColorHex&lt;/code&gt; 和 &lt;code&gt;ParseColorHex&lt;/code&gt;，用于把颜色写成十六进制并读回。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="accessibility"&gt;无障碍&lt;span class="hx:absolute hx:-mt-20" id="accessibility"&gt;&lt;/span&gt;
+&lt;a href="#accessibility" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;自己绘制像素的工具包，如果不说明画了什么，屏幕阅读器就无从读取。控件实现 &lt;code&gt;Accessible&lt;/code&gt;——角色、名称、值——并由 &lt;code&gt;CollectA11y&lt;/code&gt; 收集起来交给宿主发布：在 Linux 上通过 &lt;a href="https://go-widgets.github.io/docs/0.2/zh-cn/surfaces/native-window/"&gt;&lt;code&gt;window&lt;/code&gt;&lt;/a&gt;
+发布 AT-SPI，在 &lt;a href="https://go-widgets.github.io/docs/0.2/zh-cn/surfaces/android/#accessibility"&gt;Android&lt;/a&gt; 上则是一个虚拟视图层级。&lt;/p&gt;</description></item><item><title>皮肤：把控件的部件和状态写成数据</title><link>https://go-widgets.github.io/docs/0.2/zh-cn/rendering/skin/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/zh-cn/rendering/skin/</guid><description>
+&lt;p&gt;工具包的控件是用 Go 编写的：&lt;code&gt;Button&lt;/code&gt; 的各个部件、悬停、按下和禁用时的外观，以及点击反馈，全都写在 &lt;code&gt;button.go&lt;/code&gt; 里。这样做快速而精确，但每一次视觉上的改动都是一次代码改动。&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/go-widgets/skin" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/skin&lt;/code&gt;&lt;/a&gt; 把这份描述搬进了数据——这一思路来自 Enlightenment 的 Edje。一份 &lt;code&gt;.skin.json&lt;/code&gt; 文档会列出控件的&lt;strong&gt;部件&lt;/strong&gt;（part）、它们在每种&lt;strong&gt;状态&lt;/strong&gt;（state）下的外观，以及当信号到来时让它们在状态之间切换的&lt;strong&gt;程序&lt;/strong&gt;（program）。这样，换肤或构建新的控件就无需重新编译：程序只是加载了不同的字节。&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;theme&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;skin&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;jsonBytes&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// parse and validate every collection&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;!=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;obj&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;_&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;theme&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;New&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;button&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;obj&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Bind&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;skin&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewMVVMContext&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="nf"&gt;Set&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;$.label&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;labelObs&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;obj&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;SetBounds&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Rect&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;W&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;96&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;H&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;28&lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;// each frame&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;obj&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;OnEvent&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;ev&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// pointer events become signals, signals states&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;busy&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;obj&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Tick&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;time&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Now&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// advance the transitions&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;obj&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Draw&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;p&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;theme&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Palette&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+aria-label="复制代码"
+data-copied-label="已复制！"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;skin.Object&lt;/code&gt; 就是一个 &lt;code&gt;toolkit.Widget&lt;/code&gt;，因此它可以与手写控件并排放进同一个 &lt;code&gt;VBox&lt;/code&gt;。布局负责安放控件；皮肤负责安排控件内部的内容。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="the-format"&gt;格式&lt;span class="hx:absolute hx:-mt-20" id="the-format"&gt;&lt;/span&gt;
+&lt;a href="#the-format" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-jsonc" data-lang="jsonc"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;collections&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;button&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;min&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nt"&gt;&amp;#34;w&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;96&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;&amp;#34;h&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;28&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;parts&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nt"&gt;&amp;#34;name&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;bg&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;&amp;#34;type&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;rect&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;states&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;default&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nt"&gt;&amp;#34;color&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;@surface&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;&amp;#34;border&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;@border&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;&amp;#34;radius&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;hover&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nt"&gt;&amp;#34;color&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;@surface_alt&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;&amp;#34;border&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;@border&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;&amp;#34;radius&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;pressed&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nt"&gt;&amp;#34;color&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;@accent&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;&amp;#34;border&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;@border&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;&amp;#34;radius&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nt"&gt;&amp;#34;name&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;label&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;&amp;#34;type&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;text&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;&amp;#34;text_from&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;$.label&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;&amp;#34;align&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;states&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nt"&gt;&amp;#34;default&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nt"&gt;&amp;#34;ink&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;@on_surface&amp;#34;&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;],&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;programs&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nt"&gt;&amp;#34;on&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;mouse,in&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;&amp;#34;target&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;bg&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;label&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="nt"&gt;&amp;#34;to&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;hover&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;&amp;#34;in&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mf"&gt;0.12&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;&amp;#34;ease&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;ease_out_cubic&amp;#34;&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nt"&gt;&amp;#34;on&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;mouse,click&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;&amp;#34;emit&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;clicked&amp;#34;&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+aria-label="复制代码"
+data-copied-label="已复制！"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;部件&lt;/strong&gt;可以是 &lt;code&gt;rect&lt;/code&gt;、&lt;code&gt;text&lt;/code&gt; 或 &lt;code&gt;image&lt;/code&gt;，由两个相对角点（&lt;code&gt;rel1&lt;/code&gt;、&lt;code&gt;rel2&lt;/code&gt;）相对于对象或前面的某个部件定位，偏移量可以用像素，也可以用相对字体的（&lt;code&gt;offset_em&lt;/code&gt;），因此文本部件会跟随字体。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;状态&lt;/strong&gt;设定颜色、边框、圆角和可见性，也可以移动或缩放部件。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;程序&lt;/strong&gt;对信号作出反应，按指定的缓动函数在一段时间内把部件移到某个状态，并且可以向外 &lt;code&gt;emit&lt;/code&gt; 一个信号——例如发给 &lt;a href="https://go-widgets.github.io/docs/0.2/zh-cn/state/mvvm/"&gt;&lt;code&gt;mvvm.Command&lt;/code&gt;&lt;/a&gt;。&lt;/li&gt;
+&lt;li&gt;颜色可以是针对工具包 &lt;code&gt;Theme&lt;/code&gt; 解析的 &lt;code&gt;@tokens&lt;/code&gt;（包括每个 GTK &lt;code&gt;@define-color&lt;/code&gt; 条目，写作 &lt;code&gt;@extra:&amp;lt;name&amp;gt;&lt;/code&gt;）、十六进制值，或 RGBA 数组。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;JSON 由标准库解码：没有第三方依赖。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="proven-against-the-hand-written-widgets"&gt;与手写控件的对照验证&lt;span class="hx:absolute hx:-mt-20" id="proven-against-the-hand-written-widgets"&gt;&lt;/span&gt;
+&lt;a href="#proven-against-the-hand-written-widgets" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;工具包的按钮、复选框、开关、芯片和卡片，各自又被重新写成了皮肤集合，测试断言两者在每一种状态下渲染出的结果&lt;strong&gt;逐像素完全一致&lt;/strong&gt;。皮肤版 &lt;code&gt;Draw&lt;/code&gt; 与手写版的对比，则在基准测试中进行测量。&lt;/p&gt;</description></item></channel></rss>

@@ -1,6 +1,5 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Estado</title><link>https://go-widgets.github.io/docs/0.2/es/tags/estado/</link><description>Recent content in Estado on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>es</language><atom:link href="https://go-widgets.github.io/docs/0.2/es/tags/estado/index.xml" rel="self" type="application/rss+xml"/><item><title>Estado</title><link>https://go-widgets.github.io/docs/0.2/es/status/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/es/status/</guid><description>
-&lt;p&gt;Estas páginas se contrastaron con los módulos en las etiquetas indicadas en
-&lt;a href="https://go-widgets.github.io/docs/0.2/es/modules/"&gt;Módulos&lt;/a&gt;. Cuando el README de un módulo y su
+&lt;p&gt;Estas páginas se contrastaron con los módulos en las etiquetas indicadas en&lt;a href="https://go-widgets.github.io/docs/0.2/es/modules/"&gt;Módulos&lt;/a&gt;. Cuando el README de un módulo y su
 código no coinciden, las páginas siguen al código.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="proven-live"&gt;Demostrado en vivo&lt;span class="hx:absolute hx:-mt-20" id="proven-live"&gt;&lt;/span&gt;
 &lt;a href="#proven-live" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Un códec probado dentro del proceso demuestra el códec. Estos son los casos en
@@ -57,11 +56,9 @@ los que se interrogó a la propia plataforma:&lt;/p&gt;
 &lt;/table&gt;
 &lt;h2 data-hextra-search-id="compiled-not-run"&gt;Compilado, no ejecutado&lt;span class="hx:absolute hx:-mt-20" id="compiled-not-run"&gt;&lt;/span&gt;
 &lt;a href="#compiled-not-run" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;Show&lt;/code&gt;/&lt;code&gt;Hide&lt;/code&gt;/&lt;code&gt;Raise&lt;/code&gt; de Win32: la tabla de decisión tiene pruebas unitarias;
-las llamadas en el hilo de la ventana solo se compilan.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Show&lt;/code&gt;/&lt;code&gt;Hide&lt;/code&gt;/&lt;code&gt;Raise&lt;/code&gt; de Win32: la tabla de decisión tiene pruebas unitarias;las llamadas en el hilo de la ventana solo se compilan.&lt;/li&gt;
 &lt;li&gt;El &lt;code&gt;Attach&lt;/code&gt; de la bandeja de Windows.&lt;/li&gt;
-&lt;li&gt;El bucle DOM de &lt;code&gt;webcanvas&lt;/code&gt; (&lt;code&gt;run_js.go&lt;/code&gt;): tras una etiqueta de compilación
-&lt;code&gt;js &amp;amp;&amp;amp; wasm&lt;/code&gt;, por lo que queda fuera de la cobertura medida; lo ejercitan las
+&lt;li&gt;El bucle DOM de &lt;code&gt;webcanvas&lt;/code&gt; (&lt;code&gt;run_js.go&lt;/code&gt;): tras una etiqueta de compilación&lt;code&gt;js &amp;amp;&amp;amp; wasm&lt;/code&gt;, por lo que queda fuera de la cobertura medida; lo ejercitan las
 aplicaciones que lo usan.&lt;/li&gt;
 &lt;li&gt;El &lt;code&gt;Run&lt;/code&gt; nativo de &lt;code&gt;application&lt;/code&gt;: abrir una ventana real está excluido de su
 barrera de cobertura; el contrato, la traducción de eventos y el contador de
@@ -118,37 +115,27 @@ enlaza sin cgo.&lt;/li&gt;
 &lt;/table&gt;
 &lt;p&gt;Así, las diecisiete bibliotecas y herramientas se compilan ya de forma cruzada
 para las seis arquitecturas Linux de 64 bits, y los diecinueve módulos tienen
-una barrera del 100 % de cobertura de sentencias.
-&lt;code&gt;app-template&lt;/code&gt; y &lt;code&gt;gallery&lt;/code&gt; son aplicaciones de navegador y se compilan para
-&lt;code&gt;js/wasm&lt;/code&gt;, que es su único destino.&lt;/p&gt;
+una barrera del 100 % de cobertura de sentencias.&lt;code&gt;app-template&lt;/code&gt; y &lt;code&gt;gallery&lt;/code&gt; son aplicaciones de navegador y se compilan para&lt;code&gt;js/wasm&lt;/code&gt;, que es su único destino.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="security"&gt;Seguridad&lt;span class="hx:absolute hx:-mt-20" id="security"&gt;&lt;/span&gt;
 &lt;a href="#security" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Medido con &lt;code&gt;govulncheck&lt;/code&gt; (a nivel de símbolo: solo el código que el módulo
 puede alcanzar) el 2026-10-10:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;15 de los 19 módulos alcanzaban código vulnerable: en la biblioteca estándar
-de go1.27.1 (&lt;code&gt;html/template&lt;/code&gt;, &lt;code&gt;net/http&lt;/code&gt;, &lt;code&gt;crypto/tls&lt;/code&gt;, &lt;code&gt;mime/multipart&lt;/code&gt;;
-corregido en go1.27.2) y en &lt;code&gt;golang.org/x/net&lt;/code&gt; v0.58.0 (&lt;code&gt;http2&lt;/code&gt;, a través de
+de go1.27.1 (&lt;code&gt;html/template&lt;/code&gt;, &lt;code&gt;net/http&lt;/code&gt;, &lt;code&gt;crypto/tls&lt;/code&gt;, &lt;code&gt;mime/multipart&lt;/code&gt;;corregido en go1.27.2) y en &lt;code&gt;golang.org/x/net&lt;/code&gt; v0.58.0 (&lt;code&gt;http2&lt;/code&gt;, a través de
 gRPC en &lt;code&gt;data&lt;/code&gt;; corregido en v0.60.0).&lt;/li&gt;
 &lt;li&gt;Corregido esa misma noche. La CI de todos los módulos compila con go1.27.2, y
 todos los módulos requieren &lt;code&gt;x/net&lt;/code&gt; v0.60.0. En la mayoría es una dependencia
 indirecta, que Renovate no actualiza, así que se subió a mano. Una segunda
 pasada de &lt;code&gt;govulncheck&lt;/code&gt; sobre los 19 módulos no encuentra ninguna
 vulnerabilidad alcanzable.&lt;/li&gt;
-&lt;li&gt;Publicados: android v0.16.0, app-template v0.5.0, application v0.8.0,
-bricolint v0.4.1, data v0.4.0, mvvm v0.15.0, mvvmlint v0.4.1, mvvmtk
+&lt;li&gt;Publicados: android v0.16.0, app-template v0.5.0, application v0.8.0,bricolint v0.4.1, data v0.4.0, mvvm v0.15.0, mvvmlint v0.4.1, mvvmtk
 v0.15.0, painter v0.16.0, skin v0.3.0, svg v0.7.0, tray v0.15.0, webcanvas
-v0.4.1, window v0.89.0, cada versión deducida de su API por &lt;code&gt;gorelease&lt;/code&gt;.
-El 2026-10-11: toolkit v0.329.0, y tui v0.62.0, desktop v0.20.0, gallery
+v0.4.1, window v0.89.0, cada versión deducida de su API por &lt;code&gt;gorelease&lt;/code&gt;.El 2026-10-11: toolkit v0.329.0, y tui v0.62.0, desktop v0.20.0, gallery
 v0.7.0 e isoicons v0.4.0. Para esos cuatro, &lt;code&gt;gorelease&lt;/code&gt; no puede cargar el
 grafo de módulos, que alcanza &lt;code&gt;github.com/ajroetker/go-highway/hwy/goat&lt;/code&gt;
-v0.0.0, una versión que nunca se publicó
-(&lt;a href="https://github.com/ajroetker/go-highway/issues/73" target="_blank" rel="noopener"&gt;ajroetker/go-highway#73&lt;/a&gt;),
-así que sus versiones se dedujeron con &lt;code&gt;apidiff&lt;/code&gt; en linux, darwin y windows,
-con la misma regla.&lt;/li&gt;
-&lt;li&gt;Los workflows de los 23 repositorios (31 archivos) se auditaron con
-&lt;code&gt;actionlint&lt;/code&gt; y &lt;code&gt;wfaudit&lt;/code&gt;: ningún disparador privilegiado, ningún permiso de
-escritura a nivel de workflow, ningún token olvidado en un checkout subido,
-ninguna expresión no confiable en un paso de shell. Todos los workflows
+v0.0.0, una versión que nunca se publicó(&lt;a href="https://github.com/ajroetker/go-highway/issues/73" target="_blank" rel="noopener"&gt;ajroetker/go-highway#73&lt;/a&gt;),así que sus versiones se dedujeron con &lt;code&gt;apidiff&lt;/code&gt; en linux, darwin y windows,con la misma regla.&lt;/li&gt;
+&lt;li&gt;Los workflows de los 23 repositorios (31 archivos) se auditaron con&lt;code&gt;actionlint&lt;/code&gt; y &lt;code&gt;wfaudit&lt;/code&gt;: ningún disparador privilegiado, ningún permiso de
+escritura a nivel de workflow, ningún token olvidado en un checkout subido,ninguna expresión no confiable en un paso de shell. Todos los workflows
 declaran sus permisos, de modo que ninguno depende del token por defecto de
 un repositorio.&lt;/li&gt;
 &lt;/ul&gt;</description></item></channel></rss>

@@ -52,13 +52,10 @@ data-copied-label="¡Copiado!"
 &lt;/div&gt;
 &lt;h2 data-hextra-search-id="binding"&gt;Enlace&lt;span class="hx:absolute hx:-mt-20" id="binding"&gt;&lt;/span&gt;
 &lt;a href="#binding" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Los binders genéricos llegan a un widget mediante &lt;strong&gt;un puntero a su campo de
-valor y un puntero a su ranura de callback&lt;/strong&gt;: &lt;code&gt;BindField&lt;/code&gt; (bidireccional),
-&lt;code&gt;OneWay&lt;/code&gt;, &lt;code&gt;BindCommand&lt;/code&gt;, &lt;code&gt;BindList&lt;/code&gt;. Un widget dispara su callback desde su
-manejador de eventos y deja en silencio una escritura directa del campo, y
-&lt;code&gt;Observable.Set&lt;/code&gt; ignora un valor igual: así, un enlace bidireccional puede
+valor y un puntero a su ranura de callback&lt;/strong&gt;: &lt;code&gt;BindField&lt;/code&gt; (bidireccional),&lt;code&gt;OneWay&lt;/code&gt;, &lt;code&gt;BindCommand&lt;/code&gt;, &lt;code&gt;BindList&lt;/code&gt;. Un widget dispara su callback desde su
+manejador de eventos y deja en silencio una escritura directa del campo, y&lt;code&gt;Observable.Set&lt;/code&gt; ignora un valor igual: así, un enlace bidireccional puede
 hacer eco sin entrar en recursión.&lt;/p&gt;
-&lt;p&gt;El toolkit está pasando sus widgets a exponer su estado &lt;strong&gt;como&lt;/strong&gt; un observable
-(&lt;code&gt;Label.Text()&lt;/code&gt; devuelve un &lt;code&gt;*mvvm.Observable[string]&lt;/code&gt;). Entonces no hay ningún
+&lt;p&gt;El toolkit está pasando sus widgets a exponer su estado &lt;strong&gt;como&lt;/strong&gt; un observable(&lt;code&gt;Label.Text()&lt;/code&gt; devuelve un &lt;code&gt;*mvvm.Observable[string]&lt;/code&gt;). Entonces no hay ningún
 campo que inicializar ni ningún callback que componer, solo dos propiedades que
 deben coincidir: &lt;code&gt;BindTwoWay(src, dst, invalidate)&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Los widgets cuyo callback recibe varios argumentos tienen un pequeño adaptador

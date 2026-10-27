@@ -109,8 +109,7 @@ data-copied-label="Kopiert!"
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;Der Puffer bleibt im Besitz des Aufrufers. Ein &lt;code&gt;PixelPainter&lt;/code&gt; übersetzt nur Primitive
-in Schreibzugriffe, sodass derselbe &lt;code&gt;[]byte&lt;/code&gt; an ein Fenster-Back-End, ein
-&lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; oder einen Bild-Encoder übergeben werden kann, ohne dazwischen zu kopieren.&lt;/p&gt;
+in Schreibzugriffe, sodass derselbe &lt;code&gt;[]byte&lt;/code&gt; an ein Fenster-Back-End, ein&lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; oder einen Bild-Encoder übergeben werden kann, ohne dazwischen zu kopieren.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="trying-it"&gt;Ausprobieren&lt;span class="hx:absolute hx:-mt-20" id="trying-it"&gt;&lt;/span&gt;
 &lt;a href="#trying-it" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Die Demos des Repositorys zeichnen dieselben drei Widgets über beide Painter:&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
@@ -149,8 +148,7 @@ data-copied-label="Kopiert!"
 &lt;/button&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;p&gt;Ein Widget erfährt nie, welchen Painter es bekommen hat. Ein Back-End erfährt nie,
-welche Widgets gezeichnet haben. Genau deshalb kann ein Widget-Baum in einem
+&lt;p&gt;Ein Widget erfährt nie, welchen Painter es bekommen hat. Ein Back-End erfährt nie,welche Widgets gezeichnet haben. Genau deshalb kann ein Widget-Baum in einem
 nativen Fenster, einem Browser und einem Terminal ohne eine Zeile bedingten Codes angezeigt werden.&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
@@ -198,10 +196,8 @@ data-copied-label="Kopiert!"
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Ein Painter-Primitiv im Anwendungscode&lt;/strong&gt;: eine Zeichenmethode (&lt;code&gt;FillRect&lt;/code&gt;,
-&lt;code&gt;StrokeRect&lt;/code&gt;, &lt;code&gt;FillPath&lt;/code&gt;, &lt;code&gt;DrawImage&lt;/code&gt;, &lt;code&gt;Text&lt;/code&gt;, &lt;code&gt;PutPixel&lt;/code&gt;, …), aufgerufen auf einem
-Empfänger, dessen statischer Typ ein Painter-Typ ist. Die Oberfläche abzufragen oder zu beschneiden
-(&lt;code&gt;Size&lt;/code&gt;, &lt;code&gt;PushClip&lt;/code&gt;, &lt;code&gt;PushTranslate&lt;/code&gt;) ist kein Zeichnen und wird nicht
+&lt;li&gt;&lt;strong&gt;Ein Painter-Primitiv im Anwendungscode&lt;/strong&gt;: eine Zeichenmethode (&lt;code&gt;FillRect&lt;/code&gt;,&lt;code&gt;StrokeRect&lt;/code&gt;, &lt;code&gt;FillPath&lt;/code&gt;, &lt;code&gt;DrawImage&lt;/code&gt;, &lt;code&gt;Text&lt;/code&gt;, &lt;code&gt;PutPixel&lt;/code&gt;, …), aufgerufen auf einem
+Empfänger, dessen statischer Typ ein Painter-Typ ist. Die Oberfläche abzufragen oder zu beschneiden(&lt;code&gt;Size&lt;/code&gt;, &lt;code&gt;PushClip&lt;/code&gt;, &lt;code&gt;PushTranslate&lt;/code&gt;) ist kein Zeichnen und wird nicht
 gemeldet. &lt;code&gt;-primitives=&lt;/code&gt; ersetzt die Liste.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Ein Widget, das in jedem Frame weggeworfen wird&lt;/strong&gt;: ein &lt;code&gt;toolkit.New…&lt;/code&gt;-Aufruf in einer Methode
 namens &lt;code&gt;Draw&lt;/code&gt;, &lt;code&gt;Paint&lt;/code&gt; oder &lt;code&gt;Render&lt;/code&gt;. Ein bei jedem Zeichnen neu gebautes Widget behält keinen

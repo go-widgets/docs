@@ -109,8 +109,7 @@ data-copied-label="Copied!"
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;The buffer stays the caller&amp;rsquo;s. A &lt;code&gt;PixelPainter&lt;/code&gt; only translates primitives
-into writes, so the same &lt;code&gt;[]byte&lt;/code&gt; can be handed to a window back-end, a
-&lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; or an image encoder without a copy in between.&lt;/p&gt;
+into writes, so the same &lt;code&gt;[]byte&lt;/code&gt; can be handed to a window back-end, a&lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; or an image encoder without a copy in between.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="trying-it"&gt;Trying it&lt;span class="hx:absolute hx:-mt-20" id="trying-it"&gt;&lt;/span&gt;
 &lt;a href="#trying-it" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;The repository&amp;rsquo;s own demos draw the same three widgets through both painters:&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
@@ -198,8 +197,7 @@ data-copied-label="Copied!"
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;A painter primitive in application code&lt;/strong&gt;: a drawing method (&lt;code&gt;FillRect&lt;/code&gt;,
-&lt;code&gt;StrokeRect&lt;/code&gt;, &lt;code&gt;FillPath&lt;/code&gt;, &lt;code&gt;DrawImage&lt;/code&gt;, &lt;code&gt;Text&lt;/code&gt;, &lt;code&gt;PutPixel&lt;/code&gt;, …) called on a
+&lt;li&gt;&lt;strong&gt;A painter primitive in application code&lt;/strong&gt;: a drawing method (&lt;code&gt;FillRect&lt;/code&gt;,&lt;code&gt;StrokeRect&lt;/code&gt;, &lt;code&gt;FillPath&lt;/code&gt;, &lt;code&gt;DrawImage&lt;/code&gt;, &lt;code&gt;Text&lt;/code&gt;, &lt;code&gt;PutPixel&lt;/code&gt;, …) called on a
 receiver whose static type is a painter type. Querying or clipping the
 surface (&lt;code&gt;Size&lt;/code&gt;, &lt;code&gt;PushClip&lt;/code&gt;, &lt;code&gt;PushTranslate&lt;/code&gt;) is not drawing and is not
 flagged. &lt;code&gt;-primitives=&lt;/code&gt; replaces the list.&lt;/li&gt;

@@ -26,8 +26,7 @@ procesos:&lt;/p&gt;
 &lt;p&gt;El host Java ocupa el lugar que ocupa el servidor X en Linux. Los píxeles
 viajan a través de un &lt;strong&gt;memfd&lt;/strong&gt; que la aplicación crea y entrega al host por el
 socket; el lado Go escribe RGBA_8888, que es byte a byte el ARGB_8888 de
-Android, así que la copia se hace sin conversión y solo del rectángulo dañado.
-La entrada, los márgenes de inserción, el texto del IME y el árbol de
+Android, así que la copia se hace sin conversión y solo del rectángulo dañado.La entrada, los márgenes de inserción, el texto del IME y el árbol de
 accesibilidad atraviesan un protocolo por tramas sobre un &lt;code&gt;LocalSocket&lt;/code&gt;
 abstracto.&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
@@ -53,8 +52,7 @@ Android a los backends de escritorio sin cambiar una línea por encima de la
 ventana, y &lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/native-window/#how-open-chooses"&gt;&lt;code&gt;window.Open&lt;/code&gt;&lt;/a&gt;
 lo elige por sí solo cuando el socket del host está presente.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="arm64-only"&gt;Solo arm64&lt;span class="hx:absolute hx:-mt-20" id="arm64-only"&gt;&lt;/span&gt;
-&lt;a href="#arm64-only" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;android/arm64&lt;/code&gt; es el único destino Android que Go enlaza sin cgo; &lt;code&gt;arm&lt;/code&gt;,
-&lt;code&gt;amd64&lt;/code&gt; y &lt;code&gt;386&lt;/code&gt; requieren enlazado externo. La CI comprueba ambas mitades —el
+&lt;a href="#arm64-only" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;android/arm64&lt;/code&gt; es el único destino Android que Go enlaza sin cgo; &lt;code&gt;arm&lt;/code&gt;,&lt;code&gt;amd64&lt;/code&gt; y &lt;code&gt;386&lt;/code&gt; requieren enlazado externo. La CI comprueba ambas mitades —el
 que compila y los tres que no—, de modo que el día en que Go levante la
 restricción, la compilación lo dirá.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="accessibility"&gt;Accesibilidad&lt;span class="hx:absolute hx:-mt-20" id="accessibility"&gt;&lt;/span&gt;

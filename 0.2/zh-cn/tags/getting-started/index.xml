@@ -1,0 +1,115 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Getting-Started</title><link>https://go-widgets.github.io/docs/0.2/zh-cn/tags/getting-started/</link><description>Recent content in Getting-Started on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://go-widgets.github.io/docs/0.2/zh-cn/tags/getting-started/index.xml" rel="self" type="application/rss+xml"/><item><title>第一个应用</title><link>https://go-widgets.github.io/docs/0.2/zh-cn/getting-started/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/zh-cn/getting-started/</guid><description>
+&lt;h2 data-hextra-search-id="from-the-template"&gt;从模板开始&lt;span class="hx:absolute hx:-mt-20" id="from-the-template"&gt;&lt;/span&gt;
+&lt;a href="#from-the-template" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;a href="https://github.com/go-widgets/app-template" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/app-template&lt;/code&gt;&lt;/a&gt; 是一个模板仓库：一个小巧但真实的浏览器应用，包含搜索框、类别过滤器、匹配行的列表和一条状态栏。更大的应用所需的一切都已接好：一个不含任何控件的视图模型、一个与之绑定的视图、一个 wasm 宿主、100% 覆盖率门禁，以及 &lt;a href="https://go-widgets.github.io/docs/0.2/zh-cn/guard-rails/mvvmlint/"&gt;MVVM 门禁&lt;/a&gt;。&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-sh" data-lang="sh"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git clone https://github.com/go-widgets/app-template my-app
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; my-app
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;go mod edit -module github.com/you/my-app
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;./build.sh &lt;span class="c1"&gt;# dist/app.wasm, dist/wasm_exec.js, dist/index.html&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+aria-label="复制代码"
+data-copied-label="已复制！"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;请通过 HTTP 提供 &lt;code&gt;dist/&lt;/code&gt;：从 &lt;code&gt;file://&lt;/code&gt; 打开的页面无法实例化 wasm。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;文件&lt;/th&gt;
+&lt;th&gt;内容&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;viewmodel.go&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;所有状态，以 &lt;a href="https://go-widgets.github.io/docs/0.2/zh-cn/state/mvvm/"&gt;&lt;code&gt;mvvm&lt;/code&gt;&lt;/a&gt; 可观察对象和命令的形式存在。不含控件。无需画布即可测试。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;scene.go&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;各个控件，每个都通过 &lt;code&gt;mvvmtk&lt;/code&gt; 绑定到视图模型。它自己从不给控件的状态字段赋值。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;main.go&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;唯一带构建标签（&lt;code&gt;js &amp;amp;&amp;amp; wasm&lt;/code&gt;）的文件：把输入转发给工具包，并把画面块传送（blit）到 &lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; 中。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;编辑前两个文件，并让状态始终经由绑定器流动：CI 中的 &lt;code&gt;mvvm&lt;/code&gt; 任务会让直接给控件字段赋值的拉取请求失败。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="from-a-bare-window"&gt;从空白窗口开始&lt;span class="hx:absolute hx:-mt-20" id="from-a-bare-window"&gt;&lt;/span&gt;
+&lt;a href="#from-a-bare-window" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;package&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;main&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;github.com/go-widgets/toolkit&amp;#34;&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;github.com/go-widgets/window&amp;#34;&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Config&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;Title&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Demo&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ErrUnsupported&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// no native back-end on this platform&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;!=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;panic&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;defer&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Close&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;box&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewVBox&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;box&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewLabel&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Hello&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;box&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewButton&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Click me&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{}))&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;box&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// layout, draw, present, dispatch input, until closed&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+aria-label="复制代码"
+data-copied-label="已复制！"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;宽度和高度保持为零，表示请后端给出一个易读的默认值；在 macOS 上，这是主屏幕的一部分。&lt;code&gt;CGO_ENABLED=0 go build&lt;/code&gt; 可在任意机器上为每个平台生成二进制文件。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="which-module-for-what"&gt;该用哪个模块&lt;span class="hx:absolute hx:-mt-20" id="which-module-for-what"&gt;&lt;/span&gt;
+&lt;a href="#which-module-for-what" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;你想要&lt;/th&gt;
+&lt;th&gt;从这里开始&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;一个桌面窗口&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/zh-cn/surfaces/native-window/"&gt;&lt;code&gt;window&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;一个带托盘图标并跟随系统外观的桌面应用&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/zh-cn/surfaces/application/"&gt;&lt;code&gt;application&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;浏览器中的一个页面&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/zh-cn/surfaces/browser/"&gt;&lt;code&gt;webcanvas&lt;/code&gt;&lt;/a&gt;，或上文的模板&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;一个终端程序&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/zh-cn/surfaces/terminal/"&gt;&lt;code&gt;tui&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;一个 Android 应用&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/zh-cn/surfaces/android/"&gt;&lt;code&gt;android&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;为 README 准备的控件图片&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/zh-cn/surfaces/snapshots/"&gt;&lt;code&gt;svg&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;若想在动手写代码之前先看看控件集，请打开&lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;画廊&lt;/a&gt;：每个控件系列都在浏览器画布中实时展示。&lt;/p&gt;</description></item></channel></rss>

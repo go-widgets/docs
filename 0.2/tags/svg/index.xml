@@ -27,5 +27,4 @@ data-copied-label="Copied!"
 &lt;p&gt;The label becomes the SVG&amp;rsquo;s &lt;code&gt;&amp;lt;title&amp;gt;&lt;/code&gt; and &lt;code&gt;aria-label&lt;/code&gt;, escaped. The root
 package depends on nothing; the &lt;code&gt;widget&lt;/code&gt; subpackage is separate so a consumer
 with its own pixel producer does not pull the toolkit into its module graph.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;svg/cmd/gallery-render&lt;/code&gt; renders the widget catalogue, light and dark:
-&lt;a href="https://go-widgets.github.io/svg/" target="_blank" rel="noopener"&gt;go-widgets.github.io/svg&lt;/a&gt;.&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;&lt;code&gt;svg/cmd/gallery-render&lt;/code&gt; renders the widget catalogue, light and dark:&lt;a href="https://go-widgets.github.io/svg/" target="_blank" rel="noopener"&gt;go-widgets.github.io/svg&lt;/a&gt;.&lt;/p&gt;</description></item></channel></rss>

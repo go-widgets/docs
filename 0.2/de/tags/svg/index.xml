@@ -27,5 +27,4 @@ data-copied-label="Kopiert!"
 &lt;p&gt;Die Beschriftung wird, maskiert, zu &lt;code&gt;&amp;lt;title&amp;gt;&lt;/code&gt; und &lt;code&gt;aria-label&lt;/code&gt; des SVG. Das Wurzelpaket
 hängt von nichts ab; das Unterpaket &lt;code&gt;widget&lt;/code&gt; ist getrennt, damit ein Nutzer
 mit eigenem Pixel-Erzeuger das Toolkit nicht in seinen Modulgraphen zieht.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;svg/cmd/gallery-render&lt;/code&gt; rendert den Widget-Katalog, hell und dunkel:
-&lt;a href="https://go-widgets.github.io/svg/" target="_blank" rel="noopener"&gt;go-widgets.github.io/svg&lt;/a&gt;.&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;&lt;code&gt;svg/cmd/gallery-render&lt;/code&gt; rendert den Widget-Katalog, hell und dunkel:&lt;a href="https://go-widgets.github.io/svg/" target="_blank" rel="noopener"&gt;go-widgets.github.io/svg&lt;/a&gt;.&lt;/p&gt;</description></item></channel></rss>

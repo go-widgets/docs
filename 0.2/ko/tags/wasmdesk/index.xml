@@ -1,0 +1,42 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Wasmdesk</title><link>https://go-widgets.github.io/docs/0.2/ko/tags/wasmdesk/</link><description>Recent content in Wasmdesk on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>ko</language><atom:link href="https://go-widgets.github.io/docs/0.2/ko/tags/wasmdesk/index.xml" rel="self" type="application/rss+xml"/><item><title>브라우저 탭</title><link>https://go-widgets.github.io/docs/0.2/ko/surfaces/browser/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/ko/surfaces/browser/</guid><description>
+&lt;p&gt;툴킷은 DOM에 의존하지 않는 순수 Go이므로 &lt;code&gt;GOOS=js GOARCH=wasm&lt;/code&gt;이 다른 타깃과
+똑같이 빌드합니다. 결과물을 사용자 앞에 보여 주는 방법은 두 가지입니다.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="a-plain-canvas"&gt;일반 캔버스&lt;span class="hx:absolute hx:-mt-20" id="a-plain-canvas"&gt;&lt;/span&gt;
+&lt;a href="#a-plain-canvas" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;a href="https://github.com/go-widgets/webcanvas" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/webcanvas&lt;/code&gt;&lt;/a&gt;는 RGBA
+프레임버퍼를 &lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt;에 전송하고 DOM의 포인터 및 키보드 이벤트를 장면으로 다시
+전달합니다. 컴포지터도, &lt;code&gt;SharedArrayBuffer&lt;/code&gt;도, 교차 출처 격리 헤더도 필요 없으며,어떤 정적 호스트로도 제공할 수 있습니다.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;//go:build js &amp;amp;&amp;amp; wasm&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;package&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;main&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;github.com/go-widgets/webcanvas&amp;#34;&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;webcanvas&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;screen&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;myScene&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="코드 복사"
+aria-label="코드 복사"
+data-copied-label="복사됨!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;장면은 &lt;code&gt;App&lt;/code&gt;을 구현합니다. &lt;code&gt;Size&lt;/code&gt;, &lt;code&gt;Draw(buf []byte)&lt;/code&gt;, 그리고 이벤트 종류마다 하나의
+메서드이며, 각 메서드는 무언가 바뀌었는지를 보고하므로 바뀌지 않은 프레임은 다시
+그려지지 않습니다. &lt;code&gt;Ticker&lt;/code&gt;, &lt;code&gt;Animator&lt;/code&gt;, &lt;code&gt;Resizer&lt;/code&gt;, &lt;code&gt;Scroller&lt;/code&gt;도 구현할 수 있습니다.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;갤러리&lt;/a&gt;와&lt;a href="https://go-widgets.github.io/docs/0.2/ko/getting-started/"&gt;&lt;code&gt;app-template&lt;/code&gt;&lt;/a&gt;은 이 방식으로 실행됩니다.&lt;/p&gt;
+&lt;p&gt;아니면 &lt;code&gt;window&lt;/code&gt;가 선택하게 할 수도 있습니다. window v0.87.0부터 일반 페이지에서&lt;code&gt;js/wasm&lt;/code&gt;용으로 빌드된&lt;a href="https://go-widgets.github.io/docs/0.2/ko/surfaces/native-window/#how-open-chooses"&gt;&lt;code&gt;window.Open&lt;/code&gt;&lt;/a&gt;은&lt;code&gt;webcanvas&lt;/code&gt;를 통해 페이지의 &lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt;(&lt;code&gt;Config.Canvas&lt;/code&gt;, 기본값 &lt;code&gt;&amp;quot;screen&amp;quot;&lt;/code&gt;)에 그리는
+백엔드를 반환합니다. 그러면 &lt;code&gt;window&lt;/code&gt;에 맞춰 작성된 애플리케이션이 네이티브 창으로도,브라우저 탭에서도, wasmdesk에서도 그대로 실행됩니다.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="a-window-on-the-wasmdesk-desktop"&gt;wasmdesk 데스크톱의 창&lt;span class="hx:absolute hx:-mt-20" id="a-window-on-the-wasmdesk-desktop"&gt;&lt;/span&gt;
+&lt;a href="#a-window-on-the-wasmdesk-desktop" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;wasmdesk 워커 안에서 &lt;a href="https://go-widgets.github.io/docs/0.2/ko/surfaces/native-window/"&gt;&lt;code&gt;window.Open&lt;/code&gt;&lt;/a&gt;은&lt;a href="https://github.com/wasmdesk/wasmbox" target="_blank" rel="noopener"&gt;wasmdesk/wasmbox&lt;/a&gt; 브라우저 컴포지터의
+클라이언트를 반환합니다. 클라이언트는 &lt;code&gt;SharedArrayBuffer&lt;/code&gt;에 서피스를 할당하고,&lt;code&gt;MessagePort&lt;/code&gt;로 &lt;code&gt;hello&lt;/code&gt;를 보내고, &lt;code&gt;welcome&lt;/code&gt;을 기다리고, 공유 버퍼에 그린 뒤&lt;code&gt;commit&lt;/code&gt;을 게시합니다. 서피스 전체이거나 손상된 사각형만입니다. 컴포지터의 &lt;code&gt;input&lt;/code&gt;
+메시지는 X11에서처럼 &lt;code&gt;toolkit.Event&lt;/code&gt;가 됩니다.&lt;/p&gt;
+&lt;p&gt;그래서 &lt;code&gt;window&lt;/code&gt;에 맞춰 작성된 애플리케이션은 네이티브 창으로도, 브라우저 탭 안의
+데스크톱 창으로도 그대로 실행됩니다.&lt;a href="https://github.com/go-widgets/desktop" target="_blank" rel="noopener"&gt;데스크톱 셸 데모&lt;/a&gt;가 바로 그렇게 하며, 소스는
+하나입니다.&lt;/p&gt;
+&lt;p&gt;프로토콜 코덱은 모든 플랫폼에서 100% 커버됩니다. 실제 검증은 헤드리스 Chromium을
+실제 wasmdesk 컴포지터에 대해 실행합니다. 클라이언트를 띄우고, 컴포지터가 직접
+합성한 픽셀을 읽고, 클릭하고, 그 클릭이 위젯에 도달했는지 확인합니다.&lt;/p&gt;</description></item></channel></rss>

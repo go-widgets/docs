@@ -1,6 +1,5 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Stand</title><link>https://go-widgets.github.io/docs/0.2/de/tags/stand/</link><description>Recent content in Stand on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>de</language><atom:link href="https://go-widgets.github.io/docs/0.2/de/tags/stand/index.xml" rel="self" type="application/rss+xml"/><item><title>Stand</title><link>https://go-widgets.github.io/docs/0.2/de/status/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/de/status/</guid><description>
-&lt;p&gt;Diese Seiten wurden mit den Modulen in den unter
-&lt;a href="https://go-widgets.github.io/docs/0.2/de/modules/"&gt;Module&lt;/a&gt; aufgeführten Tags abgeglichen. Wo das README eines Moduls und sein Code
+&lt;p&gt;Diese Seiten wurden mit den Modulen in den unter&lt;a href="https://go-widgets.github.io/docs/0.2/de/modules/"&gt;Module&lt;/a&gt; aufgeführten Tags abgeglichen. Wo das README eines Moduls und sein Code
 sich widersprechen, folgen die Seiten dem Code.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="proven-live"&gt;Live nachgewiesen&lt;span class="hx:absolute hx:-mt-20" id="proven-live"&gt;&lt;/span&gt;
 &lt;a href="#proven-live" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Ein im Prozess getesteter Codec beweist den Codec. Dies sind die Stellen, an denen
@@ -70,8 +69,7 @@ sind abgedeckt.&lt;/li&gt;
 &lt;a href="#not-done" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;Die Trays unter Windows und Linux ignorieren &lt;code&gt;MenuItem.Icon&lt;/code&gt;: Eine Zeile mit einem Symbol
 wird ohne es gezeichnet.&lt;/li&gt;
-&lt;li&gt;Das Wayland-Back-End von &lt;code&gt;window&lt;/code&gt; kann kein &lt;code&gt;Raise&lt;/code&gt;: xdg-shell hat keine solche Anfrage,
-und xdg-activation braucht ein Token aus der eigenen Eingabe des Benutzers.&lt;/li&gt;
+&lt;li&gt;Das Wayland-Back-End von &lt;code&gt;window&lt;/code&gt; kann kein &lt;code&gt;Raise&lt;/code&gt;: xdg-shell hat keine solche Anfrage,und xdg-activation braucht ein Token aus der eigenen Eingabe des Benutzers.&lt;/li&gt;
 &lt;li&gt;Android: nur &lt;code&gt;android/arm64&lt;/code&gt;, weil es das einzige Android-Ziel ist, das Go
 ohne cgo linkt.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;window.Screens&lt;/code&gt; gibt unter &lt;code&gt;js/wasm&lt;/code&gt; &lt;code&gt;ErrScreensUnsupported&lt;/code&gt; zurück.&lt;/li&gt;
@@ -115,38 +113,27 @@ ohne cgo linkt.&lt;/li&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;Damit bauen nun alle siebzehn Bibliotheken und Werkzeuge per Cross-Build für die
-sechs 64-Bit-Linux-Architekturen, und alle neunzehn haben eine Schranke bei 100 %
-Anweisungsabdeckung.
-&lt;code&gt;app-template&lt;/code&gt; und &lt;code&gt;gallery&lt;/code&gt; sind Browser-Anwendungen und bauen für &lt;code&gt;js/wasm&lt;/code&gt;,
-ihr einziges Ziel.&lt;/p&gt;
+sechs 64-Bit-Linux-Architekturen, und alle neunzehn haben eine Schranke bei 100 %Anweisungsabdeckung.&lt;code&gt;app-template&lt;/code&gt; und &lt;code&gt;gallery&lt;/code&gt; sind Browser-Anwendungen und bauen für &lt;code&gt;js/wasm&lt;/code&gt;,ihr einziges Ziel.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="security"&gt;Sicherheit&lt;span class="hx:absolute hx:-mt-20" id="security"&gt;&lt;/span&gt;
-&lt;a href="#security" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Gemessen mit &lt;code&gt;govulncheck&lt;/code&gt; (auf Symbolebene: nur Code, den das Modul erreichen kann)
-am 2026-10-10:&lt;/p&gt;
+&lt;a href="#security" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Gemessen mit &lt;code&gt;govulncheck&lt;/code&gt; (auf Symbolebene: nur Code, den das Modul erreichen kann)am 2026-10-10:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;15 der 19 Module erreichten verwundbaren Code: in der Standardbibliothek von
 go1.27.1 (&lt;code&gt;html/template&lt;/code&gt;, &lt;code&gt;net/http&lt;/code&gt;, &lt;code&gt;crypto/tls&lt;/code&gt;, &lt;code&gt;mime/multipart&lt;/code&gt;; behoben
-in go1.27.2) und in &lt;code&gt;golang.org/x/net&lt;/code&gt; v0.58.0 (&lt;code&gt;http2&lt;/code&gt;, über gRPC in
-&lt;code&gt;data&lt;/code&gt;; behoben in v0.60.0).&lt;/li&gt;
+in go1.27.2) und in &lt;code&gt;golang.org/x/net&lt;/code&gt; v0.58.0 (&lt;code&gt;http2&lt;/code&gt;, über gRPC in&lt;code&gt;data&lt;/code&gt;; behoben in v0.60.0).&lt;/li&gt;
 &lt;li&gt;Noch am selben Abend behoben. Die CI jedes Moduls baut mit go1.27.2, und
 jedes Modul verlangt &lt;code&gt;x/net&lt;/code&gt; v0.60.0. In den meisten ist es eine indirekte
 Abhängigkeit, die Renovate nicht aktualisiert; sie wurde daher von Hand
 angehoben. Ein zweiter &lt;code&gt;govulncheck&lt;/code&gt;-Lauf über alle 19 Module findet keine
 erreichbare Schwachstelle.&lt;/li&gt;
-&lt;li&gt;Veröffentlicht: android v0.16.0, app-template v0.5.0, application v0.8.0,
-bricolint v0.4.1, data v0.4.0, mvvm v0.15.0, mvvmlint v0.4.1, mvvmtk
+&lt;li&gt;Veröffentlicht: android v0.16.0, app-template v0.5.0, application v0.8.0,bricolint v0.4.1, data v0.4.0, mvvm v0.15.0, mvvmlint v0.4.1, mvvmtk
 v0.15.0, painter v0.16.0, skin v0.3.0, svg v0.7.0, tray v0.15.0, webcanvas
 v0.4.1, window v0.89.0, jede Version von &lt;code&gt;gorelease&lt;/code&gt; aus ihrer API
 abgeleitet. Am 2026-10-11: toolkit v0.329.0, dann tui v0.62.0, desktop
 v0.20.0, gallery v0.7.0 und isoicons v0.4.0. Für diese vier kann &lt;code&gt;gorelease&lt;/code&gt;
-den Modulgraphen nicht laden, der
-&lt;code&gt;github.com/ajroetker/go-highway/hwy/goat&lt;/code&gt; v0.0.0 erreicht, eine nie
-veröffentlichte Version
-(&lt;a href="https://github.com/ajroetker/go-highway/issues/73" target="_blank" rel="noopener"&gt;ajroetker/go-highway#73&lt;/a&gt;);
-ihre Versionen wurden daher mit &lt;code&gt;apidiff&lt;/code&gt; unter linux, darwin und windows
+den Modulgraphen nicht laden, der&lt;code&gt;github.com/ajroetker/go-highway/hwy/goat&lt;/code&gt; v0.0.0 erreicht, eine nie
+veröffentlichte Version(&lt;a href="https://github.com/ajroetker/go-highway/issues/73" target="_blank" rel="noopener"&gt;ajroetker/go-highway#73&lt;/a&gt;);ihre Versionen wurden daher mit &lt;code&gt;apidiff&lt;/code&gt; unter linux, darwin und windows
 nach derselben Regel abgeleitet.&lt;/li&gt;
-&lt;li&gt;Die Workflows aller 23 Repositorys (31 Dateien) wurden mit
-&lt;code&gt;actionlint&lt;/code&gt; und &lt;code&gt;wfaudit&lt;/code&gt; geprüft: kein privilegierter Trigger, keine
-Schreibberechtigung auf Workflow-Ebene, kein Token in einem hochgeladenen Checkout,
-kein nicht vertrauenswürdiger Ausdruck in einem Shell-Schritt. Jeder Workflow
+&lt;li&gt;Die Workflows aller 23 Repositorys (31 Dateien) wurden mit&lt;code&gt;actionlint&lt;/code&gt; und &lt;code&gt;wfaudit&lt;/code&gt; geprüft: kein privilegierter Trigger, keine
+Schreibberechtigung auf Workflow-Ebene, kein Token in einem hochgeladenen Checkout,kein nicht vertrauenswürdiger Ausdruck in einem Shell-Schritt. Jeder Workflow
 deklariert seine Berechtigungen, sodass keiner vom Standard-Token eines Repositorys abhängt.&lt;/li&gt;
 &lt;/ul&gt;</description></item></channel></rss>

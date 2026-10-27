@@ -1,0 +1,240 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – State</title><link>https://go-widgets.github.io/docs/0.2/ko/tags/state/</link><description>Recent content in State on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>ko</language><atom:link href="https://go-widgets.github.io/docs/0.2/ko/tags/state/index.xml" rel="self" type="application/rss+xml"/><item><title>MVVM: observable, 명령, 바인더</title><link>https://go-widgets.github.io/docs/0.2/ko/state/mvvm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/ko/state/mvvm/</guid><description>
+&lt;p&gt;&lt;a href="https://github.com/go-widgets/mvvm" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/mvvm&lt;/code&gt;&lt;/a&gt;은 제네릭만 사용하며
+리플렉션을 쓰지 않습니다. 핵심 패키지는 위젯 패키지를 전혀 가져오지 않으므로, 하나의
+뷰 모델이 픽셀 &lt;a href="https://go-widgets.github.io/docs/0.2/ko/rendering/toolkit/"&gt;툴킷&lt;/a&gt;과&lt;a href="https://go-widgets.github.io/docs/0.2/ko/surfaces/terminal/"&gt;터미널 위젯&lt;/a&gt;을 똑같이 구동합니다.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;기본 요소&lt;/th&gt;
+&lt;th&gt;역할&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Observable[T]&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;속성: &lt;code&gt;Get&lt;/code&gt;, &lt;code&gt;Set&lt;/code&gt;, &lt;code&gt;Subscribe&lt;/code&gt;. 같은 값을 설정하면 아무 일도 일어나지 않습니다.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Command&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;CanExecute&lt;/code&gt;와 &lt;code&gt;RaiseCanExecuteChanged&lt;/code&gt;가 있는 동작&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;ObservableList[T]&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;삽입, 제거, 교체, 이동, 초기화를 각각 알리는 컬렉션&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 data-hextra-search-id="a-form"&gt;폼&lt;span class="hx:absolute hx:-mt-20" id="a-form"&gt;&lt;/span&gt;
+&lt;a href="#a-form" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kd"&gt;type&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;FormVM&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;struct&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Observable&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Names&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ObservableList&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Save&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Command&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;vm&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nx"&gt;FormVM&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewObservable&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Names&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;NewObservableList&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;]()}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Save&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewCommand&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Names&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Get&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Set&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;bool&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Get&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;!=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// CanExecute&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;BindCanExecute&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Save&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// Save greys out while the name is empty&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="코드 복사"
+aria-label="코드 복사"
+data-copied-label="복사됨!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 data-hextra-search-id="binding"&gt;바인딩&lt;span class="hx:absolute hx:-mt-20" id="binding"&gt;&lt;/span&gt;
+&lt;a href="#binding" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;제네릭 바인더는 &lt;strong&gt;값 필드에 대한 포인터와 콜백 슬롯에 대한 포인터&lt;/strong&gt;를 통해 위젯에
+접근합니다. &lt;code&gt;BindField&lt;/code&gt;(양방향), &lt;code&gt;OneWay&lt;/code&gt;, &lt;code&gt;BindCommand&lt;/code&gt;, &lt;code&gt;BindList&lt;/code&gt;가 있습니다.위젯은 이벤트 핸들러에서 콜백을 호출하고 필드를 직접 쓰는 것에는 반응하지 않으며,&lt;code&gt;Observable.Set&lt;/code&gt;은 같은 값을 무시하므로 양방향 바인딩은 재귀 없이 되울릴 수
+있습니다.&lt;/p&gt;
+&lt;p&gt;툴킷은 위젯이 자신의 상태를 observable &lt;strong&gt;로&lt;/strong&gt; 노출하도록 옮겨 가는 중입니다(&lt;code&gt;Label.Text()&lt;/code&gt;는 &lt;code&gt;*mvvm.Observable[string]&lt;/code&gt;을 반환합니다). 그러면 초기화할 필드도
+조합할 콜백도 없고, 서로 일치해야 하는 두 속성만 남습니다: &lt;code&gt;BindTwoWay(src, dst, invalidate)&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;콜백이 여러 인자를 받는 위젯에는 백엔드별 패키지에 작은 이름 붙은 어댑터가
+제공됩니다. 백엔드를 가져오는 패키지는 이들뿐입니다.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;패키지&lt;/th&gt;
+&lt;th&gt;어댑터&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mvvm/tkbind&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;BindRange&lt;/code&gt; (the two-handle &lt;code&gt;RangeSlider&lt;/code&gt;), &lt;code&gt;BindContainer&lt;/code&gt; and &lt;code&gt;BindCardActive&lt;/code&gt; (a container&amp;rsquo;s children and a card layout from a list or an index), &lt;code&gt;BindStore&lt;/code&gt; and &lt;code&gt;BindTable&lt;/code&gt; (a &lt;code&gt;Table&lt;/code&gt; over a &lt;a href="https://go-widgets.github.io/docs/0.2/ko/state/data/"&gt;data store&lt;/a&gt;: sorting, grouping and validated inline edits)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mvvm/tuibind&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;BindDropdown&lt;/code&gt;, &lt;code&gt;BindTableSelection&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 data-hextra-search-id="mvvmtk-one-call-per-widget"&gt;mvvmtk: 위젯당 한 번의 호출&lt;span class="hx:absolute hx:-mt-20" id="mvvmtk-one-call-per-widget"&gt;&lt;/span&gt;
+&lt;a href="#mvvmtk-one-call-per-widget" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;a href="https://github.com/go-widgets/mvvmtk" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/mvvmtk&lt;/code&gt;&lt;/a&gt;는 각 툴킷 위젯의 실제
+필드 이름과 콜백 이름을 채워 주므로, 뷰는 그 이름을 직접 쓰지 않습니다.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;unbind&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;mvvmtk&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;BindText&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;search&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Query&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;win&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Invalidate&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// search.Text ⇄ vm.Query&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;defer&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;unbind&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="코드 복사"
+aria-label="코드 복사"
+data-copied-label="복사됨!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;헬퍼&lt;/th&gt;
+&lt;th&gt;방향&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;BindText&lt;/code&gt; (&lt;code&gt;SearchEntry&lt;/code&gt;), &lt;code&gt;BindEntryText&lt;/code&gt;, &lt;code&gt;BindChecked&lt;/code&gt;, &lt;code&gt;BindSelectedIndex&lt;/code&gt;, &lt;code&gt;BindSpin&lt;/code&gt;, &lt;code&gt;BindListSelection&lt;/code&gt;, &lt;code&gt;BindViewSwitcher&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;양방향&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;BindLabel&lt;/code&gt;, &lt;code&gt;BindProgress&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;뷰 모델 → 위젯&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;BindListItems&lt;/code&gt;, &lt;code&gt;BindDropDownOptions&lt;/code&gt;, &lt;code&gt;BindViews&lt;/code&gt;, &lt;code&gt;BindTree&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;리스트 → 위젯&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;BindCommand&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;버튼의 클릭, &lt;code&gt;Disabled&lt;/code&gt; 상태, 비활성 표시가 명령을 따릅니다&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;모든 헬퍼는 바인딩을 해제하고 이전에 있던 콜백을 복원하는 &lt;code&gt;unbind&lt;/code&gt;를 반환합니다.실행할 수 없는 명령에 바인딩된 버튼은 클릭도, Enter나 Space도, 키보드 포커스도
+받지 않습니다.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="undo-and-redo"&gt;실행 취소와 다시 실행&lt;span class="hx:absolute hx:-mt-20" id="undo-and-redo"&gt;&lt;/span&gt;
+&lt;a href="#undo-and-redo" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;mvvm/undo&lt;/code&gt;는 핵심 기본 요소만으로 만든 명령 스택이므로 어떤 뷰 아래에서도
+동작합니다.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;undo&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;New&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// unlimited, coalescing on; undo.WithLimit(n), undo.WithCoalescing(false)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Push&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;undo&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewCommand&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Write hello&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;do&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;undoIt&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Undo&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Redo&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;BindCommand&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;UndoCommand&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nx"&gt;undoBtn&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;OnClick&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;setEnabled&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;OneWay&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;UndoTextBinding&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nx"&gt;undoBtn&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Text&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;repaint&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// &amp;#34;Undo Write hello&amp;#34;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="코드 복사"
+aria-label="코드 복사"
+data-copied-label="복사됨!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;연속된 키 입력은 하나의 단계로 합쳐지고, 실행 취소 뒤에 푸시하면 다시 실행 꼬리가
+버려집니다.&lt;/p&gt;</description></item><item><title>데이터 스파인</title><link>https://go-widgets.github.io/docs/0.2/ko/state/data/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/ko/state/data/</guid><description>
+&lt;p&gt;&lt;a href="https://github.com/go-widgets/data" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/data&lt;/code&gt;&lt;/a&gt;는 헤드리스(headless)입니다.표준 라이브러리와 &lt;a href="https://go-widgets.github.io/docs/0.2/ko/state/mvvm/"&gt;&lt;code&gt;mvvm&lt;/code&gt;&lt;/a&gt;만 가져오며, 위젯은 전혀
+가져오지 않습니다.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;구성 요소&lt;/th&gt;
+&lt;th&gt;설명&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Value&lt;/code&gt;, &lt;code&gt;Kind&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;비교 가능한 타입 스칼라: string, int, float, bool&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Record&lt;/code&gt;, &lt;code&gt;Schema&lt;/code&gt;, &lt;code&gt;Field&lt;/code&gt;, &lt;code&gt;Rule&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;타입이 있는 행과 그 검증&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Query&lt;/code&gt; → &lt;code&gt;Apply&lt;/code&gt; → &lt;code&gt;View&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;쿼리 엔진: 필터, 정렬, 그룹, 페이지, 집계&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Proxy&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;백엔드 경계: &lt;code&gt;List&lt;/code&gt;, &lt;code&gt;Query&lt;/code&gt;, &lt;code&gt;Mutate&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;MemoryProxy&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;프로세스 내부 백엔드&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;grpcproxy.Server&lt;/code&gt;, &lt;code&gt;grpcproxy.Client&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;같은 계약을 gRPC로, WebSocket 위에서 전달&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Store[R]&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;타입이 있는 컬렉션으로, &lt;code&gt;mvvm.ObservableList&lt;/code&gt;로 게시됨&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 data-hextra-search-id="the-same-answer-local-or-remote"&gt;같은 답, 로컬이든 원격이든&lt;span class="hx:absolute hx:-mt-20" id="the-same-answer-local-or-remote"&gt;&lt;/span&gt;
+&lt;a href="#the-same-answer-local-or-remote" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Store&lt;/code&gt;는 &lt;code&gt;Proxy&lt;/code&gt;와 통신하며 그것이 어느 쪽인지 알지 못합니다. &lt;code&gt;Apply&lt;/code&gt;는 레코드와
+쿼리에 대한 순수 함수이므로 클라이언트와 서버가 같은 행에 대해 같은 코드를
+실행하고, &lt;code&gt;MemoryProxy&lt;/code&gt;와 &lt;code&gt;grpcproxy.Client&lt;/code&gt;는 바이트 단위로 동일한 뷰를 반환합니다.적합성 테스트가 바로 이것을 검사합니다. 정렬, 필터, 그룹, 페이지, 집계 쿼리 모음을
+두 프록시와 엔진 모두에 통과시키고, 모든 결과를 정규화한 다음, 세 가지를 바이트
+단위로 비교합니다.&lt;/p&gt;
+&lt;p&gt;WebSocket 전송은 &lt;code&gt;js/wasm&lt;/code&gt;으로 컴파일되므로, 브라우저 애플리케이션도 같은
+클라이언트를 통해 같은 서비스에 접근합니다.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;store&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewStore&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;mem&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;codec&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// or a grpcproxy.Client: nothing else changes&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;store&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;SetQuery&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Query&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;Sorts&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt;&lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Sort&lt;/span&gt;&lt;span class="p"&gt;{{&lt;/span&gt;&lt;span class="nx"&gt;Field&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;salary&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Desc&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;}},&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Limit&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;store&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;ctx&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;items&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;store&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Items&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// bind this to a view&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="코드 복사"
+aria-label="코드 복사"
+data-copied-label="복사됨!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;tkbind.BindTable&lt;/code&gt;은 스토어를 툴킷 &lt;code&gt;Table&lt;/code&gt; 뒤에 놓습니다. 헤더를 클릭하면 정렬하고,group-by는 그룹화하며, 검증을 통과한 셀 편집은 프록시를 통한 변경(mutation)이
+됩니다. 로컬이든 원격이든 같은 왕복입니다.&lt;/p&gt;</description></item><item><title>상태는 뷰 모델에 있습니다</title><link>https://go-widgets.github.io/docs/0.2/ko/state/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/ko/state/</guid><description>
+&lt;p&gt;위젯의 필드, 즉 입력란의 텍스트, 목록의 항목, 표의 행은 상태가 아니라 상태에 대한&lt;strong&gt;뷰&lt;/strong&gt;(view)입니다. 이 필드를 아무 곳에서나 대입하는 애플리케이션은 상태를 호출
+지점마다 흩어 놓게 되고, 결국 두 호출 지점이 화면에 무엇이 있는지를 두고 서로
+어긋납니다.&lt;/p&gt;
+&lt;p&gt;그래서 상태는 &lt;strong&gt;뷰 모델&lt;/strong&gt;(view-model)에 둡니다. 위젯이 전혀 없는, observable로 감싼
+평범한 Go 값이며 창 없이도 테스트할 수 있습니다. 뷰는 각 위젯을 뷰 모델에 한 번만
+바인딩하고, 그 뒤로는 애플리케이션이 아니라 바인딩이 양방향으로 둘을 일치시킵니다.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/ko/state/mvvm/"&gt;MVVM&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Observable&lt;/code&gt;, &lt;code&gt;Command&lt;/code&gt;, &lt;code&gt;ObservableList&lt;/code&gt;; 툴킷과 터미널 위젯용 바인더; 실행 취소와 다시 실행&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/ko/state/data/"&gt;데이터 스파인&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;검증이 있는 타입 레코드, 쿼리, 그리고 같은 파이프라인을 로컬 또는 gRPC로 실행하는 스토어&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/ko/guard-rails/mvvmlint/"&gt;&lt;code&gt;mvvmlint&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;위젯의 상태 필드를 손으로 대입하는 풀 리퀘스트를 실패시키는 CI 검사&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;</description></item></channel></rss>

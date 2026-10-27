@@ -19,8 +19,7 @@ data-copied-label="Kopiert!"
 &lt;/button&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;p&gt;Ein Widget erfährt nie, welchen Painter es bekommen hat. Ein Back-End erfährt nie,
-welche Widgets gezeichnet haben. Genau deshalb kann ein Widget-Baum in einem
+&lt;p&gt;Ein Widget erfährt nie, welchen Painter es bekommen hat. Ein Back-End erfährt nie,welche Widgets gezeichnet haben. Genau deshalb kann ein Widget-Baum in einem
 nativen Fenster, einem Browser und einem Terminal ohne eine Zeile bedingten Codes angezeigt werden.&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
@@ -44,11 +43,8 @@ nativen Fenster, einem Browser und einem Terminal ohne eine Zeile bedingten Code
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;</description></item><item><title>Das Toolkit</title><link>https://go-widgets.github.io/docs/0.2/de/rendering/toolkit/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/de/rendering/toolkit/</guid><description>
-&lt;p&gt;&lt;a href="https://github.com/go-widgets/toolkit" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/toolkit&lt;/code&gt;&lt;/a&gt; ist der Widget-Satz.
-Jedes Widget implementiert dieselbe Schnittstelle – &lt;code&gt;Bounds&lt;/code&gt;, &lt;code&gt;SetBounds&lt;/code&gt;,
-&lt;code&gt;Draw(p painter.Painter, theme *Theme)&lt;/code&gt;, &lt;code&gt;HitTest&lt;/code&gt;, &lt;code&gt;OnEvent&lt;/code&gt; –, sodass ein Host
-einen Button, eine Tabelle und einen Terminkalender gleich behandelt. Nur Standardbibliothek,
-&lt;code&gt;CGO_ENABLED=0&lt;/code&gt;, 100 % Anweisungsabdeckung.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/go-widgets/toolkit" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/toolkit&lt;/code&gt;&lt;/a&gt; ist der Widget-Satz.Jedes Widget implementiert dieselbe Schnittstelle – &lt;code&gt;Bounds&lt;/code&gt;, &lt;code&gt;SetBounds&lt;/code&gt;,&lt;code&gt;Draw(p painter.Painter, theme *Theme)&lt;/code&gt;, &lt;code&gt;HitTest&lt;/code&gt;, &lt;code&gt;OnEvent&lt;/code&gt; –, sodass ein Host
+einen Button, eine Tabelle und einen Terminkalender gleich behandelt. Nur Standardbibliothek,&lt;code&gt;CGO_ENABLED=0&lt;/code&gt;, 100 % Anweisungsabdeckung.&lt;/p&gt;
 &lt;p&gt;In v0.329.0 hat es &lt;strong&gt;160 exportierte Widget-Typen&lt;/strong&gt; in etwa &lt;strong&gt;69.000 Zeilen&lt;/strong&gt;
 Widget-Code. Beide Zahlen sind an diesem Tag gemessen, nicht übernommen: Das
 README des Toolkits nennt die Befehle, und man sollte sie erneut ausführen, statt
@@ -110,26 +106,21 @@ die Zahlen zu wiederholen.&lt;/p&gt;
 Gruppen aus großen Schaltflächen (Symbol über dem Text), kleinen (Symbol
 daneben), Umschaltern, geteilten Schaltflächen, Auswahllisten und einer kleinen
 Galerie. Es folgt den Windows-Richtlinien für Ribbons: Wird das Fenster
-schmaler, verkleinert sich jede Gruppe nach ihrer Priorität — voll, kompakt,
-nur Symbole, dann eine einzelne Menüschaltfläche —, sodass das Band die größte
-Kombination zeigt, die passt; es klappt auf seine Registerkarten zusammen
-(Strg+F1 oder der Pfeil), und eine Registerkarte zeigt dann kurz ihren Inhalt;
-Alt blendet Tastenkürzel-Hinweise ein; QuickInfos nennen die Tastenkombination
+schmaler, verkleinert sich jede Gruppe nach ihrer Priorität — voll, kompakt,nur Symbole, dann eine einzelne Menüschaltfläche —, sodass das Band die größte
+Kombination zeigt, die passt; es klappt auf seine Registerkarten zusammen(Strg+F1 oder der Pfeil), und eine Registerkarte zeigt dann kurz ihren Inhalt;Alt blendet Tastenkürzel-Hinweise ein; QuickInfos nennen die Tastenkombination
 und eine Beschreibung. Navigation per Registerkarten und Symbolleiste folgt den
 WAI-ARIA-Mustern, und Umrisse und Fokusring behalten in hellen wie dunklen
 Themes einen Kontrast von 3:1.&lt;/p&gt;
 &lt;p&gt;Jedes Steuerelement ist eine Sicht auf eine &lt;code&gt;Action&lt;/code&gt; — den einen Befehl, den
 sich Menü, Palette und Ribbon teilen —, und &lt;code&gt;NewCommandAction&lt;/code&gt; erzeugt eine aus
-einem &lt;code&gt;mvvm.Command&lt;/code&gt; des Viewmodels, dessen &lt;code&gt;CanExecute&lt;/code&gt; das Element ausgraut.
-Aktive Registerkarte, Zusammenklapp-Zustand, ein Umschalter und die Auswahl
+einem &lt;code&gt;mvvm.Command&lt;/code&gt; des Viewmodels, dessen &lt;code&gt;CanExecute&lt;/code&gt; das Element ausgraut.Aktive Registerkarte, Zusammenklapp-Zustand, ein Umschalter und die Auswahl
 einer Liste sind &lt;code&gt;mvvm.Observable&lt;/code&gt;s. Unter einem &lt;code&gt;PopoverHost&lt;/code&gt; zeichnen sich
 die Menüs ohne Host-Code über die Seite.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;RibbonGrid&lt;/code&gt; ist eine Steuerelementart, deren Popup ein Raster aus &lt;code&gt;GridCols&lt;/code&gt;
 mal &lt;code&gt;GridRows&lt;/code&gt; Zellen ist (8 mal 6 bei null, höchstens 16 mal 16), wie die
 Schaltfläche Tabelle einer Textverarbeitung. Zeiger oder Pfeiltasten
 beleuchten die Zellen von der Ecke bis zu der darunter, und eine Beschriftung
-nennt „3 × 2“; Klick oder Eingabe wählt und ruft &lt;code&gt;OnGrid(cols, rows)&lt;/code&gt; auf;
-Pos1 und Ende springen, Esc schließt. Es wird hell und dunkel gezeichnet und
+nennt „3 × 2“; Klick oder Eingabe wählt und ruft &lt;code&gt;OnGrid(cols, rows)&lt;/code&gt; auf;Pos1 und Ende springen, Esc schließt. Es wird hell und dunkel gezeichnet und
 Hilfstechnologien als Schaltfläche gemeldet, die aufgeklappt ist, solange das
 Raster offen ist.&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
@@ -149,17 +140,13 @@ data-copied-label="Kopiert!"
 &lt;/div&gt;
 &lt;h2 data-hextra-search-id="splitter"&gt;Splitter&lt;span class="hx:absolute hx:-mt-20" id="splitter"&gt;&lt;/span&gt;
 &lt;a href="#splitter" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Splitter&lt;/code&gt; ordnet N Bereiche nebeneinander (oder mit &lt;code&gt;vertical&lt;/code&gt; gleich true
-untereinander) an und setzt zwischen je zwei benachbarte einen ziehbaren,
-fokussierbaren Teiler, nach dem WAI-ARIA-Muster „Window Splitter“. Ein Bereich
-ist entweder &lt;strong&gt;fest&lt;/strong&gt; — seine &lt;code&gt;Size&lt;/code&gt; in logischen Pixeln ist ein
-&lt;code&gt;mvvm.Observable[int]&lt;/code&gt;, den der Teiler schreibt — oder &lt;strong&gt;flexibel&lt;/strong&gt; und teilt
+untereinander) an und setzt zwischen je zwei benachbarte einen ziehbaren,fokussierbaren Teiler, nach dem WAI-ARIA-Muster „Window Splitter“. Ein Bereich
+ist entweder &lt;strong&gt;fest&lt;/strong&gt; — seine &lt;code&gt;Size&lt;/code&gt; in logischen Pixeln ist ein&lt;code&gt;mvvm.Observable[int]&lt;/code&gt;, den der Teiler schreibt — oder &lt;strong&gt;flexibel&lt;/strong&gt; und teilt
 sich nach seinem &lt;code&gt;Weight&lt;/code&gt;, ebenfalls ein &lt;code&gt;Observable&lt;/code&gt;, was die festen Bereiche
 übrig lassen. Jeder Bereich hat ein &lt;code&gt;Min&lt;/code&gt; und ein &lt;code&gt;Max&lt;/code&gt;. Ein &lt;code&gt;Collapsible&lt;/code&gt;
-fester Bereich schließt sich (Größe 0), wenn der Teiler unter die Hälfte seines
-&lt;code&gt;Min&lt;/code&gt; gezogen wird, oder per Doppelklick oder Enter, und öffnet sich auf
+fester Bereich schließt sich (Größe 0), wenn der Teiler unter die Hälfte seines&lt;code&gt;Min&lt;/code&gt; gezogen wird, oder per Doppelklick oder Enter, und öffnet sich auf
 dieselbe Weise wieder. Das &lt;code&gt;Visible&lt;/code&gt;-Observable eines Bereichs schaltet ihn samt
-Teiler ab. Da die Größen in Observables liegen, kann ein Viewmodel sie binden,
-speichern und wiederherstellen; &lt;code&gt;OnResized&lt;/code&gt; wird einmal je beendeter Geste mit
+Teiler ab. Da die Größen in Observables liegen, kann ein Viewmodel sie binden,speichern und wiederherstellen; &lt;code&gt;OnResized&lt;/code&gt; wird einmal je beendeter Geste mit
 den Bereichen aufgerufen, die die Person geändert hat, nie für ein Layout, das
 nur einer Fenstergrößenänderung folgte.&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
@@ -184,12 +171,8 @@ data-copied-label="Kopiert!"
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;Ein Teiler erhält den Fokus: Die Pfeiltasten (hoch und runter bei vertikaler
-Anordnung) bewegen ihn um &lt;code&gt;Step&lt;/code&gt; logische Pixel, mit Umschalt um das Vierfache;
-Pos1 und Ende bringen den davorliegenden Bereich auf seine kleinste und größte
-Größe; Enter schließt oder stellt den festen Bereich wieder her, den er steuert;
-Tab wechselt zwischen den Teilern. Jeder Teiler ist ein &lt;code&gt;RoleSeparator&lt;/code&gt; mit
-&lt;code&gt;aria-valuemin&lt;/code&gt;, &lt;code&gt;aria-valuemax&lt;/code&gt; und &lt;code&gt;aria-valuenow&lt;/code&gt;, benannt „Resize“ plus
-&lt;code&gt;Name&lt;/code&gt; des Bereichs. &lt;code&gt;Cursor(x, y)&lt;/code&gt; liefert über einem Teiler &lt;code&gt;&amp;quot;col-resize&amp;quot;&lt;/code&gt;
+Anordnung) bewegen ihn um &lt;code&gt;Step&lt;/code&gt; logische Pixel, mit Umschalt um das Vierfache;Pos1 und Ende bringen den davorliegenden Bereich auf seine kleinste und größte
+Größe; Enter schließt oder stellt den festen Bereich wieder her, den er steuert;Tab wechselt zwischen den Teilern. Jeder Teiler ist ein &lt;code&gt;RoleSeparator&lt;/code&gt; mit&lt;code&gt;aria-valuemin&lt;/code&gt;, &lt;code&gt;aria-valuemax&lt;/code&gt; und &lt;code&gt;aria-valuenow&lt;/code&gt;, benannt „Resize“ plus&lt;code&gt;Name&lt;/code&gt; des Bereichs. &lt;code&gt;Cursor(x, y)&lt;/code&gt; liefert über einem Teiler &lt;code&gt;&amp;quot;col-resize&amp;quot;&lt;/code&gt;
 oder &lt;code&gt;&amp;quot;row-resize&amp;quot;&lt;/code&gt;, und &lt;code&gt;SplitterColors(theme)&lt;/code&gt; gibt Linie und Akzent des
 Teilers an, die in beiden Standard-Themes einen Kontrast von 3:1 zu Hintergrund
 und Oberfläche behalten, ebenso wie der Fokusring.&lt;/p&gt;
@@ -215,16 +198,11 @@ data-copied-label="Kopiert!"
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;Die Schrift stammt aus &lt;a href="https://github.com/go-opentype/fonts" target="_blank" rel="noopener"&gt;go-opentype/fonts&lt;/a&gt;
-und wird von &lt;a href="https://github.com/go-opentype/opentype" target="_blank" rel="noopener"&gt;go-opentype&lt;/a&gt; gerastert,
-in Go, ohne C-Schriftbibliothek und ohne Suche nach Systemschriften.
-&lt;code&gt;NewTrueTypeFont(ttf, px)&lt;/code&gt; lädt eine andere Schrift; &lt;code&gt;NewFallbackFont&lt;/code&gt; verkettet
+und wird von &lt;a href="https://github.com/go-opentype/opentype" target="_blank" rel="noopener"&gt;go-opentype&lt;/a&gt; gerastert,in Go, ohne C-Schriftbibliothek und ohne Suche nach Systemschriften.&lt;code&gt;NewTrueTypeFont(ttf, px)&lt;/code&gt; lädt eine andere Schrift; &lt;code&gt;NewFallbackFont&lt;/code&gt; verkettet
 mehrere, etwa um eine CJK- oder arabische Schrift hinzuzufügen; das eigene &lt;code&gt;Font&lt;/code&gt;-Feld eines Widgets
 überschreibt die globale Schrift nur für dieses Widget.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="input"&gt;Eingabe&lt;span class="hx:absolute hx:-mt-20" id="input"&gt;&lt;/span&gt;
-&lt;a href="#input" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Maus, Tastatur, IME-Komposition, Touch (&lt;code&gt;EventTouchStart&lt;/code&gt;/&lt;code&gt;Move&lt;/code&gt;/&lt;code&gt;End&lt;/code&gt;, mit
-&lt;code&gt;GestureRecognizer&lt;/code&gt; für Tippen, langes Drücken und Wischen), Drag and Drop
-(&lt;code&gt;DragSource&lt;/code&gt;, &lt;code&gt;DropTarget&lt;/code&gt;). Mehrfachauswahl von Zeilen in &lt;code&gt;ListBox&lt;/code&gt;, &lt;code&gt;Table&lt;/code&gt; und
-&lt;code&gt;TreeView&lt;/code&gt; funktioniert mit der Maus und mit der Tastatur und beachtet ⌘ ebenso
+&lt;a href="#input" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Maus, Tastatur, IME-Komposition, Touch (&lt;code&gt;EventTouchStart&lt;/code&gt;/&lt;code&gt;Move&lt;/code&gt;/&lt;code&gt;End&lt;/code&gt;, mit&lt;code&gt;GestureRecognizer&lt;/code&gt; für Tippen, langes Drücken und Wischen), Drag and Drop(&lt;code&gt;DragSource&lt;/code&gt;, &lt;code&gt;DropTarget&lt;/code&gt;). Mehrfachauswahl von Zeilen in &lt;code&gt;ListBox&lt;/code&gt;, &lt;code&gt;Table&lt;/code&gt; und&lt;code&gt;TreeView&lt;/code&gt; funktioniert mit der Maus und mit der Tastatur und beachtet ⌘ ebenso
 wie Ctrl, weil unter macOS Ctrl-Klick der Sekundärklick ist.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="binary-size"&gt;Binärgröße: ein Programm linkt, was es benutzt&lt;span class="hx:absolute hx:-mt-20" id="binary-size"&gt;&lt;/span&gt;
 &lt;a href="#binary-size" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Das Toolkit ist ein großes Paket, und für den Linker ist das in Ordnung: Die
@@ -235,15 +213,11 @@ auf Paketebene oder das &lt;code&gt;init&lt;/code&gt; eines importierten Pakets 
 v0.345.0 hält das Toolkit deshalb seine eigenen Initialisierer frei von Arbeit
 und vermeidet Pakete, deren &lt;code&gt;init&lt;/code&gt; Code nachzieht:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;Material&lt;/code&gt; und &lt;code&gt;Thumbnail&lt;/code&gt; nutzen das codec-freie
-&lt;a href="https://github.com/go-images/images" target="_blank" rel="noopener"&gt;&lt;code&gt;github.com/go-images/images/ops&lt;/code&gt;&lt;/a&gt;
+&lt;li&gt;&lt;code&gt;Material&lt;/code&gt; und &lt;code&gt;Thumbnail&lt;/code&gt; nutzen das codec-freie&lt;a href="https://github.com/go-images/images" target="_blank" rel="noopener"&gt;&lt;code&gt;github.com/go-images/images/ops&lt;/code&gt;&lt;/a&gt;
 statt &lt;code&gt;github.com/go-images/images&lt;/code&gt;, dessen Decoder sich in &lt;code&gt;init&lt;/code&gt;
 registrieren (etwa 1,7 MB WebAssembly-Code).&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;CollabText&lt;/code&gt;, &lt;code&gt;NewCollabText&lt;/code&gt;, &lt;code&gt;MetaName&lt;/code&gt; und &lt;code&gt;MetaColor&lt;/code&gt; sind nach
-&lt;strong&gt;&lt;code&gt;github.com/go-widgets/toolkit/collabui&lt;/code&gt;&lt;/strong&gt; umgezogen: Sie brauchen eine
-laufende &lt;code&gt;go-crdt/collab&lt;/code&gt;-Sitzung, deren Transporte &lt;code&gt;net/http&lt;/code&gt; und
-&lt;code&gt;crypto/tls&lt;/code&gt; hineinziehen. &lt;code&gt;CollabSheet&lt;/code&gt; und &lt;code&gt;IsoCRDTDocument&lt;/code&gt; brauchen nur
-&lt;code&gt;go-crdt/crdt&lt;/code&gt; und bleiben in &lt;code&gt;toolkit&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CollabText&lt;/code&gt;, &lt;code&gt;NewCollabText&lt;/code&gt;, &lt;code&gt;MetaName&lt;/code&gt; und &lt;code&gt;MetaColor&lt;/code&gt; sind nach&lt;strong&gt;&lt;code&gt;github.com/go-widgets/toolkit/collabui&lt;/code&gt;&lt;/strong&gt; umgezogen: Sie brauchen eine
+laufende &lt;code&gt;go-crdt/collab&lt;/code&gt;-Sitzung, deren Transporte &lt;code&gt;net/http&lt;/code&gt; und&lt;code&gt;crypto/tls&lt;/code&gt; hineinziehen. &lt;code&gt;CollabSheet&lt;/code&gt; und &lt;code&gt;IsoCRDTDocument&lt;/code&gt; brauchen nur&lt;code&gt;go-crdt/crdt&lt;/code&gt; und bleiben in &lt;code&gt;toolkit&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;Der reguläre Ausdruck der E-Mail-&lt;code&gt;Rule&lt;/code&gt;, das eingebaute Iso-Icon-Register und
 die Schaltflächentabelle der &lt;code&gt;RichEditorToolbar&lt;/code&gt; werden bei der ersten
 Benutzung gebaut, nicht von Initialisierern.&lt;/li&gt;
@@ -284,14 +258,11 @@ nichts.&lt;/p&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;Was übrig bleibt, ist vor allem die Laufzeit und der OpenType-Stack, den das
-Textrendering braucht. Um zu sehen, was ein Symbol in Ihrem Programm hält,
-bauen Sie mit &lt;code&gt;-ldflags=-dumpdep&lt;/code&gt; und folgen der Kette der ersten Eltern vom
+Textrendering braucht. Um zu sehen, was ein Symbol in Ihrem Programm hält,bauen Sie mit &lt;code&gt;-ldflags=-dumpdep&lt;/code&gt; und folgen der Kette der ersten Eltern vom
 Symbol bis &lt;code&gt;main.main&lt;/code&gt; oder &lt;code&gt;go:main.inittasks&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;v0.345.0 bringt außerdem &lt;code&gt;ColorHex&lt;/code&gt; und &lt;code&gt;ParseColorHex&lt;/code&gt;, um eine Farbe als Hex
 zu schreiben und wieder zu lesen.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="accessibility"&gt;Barrierefreiheit&lt;span class="hx:absolute hx:-mt-20" id="accessibility"&gt;&lt;/span&gt;
-&lt;a href="#accessibility" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Ein Toolkit, das seine eigenen Pixel zeichnet, gibt einem Screenreader nichts zu lesen,
-solange es nicht sagt, was es gezeichnet hat. Widgets implementieren &lt;code&gt;Accessible&lt;/code&gt; – eine Rolle, einen Namen,
-einen Wert –, und &lt;code&gt;CollectA11y&lt;/code&gt; sammelt sie, damit der Host sie veröffentlicht: AT-SPI unter
+&lt;a href="#accessibility" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Ein Toolkit, das seine eigenen Pixel zeichnet, gibt einem Screenreader nichts zu lesen,solange es nicht sagt, was es gezeichnet hat. Widgets implementieren &lt;code&gt;Accessible&lt;/code&gt; – eine Rolle, einen Namen,einen Wert –, und &lt;code&gt;CollectA11y&lt;/code&gt; sammelt sie, damit der Host sie veröffentlicht: AT-SPI unter
 Linux über &lt;a href="https://go-widgets.github.io/docs/0.2/de/surfaces/native-window/"&gt;&lt;code&gt;window&lt;/code&gt;&lt;/a&gt; und eine
 virtuelle View-Hierarchie unter &lt;a href="https://go-widgets.github.io/docs/0.2/de/surfaces/android/#accessibility"&gt;Android&lt;/a&gt;.&lt;/p&gt;</description></item></channel></rss>

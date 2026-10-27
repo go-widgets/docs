@@ -1,7 +1,6 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Surfaces</title><link>https://go-widgets.github.io/docs/0.2/fr/tags/surfaces/</link><description>Recent content in Surfaces on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>fr</language><atom:link href="https://go-widgets.github.io/docs/0.2/fr/tags/surfaces/index.xml" rel="self" type="application/rss+xml"/><item><title>Une fenêtre native</title><link>https://go-widgets.github.io/docs/0.2/fr/surfaces/native-window/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/fr/surfaces/native-window/</guid><description>
 &lt;p&gt;&lt;a href="https://github.com/go-widgets/window" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/window&lt;/code&gt;&lt;/a&gt; ouvre une vraie fenêtre
-et y fait tourner un arbre de widgets : mise en page, dessin, présentation, traduction des entrées en
-&lt;code&gt;toolkit.Event&lt;/code&gt;, et ainsi de suite jusqu&amp;rsquo;à la fermeture de la fenêtre.&lt;/p&gt;
+et y fait tourner un arbre de widgets : mise en page, dessin, présentation, traduction des entrées en&lt;code&gt;toolkit.Event&lt;/code&gt;, et ainsi de suite jusqu&amp;rsquo;à la fermeture de la fenêtre.&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
 &lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Config&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;Title&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Demo&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;&lt;span class="w"&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;!=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
@@ -21,8 +20,7 @@ data-copied-label="Copié !"
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;&lt;code&gt;Config&lt;/code&gt; prend aussi la taille initiale en &lt;strong&gt;points logiques&lt;/strong&gt; (zéro demande une
-taille lisible par défaut), l&amp;rsquo;instance et la classe &lt;code&gt;WM_CLASS&lt;/code&gt;, un &lt;code&gt;Theme&lt;/code&gt;, et un
-&lt;code&gt;RenderScale&lt;/code&gt;.&lt;/p&gt;
+taille lisible par défaut), l&amp;rsquo;instance et la classe &lt;code&gt;WM_CLASS&lt;/code&gt;, un &lt;code&gt;Theme&lt;/code&gt;, et un&lt;code&gt;RenderScale&lt;/code&gt;.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="how-open-chooses"&gt;Comment Open choisit&lt;span class="hx:absolute hx:-mt-20" id="how-open-chooses"&gt;&lt;/span&gt;
 &lt;a href="#how-open-chooses" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;table&gt;
 &lt;thead&gt;
@@ -88,31 +86,23 @@ taille lisible par défaut), l&amp;rsquo;instance et la classe &lt;code&gt;WM_CL
 &lt;p&gt;Chaque back-end est &lt;code&gt;CGO_ENABLED=0&lt;/code&gt;. Celui de X11 est le protocole de base écrit
 de zéro sur le socket — pas de Xlib, pas de XCB — avec les deux ordres d&amp;rsquo;octets, le
 cookie Xauthority, la correspondance des keysyms, &lt;code&gt;PutImage&lt;/code&gt; découpé en tuiles sous la taille de
-requête du serveur, et la voie rapide MIT-SHM, le segment partagé étant transmis par
-&lt;code&gt;SCM_RIGHTS&lt;/code&gt;. Windows est atteint par les DLL du processus lui-même avec
-&lt;code&gt;syscall.NewLazyDLL&lt;/code&gt; et une procédure de fenêtre &lt;code&gt;syscall.NewCallback&lt;/code&gt; ; macOS
+requête du serveur, et la voie rapide MIT-SHM, le segment partagé étant transmis par&lt;code&gt;SCM_RIGHTS&lt;/code&gt;. Windows est atteint par les DLL du processus lui-même avec&lt;code&gt;syscall.NewLazyDLL&lt;/code&gt; et une procédure de fenêtre &lt;code&gt;syscall.NewCallback&lt;/code&gt; ; macOS
 par le runtime Objective-C avec purego.&lt;/p&gt;
 &lt;p&gt;La partie indépendante de la plateforme de chaque back-end — correspondance des événements, calculs de
-coordonnées, empaquetage des pixels, rectangles endommagés — vit dans un codec couvert à 100 %,
-sur chaque système d&amp;rsquo;exploitation. La fine couche de liaison avec la plateforme est éprouvée en conditions réelles : voir
-&lt;a href="https://go-widgets.github.io/docs/0.2/fr/status/"&gt;État&lt;/a&gt;.&lt;/p&gt;
+coordonnées, empaquetage des pixels, rectangles endommagés — vit dans un codec couvert à 100 %,sur chaque système d&amp;rsquo;exploitation. La fine couche de liaison avec la plateforme est éprouvée en conditions réelles : voir&lt;a href="https://go-widgets.github.io/docs/0.2/fr/status/"&gt;État&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="only-what-changed"&gt;Seulement ce qui a changé&lt;span class="hx:absolute hx:-mt-20" id="only-what-changed"&gt;&lt;/span&gt;
-&lt;a href="#only-what-changed" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Une racine qui implémente &lt;code&gt;DamageRenderer&lt;/code&gt; (comme le fait &lt;code&gt;toolkit/scene.HostRoot&lt;/code&gt;)
-signale les rectangles qu&amp;rsquo;elle a repeints, et chaque back-end sauf GTK4 ne présente que
-ceux-là : X11 via &lt;code&gt;ShmPutImage&lt;/code&gt; de MIT-SHM, Wayland via les zones endommagées de &lt;code&gt;wl_shm&lt;/code&gt;,
-Cocoa, Win32, Android, wasmbox et l&amp;rsquo;onglet de navigateur. La première image, un
+&lt;a href="#only-what-changed" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Une racine qui implémente &lt;code&gt;DamageRenderer&lt;/code&gt; (comme le fait &lt;code&gt;toolkit/scene.HostRoot&lt;/code&gt;)signale les rectangles qu&amp;rsquo;elle a repeints, et chaque back-end sauf GTK4 ne présente que
+ceux-là : X11 via &lt;code&gt;ShmPutImage&lt;/code&gt; de MIT-SHM, Wayland via les zones endommagées de &lt;code&gt;wl_shm&lt;/code&gt;,Cocoa, Win32, Android, wasmbox et l&amp;rsquo;onglet de navigateur. La première image, un
 redimensionnement et un &lt;code&gt;Expose&lt;/code&gt; X11 présentent encore toute la surface.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="hidpi"&gt;HiDPI&lt;span class="hx:absolute hx:-mt-20" id="hidpi"&gt;&lt;/span&gt;
 &lt;a href="#hidpi" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Par défaut, un pixel du framebuffer correspond à un point logique : l&amp;rsquo;interface est mise en page
-et peinte à une taille lisible, et le compositeur la suréchantillonne. Sous Windows,
-la fenêtre déclare une prise en charge du DPI par moniteur et le système met à l&amp;rsquo;échelle l&amp;rsquo;image
+et peinte à une taille lisible, et le compositeur la suréchantillonne. Sous Windows,la fenêtre déclare une prise en charge du DPI par moniteur et le système met à l&amp;rsquo;échelle l&amp;rsquo;image
 logique vers la zone client physique. &lt;code&gt;RenderScale&lt;/code&gt; demande un framebuffer à
 la résolution réelle de l&amp;rsquo;écran, ce qui n&amp;rsquo;est correct que pour une racine qui se met en page
 en pixels de l&amp;rsquo;appareil.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="screens-and-showing-and-hiding"&gt;Écrans, affichage et masquage&lt;span class="hx:absolute hx:-mt-20" id="screens-and-showing-and-hiding"&gt;&lt;/span&gt;
 &lt;a href="#screens-and-showing-and-hiding" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;window.Screens()&lt;/code&gt; liste les écrans connectés, le principal en premier, en points
-logiques, panneaux du bureau exclus, et peut être appelé avant &lt;code&gt;Open&lt;/code&gt;.
-Le nom d&amp;rsquo;un écran est celui de la dalle elle-même (&lt;code&gt;&amp;quot;DELL U2720Q&amp;quot;&lt;/code&gt;, d&amp;rsquo;après son EDID), avec repli
+logiques, panneaux du bureau exclus, et peut être appelé avant &lt;code&gt;Open&lt;/code&gt;.Le nom d&amp;rsquo;un écran est celui de la dalle elle-même (&lt;code&gt;&amp;quot;DELL U2720Q&amp;quot;&lt;/code&gt;, d&amp;rsquo;après son EDID), avec repli
 sur le connecteur (&lt;code&gt;&amp;quot;HDMI-1&amp;quot;&lt;/code&gt;) quand elle n&amp;rsquo;en publie aucun — et aussi quand deux
 dalles connectées publient le même, car un nom qui ne permet pas de les distinguer
 n&amp;rsquo;est pas un nom.&lt;/p&gt;
@@ -165,9 +155,7 @@ peut seulement marquer la fenêtre comme demandant l&amp;rsquo;attention, sans p
 &lt;h2 data-hextra-search-id="the-application"&gt;L&amp;rsquo;application&lt;span class="hx:absolute hx:-mt-20" id="the-application"&gt;&lt;/span&gt;
 &lt;a href="#the-application" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;a href="https://github.com/go-widgets/application" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/application&lt;/code&gt;&lt;/a&gt; est la
 couche au-dessus de &lt;a href="https://go-widgets.github.io/docs/0.2/fr/surfaces/native-window/"&gt;&lt;code&gt;window&lt;/code&gt;&lt;/a&gt; : elle ouvre
-la fenêtre, pilote sa boucle, attache une icône de zone de notification une fois la première image affichée,
-transmet à l&amp;rsquo;application l&amp;rsquo;apparence du système en direct (sombre ou claire, couleur d&amp;rsquo;accent, police système),
-publie l&amp;rsquo;arbre d&amp;rsquo;accessibilité, et appelle &lt;code&gt;onReady&lt;/code&gt;
+la fenêtre, pilote sa boucle, attache une icône de zone de notification une fois la première image affichée,transmet à l&amp;rsquo;application l&amp;rsquo;apparence du système en direct (sombre ou claire, couleur d&amp;rsquo;accent, police système),publie l&amp;rsquo;arbre d&amp;rsquo;accessibilité, et appelle &lt;code&gt;onReady&lt;/code&gt;
 une fois la première image à l&amp;rsquo;écran.&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
 &lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;spec&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;application&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Spec&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
@@ -195,23 +183,17 @@ data-copied-label="Copié !"
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;&lt;code&gt;handler&lt;/code&gt; implémente &lt;code&gt;Handler&lt;/code&gt; — &lt;code&gt;Frame&lt;/code&gt;, &lt;code&gt;Resize&lt;/code&gt;, les événements de souris, de défilement et de
-clavier — et peut implémenter n&amp;rsquo;importe laquelle des capacités optionnelles : apparence,
-raccourcis, clics et touches avec modificateurs, clic secondaire, menus contextuels,
-presse-papiers, accessibilité, contrôles natifs. La boucle n&amp;rsquo;enveloppe jamais le handler ;
-elle fait une assertion de type pour chaque capacité et honore celles qu&amp;rsquo;elle trouve. Un test parcourt
+clavier — et peut implémenter n&amp;rsquo;importe laquelle des capacités optionnelles : apparence,raccourcis, clics et touches avec modificateurs, clic secondaire, menus contextuels,presse-papiers, accessibilité, contrôles natifs. La boucle n&amp;rsquo;enveloppe jamais le handler ;elle fait une assertion de type pour chaque capacité et honore celles qu&amp;rsquo;elle trouve. Un test parcourt
 le paquet à la recherche de ces assertions et échoue si la documentation du paquet ne
 les nomme pas toutes.&lt;/p&gt;
-&lt;p&gt;Une icône de zone de notification qui ne peut pas être attachée est une erreur de &lt;code&gt;Run&lt;/code&gt;, pas un silence :
-&lt;code&gt;errors.Is(err, tray.ErrNoBackend)&lt;/code&gt; dit pourquoi. Une application qui veut sa
+&lt;p&gt;Une icône de zone de notification qui ne peut pas être attachée est une erreur de &lt;code&gt;Run&lt;/code&gt;, pas un silence :&lt;code&gt;errors.Is(err, tray.ErrNoBackend)&lt;/code&gt; dit pourquoi. Une application qui veut sa
 fenêtre quoi qu&amp;rsquo;il arrive à l&amp;rsquo;icône laisse &lt;code&gt;Spec.Tray&lt;/code&gt; à nil et en lance une
 elle-même.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;Run&lt;/code&gt; ferme sa fenêtre quand la boucle se termine, si bien que l&amp;rsquo;« Open » d&amp;rsquo;une application
 de zone de notification peut rappeler &lt;code&gt;Run&lt;/code&gt; pour une nouvelle fenêtre. Pour un hôte qui n&amp;rsquo;est pas une
-fenêtre — un shell de bureau, un onglet de navigateur — &lt;code&gt;Bind&lt;/code&gt; et &lt;code&gt;BindScaled&lt;/code&gt; renvoient une
-&lt;code&gt;*toolkit.Surface&lt;/code&gt; branchée sur le même handler.&lt;/p&gt;
+fenêtre — un shell de bureau, un onglet de navigateur — &lt;code&gt;Bind&lt;/code&gt; et &lt;code&gt;BindScaled&lt;/code&gt; renvoient une&lt;code&gt;*toolkit.Surface&lt;/code&gt; branchée sur le même handler.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="the-tray"&gt;La zone de notification&lt;span class="hx:absolute hx:-mt-20" id="the-tray"&gt;&lt;/span&gt;
-&lt;a href="#the-tray" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Une icône de zone de notification relève de l&amp;rsquo;intégration au système, pas d&amp;rsquo;un widget peint ;
-&lt;a href="https://github.com/go-widgets/tray" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/tray&lt;/code&gt;&lt;/a&gt; pilote donc l&amp;rsquo;API propre à
+&lt;a href="#the-tray" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Une icône de zone de notification relève de l&amp;rsquo;intégration au système, pas d&amp;rsquo;un widget peint ;&lt;a href="https://github.com/go-widgets/tray" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/tray&lt;/code&gt;&lt;/a&gt; pilote donc l&amp;rsquo;API propre à
 chaque plateforme, toujours avec &lt;code&gt;CGO_ENABLED=0&lt;/code&gt; :&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
@@ -260,10 +242,8 @@ data-copied-label="Copié !"
 &lt;/button&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;p&gt;Un programme qui fait déjà tourner la boucle d&amp;rsquo;une fenêtre ne peut pas céder son thread principal à &lt;code&gt;Run&lt;/code&gt; :
-&lt;code&gt;Attach&lt;/code&gt; affiche la même icône et rend la main, et &lt;code&gt;Quit&lt;/code&gt; la retire.&lt;/p&gt;
-&lt;p&gt;Les back-ends natifs sont activés par défaut ; il n&amp;rsquo;y a pas d&amp;rsquo;étiquette de compilation à retenir.
-Sur une plateforme qui n&amp;rsquo;en a aucun, &lt;code&gt;Run&lt;/code&gt; renvoie &lt;code&gt;ErrNoBackend&lt;/code&gt; — toute la différence
+&lt;p&gt;Un programme qui fait déjà tourner la boucle d&amp;rsquo;une fenêtre ne peut pas céder son thread principal à &lt;code&gt;Run&lt;/code&gt; :&lt;code&gt;Attach&lt;/code&gt; affiche la même icône et rend la main, et &lt;code&gt;Quit&lt;/code&gt; la retire.&lt;/p&gt;
+&lt;p&gt;Les back-ends natifs sont activés par défaut ; il n&amp;rsquo;y a pas d&amp;rsquo;étiquette de compilation à retenir.Sur une plateforme qui n&amp;rsquo;en a aucun, &lt;code&gt;Run&lt;/code&gt; renvoie &lt;code&gt;ErrNoBackend&lt;/code&gt; — toute la différence
 entre « il n&amp;rsquo;y a pas de zone de notification ici » et une icône qui, en silence, ne fait rien. Un test
 ou un service headless passe &lt;code&gt;WithBackend(tray.NewHeadless())&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>Un onglet de navigateur</title><link>https://go-widgets.github.io/docs/0.2/fr/surfaces/browser/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/fr/surfaces/browser/</guid><description>
 &lt;p&gt;La boîte à outils est en Go pur, sans dépendance au DOM ; &lt;code&gt;GOOS=js GOARCH=wasm&lt;/code&gt; la compile
@@ -294,30 +274,21 @@ data-copied-label="Copié !"
 &lt;/div&gt;
 &lt;p&gt;La scène implémente &lt;code&gt;App&lt;/code&gt; : &lt;code&gt;Size&lt;/code&gt;, &lt;code&gt;Draw(buf []byte)&lt;/code&gt;, et une méthode par
 type d&amp;rsquo;événement, chacune indiquant si quelque chose a changé, pour qu&amp;rsquo;une image inchangée
-ne soit pas repeinte. Elle peut aussi implémenter &lt;code&gt;Ticker&lt;/code&gt;, &lt;code&gt;Animator&lt;/code&gt;, &lt;code&gt;Resizer&lt;/code&gt; ou
-&lt;code&gt;Scroller&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;La &lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;galerie&lt;/a&gt; et
-&lt;a href="https://go-widgets.github.io/docs/0.2/fr/getting-started/"&gt;&lt;code&gt;app-template&lt;/code&gt;&lt;/a&gt; fonctionnent ainsi.&lt;/p&gt;
-&lt;p&gt;Ou bien laissez &lt;code&gt;window&lt;/code&gt; choisir. Depuis window v0.87.0,
-&lt;a href="https://go-widgets.github.io/docs/0.2/fr/surfaces/native-window/#how-open-chooses"&gt;&lt;code&gt;window.Open&lt;/code&gt;&lt;/a&gt;
-compilé pour &lt;code&gt;js/wasm&lt;/code&gt; sur une page ordinaire renvoie un back-end qui dessine dans le
-&lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; de la page (&lt;code&gt;Config.Canvas&lt;/code&gt;, par défaut &lt;code&gt;&amp;quot;screen&amp;quot;&lt;/code&gt;) via &lt;code&gt;webcanvas&lt;/code&gt;. Une
+ne soit pas repeinte. Elle peut aussi implémenter &lt;code&gt;Ticker&lt;/code&gt;, &lt;code&gt;Animator&lt;/code&gt;, &lt;code&gt;Resizer&lt;/code&gt; ou&lt;code&gt;Scroller&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;La &lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;galerie&lt;/a&gt; et&lt;a href="https://go-widgets.github.io/docs/0.2/fr/getting-started/"&gt;&lt;code&gt;app-template&lt;/code&gt;&lt;/a&gt; fonctionnent ainsi.&lt;/p&gt;
+&lt;p&gt;Ou bien laissez &lt;code&gt;window&lt;/code&gt; choisir. Depuis window v0.87.0,&lt;a href="https://go-widgets.github.io/docs/0.2/fr/surfaces/native-window/#how-open-chooses"&gt;&lt;code&gt;window.Open&lt;/code&gt;&lt;/a&gt;
+compilé pour &lt;code&gt;js/wasm&lt;/code&gt; sur une page ordinaire renvoie un back-end qui dessine dans le&lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; de la page (&lt;code&gt;Config.Canvas&lt;/code&gt;, par défaut &lt;code&gt;&amp;quot;screen&amp;quot;&lt;/code&gt;) via &lt;code&gt;webcanvas&lt;/code&gt;. Une
 application écrite pour &lt;code&gt;window&lt;/code&gt; fonctionne alors sans modification comme fenêtre native, dans
 un onglet de navigateur et dans wasmdesk.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="a-window-on-the-wasmdesk-desktop"&gt;Une fenêtre sur le bureau wasmdesk&lt;span class="hx:absolute hx:-mt-20" id="a-window-on-the-wasmdesk-desktop"&gt;&lt;/span&gt;
 &lt;a href="#a-window-on-the-wasmdesk-desktop" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Dans un worker wasmdesk, &lt;a href="https://go-widgets.github.io/docs/0.2/fr/surfaces/native-window/"&gt;&lt;code&gt;window.Open&lt;/code&gt;&lt;/a&gt;
-renvoie un client du compositeur de navigateur &lt;a href="https://github.com/wasmdesk/wasmbox" target="_blank" rel="noopener"&gt;wasmdesk/wasmbox&lt;/a&gt;.
-Il alloue sa surface dans un &lt;code&gt;SharedArrayBuffer&lt;/code&gt;, dit
-&lt;code&gt;hello&lt;/code&gt; sur son &lt;code&gt;MessagePort&lt;/code&gt;, attend &lt;code&gt;welcome&lt;/code&gt;, peint dans le tampon partagé
-et poste &lt;code&gt;commit&lt;/code&gt; — la surface entière, ou seulement les rectangles endommagés.
-Les messages &lt;code&gt;input&lt;/code&gt; du compositeur deviennent des &lt;code&gt;toolkit.Event&lt;/code&gt;, comme sous X11.&lt;/p&gt;
+renvoie un client du compositeur de navigateur &lt;a href="https://github.com/wasmdesk/wasmbox" target="_blank" rel="noopener"&gt;wasmdesk/wasmbox&lt;/a&gt;.Il alloue sa surface dans un &lt;code&gt;SharedArrayBuffer&lt;/code&gt;, dit&lt;code&gt;hello&lt;/code&gt; sur son &lt;code&gt;MessagePort&lt;/code&gt;, attend &lt;code&gt;welcome&lt;/code&gt;, peint dans le tampon partagé
+et poste &lt;code&gt;commit&lt;/code&gt; — la surface entière, ou seulement les rectangles endommagés.Les messages &lt;code&gt;input&lt;/code&gt; du compositeur deviennent des &lt;code&gt;toolkit.Event&lt;/code&gt;, comme sous X11.&lt;/p&gt;
 &lt;p&gt;Une application écrite pour &lt;code&gt;window&lt;/code&gt; s&amp;rsquo;exécute donc sans modification comme fenêtre native
-et comme fenêtre d&amp;rsquo;un bureau dans un onglet de navigateur. La
-&lt;a href="https://github.com/go-widgets/desktop" target="_blank" rel="noopener"&gt;démo du shell de bureau&lt;/a&gt; fait exactement
+et comme fenêtre d&amp;rsquo;un bureau dans un onglet de navigateur. La&lt;a href="https://github.com/go-widgets/desktop" target="_blank" rel="noopener"&gt;démo du shell de bureau&lt;/a&gt; fait exactement
 cela, à partir d&amp;rsquo;une seule source.&lt;/p&gt;
 &lt;p&gt;Le codec du protocole est couvert à 100 % sur chaque plateforme. La preuve en conditions réelles fait tourner
-un Chromium headless face au vrai compositeur wasmdesk : elle lance le client,
-lit les pixels composités par le compositeur lui-même, clique, et vérifie que le
+un Chromium headless face au vrai compositeur wasmdesk : elle lance le client,lit les pixels composités par le compositeur lui-même, clique, et vérifie que le
 clic a atteint le widget.&lt;/p&gt;</description></item><item><title>Où elle peint</title><link>https://go-widgets.github.io/docs/0.2/fr/surfaces/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/fr/surfaces/</guid><description>
 &lt;table&gt;
 &lt;thead&gt;
@@ -374,11 +345,9 @@ plateforme pour laquelle il a été compilé, &lt;code&gt;$WAYLAND_DISPLAY&lt;/c
 hôte Android — et choisit celui qui peut fonctionner. Un binaire compilé pour
 Linux ouvre une fenêtre Wayland dans une session Wayland et une fenêtre X11 sous
 X ; le même binaire Android contacte son hôte dans un APK et ouvre une fenêtre
-Linux ordinaire sous Termux. Voir
-&lt;a href="https://go-widgets.github.io/docs/0.2/fr/surfaces/native-window/#how-open-chooses"&gt;comment &lt;code&gt;Open&lt;/code&gt; choisit&lt;/a&gt;.&lt;/p&gt;</description></item><item><title>Un terminal</title><link>https://go-widgets.github.io/docs/0.2/fr/surfaces/terminal/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/fr/surfaces/terminal/</guid><description>
+Linux ordinaire sous Termux. Voir&lt;a href="https://go-widgets.github.io/docs/0.2/fr/surfaces/native-window/#how-open-chooses"&gt;comment &lt;code&gt;Open&lt;/code&gt; choisit&lt;/a&gt;.&lt;/p&gt;</description></item><item><title>Un terminal</title><link>https://go-widgets.github.io/docs/0.2/fr/surfaces/terminal/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/fr/surfaces/terminal/</guid><description>
 &lt;p&gt;&lt;a href="https://github.com/go-widgets/tui" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/tui&lt;/code&gt;&lt;/a&gt; transforme un arbre de widgets en
-image de terminal à travers le &lt;a href="https://go-widgets.github.io/docs/0.2/fr/rendering/painter/"&gt;painter en cellules&lt;/a&gt;.
-Bibliothèque standard uniquement — pas de &lt;code&gt;x/term&lt;/code&gt;, pas de cgo.&lt;/p&gt;
+image de terminal à travers le &lt;a href="https://go-widgets.github.io/docs/0.2/fr/rendering/painter/"&gt;painter en cellules&lt;/a&gt;.Bibliothèque standard uniquement — pas de &lt;code&gt;x/term&lt;/code&gt;, pas de cgo.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="one-frame"&gt;Une image&lt;span class="hx:absolute hx:-mt-20" id="one-frame"&gt;&lt;/span&gt;
 &lt;a href="#one-frame" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
 &lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;_&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;tui&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;RenderOnce&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;os&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Stdout&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;widgets&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// nil theme: light&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
@@ -393,8 +362,7 @@ data-copied-label="Copié !"
 &lt;/button&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;p&gt;&lt;code&gt;RenderOnceSized(w, cols, rows, widgets, theme)&lt;/code&gt; prend la taille explicitement ;
-&lt;code&gt;RenderOnce&lt;/code&gt; lit &lt;code&gt;COLUMNS&lt;/code&gt; et &lt;code&gt;LINES&lt;/code&gt; et se replie sur 80×24. Lire
+&lt;p&gt;&lt;code&gt;RenderOnceSized(w, cols, rows, widgets, theme)&lt;/code&gt; prend la taille explicitement ;&lt;code&gt;RenderOnce&lt;/code&gt; lit &lt;code&gt;COLUMNS&lt;/code&gt; et &lt;code&gt;LINES&lt;/code&gt; et se replie sur 80×24. Lire
 l&amp;rsquo;environnement plutôt qu&amp;rsquo;appeler &lt;code&gt;TIOCGWINSZ&lt;/code&gt; garde le paquet exempt de
 code propre à chaque plateforme.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="an-interactive-program"&gt;Un programme interactif&lt;span class="hx:absolute hx:-mt-20" id="an-interactive-program"&gt;&lt;/span&gt;
@@ -417,22 +385,16 @@ data-copied-label="Copié !"
 &lt;/div&gt;
 &lt;p&gt;&lt;code&gt;Run&lt;/code&gt; passe sur l&amp;rsquo;écran alternatif et en mode brut, distribue les entrées à &lt;code&gt;Root&lt;/code&gt;
 (les gestionnaires de touches globaux d&amp;rsquo;abord), suit &lt;code&gt;SIGWINCH&lt;/code&gt;, et restaure toujours le
-terminal — y compris lors d&amp;rsquo;une panique. Un gestionnaire de touche appelle &lt;code&gt;Consume&lt;/code&gt; pour soustraire un événement à
-&lt;code&gt;Root&lt;/code&gt; ; &lt;code&gt;InputTarget&lt;/code&gt; envoie chaque événement non consommé à un seul widget, ce qui permet
+terminal — y compris lors d&amp;rsquo;une panique. Un gestionnaire de touche appelle &lt;code&gt;Consume&lt;/code&gt; pour soustraire un événement à&lt;code&gt;Root&lt;/code&gt; ; &lt;code&gt;InputTarget&lt;/code&gt; envoie chaque événement non consommé à un seul widget, ce qui permet
 à une palette de commandes d&amp;rsquo;avaler la frappe tant qu&amp;rsquo;elle est ouverte. &lt;code&gt;NewFocusRing&lt;/code&gt; donne à un
 formulaire le parcours par Tab et Maj+Tab.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="widgets-sized-for-cells"&gt;Des widgets dimensionnés pour les cellules&lt;span class="hx:absolute hx:-mt-20" id="widgets-sized-for-cells"&gt;&lt;/span&gt;
 &lt;a href="#widgets-sized-for-cells" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;La plupart des widgets de la boîte à outils sont conçus en pixels : leurs constantes de marge comptent
 des cellules sous le painter en cellules et gonflent. &lt;code&gt;tui&lt;/code&gt; a donc son propre jeu &lt;strong&gt;natif en cellules&lt;/strong&gt;
-— &lt;code&gt;TextEditor&lt;/code&gt;, &lt;code&gt;Entry&lt;/code&gt;, &lt;code&gt;Button&lt;/code&gt;, &lt;code&gt;CheckButton&lt;/code&gt;, &lt;code&gt;RadioButton&lt;/code&gt;, &lt;code&gt;Scale&lt;/code&gt;,
-&lt;code&gt;ProgressBar&lt;/code&gt;, &lt;code&gt;Sparkline&lt;/code&gt;, &lt;code&gt;ListBox&lt;/code&gt;, &lt;code&gt;TreeView&lt;/code&gt;, &lt;code&gt;Table&lt;/code&gt;, &lt;code&gt;MenuBar&lt;/code&gt;,
-&lt;code&gt;Notebook&lt;/code&gt;, &lt;code&gt;HSplit&lt;/code&gt;, &lt;code&gt;VSplit&lt;/code&gt;, &lt;code&gt;Dialog&lt;/code&gt;, &lt;code&gt;Dropdown&lt;/code&gt;, &lt;code&gt;Spinner&lt;/code&gt; et d&amp;rsquo;autres —
-où un glyphe occupe une cellule. Chacun reste un &lt;code&gt;toolkit.Widget&lt;/code&gt;, si bien que la même
+— &lt;code&gt;TextEditor&lt;/code&gt;, &lt;code&gt;Entry&lt;/code&gt;, &lt;code&gt;Button&lt;/code&gt;, &lt;code&gt;CheckButton&lt;/code&gt;, &lt;code&gt;RadioButton&lt;/code&gt;, &lt;code&gt;Scale&lt;/code&gt;,&lt;code&gt;ProgressBar&lt;/code&gt;, &lt;code&gt;Sparkline&lt;/code&gt;, &lt;code&gt;ListBox&lt;/code&gt;, &lt;code&gt;TreeView&lt;/code&gt;, &lt;code&gt;Table&lt;/code&gt;, &lt;code&gt;MenuBar&lt;/code&gt;,&lt;code&gt;Notebook&lt;/code&gt;, &lt;code&gt;HSplit&lt;/code&gt;, &lt;code&gt;VSplit&lt;/code&gt;, &lt;code&gt;Dialog&lt;/code&gt;, &lt;code&gt;Dropdown&lt;/code&gt;, &lt;code&gt;Spinner&lt;/code&gt; et d&amp;rsquo;autres —où un glyphe occupe une cellule. Chacun reste un &lt;code&gt;toolkit.Widget&lt;/code&gt;, si bien que la même
 instance dessine aussi en pixels.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;TextEditor&lt;/code&gt; est un éditeur de code en lecture-écriture : gouttière, annuler et rétablir, rechercher et
-remplacer, sélection, déplacement de lignes, et coloration syntaxique pour Go (via
-&lt;code&gt;go/scanner&lt;/code&gt;), JavaScript et TypeScript, Python, Ruby, shell, C et C++,
-Rust, JSON, YAML, HCL, TOML, LaTeX et Markdown, sans aucune dépendance externe.&lt;/p&gt;
+remplacer, sélection, déplacement de lignes, et coloration syntaxique pour Go (via&lt;code&gt;go/scanner&lt;/code&gt;), JavaScript et TypeScript, Python, Ruby, shell, C et C++,Rust, JSON, YAML, HCL, TOML, LaTeX et Markdown, sans aucune dépendance externe.&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
 &lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-sh" data-lang="sh"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;go run ./cmd/tui-widgets &lt;span class="p"&gt;|&lt;/span&gt; less -R &lt;span class="c1"&gt;# every cell-native widget, one per slot&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;go run ./cmd/tui-widget-explorer &lt;span class="c1"&gt;# the same, interactive&lt;/span&gt;
@@ -449,8 +411,7 @@ data-copied-label="Copié !"
 &lt;/button&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;p&gt;Les deux programmes de démonstration sont testés de bout en bout dans un vrai pty : de vrais octets de touches en entrée,
-l&amp;rsquo;image rendue vérifiée.&lt;/p&gt;</description></item><item><title>Android</title><link>https://go-widgets.github.io/docs/0.2/fr/surfaces/android/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/fr/surfaces/android/</guid><description>
+&lt;p&gt;Les deux programmes de démonstration sont testés de bout en bout dans un vrai pty : de vrais octets de touches en entrée,l&amp;rsquo;image rendue vérifiée.&lt;/p&gt;</description></item><item><title>Android</title><link>https://go-widgets.github.io/docs/0.2/fr/surfaces/android/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/fr/surfaces/android/</guid><description>
 &lt;p&gt;Android est la seule plateforme où un processus sans CGO ne peut pas posséder de fenêtre : tout
 chemin vers une surface dessinable passe par JNI, et JNI exige cgo. Il n&amp;rsquo;existe pas
 de protocole réseau à parler à la place, comme en ont X11 et Wayland.&lt;/p&gt;
@@ -475,11 +436,8 @@ processus :&lt;/p&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;L&amp;rsquo;hôte Java tient la place du serveur X sous Linux. Les pixels transitent par
-un &lt;strong&gt;memfd&lt;/strong&gt; que l&amp;rsquo;application crée et remet à l&amp;rsquo;hôte par le socket ;
-le côté Go écrit du RGBA_8888, qui est octet pour octet l&amp;rsquo;ARGB_8888 d&amp;rsquo;Android, si bien que
-la copie se fait sans conversion, et seulement pour le rectangle endommagé. Les entrées,
-les marges (insets), le texte IME et l&amp;rsquo;arbre d&amp;rsquo;accessibilité passent par un protocole tramé sur un
-&lt;code&gt;LocalSocket&lt;/code&gt; abstrait.&lt;/p&gt;
+un &lt;strong&gt;memfd&lt;/strong&gt; que l&amp;rsquo;application crée et remet à l&amp;rsquo;hôte par le socket ;le côté Go écrit du RGBA_8888, qui est octet pour octet l&amp;rsquo;ARGB_8888 d&amp;rsquo;Android, si bien que
+la copie se fait sans conversion, et seulement pour le rectangle endommagé. Les entrées,les marges (insets), le texte IME et l&amp;rsquo;arbre d&amp;rsquo;accessibilité passent par un protocole tramé sur un&lt;code&gt;LocalSocket&lt;/code&gt; abstrait.&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
 &lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;c&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;android&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Dial&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;my app&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// nil theme: toolkit.DefaultDark()&lt;/span&gt;&lt;span class="w"&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;errors&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Is&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;android&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ErrUnsupported&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
@@ -499,18 +457,14 @@ data-copied-label="Copié !"
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;&lt;code&gt;Client&lt;/code&gt; satisfait le &lt;code&gt;Backend&lt;/code&gt; de &lt;code&gt;window&lt;/code&gt;, si bien qu&amp;rsquo;une application passe d&amp;rsquo;Android
-aux back-ends de bureau sans changer une ligne au-dessus de la fenêtre —
-et &lt;a href="https://go-widgets.github.io/docs/0.2/fr/surfaces/native-window/#how-open-chooses"&gt;&lt;code&gt;window.Open&lt;/code&gt;&lt;/a&gt;
+aux back-ends de bureau sans changer une ligne au-dessus de la fenêtre —et &lt;a href="https://go-widgets.github.io/docs/0.2/fr/surfaces/native-window/#how-open-chooses"&gt;&lt;code&gt;window.Open&lt;/code&gt;&lt;/a&gt;
 le choisit de lui-même quand le socket de l&amp;rsquo;hôte est présent.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="arm64-only"&gt;arm64 uniquement&lt;span class="hx:absolute hx:-mt-20" id="arm64-only"&gt;&lt;/span&gt;
-&lt;a href="#arm64-only" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;android/arm64&lt;/code&gt; est la seule cible Android que Go sait lier sans cgo ; &lt;code&gt;arm&lt;/code&gt;,
-&lt;code&gt;amd64&lt;/code&gt; et &lt;code&gt;386&lt;/code&gt; exigent une édition de liens externe. La CI vérifie les deux moitiés — celle
-qui se compile et les trois qui ne se compilent pas — si bien que le jour où Go lèvera cette restriction,
-la compilation le dira.&lt;/p&gt;
+&lt;a href="#arm64-only" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;android/arm64&lt;/code&gt; est la seule cible Android que Go sait lier sans cgo ; &lt;code&gt;arm&lt;/code&gt;,&lt;code&gt;amd64&lt;/code&gt; et &lt;code&gt;386&lt;/code&gt; exigent une édition de liens externe. La CI vérifie les deux moitiés — celle
+qui se compile et les trois qui ne se compilent pas — si bien que le jour où Go lèvera cette restriction,la compilation le dira.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="accessibility"&gt;Accessibilité&lt;span class="hx:absolute hx:-mt-20" id="accessibility"&gt;&lt;/span&gt;
 &lt;a href="#accessibility" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Un lecteur d&amp;rsquo;écran verrait la &lt;code&gt;SurfaceView&lt;/code&gt; comme un unique rectangle opaque. L&amp;rsquo;hôte
-lui donne à la place une hiérarchie de vues virtuelle : un nœud par widget accessible,
-avec la classe &lt;code&gt;android.widget.*&lt;/code&gt; d&amp;rsquo;après laquelle Android choisit ses annonces, le
+lui donne à la place une hiérarchie de vues virtuelle : un nœud par widget accessible,avec la classe &lt;code&gt;android.widget.*&lt;/code&gt; d&amp;rsquo;après laquelle Android choisit ses annonces, le
 texte, les limites, et une action d&amp;rsquo;activation. L&amp;rsquo;arbre est &lt;strong&gt;tiré&lt;/strong&gt; quand
 quelque chose le lit, jamais poussé, si bien qu&amp;rsquo;une application à laquelle aucun service d&amp;rsquo;accessibilité
 n&amp;rsquo;est attaché n&amp;rsquo;en construit jamais. Une activation revient sous forme d&amp;rsquo;un clic ordinaire au
@@ -548,5 +502,4 @@ data-copied-label="Copié !"
 &lt;p&gt;Le libellé devient le &lt;code&gt;&amp;lt;title&amp;gt;&lt;/code&gt; et l&amp;rsquo;&lt;code&gt;aria-label&lt;/code&gt; du SVG, échappés. Le paquet
 racine ne dépend de rien ; le sous-paquet &lt;code&gt;widget&lt;/code&gt; est séparé pour qu&amp;rsquo;un consommateur
 doté de son propre producteur de pixels n&amp;rsquo;entraîne pas la boîte à outils dans son graphe de modules.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;svg/cmd/gallery-render&lt;/code&gt; rend le catalogue de widgets, en clair et en sombre :
-&lt;a href="https://go-widgets.github.io/svg/" target="_blank" rel="noopener"&gt;go-widgets.github.io/svg&lt;/a&gt;.&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;&lt;code&gt;svg/cmd/gallery-render&lt;/code&gt; rend le catalogue de widgets, en clair et en sombre :&lt;a href="https://go-widgets.github.io/svg/" target="_blank" rel="noopener"&gt;go-widgets.github.io/svg&lt;/a&gt;.&lt;/p&gt;</description></item></channel></rss>

@@ -1,0 +1,258 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Toolkit</title><link>https://go-widgets.github.io/docs/0.2/ko/tags/toolkit/</link><description>Recent content in Toolkit on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>ko</language><atom:link href="https://go-widgets.github.io/docs/0.2/ko/tags/toolkit/index.xml" rel="self" type="application/rss+xml"/><item><title>위젯이 화면에 도달하는 과정</title><link>https://go-widgets.github.io/docs/0.2/ko/rendering/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/ko/rendering/</guid><description>
+&lt;p&gt;세 개의 계층이 있으며, 각 계층은 바로 아래 계층만 알고 있습니다.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;toolkit widget tree Button, Table, Agenda, VBox ... (or a skin.Object)
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; │ Draw(p painter.Painter, theme *Theme)
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; ▼
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;painter.Painter FillRect, StrokeRect, Text, PutPixel, ...
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; │
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; ├─ PixelPainter → an RGBA []byte → window, browser canvas, PNG, Android
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; └─ CellPainter → a grid of cells → a terminal, as 24-bit ANSI&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="코드 복사"
+aria-label="코드 복사"
+data-copied-label="복사됨!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;위젯은 자신이 어떤 페인터를 받았는지 결코 알지 못합니다. 백엔드는 어떤 위젯이
+그렸는지 결코 알지 못합니다. 하나의 위젯 트리를 조건 분기 코드 한 줄 없이 네이티브
+창, 브라우저, 터미널에 모두 표시할 수 있는 이유가 바로 이것입니다.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/ko/rendering/painter/"&gt;페인터 경계&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;기본 동작, 선택적 기능, 두 가지 페인터&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/ko/rendering/toolkit/"&gt;툴킷&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;위젯 세트, 테마, 레이아웃, 텍스트, 접근성&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/ko/rendering/skin/"&gt;스킨&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;Go 코드 대신 데이터로 위젯의 부품과 상태를 기술&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;</description></item><item><title>툴킷</title><link>https://go-widgets.github.io/docs/0.2/ko/rendering/toolkit/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/ko/rendering/toolkit/</guid><description>
+&lt;p&gt;&lt;a href="https://github.com/go-widgets/toolkit" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/toolkit&lt;/code&gt;&lt;/a&gt;은 위젯 모음(widget set)입니다. 모든 위젯은 같은 인터페이스인 &lt;code&gt;Bounds&lt;/code&gt;, &lt;code&gt;SetBounds&lt;/code&gt;,&lt;code&gt;Draw(p painter.Painter, theme *Theme)&lt;/code&gt;, &lt;code&gt;HitTest&lt;/code&gt;, &lt;code&gt;OnEvent&lt;/code&gt;를 구현하므로, 호스트는
+버튼, 표, 이벤트 캘린더를 똑같이 다룹니다. 표준 라이브러리만 사용하며,&lt;code&gt;CGO_ENABLED=0&lt;/code&gt;이고, 구문 커버리지는 100%입니다.&lt;/p&gt;
+&lt;p&gt;v0.329.0 기준으로 위젯 코드 약 &lt;strong&gt;69,000줄&lt;/strong&gt;에 &lt;strong&gt;공개된 위젯 타입이 160개&lt;/strong&gt;
+있습니다. 이 두 숫자는 해당 태그에서 측정한 값이며 이전 값을 그대로 가져온 것이
+아닙니다. 툴킷의 README에 측정 명령이 있으니, 수치를 되풀이하지 말고 명령을 다시
+실행해야 합니다.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="the-families"&gt;계열 (families)&lt;span class="hx:absolute hx:-mt-20" id="the-families"&gt;&lt;/span&gt;
+&lt;a href="#the-families" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;계열&lt;/th&gt;
+&lt;th&gt;위젯&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Action&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Button&lt;/code&gt;, &lt;code&gt;ToggleButton&lt;/code&gt;, &lt;code&gt;CheckButton&lt;/code&gt;, &lt;code&gt;RadioButton&lt;/code&gt; + &lt;code&gt;RadioGroup&lt;/code&gt;, &lt;code&gt;Switch&lt;/code&gt;, &lt;code&gt;SplitButton&lt;/code&gt;, &lt;code&gt;IconButton&lt;/code&gt;, &lt;code&gt;CycleButton&lt;/code&gt;, &lt;code&gt;Chip&lt;/code&gt;, &lt;code&gt;SegmentedBar&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Input&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Entry&lt;/code&gt;, &lt;code&gt;TextView&lt;/code&gt; (selection, IME preview, syntax spans, line numbers), &lt;code&gt;SpinButton&lt;/code&gt;, &lt;code&gt;Scale&lt;/code&gt;, &lt;code&gt;RangeSlider&lt;/code&gt;, &lt;code&gt;SearchEntry&lt;/code&gt;, &lt;code&gt;TagField&lt;/code&gt;, &lt;code&gt;ComboBox&lt;/code&gt;, &lt;code&gt;FormField&lt;/code&gt; with &lt;code&gt;Validate&lt;/code&gt;/&lt;code&gt;Rule&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Selection&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;ListBox&lt;/code&gt;, &lt;code&gt;TreeView&lt;/code&gt;, &lt;code&gt;DropDown&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Containers&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Container&lt;/code&gt; with a swappable &lt;code&gt;Layout&lt;/code&gt; (&lt;code&gt;FitLayout&lt;/code&gt;, &lt;code&gt;BoxLayout&lt;/code&gt;, &lt;code&gt;BorderLayout&lt;/code&gt;, &lt;code&gt;CardLayout&lt;/code&gt;, &lt;code&gt;FlowLayout&lt;/code&gt;); &lt;code&gt;HBox&lt;/code&gt;, &lt;code&gt;VBox&lt;/code&gt;, &lt;code&gt;Grid&lt;/code&gt;, &lt;code&gt;Frame&lt;/code&gt;, &lt;code&gt;Dock&lt;/code&gt;, &lt;code&gt;Border&lt;/code&gt;, &lt;code&gt;Stack&lt;/code&gt;, &lt;code&gt;Overlay&lt;/code&gt;, &lt;code&gt;Paned&lt;/code&gt;, &lt;code&gt;Splitter&lt;/code&gt;, &lt;code&gt;Expander&lt;/code&gt;, &lt;code&gt;Accordion&lt;/code&gt;; a declarative &lt;code&gt;Node&lt;/code&gt; builder&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Navigation&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Menu&lt;/code&gt;, &lt;code&gt;MenuBar&lt;/code&gt; (with &lt;code&gt;Alt&lt;/code&gt;+letter), &lt;code&gt;ContextMenu&lt;/code&gt;, &lt;code&gt;Popover&lt;/code&gt;, &lt;code&gt;CommandPalette&lt;/code&gt;, &lt;code&gt;Dialog&lt;/code&gt;, &lt;code&gt;MessageDialog&lt;/code&gt;, &lt;code&gt;Wizard&lt;/code&gt;, &lt;code&gt;Notebook&lt;/code&gt;, &lt;code&gt;ViewSwitcher&lt;/code&gt;, &lt;code&gt;Carousel&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Feedback&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;ProgressBar&lt;/code&gt;, &lt;code&gt;ProgressCircle&lt;/code&gt;, &lt;code&gt;LevelBar&lt;/code&gt;, &lt;code&gt;Spinner&lt;/code&gt;, &lt;code&gt;Tooltip&lt;/code&gt;, &lt;code&gt;Notification&lt;/code&gt;, &lt;code&gt;Toast&lt;/code&gt;, &lt;code&gt;Banner&lt;/code&gt;, &lt;code&gt;Alert&lt;/code&gt;, &lt;code&gt;Badge&lt;/code&gt;, &lt;code&gt;Skeleton&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Data&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Table&lt;/code&gt; (cell editing, frozen columns, group rows, aggregates, row expanders), &lt;code&gt;TreeTable&lt;/code&gt;, &lt;code&gt;PropertyGrid&lt;/code&gt;, &lt;code&gt;Kanban&lt;/code&gt;, &lt;code&gt;Gantt&lt;/code&gt;, &lt;code&gt;Agenda&lt;/code&gt; (week, month, quarter, year; several calendars)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Charts&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;LineChart&lt;/code&gt;, &lt;code&gt;BarChart&lt;/code&gt;, &lt;code&gt;PieChart&lt;/code&gt;, &lt;code&gt;AreaChart&lt;/code&gt;, &lt;code&gt;ScatterChart&lt;/code&gt;, &lt;code&gt;RadarChart&lt;/code&gt;, &lt;code&gt;Gauge&lt;/code&gt;, &lt;code&gt;Sparkline&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Composite&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;FileChooser&lt;/code&gt;, &lt;code&gt;ColorChooser&lt;/code&gt;, &lt;code&gt;ColorPicker&lt;/code&gt;, &lt;code&gt;FontChooser&lt;/code&gt;, &lt;code&gt;Calendar&lt;/code&gt;, &lt;code&gt;DatePicker&lt;/code&gt;, &lt;code&gt;DateRangePicker&lt;/code&gt;, &lt;code&gt;TimePicker&lt;/code&gt;, &lt;code&gt;MarkdownView&lt;/code&gt;, &lt;code&gt;MarkdownEditor&lt;/code&gt;, &lt;code&gt;TerminalView&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Shell&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Window&lt;/code&gt; with client-side decorations, &lt;code&gt;HeaderBar&lt;/code&gt;, &lt;code&gt;Toolbar&lt;/code&gt;, &lt;code&gt;Ribbon&lt;/code&gt;, &lt;code&gt;Statusbar&lt;/code&gt;, &lt;code&gt;StatusIcon&lt;/code&gt;, &lt;code&gt;StatusArea&lt;/code&gt;, &lt;code&gt;Wallpaper&lt;/code&gt;, &lt;code&gt;Thumbnail&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;모든 위젯을 실시간으로 볼 수 있습니다: &lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;갤러리&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="ribbon"&gt;리본 (Ribbon)&lt;span class="hx:absolute hx:-mt-20" id="ribbon"&gt;&lt;/span&gt;
+&lt;a href="#ribbon" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Ribbon&lt;/code&gt;은 Office 스타일의 명령 리본입니다. 이름이 붙은 그룹들이 탭으로 나뉘어 있고,그 안에 큰 버튼(텍스트 위에 아이콘), 작은 버튼(텍스트 옆에 아이콘), 토글, 분할 버튼,드롭다운, 작은 갤러리가 들어갑니다. Windows 리본 지침을 따릅니다. 창이 좁아지면
+각 그룹이 우선순위에 따라 단계적으로 줄어들어(전체, 압축, 아이콘만, 그리고 하나의
+팝업 버튼) 리본은 들어갈 수 있는 가장 큰 조합을 보여 줍니다. 리본은 탭만 남기도록
+접을 수 있고(Ctrl+F1 또는 갈매기표), 그러면 탭이 본문을 잠깐 엿보여 줍니다. Alt를
+누르면 키 팁이 표시되고, 툴팁에는 단축키와 설명이 담깁니다. 탭과 툴바의 탐색은
+WAI-ARIA 패턴을 따르며, 경계선과 포커스 링은 밝은 테마와 어두운 테마 모두에서 3:1
+대비를 유지합니다.&lt;/p&gt;
+&lt;p&gt;모든 컨트롤은 &lt;code&gt;Action&lt;/code&gt;에 대한 뷰입니다. &lt;code&gt;Action&lt;/code&gt;은 메뉴, 팔레트, 리본이 함께 쓰는
+하나의 명령이며, &lt;code&gt;NewCommandAction&lt;/code&gt;은 뷰 모델(view-model)의 &lt;code&gt;mvvm.Command&lt;/code&gt;로부터
+하나를 만들기 때문에 &lt;code&gt;CanExecute&lt;/code&gt;가 컨트롤을 비활성(회색) 상태로 만듭니다. 활성
+탭, 접힌 상태, 토글, 드롭다운의 선택은 &lt;code&gt;mvvm.Observable&lt;/code&gt;입니다. 리본을&lt;code&gt;PopoverHost&lt;/code&gt; 아래에 두면 호스트 코드 없이도 리본의 메뉴가 페이지 위에 그려집니다.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;RibbonGrid&lt;/code&gt;는 팝업이 &lt;code&gt;GridCols&lt;/code&gt; × &lt;code&gt;GridRows&lt;/code&gt; 셀 격자인 컨트롤 종류로(0이면 8 × 6,최대 16 × 16), 워드 프로세서의 표 버튼과 같습니다. 포인터나 화살표 키를 움직이면
+모서리에서 그 아래의 셀까지 셀이 밝아지고, 캡션에 &amp;ldquo;3 × 2&amp;quot;가 표시됩니다. 클릭하거나
+Enter를 누르면 선택되어 &lt;code&gt;OnGrid(cols, rows)&lt;/code&gt;가 호출되고, Home과 End는 건너뛰며,Escape는 닫습니다. 밝은 테마와 어두운 테마 모두에서 그려지며, 격자가 열려 있는
+동안에는 확장된 버튼으로 보조 기술에 보고됩니다.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;RibbonControl&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;Kind&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;RibbonGrid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Label&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Table&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;GridCols&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;GridRows&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;OnGrid&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;insertTable&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="코드 복사"
+aria-label="코드 복사"
+data-copied-label="복사됨!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 data-hextra-search-id="splitter"&gt;스플리터 (Splitter)&lt;span class="hx:absolute hx:-mt-20" id="splitter"&gt;&lt;/span&gt;
+&lt;a href="#splitter" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Splitter&lt;/code&gt;는 N개의 패널을 나란히(또는 &lt;code&gt;vertical&lt;/code&gt;이 true이면 위아래로) 배치하고,이웃한 각 쌍 사이에 드래그할 수 있고 포커스를 받을 수 있는 구분선을 둡니다.WAI-ARIA 창 스플리터(window-splitter) 패턴을 따릅니다. 패널은 &lt;strong&gt;고정&lt;/strong&gt;(fixed)이거나&lt;strong&gt;유연&lt;/strong&gt;(flexible)합니다. 고정 패널의 &lt;code&gt;Size&lt;/code&gt;는 논리 픽셀 단위의&lt;code&gt;mvvm.Observable[int]&lt;/code&gt;이며 구분선이 값을 씁니다. 유연 패널은 고정 패널이 남긴
+공간을 역시 &lt;code&gt;Observable&lt;/code&gt;인 &lt;code&gt;Weight&lt;/code&gt;에 따라 나눠 가집니다. 모든 패널에는 &lt;code&gt;Min&lt;/code&gt;과&lt;code&gt;Max&lt;/code&gt;가 있습니다. &lt;code&gt;Collapsible&lt;/code&gt; 고정 패널은 구분선을 &lt;code&gt;Min&lt;/code&gt;의 절반 아래로 끌거나
+더블클릭 또는 Enter를 누르면 닫히고(크기 0), 같은 방법으로 다시 열립니다. 패널의&lt;code&gt;Visible&lt;/code&gt; observable은 패널과 그 구분선을 켜고 끕니다. 크기가 observable에 있으므로
+뷰 모델이 이를 바인딩하고, 저장하고, 복원할 수 있습니다. &lt;code&gt;OnResized&lt;/code&gt;는 사용자가
+끝낸 제스처마다, 사용자가 바꾼 패널들을 인자로 한 번 호출되며, 창 크기 조정을 따라
+레이아웃이 바뀐 경우에는 호출되지 않습니다.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;files&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewObservable&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;240&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// fixed pane, logical px&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewObservable&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// flexible pane, weight&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewSplitter&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;SplitPane&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;Widget&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;tree&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Files&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Size&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;files&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Min&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;120&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Max&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;480&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Collapsible&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;SplitPane&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;Widget&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;editor&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Editor&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Weight&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Min&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;200&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;OnResized&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;changed&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;save&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;files&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Get&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Get&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="코드 복사"
+aria-label="코드 복사"
+data-copied-label="복사됨!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;구분선은 포커스를 받습니다. 화살표 키(세로일 때는 위와 아래)는 구분선을 &lt;code&gt;Step&lt;/code&gt;
+논리 픽셀씩 움직이고, Shift를 누르면 그 네 배만큼 움직입니다. Home과 End는 앞쪽
+패널을 최소 크기와 최대 크기로 만들고, Enter는 구분선이 제어하는 고정 패널을 접거나
+복원하며, Tab은 구분선 사이를 이동합니다. 각 구분선은 &lt;code&gt;aria-valuemin&lt;/code&gt;,&lt;code&gt;aria-valuemax&lt;/code&gt;, &lt;code&gt;aria-valuenow&lt;/code&gt;를 가진 &lt;code&gt;RoleSeparator&lt;/code&gt;이며, 이름은 &amp;ldquo;Resize&amp;quot;와
+패널의 &lt;code&gt;Name&lt;/code&gt;입니다. &lt;code&gt;Cursor(x, y)&lt;/code&gt;는 구분선 위에서 &lt;code&gt;&amp;quot;col-resize&amp;quot;&lt;/code&gt; 또는&lt;code&gt;&amp;quot;row-resize&amp;quot;&lt;/code&gt;를 반환하고, &lt;code&gt;SplitterColors(theme)&lt;/code&gt;는 구분선 선과 강조색을 주는데,이 색은 포커스 링과 마찬가지로 두 기본 테마 모두에서 배경 및 표면과 3:1 대비를
+유지합니다.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="themes"&gt;테마 (Themes)&lt;span class="hx:absolute hx:-mt-20" id="themes"&gt;&lt;/span&gt;
+&lt;a href="#themes" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;하나의 &lt;code&gt;Theme&lt;/code&gt; 값이 트리 전체로 전파됩니다. 루트에서 색을 바꾸면 모든 위젯이 그
+색으로 다시 그려집니다. &lt;code&gt;DefaultLight()&lt;/code&gt;와 &lt;code&gt;DefaultDark()&lt;/code&gt;가 내장되어 있고,&lt;code&gt;LoadGTKTheme(css)&lt;/code&gt;는 Adwaita, WhiteSur, Solarized 같은 GTK 3 또는 libadwaita
+테마의 &lt;code&gt;@define-color&lt;/code&gt; 블록을 읽어 &lt;code&gt;Theme&lt;/code&gt;으로 만듭니다.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="text"&gt;텍스트 (Text)&lt;span class="hx:absolute hx:-mt-20" id="text"&gt;&lt;/span&gt;
+&lt;a href="#text" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;컴파일되어 들어 있는 기본 글꼴은 5×7 비트맵 글꼴이므로 픽셀 테스트가 기하 구조를
+그대로 유지합니다. 한 번의 호출로 UI 전체를 안티앨리어싱되고 셰이핑(shaping)된
+텍스트로 바꿀 수 있습니다.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;UseOpenTypeText&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// Atkinson Hyperlegible, bundled; js/wasm-safe&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="코드 복사"
+aria-label="코드 복사"
+data-copied-label="복사됨!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;글꼴은 &lt;a href="https://github.com/go-opentype/fonts" target="_blank" rel="noopener"&gt;go-opentype/fonts&lt;/a&gt;에서 가져오며&lt;a href="https://github.com/go-opentype/opentype" target="_blank" rel="noopener"&gt;go-opentype&lt;/a&gt;가 Go로 래스터화합니다. C
+글꼴 라이브러리도, 시스템 글꼴 조회도 사용하지 않습니다.&lt;code&gt;NewTrueTypeFont(ttf, px)&lt;/code&gt;는 다른 글꼴을 불러오고, &lt;code&gt;NewFallbackFont&lt;/code&gt;는 여러 글꼴을
+연결하여 예를 들어 CJK나 아랍어 글꼴을 추가할 수 있으며, 위젯 자체의 &lt;code&gt;Font&lt;/code&gt; 필드는
+그 위젯에 한해서 전역 글꼴을 덮어씁니다.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="input"&gt;입력 (Input)&lt;span class="hx:absolute hx:-mt-20" id="input"&gt;&lt;/span&gt;
+&lt;a href="#input" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;마우스, 키보드, IME 조합, 터치(&lt;code&gt;EventTouchStart&lt;/code&gt;/&lt;code&gt;Move&lt;/code&gt;/&lt;code&gt;End&lt;/code&gt;, 탭, 길게 누르기,스와이프를 위한 &lt;code&gt;GestureRecognizer&lt;/code&gt;), 드래그 앤 드롭(&lt;code&gt;DragSource&lt;/code&gt;, &lt;code&gt;DropTarget&lt;/code&gt;)을
+지원합니다. &lt;code&gt;ListBox&lt;/code&gt;, &lt;code&gt;Table&lt;/code&gt;, &lt;code&gt;TreeView&lt;/code&gt;의 다중 행 선택은 마우스와 키보드 모두로
+동작하며, macOS에서는 Ctrl-클릭이 보조 클릭이므로 Ctrl뿐 아니라 ⌘도 인식합니다.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="binary-size"&gt;바이너리 크기: 프로그램은 사용하는 것만 링크합니다&lt;span class="hx:absolute hx:-mt-20" id="binary-size"&gt;&lt;/span&gt;
+&lt;a href="#binary-size" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;툴킷은 하나의 큰 패키지이지만 링커에게는 문제가 되지 않습니다. Go의 데드 코드 제거는&lt;code&gt;main.main&lt;/code&gt;에서, &lt;strong&gt;그리고 가져온 모든 패키지의 init 작업에서&lt;/strong&gt; 도달할 수 있는 것만
+남깁니다. 프로그램이 건드리지 않는 위젯은 제거됩니다. 제거되지 않는 것은 패키지 수준
+초기화 식이나 가져온 패키지의 &lt;code&gt;init&lt;/code&gt;이 도달하는 모든 것이므로, v0.345.0부터 툴킷은
+자체 초기화 식에서 작업을 하지 않도록 비워 두고, &lt;code&gt;init&lt;/code&gt;이 코드를 끌고 들어오는
+패키지를 가져오지 않습니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Material&lt;/code&gt;과 &lt;code&gt;Thumbnail&lt;/code&gt;은 &lt;code&gt;init&lt;/code&gt;에서 디코더가 스스로를 등록하는&lt;code&gt;github.com/go-images/images&lt;/code&gt;(WebAssembly 코드 약 1.7 MB) 대신 코덱이 없는&lt;a href="https://github.com/go-images/images" target="_blank" rel="noopener"&gt;&lt;code&gt;github.com/go-images/images/ops&lt;/code&gt;&lt;/a&gt;를
+사용합니다.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CollabText&lt;/code&gt;, &lt;code&gt;NewCollabText&lt;/code&gt;, &lt;code&gt;MetaName&lt;/code&gt;, &lt;code&gt;MetaColor&lt;/code&gt;는**&lt;code&gt;github.com/go-widgets/toolkit/collabui&lt;/code&gt;**로 옮겨졌습니다. 이들은 실시간&lt;code&gt;go-crdt/collab&lt;/code&gt; 세션이 필요하고, 그 전송 계층이 &lt;code&gt;net/http&lt;/code&gt;와 &lt;code&gt;crypto/tls&lt;/code&gt;를
+끌어오기 때문입니다. &lt;code&gt;CollabSheet&lt;/code&gt;와 &lt;code&gt;IsoCRDTDocument&lt;/code&gt;는 &lt;code&gt;go-crdt/crdt&lt;/code&gt;만
+필요하므로 &lt;code&gt;toolkit&lt;/code&gt;에 남아 있습니다.&lt;/li&gt;
+&lt;li&gt;이메일 &lt;code&gt;Rule&lt;/code&gt;의 정규식, 내장 iso 아이콘 레지스트리, &lt;code&gt;RichEditorToolbar&lt;/code&gt; 버튼 표는
+초기화 식이 아니라 처음 사용될 때 만들어집니다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;⛔ &lt;strong&gt;이 이동은 호환성을 깨는 변경이며, 폐기 예정(deprecated) 전달 함수는 없습니다.&lt;/strong&gt;
+위의 네 이름의 import를 &lt;code&gt;collabui&lt;/code&gt;로 바꾸십시오. 그 외에는 바뀌는 것이 없습니다.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;GOOS=js GOARCH=wasm&lt;/code&gt;과 &lt;code&gt;-ldflags=&amp;quot;-s -w&amp;quot;&lt;/code&gt;로 빌드한 크기이며, 원본 크기와 gzip -9
+크기입니다.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;프로그램&lt;/th&gt;
+&lt;th&gt;이전 (raw / gzip)&lt;/th&gt;
+&lt;th&gt;이후 (raw / gzip)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;one &lt;code&gt;Label&lt;/code&gt; (v0.345.0)&lt;/td&gt;
+&lt;td&gt;10.49 / 2.88 MB&lt;/td&gt;
+&lt;td&gt;7.48 / 2.13 MB&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;one &lt;code&gt;Label&lt;/code&gt; (v0.345.1)&lt;/td&gt;
+&lt;td&gt;10.49 / 2.88 MB&lt;/td&gt;
+&lt;td&gt;5.66 / 1.61 MB&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;go-wasmcontainers/dashboard&lt;/td&gt;
+&lt;td&gt;20.42 / 5.17 MB&lt;/td&gt;
+&lt;td&gt;17.72 / 4.58 MB&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;the relay flow map&lt;/td&gt;
+&lt;td&gt;22.62 / 5.44 MB&lt;/td&gt;
+&lt;td&gt;19.95 / 4.85 MB&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;남은 크기의 대부분은 런타임과 텍스트 렌더러에 필요한 OpenType 스택입니다. 자신의
+프로그램에서 어떤 심볼을 남겨 두는 것이 무엇인지 알아보려면 &lt;code&gt;-ldflags=-dumpdep&lt;/code&gt;로
+빌드하고, 그 심볼에서 &lt;code&gt;main.main&lt;/code&gt; 또는 &lt;code&gt;go:main.inittasks&lt;/code&gt;까지 첫 번째 부모
+체인을 따라가십시오.&lt;/p&gt;
+&lt;p&gt;v0.345.0은 색을 16진수로 쓰고 다시 읽기 위한 &lt;code&gt;ColorHex&lt;/code&gt;와 &lt;code&gt;ParseColorHex&lt;/code&gt;도
+추가합니다.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="accessibility"&gt;접근성 (Accessibility)&lt;span class="hx:absolute hx:-mt-20" id="accessibility"&gt;&lt;/span&gt;
+&lt;a href="#accessibility" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;자신의 픽셀을 직접 그리는 툴킷은 무엇을 그렸는지 말해 주지 않으면 스크린 리더에게
+읽을 거리를 주지 못합니다. 위젯은 역할, 이름, 값을 가진 &lt;code&gt;Accessible&lt;/code&gt;을 구현하고,&lt;code&gt;CollectA11y&lt;/code&gt;가 이를 모아 호스트가 게시하도록 합니다. Linux에서는&lt;a href="https://go-widgets.github.io/docs/0.2/ko/surfaces/native-window/"&gt;&lt;code&gt;window&lt;/code&gt;&lt;/a&gt;를 통해 AT-SPI로, 그리고&lt;a href="https://go-widgets.github.io/docs/0.2/ko/surfaces/android/#accessibility"&gt;Android&lt;/a&gt;에서는 가상 뷰 계층으로
+게시됩니다.&lt;/p&gt;</description></item></channel></rss>

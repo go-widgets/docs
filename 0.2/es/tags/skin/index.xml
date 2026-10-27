@@ -4,8 +4,7 @@ aspectos al pasar el puntero, al pulsarse y deshabilitado, y su respuesta al
 clic viven todos en &lt;code&gt;button.go&lt;/code&gt;. Es rápido y exacto, y cada cambio visual es un
 cambio de código.&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://github.com/go-widgets/skin" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/skin&lt;/code&gt;&lt;/a&gt; traslada esa descripción
-a datos: la idea del Edje de Enlightenment. Un documento &lt;code&gt;.skin.json&lt;/code&gt; nombra las
-&lt;strong&gt;partes&lt;/strong&gt; de un widget, su aspecto en cada &lt;strong&gt;estado&lt;/strong&gt; y los &lt;strong&gt;programas&lt;/strong&gt; que
+a datos: la idea del Edje de Enlightenment. Un documento &lt;code&gt;.skin.json&lt;/code&gt; nombra las&lt;strong&gt;partes&lt;/strong&gt; de un widget, su aspecto en cada &lt;strong&gt;estado&lt;/strong&gt; y los &lt;strong&gt;programas&lt;/strong&gt; que
 las hacen pasar de un estado a otro cuando llega una señal. Cambiar la skin, o
 construir un control nuevo, ya no requiere recompilar: el programa carga otros
 bytes.&lt;/p&gt;
@@ -72,8 +71,7 @@ data-copied-label="¡Copiado!"
 &lt;ul&gt;
 &lt;li&gt;Una &lt;strong&gt;parte&lt;/strong&gt; es un &lt;code&gt;rect&lt;/code&gt;, un &lt;code&gt;text&lt;/code&gt; o una &lt;code&gt;image&lt;/code&gt;, situada mediante dos
 esquinas relativas (&lt;code&gt;rel1&lt;/code&gt;, &lt;code&gt;rel2&lt;/code&gt;) respecto al objeto o a una parte
-anterior, con desplazamientos en píxeles y relativos a la fuente
-(&lt;code&gt;offset_em&lt;/code&gt;), de modo que una parte de texto sigue a la fuente.&lt;/li&gt;
+anterior, con desplazamientos en píxeles y relativos a la fuente(&lt;code&gt;offset_em&lt;/code&gt;), de modo que una parte de texto sigue a la fuente.&lt;/li&gt;
 &lt;li&gt;Un &lt;strong&gt;estado&lt;/strong&gt; fija colores, borde, radio y visibilidad, y puede mover o
 redimensionar la parte.&lt;/li&gt;
 &lt;li&gt;Un &lt;strong&gt;programa&lt;/strong&gt; reacciona a una señal, lleva partes a un estado durante un

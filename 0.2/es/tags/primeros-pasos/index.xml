@@ -5,8 +5,7 @@ repositorio plantilla: una aplicación de navegador pequeña pero real, con un
 campo de búsqueda, un filtro por categoría, una lista de las filas que coinciden
 y una línea de estado. Todo lo que necesita una aplicación más grande ya está
 conectado: un view-model sin ningún widget dentro, una vista enlazada a él, un
-host wasm, una barrera de cobertura del 100 % y la
-&lt;a href="https://go-widgets.github.io/docs/0.2/es/guard-rails/mvvmlint/"&gt;barrera MVVM&lt;/a&gt;.&lt;/p&gt;
+host wasm, una barrera de cobertura del 100 % y la&lt;a href="https://go-widgets.github.io/docs/0.2/es/guard-rails/mvvmlint/"&gt;barrera MVVM&lt;/a&gt;.&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
 &lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-sh" data-lang="sh"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git clone https://github.com/go-widgets/app-template my-app
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; my-app
@@ -122,6 +121,4 @@ produce el binario para cada plataforma, desde cualquier máquina.&lt;/p&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;Para ver el conjunto de widgets antes de escribir nada, abra la
-&lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;galería&lt;/a&gt;: todas las familias de widgets,
-en vivo, en un canvas de navegador.&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;Para ver el conjunto de widgets antes de escribir nada, abra la&lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;galería&lt;/a&gt;: todas las familias de widgets,en vivo, en un canvas de navegador.&lt;/p&gt;</description></item></channel></rss>

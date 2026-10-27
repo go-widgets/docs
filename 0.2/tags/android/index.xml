@@ -23,10 +23,8 @@ processes:&lt;/p&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;The Java host stands where the X server stands on Linux. Pixels travel through
-a &lt;strong&gt;memfd&lt;/strong&gt; the application creates and hands to the host over the socket;
-the Go side writes RGBA_8888, which is byte for byte Android&amp;rsquo;s ARGB_8888, so
-the blit is a copy with no conversion, of the damaged rectangle only. Input,
-insets, IME text and the accessibility tree cross a framed protocol over an
+a &lt;strong&gt;memfd&lt;/strong&gt; the application creates and hands to the host over the socket;the Go side writes RGBA_8888, which is byte for byte Android&amp;rsquo;s ARGB_8888, so
+the blit is a copy with no conversion, of the damaged rectangle only. Input,insets, IME text and the accessibility tree cross a framed protocol over an
 abstract &lt;code&gt;LocalSocket&lt;/code&gt;.&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
 &lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;c&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;android&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Dial&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;my app&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// nil theme: toolkit.DefaultDark()&lt;/span&gt;&lt;span class="w"&gt;
@@ -47,18 +45,14 @@ data-copied-label="Copied!"
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;&lt;code&gt;Client&lt;/code&gt; satisfies &lt;code&gt;window&lt;/code&gt;&amp;rsquo;s &lt;code&gt;Backend&lt;/code&gt;, so an application moves between
-Android and the desktop back-ends without changing a line above the window —
-and &lt;a href="https://go-widgets.github.io/docs/0.2/surfaces/native-window/#how-open-chooses"&gt;&lt;code&gt;window.Open&lt;/code&gt;&lt;/a&gt;
+Android and the desktop back-ends without changing a line above the window —and &lt;a href="https://go-widgets.github.io/docs/0.2/surfaces/native-window/#how-open-chooses"&gt;&lt;code&gt;window.Open&lt;/code&gt;&lt;/a&gt;
 picks it by itself when the host&amp;rsquo;s socket is there.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="arm64-only"&gt;arm64 only&lt;span class="hx:absolute hx:-mt-20" id="arm64-only"&gt;&lt;/span&gt;
-&lt;a href="#arm64-only" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;android/arm64&lt;/code&gt; is the only Android target Go links without cgo; &lt;code&gt;arm&lt;/code&gt;,
-&lt;code&gt;amd64&lt;/code&gt; and &lt;code&gt;386&lt;/code&gt; require external linking. CI asserts both halves — the one
-that builds and the three that do not — so the day Go lifts the restriction,
-the build says so.&lt;/p&gt;
+&lt;a href="#arm64-only" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;android/arm64&lt;/code&gt; is the only Android target Go links without cgo; &lt;code&gt;arm&lt;/code&gt;,&lt;code&gt;amd64&lt;/code&gt; and &lt;code&gt;386&lt;/code&gt; require external linking. CI asserts both halves — the one
+that builds and the three that do not — so the day Go lifts the restriction,the build says so.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="accessibility"&gt;Accessibility&lt;span class="hx:absolute hx:-mt-20" id="accessibility"&gt;&lt;/span&gt;
 &lt;a href="#accessibility" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;A screen reader would see the &lt;code&gt;SurfaceView&lt;/code&gt; as one opaque rectangle. The host
-gives it a virtual view hierarchy instead: one node per accessible widget,
-with the &lt;code&gt;android.widget.*&lt;/code&gt; class Android chooses its announcements from, the
+gives it a virtual view hierarchy instead: one node per accessible widget,with the &lt;code&gt;android.widget.*&lt;/code&gt; class Android chooses its announcements from, the
 text, the bounds, and an activation action. The tree is &lt;strong&gt;pulled&lt;/strong&gt; when
 something reads it, never pushed, so an app with no accessibility service
 attached never builds one. An activation comes back as an ordinary click at

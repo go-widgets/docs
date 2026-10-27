@@ -6,15 +6,11 @@ packages that import the toolkit.&lt;/p&gt;
 static type of &lt;code&gt;entry&lt;/code&gt; is a toolkit widget and &lt;code&gt;Text&lt;/code&gt; is a state field, is
 flagged. &lt;code&gt;&amp;amp;entry.Text&lt;/code&gt; — what the &lt;a href="https://go-widgets.github.io/docs/0.2/state/mvvm/"&gt;binders&lt;/a&gt;
 take — is not an assignment and is never flagged; neither is a composite
-literal (&lt;code&gt;toolkit.Entry{Text: &amp;quot;x&amp;quot;}&lt;/code&gt;), nor composing a callback such as
-&lt;code&gt;OnChange&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Widgets and no view-model.&lt;/strong&gt; A package that imports the toolkit but not
-&lt;code&gt;go-widgets/mvvm&lt;/code&gt; gets one diagnostic. &lt;code&gt;-requirevm=false&lt;/code&gt; turns this off for
+literal (&lt;code&gt;toolkit.Entry{Text: &amp;quot;x&amp;quot;}&lt;/code&gt;), nor composing a callback such as&lt;code&gt;OnChange&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Widgets and no view-model.&lt;/strong&gt; A package that imports the toolkit but not&lt;code&gt;go-widgets/mvvm&lt;/code&gt; gets one diagnostic. &lt;code&gt;-requirevm=false&lt;/code&gt; turns this off for
 a widget library that legitimately has no view-model.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;The state fields are those of the toolkit&amp;rsquo;s widgets (&lt;code&gt;Text&lt;/code&gt;, &lt;code&gt;Items&lt;/code&gt;, &lt;code&gt;Rows&lt;/code&gt;,
-&lt;code&gt;Root&lt;/code&gt;, &lt;code&gt;Selected&lt;/code&gt;, &lt;code&gt;Value&lt;/code&gt;, &lt;code&gt;Checked&lt;/code&gt;, …); &lt;code&gt;-statefields=&lt;/code&gt; replaces the list.
-A file named &lt;code&gt;*_binding.go&lt;/code&gt;, or containing &lt;code&gt;//mvvmlint:allow&lt;/code&gt;, is exempt from
+&lt;p&gt;The state fields are those of the toolkit&amp;rsquo;s widgets (&lt;code&gt;Text&lt;/code&gt;, &lt;code&gt;Items&lt;/code&gt;, &lt;code&gt;Rows&lt;/code&gt;,&lt;code&gt;Root&lt;/code&gt;, &lt;code&gt;Selected&lt;/code&gt;, &lt;code&gt;Value&lt;/code&gt;, &lt;code&gt;Checked&lt;/code&gt;, …); &lt;code&gt;-statefields=&lt;/code&gt; replaces the list.A file named &lt;code&gt;*_binding.go&lt;/code&gt;, or containing &lt;code&gt;//mvvmlint:allow&lt;/code&gt;, is exempt from
 the first rule.&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
 &lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-sh" data-lang="sh"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;go install github.com/go-widgets/mvvmlint/cmd/mvvmlint@latest
@@ -76,8 +72,7 @@ data-copied-label="Copied!"
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;A painter primitive in application code&lt;/strong&gt;: a drawing method (&lt;code&gt;FillRect&lt;/code&gt;,
-&lt;code&gt;StrokeRect&lt;/code&gt;, &lt;code&gt;FillPath&lt;/code&gt;, &lt;code&gt;DrawImage&lt;/code&gt;, &lt;code&gt;Text&lt;/code&gt;, &lt;code&gt;PutPixel&lt;/code&gt;, …) called on a
+&lt;li&gt;&lt;strong&gt;A painter primitive in application code&lt;/strong&gt;: a drawing method (&lt;code&gt;FillRect&lt;/code&gt;,&lt;code&gt;StrokeRect&lt;/code&gt;, &lt;code&gt;FillPath&lt;/code&gt;, &lt;code&gt;DrawImage&lt;/code&gt;, &lt;code&gt;Text&lt;/code&gt;, &lt;code&gt;PutPixel&lt;/code&gt;, …) called on a
 receiver whose static type is a painter type. Querying or clipping the
 surface (&lt;code&gt;Size&lt;/code&gt;, &lt;code&gt;PushClip&lt;/code&gt;, &lt;code&gt;PushTranslate&lt;/code&gt;) is not drawing and is not
 flagged. &lt;code&gt;-primitives=&lt;/code&gt; replaces the list.&lt;/li&gt;
@@ -133,10 +128,7 @@ data-copied-label="Copied!"
 &lt;/div&gt;
 &lt;/div&gt;</description></item><item><title>Rules CI enforces</title><link>https://go-widgets.github.io/docs/0.2/guard-rails/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/guard-rails/</guid><description>
 &lt;p&gt;Two conventions keep an application&amp;rsquo;s UI honest, and both would erode one
-convenient shortcut at a time if they were only written down. So each is a
-&lt;a href="https://pkg.go.dev/golang.org/x/tools/go/analysis" target="_blank" rel="noopener"&gt;&lt;code&gt;go/analysis&lt;/code&gt;&lt;/a&gt; analyzer,
-run through &lt;code&gt;go vet&lt;/code&gt;, with a reusable workflow an application marks as a
-&lt;strong&gt;required&lt;/strong&gt; check.&lt;/p&gt;
+convenient shortcut at a time if they were only written down. So each is a&lt;a href="https://pkg.go.dev/golang.org/x/tools/go/analysis" target="_blank" rel="noopener"&gt;&lt;code&gt;go/analysis&lt;/code&gt;&lt;/a&gt; analyzer,run through &lt;code&gt;go vet&lt;/code&gt;, with a reusable workflow an application marks as a&lt;strong&gt;required&lt;/strong&gt; check.&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;

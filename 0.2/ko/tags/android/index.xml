@@ -1,0 +1,63 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Android</title><link>https://go-widgets.github.io/docs/0.2/ko/tags/android/</link><description>Recent content in Android on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>ko</language><atom:link href="https://go-widgets.github.io/docs/0.2/ko/tags/android/index.xml" rel="self" type="application/rss+xml"/><item><title>Android</title><link>https://go-widgets.github.io/docs/0.2/ko/surfaces/android/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/ko/surfaces/android/</guid><description>
+&lt;p&gt;Android는 CGO를 쓰지 않는 프로세스가 창을 소유할 수 없는 유일한 플랫폼입니다. 그릴 수
+있는 서피스에 이르는 모든 경로가 JNI를 거치고, JNI에는 cgo가 필요하기 때문입니다.X11과 Wayland처럼 대신 사용할 수 있는 와이어 프로토콜도 없습니다.&lt;/p&gt;
+&lt;p&gt;그래서 &lt;a href="https://github.com/go-widgets/android" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/android&lt;/code&gt;&lt;/a&gt;는 두 개의
+프로세스로 이루어집니다.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Java 호스트&lt;/strong&gt; (&lt;code&gt;host/&lt;/code&gt;)&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Activity&lt;/code&gt;, &lt;code&gt;SurfaceView&lt;/code&gt;, 터치, 키, 수명 주기를 소유합니다. 픽셀을 전송(blit)할 뿐 위젯에 대해서는 아무것도 모릅니다.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Go 애플리케이션&lt;/strong&gt; (&lt;code&gt;cmd/gwapp&lt;/code&gt;)&lt;/td&gt;
+&lt;td&gt;평범한 &lt;code&gt;CGO_ENABLED=0 GOOS=android&lt;/code&gt; 실행 파일입니다. 레이아웃, 위젯, 테마, 히트 테스트, 포커스를 소유하며, 다른 모든 백엔드와 다르지 않습니다.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Java 호스트는 Linux에서 X 서버가 있는 자리에 서 있습니다. 픽셀은 애플리케이션이
+만들어 소켓으로 호스트에 넘기는 &lt;strong&gt;memfd&lt;/strong&gt;를 통해 전달됩니다. Go 쪽은 RGBA_8888을
+쓰는데 이것은 Android의 ARGB_8888과 바이트 단위로 같으므로, 전송은 변환 없이 손상된(damaged) 사각형만 복사하는 것입니다. 입력, 인셋, IME 텍스트, 접근성 트리는 추상&lt;code&gt;LocalSocket&lt;/code&gt; 위의 프레임 프로토콜로 오갑니다.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;c&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;android&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Dial&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;my app&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// nil theme: toolkit.DefaultDark()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;errors&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Is&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;android&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ErrUnsupported&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// not under a host&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;defer&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Close&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;myWidgetTree&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="코드 복사"
+aria-label="코드 복사"
+data-copied-label="복사됨!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;Client&lt;/code&gt;는 &lt;code&gt;window&lt;/code&gt;의 &lt;code&gt;Backend&lt;/code&gt;를 만족하므로, 애플리케이션은 창 위쪽 코드를 한 줄도
+바꾸지 않고 Android와 데스크톱 백엔드 사이를 오갈 수 있습니다. 호스트의 소켓이
+있으면 &lt;a href="https://go-widgets.github.io/docs/0.2/ko/surfaces/native-window/#how-open-chooses"&gt;&lt;code&gt;window.Open&lt;/code&gt;&lt;/a&gt;이
+스스로 이것을 선택합니다.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="arm64-only"&gt;arm64 전용&lt;span class="hx:absolute hx:-mt-20" id="arm64-only"&gt;&lt;/span&gt;
+&lt;a href="#arm64-only" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;android/arm64&lt;/code&gt;는 Go가 cgo 없이 링크하는 유일한 Android 타깃이며, &lt;code&gt;arm&lt;/code&gt;, &lt;code&gt;amd64&lt;/code&gt;,&lt;code&gt;386&lt;/code&gt;은 외부 링킹이 필요합니다. CI는 빌드되는 하나와 빌드되지 않는 셋, 두 쪽을 모두
+검증하므로, Go가 이 제약을 풀면 빌드가 그것을 알려 줍니다.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="accessibility"&gt;접근성&lt;span class="hx:absolute hx:-mt-20" id="accessibility"&gt;&lt;/span&gt;
+&lt;a href="#accessibility" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;스크린 리더는 &lt;code&gt;SurfaceView&lt;/code&gt;를 하나의 불투명한 사각형으로 봅니다. 그래서 호스트는
+대신 가상 뷰 계층을 제공합니다. 접근 가능한 위젯마다 노드가 하나씩 있고, Android가
+안내 문구를 고르는 기준인 &lt;code&gt;android.widget.*&lt;/code&gt; 클래스, 텍스트, 경계, 활성화 동작을
+갖습니다. 트리는 누군가 읽을 때 &lt;strong&gt;끌어오며(pull)&lt;/strong&gt; 밀어 넣지 않으므로, 접근성
+서비스가 연결되지 않은 앱은 트리를 만들지 않습니다. 활성화는 요소 중앙에서의 평범한
+클릭으로 돌아오며, 터치와 같은 코드를 거칩니다.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="touch-and-animation"&gt;터치와 애니메이션&lt;span class="hx:absolute hx:-mt-20" id="touch-and-animation"&gt;&lt;/span&gt;
+&lt;a href="#touch-and-animation" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;각 터치 샘플은 터치 이벤트로, 그다음 마우스 이벤트로 트리에 도달합니다. 앞의 것은
+제스처를 인식하는 위젯을 위한 것이고, 뒤의 것은 클릭만 기다리는 많은 위젯을 위한
+것입니다. 애니메이션 위젯은 무언가 애니메이션을 시작할 때 시작하고 아무것도 하지
+않을 때 멈추는 프레임 루프로 진행됩니다.&lt;/p&gt;</description></item></channel></rss>

@@ -2,10 +2,8 @@
 &lt;h2 data-hextra-search-id="from-the-template"&gt;Depuis le modèle&lt;span class="hx:absolute hx:-mt-20" id="from-the-template"&gt;&lt;/span&gt;
 &lt;a href="#from-the-template" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;a href="https://github.com/go-widgets/app-template" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/app-template&lt;/code&gt;&lt;/a&gt; est un
 dépôt modèle : une petite mais vraie application de navigateur, avec un champ de
-recherche, un filtre par catégorie, la liste des lignes qui correspondent et une ligne d&amp;rsquo;état.
-Tout ce dont une application plus grande a besoin est déjà branché : un view-model qui ne
-contient aucun widget, une vue liée à celui-ci, un hôte wasm, une barrière de couverture à 100 %, et la
-&lt;a href="https://go-widgets.github.io/docs/0.2/fr/guard-rails/mvvmlint/"&gt;barrière MVVM&lt;/a&gt;.&lt;/p&gt;
+recherche, un filtre par catégorie, la liste des lignes qui correspondent et une ligne d&amp;rsquo;état.Tout ce dont une application plus grande a besoin est déjà branché : un view-model qui ne
+contient aucun widget, une vue liée à celui-ci, un hôte wasm, une barrière de couverture à 100 %, et la&lt;a href="https://go-widgets.github.io/docs/0.2/fr/guard-rails/mvvmlint/"&gt;barrière MVVM&lt;/a&gt;.&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
 &lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-sh" data-lang="sh"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git clone https://github.com/go-widgets/app-template my-app
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; my-app
@@ -45,8 +43,7 @@ data-copied-label="Copié !"
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;Modifiez les deux premiers et faites passer l&amp;rsquo;état par les binders : la tâche
-&lt;code&gt;mvvm&lt;/code&gt; de la CI fait échouer une pull request qui affecte directement un champ d&amp;rsquo;un widget.&lt;/p&gt;
+&lt;p&gt;Modifiez les deux premiers et faites passer l&amp;rsquo;état par les binders : la tâche&lt;code&gt;mvvm&lt;/code&gt; de la CI fait échouer une pull request qui affecte directement un champ d&amp;rsquo;un widget.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="from-a-bare-window"&gt;Depuis une simple fenêtre&lt;span class="hx:absolute hx:-mt-20" id="from-a-bare-window"&gt;&lt;/span&gt;
 &lt;a href="#from-a-bare-window" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
 &lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;package&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;main&lt;/span&gt;&lt;span class="w"&gt;
@@ -120,6 +117,4 @@ le binaire pour chaque plateforme, depuis n&amp;rsquo;importe quelle machine.&lt
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;Pour voir le jeu de widgets avant d&amp;rsquo;écrire quoi que ce soit, ouvrez la
-&lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;galerie&lt;/a&gt; : chaque famille de widgets, en direct,
-dans un canvas de navigateur.&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;Pour voir le jeu de widgets avant d&amp;rsquo;écrire quoi que ce soit, ouvrez la&lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;galerie&lt;/a&gt; : chaque famille de widgets, en direct,dans un canvas de navigateur.&lt;/p&gt;</description></item></channel></rss>

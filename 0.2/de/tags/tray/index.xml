@@ -2,10 +2,7 @@
 &lt;h2 data-hextra-search-id="the-application"&gt;Die Anwendung&lt;span class="hx:absolute hx:-mt-20" id="the-application"&gt;&lt;/span&gt;
 &lt;a href="#the-application" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;a href="https://github.com/go-widgets/application" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/application&lt;/code&gt;&lt;/a&gt; ist die
 Schicht oberhalb von &lt;a href="https://go-widgets.github.io/docs/0.2/de/surfaces/native-window/"&gt;&lt;code&gt;window&lt;/code&gt;&lt;/a&gt;: Sie öffnet
-das Fenster, treibt seine Schleife, hängt ein Tray-Symbol an, sobald der erste Frame steht,
-reicht das aktuelle Erscheinungsbild des Systems (dunkel oder hell, Akzentfarbe, Systemschrift)
-an die Anwendung weiter, veröffentlicht den Barrierefreiheitsbaum und ruft &lt;code&gt;onReady&lt;/code&gt; auf,
-sobald der erste Frame auf dem Bildschirm ist.&lt;/p&gt;
+das Fenster, treibt seine Schleife, hängt ein Tray-Symbol an, sobald der erste Frame steht,reicht das aktuelle Erscheinungsbild des Systems (dunkel oder hell, Akzentfarbe, Systemschrift)an die Anwendung weiter, veröffentlicht den Barrierefreiheitsbaum und ruft &lt;code&gt;onReady&lt;/code&gt; auf,sobald der erste Frame auf dem Bildschirm ist.&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
 &lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;spec&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;application&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Spec&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;News Reader&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
@@ -31,25 +28,17 @@ data-copied-label="Kopiert!"
 &lt;/button&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;p&gt;&lt;code&gt;handler&lt;/code&gt; implementiert &lt;code&gt;Handler&lt;/code&gt; – &lt;code&gt;Frame&lt;/code&gt;, &lt;code&gt;Resize&lt;/code&gt;, Maus-, Scroll- und Tastatur-
-Ereignisse – und kann jede der optionalen Fähigkeiten implementieren: Erscheinungsbild,
-Tastenkürzel, Klicks und Tasten mit Modifikatoren, Sekundärklick, Kontextmenüs,
-Zwischenablage, Barrierefreiheit, native Bedienelemente. Die Schleife umhüllt den Handler nie;
-sie macht für jede Fähigkeit eine Typzusicherung und beachtet die, die sie findet. Ein Test durchläuft
+&lt;p&gt;&lt;code&gt;handler&lt;/code&gt; implementiert &lt;code&gt;Handler&lt;/code&gt; – &lt;code&gt;Frame&lt;/code&gt;, &lt;code&gt;Resize&lt;/code&gt;, Maus-, Scroll- und Tastatur-Ereignisse – und kann jede der optionalen Fähigkeiten implementieren: Erscheinungsbild,Tastenkürzel, Klicks und Tasten mit Modifikatoren, Sekundärklick, Kontextmenüs,Zwischenablage, Barrierefreiheit, native Bedienelemente. Die Schleife umhüllt den Handler nie;sie macht für jede Fähigkeit eine Typzusicherung und beachtet die, die sie findet. Ein Test durchläuft
 das Paket nach diesen Zusicherungen und schlägt fehl, wenn die Paketdokumentation
 nicht jede einzelne nennt.&lt;/p&gt;
-&lt;p&gt;Ein Tray, das nicht angehängt werden kann, ist ein Fehler von &lt;code&gt;Run&lt;/code&gt;, kein Schweigen:
-&lt;code&gt;errors.Is(err, tray.ErrNoBackend)&lt;/code&gt; sagt, warum. Eine Anwendung, die ihr
+&lt;p&gt;Ein Tray, das nicht angehängt werden kann, ist ein Fehler von &lt;code&gt;Run&lt;/code&gt;, kein Schweigen:&lt;code&gt;errors.Is(err, tray.ErrNoBackend)&lt;/code&gt; sagt, warum. Eine Anwendung, die ihr
 Fenster will, egal was mit dem Tray geschieht, lässt &lt;code&gt;Spec.Tray&lt;/code&gt; auf nil und betreibt selbst
 eines.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;Run&lt;/code&gt; schließt sein Fenster, wenn die Schleife zurückkehrt, sodass das „Open&amp;quot; einer Tray-Anwendung
-&lt;code&gt;Run&lt;/code&gt; erneut aufrufen kann, um ein frisches Fenster zu bekommen. Für einen Host, der kein
-Fenster ist – eine Desktop-Shell, ein Browser-Tab –, geben &lt;code&gt;Bind&lt;/code&gt; und &lt;code&gt;BindScaled&lt;/code&gt; eine
-&lt;code&gt;*toolkit.Surface&lt;/code&gt; zurück, die mit demselben Handler verdrahtet ist.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Run&lt;/code&gt; schließt sein Fenster, wenn die Schleife zurückkehrt, sodass das „Open&amp;quot; einer Tray-Anwendung&lt;code&gt;Run&lt;/code&gt; erneut aufrufen kann, um ein frisches Fenster zu bekommen. Für einen Host, der kein
+Fenster ist – eine Desktop-Shell, ein Browser-Tab –, geben &lt;code&gt;Bind&lt;/code&gt; und &lt;code&gt;BindScaled&lt;/code&gt; eine&lt;code&gt;*toolkit.Surface&lt;/code&gt; zurück, die mit demselben Handler verdrahtet ist.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="the-tray"&gt;Das Tray&lt;span class="hx:absolute hx:-mt-20" id="the-tray"&gt;&lt;/span&gt;
 &lt;a href="#the-tray" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Ein Tray-Symbol ist Betriebssystemintegration, kein gezeichnetes Widget, deshalb
-steuert &lt;a href="https://github.com/go-widgets/tray" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/tray&lt;/code&gt;&lt;/a&gt; die eigene API jeder Plattform,
-weiterhin mit &lt;code&gt;CGO_ENABLED=0&lt;/code&gt;:&lt;/p&gt;
+steuert &lt;a href="https://github.com/go-widgets/tray" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/tray&lt;/code&gt;&lt;/a&gt; die eigene API jeder Plattform,weiterhin mit &lt;code&gt;CGO_ENABLED=0&lt;/code&gt;:&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -97,9 +86,7 @@ data-copied-label="Kopiert!"
 &lt;/button&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;p&gt;Ein Programm, das bereits die Schleife eines Fensters betreibt, kann &lt;code&gt;Run&lt;/code&gt; seinen Hauptthread nicht überlassen:
-&lt;code&gt;Attach&lt;/code&gt; zeigt dasselbe Symbol an und kehrt zurück, und &lt;code&gt;Quit&lt;/code&gt; entfernt es wieder.&lt;/p&gt;
-&lt;p&gt;Die nativen Back-Ends sind standardmäßig aktiv; es gibt kein Build-Tag, an das man denken müsste.
-Auf einer Plattform ohne Back-End gibt &lt;code&gt;Run&lt;/code&gt; &lt;code&gt;ErrNoBackend&lt;/code&gt; zurück – der Unterschied
+&lt;p&gt;Ein Programm, das bereits die Schleife eines Fensters betreibt, kann &lt;code&gt;Run&lt;/code&gt; seinen Hauptthread nicht überlassen:&lt;code&gt;Attach&lt;/code&gt; zeigt dasselbe Symbol an und kehrt zurück, und &lt;code&gt;Quit&lt;/code&gt; entfernt es wieder.&lt;/p&gt;
+&lt;p&gt;Die nativen Back-Ends sind standardmäßig aktiv; es gibt kein Build-Tag, an das man denken müsste.Auf einer Plattform ohne Back-End gibt &lt;code&gt;Run&lt;/code&gt; &lt;code&gt;ErrNoBackend&lt;/code&gt; zurück – der Unterschied
 zwischen „hier gibt es kein Tray&amp;quot; und einem Tray, das stillschweigend nichts tut. Ein Test
 oder ein Headless-Dienst übergibt &lt;code&gt;WithBackend(tray.NewHeadless())&lt;/code&gt;.&lt;/p&gt;</description></item></channel></rss>

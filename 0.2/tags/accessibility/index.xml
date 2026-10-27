@@ -1,9 +1,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Accessibility</title><link>https://go-widgets.github.io/docs/0.2/tags/accessibility/</link><description>Recent content in Accessibility on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>en</language><atom:link href="https://go-widgets.github.io/docs/0.2/tags/accessibility/index.xml" rel="self" type="application/rss+xml"/><item><title>The toolkit</title><link>https://go-widgets.github.io/docs/0.2/rendering/toolkit/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/rendering/toolkit/</guid><description>
 &lt;p&gt;&lt;a href="https://github.com/go-widgets/toolkit" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/toolkit&lt;/code&gt;&lt;/a&gt; is the widget
-set. Every widget implements the same interface — &lt;code&gt;Bounds&lt;/code&gt;, &lt;code&gt;SetBounds&lt;/code&gt;,
-&lt;code&gt;Draw(p painter.Painter, theme *Theme)&lt;/code&gt;, &lt;code&gt;HitTest&lt;/code&gt;, &lt;code&gt;OnEvent&lt;/code&gt; — so a host
-treats a button, a table and an event calendar alike. Standard library only,
-&lt;code&gt;CGO_ENABLED=0&lt;/code&gt;, 100% statement coverage.&lt;/p&gt;
+set. Every widget implements the same interface — &lt;code&gt;Bounds&lt;/code&gt;, &lt;code&gt;SetBounds&lt;/code&gt;,&lt;code&gt;Draw(p painter.Painter, theme *Theme)&lt;/code&gt;, &lt;code&gt;HitTest&lt;/code&gt;, &lt;code&gt;OnEvent&lt;/code&gt; — so a host
+treats a button, a table and an event calendar alike. Standard library only,&lt;code&gt;CGO_ENABLED=0&lt;/code&gt;, 100% statement coverage.&lt;/p&gt;
 &lt;p&gt;At v0.329.0 it has &lt;strong&gt;160 exported widget types&lt;/strong&gt; in about &lt;strong&gt;69,000 lines&lt;/strong&gt; of
 widget code. Those two numbers are measured at that tag, not carried over: the
 toolkit&amp;rsquo;s README gives the commands, and they should be run again rather than
@@ -64,15 +62,13 @@ the figures repeated.&lt;/p&gt;
 &lt;a href="#ribbon" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Ribbon&lt;/code&gt; is an Office-style command ribbon: tabs of labelled groups holding
 large buttons (icon above the text), small ones (icon beside it), toggles, split
 buttons, drop-downs and a small gallery. It follows the Windows ribbon
-guidelines: as the window narrows each group steps down by priority — full,
-compact, icons only, then one pop-up button — so the ribbon shows the largest
+guidelines: as the window narrows each group steps down by priority — full,compact, icons only, then one pop-up button — so the ribbon shows the largest
 combination that fits; it collapses to its tabs (Ctrl+F1, or the chevron) and a
 tab then peeks at its body; Alt shows keytips; tooltips carry the shortcut and a
 description. Tab and toolbar navigation follow the WAI-ARIA patterns, and its
 boundaries and focus ring keep 3:1 contrast in light and dark themes.&lt;/p&gt;
 &lt;p&gt;Every control is a view on an &lt;code&gt;Action&lt;/code&gt; — the one command a menu, a palette and
-the ribbon share — and &lt;code&gt;NewCommandAction&lt;/code&gt; makes one from a view-model
-&lt;code&gt;mvvm.Command&lt;/code&gt;, so its &lt;code&gt;CanExecute&lt;/code&gt; greys the control. The active tab, the
+the ribbon share — and &lt;code&gt;NewCommandAction&lt;/code&gt; makes one from a view-model&lt;code&gt;mvvm.Command&lt;/code&gt;, so its &lt;code&gt;CanExecute&lt;/code&gt; greys the control. The active tab, the
 collapsed state, a toggle and a drop-down&amp;rsquo;s choice are &lt;code&gt;mvvm.Observable&lt;/code&gt;s. Put
 the ribbon under a &lt;code&gt;PopoverHost&lt;/code&gt; and its menus draw over the page with no host
 code.&lt;/p&gt;
@@ -99,15 +95,11 @@ data-copied-label="Copied!"
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;h2 data-hextra-search-id="splitter"&gt;Splitter&lt;span class="hx:absolute hx:-mt-20" id="splitter"&gt;&lt;/span&gt;
-&lt;a href="#splitter" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Splitter&lt;/code&gt; lays N panes side by side (or one above the other, with
-&lt;code&gt;vertical&lt;/code&gt; true) and puts a draggable, focusable divider between each
+&lt;a href="#splitter" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Splitter&lt;/code&gt; lays N panes side by side (or one above the other, with&lt;code&gt;vertical&lt;/code&gt; true) and puts a draggable, focusable divider between each
 neighbouring pair, after the WAI-ARIA window-splitter pattern. A pane is
 either &lt;strong&gt;fixed&lt;/strong&gt; — its &lt;code&gt;Size&lt;/code&gt;, in logical pixels, is an &lt;code&gt;mvvm.Observable[int]&lt;/code&gt;
-the divider writes — or &lt;strong&gt;flexible&lt;/strong&gt;, sharing what the fixed panes leave by its
-&lt;code&gt;Weight&lt;/code&gt;, also an &lt;code&gt;Observable&lt;/code&gt;. Each pane has a &lt;code&gt;Min&lt;/code&gt; and a &lt;code&gt;Max&lt;/code&gt;. A
-&lt;code&gt;Collapsible&lt;/code&gt; fixed pane closes (size 0) when the divider is pulled below half
-its &lt;code&gt;Min&lt;/code&gt;, or on a double-click or Enter, and opens again the same way. A pane&amp;rsquo;s
-&lt;code&gt;Visible&lt;/code&gt; observable switches it and its divider off. Because the sizes live in
+the divider writes — or &lt;strong&gt;flexible&lt;/strong&gt;, sharing what the fixed panes leave by its&lt;code&gt;Weight&lt;/code&gt;, also an &lt;code&gt;Observable&lt;/code&gt;. Each pane has a &lt;code&gt;Min&lt;/code&gt; and a &lt;code&gt;Max&lt;/code&gt;. A&lt;code&gt;Collapsible&lt;/code&gt; fixed pane closes (size 0) when the divider is pulled below half
+its &lt;code&gt;Min&lt;/code&gt;, or on a double-click or Enter, and opens again the same way. A pane&amp;rsquo;s&lt;code&gt;Visible&lt;/code&gt; observable switches it and its divider off. Because the sizes live in
 observables, a view-model can bind, persist and restore them; &lt;code&gt;OnResized&lt;/code&gt; is
 called once per finished gesture with the panes the person changed, never for a
 layout that merely followed a window resize.&lt;/p&gt;
@@ -135,10 +127,7 @@ data-copied-label="Copied!"
 &lt;p&gt;A divider takes the focus: the arrow keys (Up and Down when vertical) move it
 by &lt;code&gt;Step&lt;/code&gt; logical pixels, four times that with Shift; Home and End take the pane
 before it to its smallest and largest; Enter collapses or restores the fixed
-pane it controls; Tab moves between dividers. Each divider is a
-&lt;code&gt;RoleSeparator&lt;/code&gt; with &lt;code&gt;aria-valuemin&lt;/code&gt;, &lt;code&gt;aria-valuemax&lt;/code&gt; and &lt;code&gt;aria-valuenow&lt;/code&gt;, named
-&amp;ldquo;Resize&amp;rdquo; and the pane&amp;rsquo;s &lt;code&gt;Name&lt;/code&gt;. &lt;code&gt;Cursor(x, y)&lt;/code&gt; returns &lt;code&gt;&amp;quot;col-resize&amp;quot;&lt;/code&gt; or
-&lt;code&gt;&amp;quot;row-resize&amp;quot;&lt;/code&gt; over a divider, and &lt;code&gt;SplitterColors(theme)&lt;/code&gt; gives the divider
+pane it controls; Tab moves between dividers. Each divider is a&lt;code&gt;RoleSeparator&lt;/code&gt; with &lt;code&gt;aria-valuemin&lt;/code&gt;, &lt;code&gt;aria-valuemax&lt;/code&gt; and &lt;code&gt;aria-valuenow&lt;/code&gt;, named&amp;ldquo;Resize&amp;rdquo; and the pane&amp;rsquo;s &lt;code&gt;Name&lt;/code&gt;. &lt;code&gt;Cursor(x, y)&lt;/code&gt; returns &lt;code&gt;&amp;quot;col-resize&amp;quot;&lt;/code&gt; or&lt;code&gt;&amp;quot;row-resize&amp;quot;&lt;/code&gt; over a divider, and &lt;code&gt;SplitterColors(theme)&lt;/code&gt; gives the divider
 line and accent, which keep 3:1 contrast against the background and surface in
 both default themes, as the focus ring does.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="themes"&gt;Themes&lt;span class="hx:absolute hx:-mt-20" id="themes"&gt;&lt;/span&gt;
@@ -163,16 +152,11 @@ data-copied-label="Copied!"
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;The face comes from &lt;a href="https://github.com/go-opentype/fonts" target="_blank" rel="noopener"&gt;go-opentype/fonts&lt;/a&gt;
-and is rasterised by &lt;a href="https://github.com/go-opentype/opentype" target="_blank" rel="noopener"&gt;go-opentype&lt;/a&gt;,
-in Go, with no C font library and no system font lookup.
-&lt;code&gt;NewTrueTypeFont(ttf, px)&lt;/code&gt; loads another face; &lt;code&gt;NewFallbackFont&lt;/code&gt; chains
+and is rasterised by &lt;a href="https://github.com/go-opentype/opentype" target="_blank" rel="noopener"&gt;go-opentype&lt;/a&gt;,in Go, with no C font library and no system font lookup.&lt;code&gt;NewTrueTypeFont(ttf, px)&lt;/code&gt; loads another face; &lt;code&gt;NewFallbackFont&lt;/code&gt; chains
 several, for example to add a CJK or Arabic face; a widget&amp;rsquo;s own &lt;code&gt;Font&lt;/code&gt; field
 overrides the global one for that widget alone.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="input"&gt;Input&lt;span class="hx:absolute hx:-mt-20" id="input"&gt;&lt;/span&gt;
-&lt;a href="#input" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Mouse, keyboard, IME composition, touch (&lt;code&gt;EventTouchStart&lt;/code&gt;/&lt;code&gt;Move&lt;/code&gt;/&lt;code&gt;End&lt;/code&gt;, with
-&lt;code&gt;GestureRecognizer&lt;/code&gt; for taps, long presses and swipes), drag and drop
-(&lt;code&gt;DragSource&lt;/code&gt;, &lt;code&gt;DropTarget&lt;/code&gt;). Multi-row selection in &lt;code&gt;ListBox&lt;/code&gt;, &lt;code&gt;Table&lt;/code&gt; and
-&lt;code&gt;TreeView&lt;/code&gt; works from the mouse and from the keyboard, and honours ⌘ as well
+&lt;a href="#input" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Mouse, keyboard, IME composition, touch (&lt;code&gt;EventTouchStart&lt;/code&gt;/&lt;code&gt;Move&lt;/code&gt;/&lt;code&gt;End&lt;/code&gt;, with&lt;code&gt;GestureRecognizer&lt;/code&gt; for taps, long presses and swipes), drag and drop(&lt;code&gt;DragSource&lt;/code&gt;, &lt;code&gt;DropTarget&lt;/code&gt;). Multi-row selection in &lt;code&gt;ListBox&lt;/code&gt;, &lt;code&gt;Table&lt;/code&gt; and&lt;code&gt;TreeView&lt;/code&gt; works from the mouse and from the keyboard, and honours ⌘ as well
 as Ctrl, because on macOS Ctrl-click is the secondary click.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="binary-size"&gt;Binary size: a program links what it uses&lt;span class="hx:absolute hx:-mt-20" id="binary-size"&gt;&lt;/span&gt;
 &lt;a href="#binary-size" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;The toolkit is one large package, and that is fine for the linker: Go&amp;rsquo;s
@@ -183,17 +167,9 @@ imported package&amp;rsquo;s &lt;code&gt;init&lt;/code&gt; reaches, so since v0.
 initializers empty of work and avoids importing packages whose &lt;code&gt;init&lt;/code&gt; drags
 code in:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;Material&lt;/code&gt; and &lt;code&gt;Thumbnail&lt;/code&gt; use the codec-free
-&lt;a href="https://github.com/go-images/images" target="_blank" rel="noopener"&gt;&lt;code&gt;github.com/go-images/images/ops&lt;/code&gt;&lt;/a&gt;,
-not &lt;code&gt;github.com/go-images/images&lt;/code&gt;, whose decoders register themselves in
-&lt;code&gt;init&lt;/code&gt; (about 1.7 MB of WebAssembly code).&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;CollabText&lt;/code&gt;, &lt;code&gt;NewCollabText&lt;/code&gt;, &lt;code&gt;MetaName&lt;/code&gt; and &lt;code&gt;MetaColor&lt;/code&gt; moved to
-&lt;strong&gt;&lt;code&gt;github.com/go-widgets/toolkit/collabui&lt;/code&gt;&lt;/strong&gt;: they need a live
-&lt;code&gt;go-crdt/collab&lt;/code&gt; session, whose transports pull &lt;code&gt;net/http&lt;/code&gt; and &lt;code&gt;crypto/tls&lt;/code&gt;.
-&lt;code&gt;CollabSheet&lt;/code&gt; and &lt;code&gt;IsoCRDTDocument&lt;/code&gt; need only &lt;code&gt;go-crdt/crdt&lt;/code&gt; and stay in
-&lt;code&gt;toolkit&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;The e-mail &lt;code&gt;Rule&lt;/code&gt;&amp;rsquo;s regexp, the built-in iso icon registry and the
-&lt;code&gt;RichEditorToolbar&lt;/code&gt; button table are built the first time they are used, not
+&lt;li&gt;&lt;code&gt;Material&lt;/code&gt; and &lt;code&gt;Thumbnail&lt;/code&gt; use the codec-free&lt;a href="https://github.com/go-images/images" target="_blank" rel="noopener"&gt;&lt;code&gt;github.com/go-images/images/ops&lt;/code&gt;&lt;/a&gt;,not &lt;code&gt;github.com/go-images/images&lt;/code&gt;, whose decoders register themselves in&lt;code&gt;init&lt;/code&gt; (about 1.7 MB of WebAssembly code).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CollabText&lt;/code&gt;, &lt;code&gt;NewCollabText&lt;/code&gt;, &lt;code&gt;MetaName&lt;/code&gt; and &lt;code&gt;MetaColor&lt;/code&gt; moved to&lt;strong&gt;&lt;code&gt;github.com/go-widgets/toolkit/collabui&lt;/code&gt;&lt;/strong&gt;: they need a live&lt;code&gt;go-crdt/collab&lt;/code&gt; session, whose transports pull &lt;code&gt;net/http&lt;/code&gt; and &lt;code&gt;crypto/tls&lt;/code&gt;.&lt;code&gt;CollabSheet&lt;/code&gt; and &lt;code&gt;IsoCRDTDocument&lt;/code&gt; need only &lt;code&gt;go-crdt/crdt&lt;/code&gt; and stay in&lt;code&gt;toolkit&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;The e-mail &lt;code&gt;Rule&lt;/code&gt;&amp;rsquo;s regexp, the built-in iso icon registry and the&lt;code&gt;RichEditorToolbar&lt;/code&gt; button table are built the first time they are used, not
 by initializers.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;⛔ &lt;strong&gt;The move is a breaking change, with no deprecated forwarder.&lt;/strong&gt; Change the
@@ -231,14 +207,11 @@ import of the four names above to &lt;code&gt;collabui&lt;/code&gt;; nothing els
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;What remains is mostly the runtime and the OpenType stack the text renderer
-needs. To see what keeps a symbol in your own program, build with
-&lt;code&gt;-ldflags=-dumpdep&lt;/code&gt; and follow the first-parent chain from the symbol back to
-&lt;code&gt;main.main&lt;/code&gt; or &lt;code&gt;go:main.inittasks&lt;/code&gt;.&lt;/p&gt;
+needs. To see what keeps a symbol in your own program, build with&lt;code&gt;-ldflags=-dumpdep&lt;/code&gt; and follow the first-parent chain from the symbol back to&lt;code&gt;main.main&lt;/code&gt; or &lt;code&gt;go:main.inittasks&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;v0.345.0 also adds &lt;code&gt;ColorHex&lt;/code&gt; and &lt;code&gt;ParseColorHex&lt;/code&gt;, to write a colour as hex and
 read it back.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="accessibility"&gt;Accessibility&lt;span class="hx:absolute hx:-mt-20" id="accessibility"&gt;&lt;/span&gt;
 &lt;a href="#accessibility" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;A toolkit that paints its own pixels gives a screen reader nothing to read
-unless it says what it drew. Widgets implement &lt;code&gt;Accessible&lt;/code&gt; — a role, a name,
-a value — and &lt;code&gt;CollectA11y&lt;/code&gt; gathers them for the host to publish: AT-SPI on
+unless it says what it drew. Widgets implement &lt;code&gt;Accessible&lt;/code&gt; — a role, a name,a value — and &lt;code&gt;CollectA11y&lt;/code&gt; gathers them for the host to publish: AT-SPI on
 Linux through &lt;a href="https://go-widgets.github.io/docs/0.2/surfaces/native-window/"&gt;&lt;code&gt;window&lt;/code&gt;&lt;/a&gt;, and a
 virtual view hierarchy on &lt;a href="https://go-widgets.github.io/docs/0.2/surfaces/android/#accessibility"&gt;Android&lt;/a&gt;.&lt;/p&gt;</description></item></channel></rss>

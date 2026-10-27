@@ -1,6 +1,5 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Modules</title><link>https://go-widgets.github.io/docs/0.2/tags/modules/</link><description>Recent content in Modules on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>en</language><atom:link href="https://go-widgets.github.io/docs/0.2/tags/modules/index.xml" rel="self" type="application/rss+xml"/><item><title>Modules</title><link>https://go-widgets.github.io/docs/0.2/modules/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/modules/</guid><description>
-&lt;p&gt;The API reference is generated from the source by
-&lt;a href="https://pkg.go.dev/" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;, which follows the released tags; these
+&lt;p&gt;The API reference is generated from the source by&lt;a href="https://pkg.go.dev/" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;, which follows the released tags; these
 pages explain, and do not copy it. The tag is the newest one at the time of
 writing — the repository&amp;rsquo;s own tag list is the authority.&lt;/p&gt;
 &lt;table&gt;
@@ -135,8 +134,7 @@ writing — the repository&amp;rsquo;s own tag list is the authority.&lt;/p&gt;
 of a library.&lt;/li&gt;
 &lt;li&gt;Cross-compiled for amd64, arm64, riscv64, loong64, ppc64le and s390x — the
 last big-endian, which keeps every wire encoding honest — and, where it
-applies, &lt;code&gt;js/wasm&lt;/code&gt;. All seventeen libraries and tools do since 2026-10-10;
-the other two are browser applications (&lt;a href="https://go-widgets.github.io/docs/0.2/status/#what-ci-does-not-cover-yet"&gt;Status&lt;/a&gt;).&lt;/li&gt;
+applies, &lt;code&gt;js/wasm&lt;/code&gt;. All seventeen libraries and tools do since 2026-10-10;the other two are browser applications (&lt;a href="https://go-widgets.github.io/docs/0.2/status/#what-ci-does-not-cover-yet"&gt;Status&lt;/a&gt;).&lt;/li&gt;
 &lt;li&gt;A statement-coverage gate in CI: 100%, in all nineteen. Where a
 file cannot run in a test (a browser loop, a native run loop), the module
 says which file is left out and why. See &lt;a href="https://go-widgets.github.io/docs/0.2/status/"&gt;Status&lt;/a&gt;

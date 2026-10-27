@@ -27,5 +27,4 @@ data-copied-label="Copié !"
 &lt;p&gt;Le libellé devient le &lt;code&gt;&amp;lt;title&amp;gt;&lt;/code&gt; et l&amp;rsquo;&lt;code&gt;aria-label&lt;/code&gt; du SVG, échappés. Le paquet
 racine ne dépend de rien ; le sous-paquet &lt;code&gt;widget&lt;/code&gt; est séparé pour qu&amp;rsquo;un consommateur
 doté de son propre producteur de pixels n&amp;rsquo;entraîne pas la boîte à outils dans son graphe de modules.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;svg/cmd/gallery-render&lt;/code&gt; rend le catalogue de widgets, en clair et en sombre :
-&lt;a href="https://go-widgets.github.io/svg/" target="_blank" rel="noopener"&gt;go-widgets.github.io/svg&lt;/a&gt;.&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;&lt;code&gt;svg/cmd/gallery-render&lt;/code&gt; rend le catalogue de widgets, en clair et en sombre :&lt;a href="https://go-widgets.github.io/svg/" target="_blank" rel="noopener"&gt;go-widgets.github.io/svg&lt;/a&gt;.&lt;/p&gt;</description></item></channel></rss>

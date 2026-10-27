@@ -52,13 +52,10 @@ data-copied-label="¡Copiado!"
 &lt;/div&gt;
 &lt;h2 data-hextra-search-id="binding"&gt;Enlace&lt;span class="hx:absolute hx:-mt-20" id="binding"&gt;&lt;/span&gt;
 &lt;a href="#binding" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Los binders genéricos llegan a un widget mediante &lt;strong&gt;un puntero a su campo de
-valor y un puntero a su ranura de callback&lt;/strong&gt;: &lt;code&gt;BindField&lt;/code&gt; (bidireccional),
-&lt;code&gt;OneWay&lt;/code&gt;, &lt;code&gt;BindCommand&lt;/code&gt;, &lt;code&gt;BindList&lt;/code&gt;. Un widget dispara su callback desde su
-manejador de eventos y deja en silencio una escritura directa del campo, y
-&lt;code&gt;Observable.Set&lt;/code&gt; ignora un valor igual: así, un enlace bidireccional puede
+valor y un puntero a su ranura de callback&lt;/strong&gt;: &lt;code&gt;BindField&lt;/code&gt; (bidireccional),&lt;code&gt;OneWay&lt;/code&gt;, &lt;code&gt;BindCommand&lt;/code&gt;, &lt;code&gt;BindList&lt;/code&gt;. Un widget dispara su callback desde su
+manejador de eventos y deja en silencio una escritura directa del campo, y&lt;code&gt;Observable.Set&lt;/code&gt; ignora un valor igual: así, un enlace bidireccional puede
 hacer eco sin entrar en recursión.&lt;/p&gt;
-&lt;p&gt;El toolkit está pasando sus widgets a exponer su estado &lt;strong&gt;como&lt;/strong&gt; un observable
-(&lt;code&gt;Label.Text()&lt;/code&gt; devuelve un &lt;code&gt;*mvvm.Observable[string]&lt;/code&gt;). Entonces no hay ningún
+&lt;p&gt;El toolkit está pasando sus widgets a exponer su estado &lt;strong&gt;como&lt;/strong&gt; un observable(&lt;code&gt;Label.Text()&lt;/code&gt; devuelve un &lt;code&gt;*mvvm.Observable[string]&lt;/code&gt;). Entonces no hay ningún
 campo que inicializar ni ningún callback que componer, solo dos propiedades que
 deben coincidir: &lt;code&gt;BindTwoWay(src, dst, invalidate)&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Los widgets cuyo callback recibe varios argumentos tienen un pequeño adaptador
@@ -156,20 +153,15 @@ deshacer descarta la cola de rehacer.&lt;/p&gt;</description></item><item><title
 &lt;p&gt;&lt;a href="https://github.com/go-widgets/mvvmlint" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/mvvmlint&lt;/code&gt;&lt;/a&gt; solo actúa en
 los paquetes que importan el toolkit.&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Un campo de estado de un widget asignado a mano.&lt;/strong&gt; &lt;code&gt;entry.Text = &amp;quot;x&amp;quot;&lt;/code&gt;,
-donde el tipo estático de &lt;code&gt;entry&lt;/code&gt; es un widget del toolkit y &lt;code&gt;Text&lt;/code&gt; es un
-campo de estado, se señala. &lt;code&gt;&amp;amp;entry.Text&lt;/code&gt; —lo que reciben los
-&lt;a href="https://go-widgets.github.io/docs/0.2/es/state/mvvm/"&gt;binders&lt;/a&gt;— no es una asignación y nunca se
+&lt;li&gt;&lt;strong&gt;Un campo de estado de un widget asignado a mano.&lt;/strong&gt; &lt;code&gt;entry.Text = &amp;quot;x&amp;quot;&lt;/code&gt;,donde el tipo estático de &lt;code&gt;entry&lt;/code&gt; es un widget del toolkit y &lt;code&gt;Text&lt;/code&gt; es un
+campo de estado, se señala. &lt;code&gt;&amp;amp;entry.Text&lt;/code&gt; —lo que reciben los&lt;a href="https://go-widgets.github.io/docs/0.2/es/state/mvvm/"&gt;binders&lt;/a&gt;— no es una asignación y nunca se
 señala; tampoco un literal compuesto (&lt;code&gt;toolkit.Entry{Text: &amp;quot;x&amp;quot;}&lt;/code&gt;), ni la
 composición de un callback como &lt;code&gt;OnChange&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Widgets y ningún view-model.&lt;/strong&gt; Un paquete que importa el toolkit pero no
-&lt;code&gt;go-widgets/mvvm&lt;/code&gt; recibe un diagnóstico. &lt;code&gt;-requirevm=false&lt;/code&gt; lo desactiva para
+&lt;li&gt;&lt;strong&gt;Widgets y ningún view-model.&lt;/strong&gt; Un paquete que importa el toolkit pero no&lt;code&gt;go-widgets/mvvm&lt;/code&gt; recibe un diagnóstico. &lt;code&gt;-requirevm=false&lt;/code&gt; lo desactiva para
 una biblioteca de widgets que, con razón, no tiene view-model.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Los campos de estado son los de los widgets del toolkit (&lt;code&gt;Text&lt;/code&gt;, &lt;code&gt;Items&lt;/code&gt;,
-&lt;code&gt;Rows&lt;/code&gt;, &lt;code&gt;Root&lt;/code&gt;, &lt;code&gt;Selected&lt;/code&gt;, &lt;code&gt;Value&lt;/code&gt;, &lt;code&gt;Checked&lt;/code&gt;, …); &lt;code&gt;-statefields=&lt;/code&gt; sustituye la
-lista. Un archivo llamado &lt;code&gt;*_binding.go&lt;/code&gt;, o que contenga &lt;code&gt;//mvvmlint:allow&lt;/code&gt;,
-queda exento de la primera regla.&lt;/p&gt;
+&lt;p&gt;Los campos de estado son los de los widgets del toolkit (&lt;code&gt;Text&lt;/code&gt;, &lt;code&gt;Items&lt;/code&gt;,&lt;code&gt;Rows&lt;/code&gt;, &lt;code&gt;Root&lt;/code&gt;, &lt;code&gt;Selected&lt;/code&gt;, &lt;code&gt;Value&lt;/code&gt;, &lt;code&gt;Checked&lt;/code&gt;, …); &lt;code&gt;-statefields=&lt;/code&gt; sustituye la
+lista. Un archivo llamado &lt;code&gt;*_binding.go&lt;/code&gt;, o que contenga &lt;code&gt;//mvvmlint:allow&lt;/code&gt;,queda exento de la primera regla.&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
 &lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-sh" data-lang="sh"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;go install github.com/go-widgets/mvvmlint/cmd/mvvmlint@latest
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;go vet -vettool&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;go env GOPATH&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;/bin/mvvmlint&amp;#34;&lt;/span&gt; ./...&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
@@ -206,8 +198,7 @@ data-copied-label="¡Copiado!"
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/es/getting-started/"&gt;&lt;code&gt;app-template&lt;/code&gt;&lt;/a&gt; incluye este trabajo de serie.&lt;/p&gt;</description></item><item><title>El estado vive en un view-model</title><link>https://go-widgets.github.io/docs/0.2/es/state/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/es/state/</guid><description>
-&lt;p&gt;Los campos de un widget —el texto de una entrada, los elementos de una lista,
-las filas de una tabla— son su &lt;strong&gt;vista&lt;/strong&gt; del estado, no el estado. Una
+&lt;p&gt;Los campos de un widget —el texto de una entrada, los elementos de una lista,las filas de una tabla— son su &lt;strong&gt;vista&lt;/strong&gt; del estado, no el estado. Una
 aplicación que los asigna desde dondequiera que se encuentre dispersa su estado
 entre los puntos de llamada, y dos de esos puntos acaban por no ponerse de
 acuerdo sobre lo que hay en pantalla.&lt;/p&gt;

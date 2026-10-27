@@ -2,9 +2,7 @@
 &lt;h2 data-hextra-search-id="the-application"&gt;The application&lt;span class="hx:absolute hx:-mt-20" id="the-application"&gt;&lt;/span&gt;
 &lt;a href="#the-application" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;a href="https://github.com/go-widgets/application" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/application&lt;/code&gt;&lt;/a&gt; is the
 layer above &lt;a href="https://go-widgets.github.io/docs/0.2/surfaces/native-window/"&gt;&lt;code&gt;window&lt;/code&gt;&lt;/a&gt;: it opens
-the window, drives its loop, attaches a tray icon once the first frame is up,
-passes the live system appearance (dark or light, accent colour, system font)
-to the application, publishes the accessibility tree, and calls &lt;code&gt;onReady&lt;/code&gt;
+the window, drives its loop, attaches a tray icon once the first frame is up,passes the live system appearance (dark or light, accent colour, system font)to the application, publishes the accessibility tree, and calls &lt;code&gt;onReady&lt;/code&gt;
 once the first frame is on screen.&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
 &lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;spec&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;application&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Spec&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
@@ -32,23 +30,16 @@ data-copied-label="Copied!"
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;&lt;code&gt;handler&lt;/code&gt; implements &lt;code&gt;Handler&lt;/code&gt; — &lt;code&gt;Frame&lt;/code&gt;, &lt;code&gt;Resize&lt;/code&gt;, mouse, scroll and key
-events — and may implement any of the optional capabilities: appearance,
-shortcuts, modified clicks and keys, secondary click, context menus,
-clipboard, accessibility, native controls. The loop never wraps the handler;
-it type-asserts each capability and honours the ones it finds. A test walks
+events — and may implement any of the optional capabilities: appearance,shortcuts, modified clicks and keys, secondary click, context menus,clipboard, accessibility, native controls. The loop never wraps the handler;it type-asserts each capability and honours the ones it finds. A test walks
 the package for those assertions and fails if the package documentation does
 not name every one.&lt;/p&gt;
-&lt;p&gt;A tray that cannot be attached is &lt;code&gt;Run&lt;/code&gt;&amp;rsquo;s error, not a silence:
-&lt;code&gt;errors.Is(err, tray.ErrNoBackend)&lt;/code&gt; says why. An application that wants its
+&lt;p&gt;A tray that cannot be attached is &lt;code&gt;Run&lt;/code&gt;&amp;rsquo;s error, not a silence:&lt;code&gt;errors.Is(err, tray.ErrNoBackend)&lt;/code&gt; says why. An application that wants its
 window whatever happens to the tray leaves &lt;code&gt;Spec.Tray&lt;/code&gt; nil and runs one
 itself.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;Run&lt;/code&gt; closes its window when the loop returns, so a tray application&amp;rsquo;s
-&amp;ldquo;Open&amp;rdquo; can call &lt;code&gt;Run&lt;/code&gt; again for a fresh window. For a host that is not a
-window — a desktop shell, a browser tab — &lt;code&gt;Bind&lt;/code&gt; and &lt;code&gt;BindScaled&lt;/code&gt; return a
-&lt;code&gt;*toolkit.Surface&lt;/code&gt; wired to the same handler.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Run&lt;/code&gt; closes its window when the loop returns, so a tray application&amp;rsquo;s&amp;ldquo;Open&amp;rdquo; can call &lt;code&gt;Run&lt;/code&gt; again for a fresh window. For a host that is not a
+window — a desktop shell, a browser tab — &lt;code&gt;Bind&lt;/code&gt; and &lt;code&gt;BindScaled&lt;/code&gt; return a&lt;code&gt;*toolkit.Surface&lt;/code&gt; wired to the same handler.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="the-tray"&gt;The tray&lt;span class="hx:absolute hx:-mt-20" id="the-tray"&gt;&lt;/span&gt;
-&lt;a href="#the-tray" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;A tray icon is OS integration, not a painted widget, so
-&lt;a href="https://github.com/go-widgets/tray" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/tray&lt;/code&gt;&lt;/a&gt; drives each platform&amp;rsquo;s
+&lt;a href="#the-tray" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;A tray icon is OS integration, not a painted widget, so&lt;a href="https://github.com/go-widgets/tray" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/tray&lt;/code&gt;&lt;/a&gt; drives each platform&amp;rsquo;s
 own API, still with &lt;code&gt;CGO_ENABLED=0&lt;/code&gt;:&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
@@ -97,9 +88,7 @@ data-copied-label="Copied!"
 &lt;/button&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;p&gt;A program already running a window&amp;rsquo;s loop cannot give &lt;code&gt;Run&lt;/code&gt; its main thread:
-&lt;code&gt;Attach&lt;/code&gt; puts the same icon up and returns, and &lt;code&gt;Quit&lt;/code&gt; takes it down.&lt;/p&gt;
-&lt;p&gt;The native back-ends are on by default; there is no build tag to remember.
-On a platform with none, &lt;code&gt;Run&lt;/code&gt; returns &lt;code&gt;ErrNoBackend&lt;/code&gt; — the difference
+&lt;p&gt;A program already running a window&amp;rsquo;s loop cannot give &lt;code&gt;Run&lt;/code&gt; its main thread:&lt;code&gt;Attach&lt;/code&gt; puts the same icon up and returns, and &lt;code&gt;Quit&lt;/code&gt; takes it down.&lt;/p&gt;
+&lt;p&gt;The native back-ends are on by default; there is no build tag to remember.On a platform with none, &lt;code&gt;Run&lt;/code&gt; returns &lt;code&gt;ErrNoBackend&lt;/code&gt; — the difference
 between &amp;ldquo;there is no tray here&amp;rdquo; and a tray that silently does nothing. A test
 or a headless service passes &lt;code&gt;WithBackend(tray.NewHeadless())&lt;/code&gt;.&lt;/p&gt;</description></item></channel></rss>

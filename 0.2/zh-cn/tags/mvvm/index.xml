@@ -1,0 +1,202 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Mvvm</title><link>https://go-widgets.github.io/docs/0.2/zh-cn/tags/mvvm/</link><description>Recent content in Mvvm on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://go-widgets.github.io/docs/0.2/zh-cn/tags/mvvm/index.xml" rel="self" type="application/rss+xml"/><item><title>MVVM：可观察对象、命令、绑定器</title><link>https://go-widgets.github.io/docs/0.2/zh-cn/state/mvvm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/zh-cn/state/mvvm/</guid><description>
+&lt;p&gt;&lt;a href="https://github.com/go-widgets/mvvm" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/mvvm&lt;/code&gt;&lt;/a&gt; 只用泛型，不用反射。它的核心包完全不导入任何控件包，因此同一个视图模型既能驱动像素&lt;a href="https://go-widgets.github.io/docs/0.2/zh-cn/rendering/toolkit/"&gt;工具包&lt;/a&gt;，也能驱动&lt;a href="https://go-widgets.github.io/docs/0.2/zh-cn/surfaces/terminal/"&gt;终端控件&lt;/a&gt;。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;原语&lt;/th&gt;
+&lt;th&gt;作用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Observable[T]&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;一个属性：&lt;code&gt;Get&lt;/code&gt;、&lt;code&gt;Set&lt;/code&gt;、&lt;code&gt;Subscribe&lt;/code&gt;。设置相等的值不会有任何效果。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Command&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;一个操作，带有 &lt;code&gt;CanExecute&lt;/code&gt; 和 &lt;code&gt;RaiseCanExecuteChanged&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;ObservableList[T]&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;一个集合，会报告每一次插入、删除、替换、移动和重置&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 data-hextra-search-id="a-form"&gt;一个表单&lt;span class="hx:absolute hx:-mt-20" id="a-form"&gt;&lt;/span&gt;
+&lt;a href="#a-form" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kd"&gt;type&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;FormVM&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;struct&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Observable&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Names&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ObservableList&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Save&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Command&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;vm&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nx"&gt;FormVM&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewObservable&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Names&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;NewObservableList&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;]()}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Save&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewCommand&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Names&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Get&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Set&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;bool&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Get&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;!=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// CanExecute&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;BindCanExecute&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Save&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// Save greys out while the name is empty&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+aria-label="复制代码"
+data-copied-label="已复制！"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 data-hextra-search-id="binding"&gt;绑定&lt;span class="hx:absolute hx:-mt-20" id="binding"&gt;&lt;/span&gt;
+&lt;a href="#binding" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;通用绑定器通过&lt;strong&gt;指向控件值字段的指针和指向其回调槽的指针&lt;/strong&gt;来访问控件：&lt;code&gt;BindField&lt;/code&gt;（双向）、&lt;code&gt;OneWay&lt;/code&gt;、&lt;code&gt;BindCommand&lt;/code&gt;、&lt;code&gt;BindList&lt;/code&gt;。控件在事件处理函数中触发回调，而直接写字段则不会触发任何通知；&lt;code&gt;Observable.Set&lt;/code&gt; 又会忽略相等的值——因此双向绑定可以回响而不会递归。&lt;/p&gt;
+&lt;p&gt;工具包正在改为让控件把状态&lt;strong&gt;作为&lt;/strong&gt;可观察对象公开（&lt;code&gt;Label.Text()&lt;/code&gt; 返回一个&lt;code&gt;*mvvm.Observable[string]&lt;/code&gt;）。这样就没有需要初始化的字段，也没有需要组合的回调，只剩两个必须保持一致的属性：&lt;code&gt;BindTwoWay(src, dst, invalidate)&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;回调带有多个参数的控件，会在各个后端专属的包中得到一个具名的小型适配器，只有这些包才会导入后端：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;包&lt;/th&gt;
+&lt;th&gt;适配器&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mvvm/tkbind&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;BindRange&lt;/code&gt;（双手柄的 &lt;code&gt;RangeSlider&lt;/code&gt;）、&lt;code&gt;BindContainer&lt;/code&gt; 和 &lt;code&gt;BindCardActive&lt;/code&gt;（由列表或索引驱动容器的子项和卡片布局）、&lt;code&gt;BindStore&lt;/code&gt; 和 &lt;code&gt;BindTable&lt;/code&gt;（让 &lt;code&gt;Table&lt;/code&gt; 建立在&lt;a href="https://go-widgets.github.io/docs/0.2/zh-cn/state/data/"&gt;数据存储&lt;/a&gt;之上：排序、分组和经过校验的行内编辑）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mvvm/tuibind&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;BindDropdown&lt;/code&gt;、&lt;code&gt;BindTableSelection&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 data-hextra-search-id="mvvmtk-one-call-per-widget"&gt;mvvmtk：每个控件一次调用&lt;span class="hx:absolute hx:-mt-20" id="mvvmtk-one-call-per-widget"&gt;&lt;/span&gt;
+&lt;a href="#mvvmtk-one-call-per-widget" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;a href="https://github.com/go-widgets/mvvmtk" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/mvvmtk&lt;/code&gt;&lt;/a&gt; 填入每个工具包控件真实的字段名和回调名，因此视图从不需要写出它们：&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;unbind&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;mvvmtk&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;BindText&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;search&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Query&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;win&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Invalidate&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// search.Text ⇄ vm.Query&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;defer&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;unbind&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+aria-label="复制代码"
+data-copied-label="已复制！"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;辅助函数&lt;/th&gt;
+&lt;th&gt;方向&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;BindText&lt;/code&gt;（&lt;code&gt;SearchEntry&lt;/code&gt;）、&lt;code&gt;BindEntryText&lt;/code&gt;、&lt;code&gt;BindChecked&lt;/code&gt;、&lt;code&gt;BindSelectedIndex&lt;/code&gt;、&lt;code&gt;BindSpin&lt;/code&gt;、&lt;code&gt;BindListSelection&lt;/code&gt;、&lt;code&gt;BindViewSwitcher&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;双向&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;BindLabel&lt;/code&gt;、&lt;code&gt;BindProgress&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;视图模型 → 控件&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;BindListItems&lt;/code&gt;、&lt;code&gt;BindDropDownOptions&lt;/code&gt;、&lt;code&gt;BindViews&lt;/code&gt;、&lt;code&gt;BindTree&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;列表 → 控件&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;BindCommand&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;按钮的点击、其 &lt;code&gt;Disabled&lt;/code&gt; 状态及其变灰都跟随该命令&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;每个辅助函数都会返回一个 &lt;code&gt;unbind&lt;/code&gt;，用来解除绑定并恢复此前存在的回调。绑定到无法运行的命令上的按钮，不接受点击，不接受 Enter 或空格，也不能获得键盘焦点。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="undo-and-redo"&gt;撤销与重做&lt;span class="hx:absolute hx:-mt-20" id="undo-and-redo"&gt;&lt;/span&gt;
+&lt;a href="#undo-and-redo" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;mvvm/undo&lt;/code&gt; 是仅基于核心原语构建的命令栈，因此在任何视图下都能工作：&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;undo&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;New&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// unlimited, coalescing on; undo.WithLimit(n), undo.WithCoalescing(false)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Push&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;undo&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewCommand&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Write hello&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;do&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;undoIt&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Undo&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Redo&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;BindCommand&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;UndoCommand&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nx"&gt;undoBtn&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;OnClick&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;setEnabled&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;OneWay&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;UndoTextBinding&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nx"&gt;undoBtn&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Text&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;repaint&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// &amp;#34;Undo Write hello&amp;#34;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+aria-label="复制代码"
+data-copied-label="已复制！"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;连续的按键会合并为一步，在撤销之后再推入新命令会丢弃重做尾部。&lt;/p&gt;</description></item><item><title>mvvmlint：状态经由视图模型</title><link>https://go-widgets.github.io/docs/0.2/zh-cn/guard-rails/mvvmlint/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/zh-cn/guard-rails/mvvmlint/</guid><description>
+&lt;p&gt;&lt;a href="https://github.com/go-widgets/mvvmlint" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/mvvmlint&lt;/code&gt;&lt;/a&gt; 只在导入了工具包的包中触发。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;手工给控件的状态字段赋值。&lt;/strong&gt; &lt;code&gt;entry.Text = &amp;quot;x&amp;quot;&lt;/code&gt;，其中 &lt;code&gt;entry&lt;/code&gt; 的静态类型是工具包控件，&lt;code&gt;Text&lt;/code&gt; 是状态字段，会被标记。&lt;code&gt;&amp;amp;entry.Text&lt;/code&gt;——&lt;a href="https://go-widgets.github.io/docs/0.2/zh-cn/state/mvvm/"&gt;绑定器&lt;/a&gt;接受的形式——不是赋值，绝不会被标记；复合字面量（&lt;code&gt;toolkit.Entry{Text: &amp;quot;x&amp;quot;}&lt;/code&gt;）以及组装 &lt;code&gt;OnChange&lt;/code&gt; 之类的回调也不会。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;有控件却没有视图模型。&lt;/strong&gt; 导入了工具包却没有导入 &lt;code&gt;go-widgets/mvvm&lt;/code&gt; 的包，会得到一条诊断。对于确实没有视图模型的控件库，&lt;code&gt;-requirevm=false&lt;/code&gt; 可关闭此项。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;状态字段指的是工具包各控件的那些字段（&lt;code&gt;Text&lt;/code&gt;、&lt;code&gt;Items&lt;/code&gt;、&lt;code&gt;Rows&lt;/code&gt;、&lt;code&gt;Root&lt;/code&gt;、&lt;code&gt;Selected&lt;/code&gt;、&lt;code&gt;Value&lt;/code&gt;、&lt;code&gt;Checked&lt;/code&gt;，……）；&lt;code&gt;-statefields=&lt;/code&gt; 可替换该列表。名为 &lt;code&gt;*_binding.go&lt;/code&gt; 的文件，或包含 &lt;code&gt;//mvvmlint:allow&lt;/code&gt; 的文件，不受第一条规则约束。&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-sh" data-lang="sh"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;go install github.com/go-widgets/mvvmlint/cmd/mvvmlint@latest
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;go vet -vettool&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;go env GOPATH&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;/bin/mvvmlint&amp;#34;&lt;/span&gt; ./...&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+aria-label="复制代码"
+data-copied-label="已复制！"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-yaml" data-lang="yaml"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c"&gt;# .github/workflows/mvvm.yml&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;mvvm&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;on&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;pull_request&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;push&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;branches&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="l"&gt;main]&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;jobs&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;uses&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;go-widgets/mvvmlint/.github/workflows/mvvmlint.yml@main&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+aria-label="复制代码"
+data-copied-label="已复制！"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/zh-cn/getting-started/"&gt;&lt;code&gt;app-template&lt;/code&gt;&lt;/a&gt; 自带这个任务。&lt;/p&gt;</description></item><item><title>状态存放在视图模型中</title><link>https://go-widgets.github.io/docs/0.2/zh-cn/state/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/zh-cn/state/</guid><description>
+&lt;p&gt;控件的字段——输入框的文本、列表的条目、表格的行——是它对状态的&lt;strong&gt;视图&lt;/strong&gt;，而不是状态本身。如果应用在任何方便的地方直接给它们赋值，状态就会散落在各个调用点，而其中两处迟早会对屏幕上显示的内容产生分歧。&lt;/p&gt;
+&lt;p&gt;因此状态存放在**视图模型（view-model）**中：用可观察对象（observable）包装的普通 Go 值，不涉及任何控件，无需窗口即可测试。视图把每个控件绑定到视图模型一次，此后由绑定——而不是应用——负责让二者双向保持同步。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/zh-cn/state/mvvm/"&gt;MVVM&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Observable&lt;/code&gt;、&lt;code&gt;Command&lt;/code&gt;、&lt;code&gt;ObservableList&lt;/code&gt;；面向工具包和终端控件的绑定器；撤销与重做&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/zh-cn/state/data/"&gt;数据主干&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;带校验的类型化记录、查询，以及一个在本地或通过 gRPC 运行同一管线的存储&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/zh-cn/guard-rails/mvvmlint/"&gt;&lt;code&gt;mvvmlint&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;当拉取请求手工给控件的状态字段赋值时使其失败的 CI 检查&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;</description></item></channel></rss>

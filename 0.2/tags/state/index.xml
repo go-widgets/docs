@@ -52,8 +52,7 @@ data-copied-label="Copied!"
 &lt;/div&gt;
 &lt;h2 data-hextra-search-id="binding"&gt;Binding&lt;span class="hx:absolute hx:-mt-20" id="binding"&gt;&lt;/span&gt;
 &lt;a href="#binding" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;The generic binders reach a widget through a &lt;strong&gt;pointer to its value field and
-a pointer to its callback slot&lt;/strong&gt;: &lt;code&gt;BindField&lt;/code&gt; (two-way), &lt;code&gt;OneWay&lt;/code&gt;,
-&lt;code&gt;BindCommand&lt;/code&gt;, &lt;code&gt;BindList&lt;/code&gt;. A widget fires its callback from its event handler
+a pointer to its callback slot&lt;/strong&gt;: &lt;code&gt;BindField&lt;/code&gt; (two-way), &lt;code&gt;OneWay&lt;/code&gt;,&lt;code&gt;BindCommand&lt;/code&gt;, &lt;code&gt;BindList&lt;/code&gt;. A widget fires its callback from its event handler
 and leaves a direct field write silent, and &lt;code&gt;Observable.Set&lt;/code&gt; ignores an equal
 value — so a two-way binding can echo without recursing.&lt;/p&gt;
 &lt;p&gt;The toolkit is moving its widgets to exposing their state &lt;strong&gt;as&lt;/strong&gt; an
@@ -151,8 +150,7 @@ data-copied-label="Copied!"
 &lt;p&gt;A run of keystrokes coalesces into one step, and a push after an undo drops
 the redo tail.&lt;/p&gt;</description></item><item><title>The data spine</title><link>https://go-widgets.github.io/docs/0.2/state/data/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/state/data/</guid><description>
 &lt;p&gt;&lt;a href="https://github.com/go-widgets/data" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/data&lt;/code&gt;&lt;/a&gt; is headless: it
-imports the standard library and &lt;a href="https://go-widgets.github.io/docs/0.2/state/mvvm/"&gt;&lt;code&gt;mvvm&lt;/code&gt;&lt;/a&gt;,
-and no widget.&lt;/p&gt;
+imports the standard library and &lt;a href="https://go-widgets.github.io/docs/0.2/state/mvvm/"&gt;&lt;code&gt;mvvm&lt;/code&gt;&lt;/a&gt;,and no widget.&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -220,14 +218,11 @@ data-copied-label="Copied!"
 &lt;p&gt;&lt;code&gt;tkbind.BindTable&lt;/code&gt; puts a store behind a toolkit &lt;code&gt;Table&lt;/code&gt;: a header click
 sorts, a group-by groups, and a validated cell edit becomes a mutation through
 the proxy — the same round trip, local or remote.&lt;/p&gt;</description></item><item><title>State lives in a view-model</title><link>https://go-widgets.github.io/docs/0.2/state/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/state/</guid><description>
-&lt;p&gt;A widget&amp;rsquo;s fields — an entry&amp;rsquo;s text, a list&amp;rsquo;s items, a table&amp;rsquo;s rows — are its
-&lt;strong&gt;view&lt;/strong&gt; of the state, not the state. An application that assigns them from
+&lt;p&gt;A widget&amp;rsquo;s fields — an entry&amp;rsquo;s text, a list&amp;rsquo;s items, a table&amp;rsquo;s rows — are its&lt;strong&gt;view&lt;/strong&gt; of the state, not the state. An application that assigns them from
 wherever it happens to be scatters its state across call sites, and two of
 those call sites eventually disagree about what is on screen.&lt;/p&gt;
-&lt;p&gt;So state lives in a &lt;strong&gt;view-model&lt;/strong&gt;: plain Go values wrapped in observables,
-with no widget in sight, testable without a window. The view binds each widget
-to the view-model once, and from then on the binding — not the application —
-keeps them in step, in both directions.&lt;/p&gt;
+&lt;p&gt;So state lives in a &lt;strong&gt;view-model&lt;/strong&gt;: plain Go values wrapped in observables,with no widget in sight, testable without a window. The view binds each widget
+to the view-model once, and from then on the binding — not the application —keeps them in step, in both directions.&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;

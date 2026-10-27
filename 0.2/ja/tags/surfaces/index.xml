@@ -1,0 +1,418 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Surfaces</title><link>https://go-widgets.github.io/docs/0.2/ja/tags/surfaces/</link><description>Recent content in Surfaces on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>ja</language><atom:link href="https://go-widgets.github.io/docs/0.2/ja/tags/surfaces/index.xml" rel="self" type="application/rss+xml"/><item><title>ネイティブウィンドウ</title><link>https://go-widgets.github.io/docs/0.2/ja/surfaces/native-window/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/ja/surfaces/native-window/</guid><description>
+&lt;p&gt;&lt;a href="https://github.com/go-widgets/window" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/window&lt;/code&gt;&lt;/a&gt; は実際のウィンドウを開き、その中でウィジェットツリーを実行します。レイアウト、描画、表示、入力の &lt;code&gt;toolkit.Event&lt;/code&gt; への変換を、ウィンドウが閉じられるまで繰り返します。&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Config&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;Title&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Demo&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;!=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;defer&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Close&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;root&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// root is any toolkit.Widget&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="コードをコピー"
+aria-label="コードをコピー"
+data-copied-label="コピーしました！"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;Config&lt;/code&gt; では、&lt;strong&gt;論理ポイント&lt;/strong&gt;での初期サイズ（0 なら読みやすいデフォルト値）、&lt;code&gt;WM_CLASS&lt;/code&gt; のインスタンスとクラス、&lt;code&gt;Theme&lt;/code&gt;、&lt;code&gt;RenderScale&lt;/code&gt; も指定できます。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="how-open-chooses"&gt;Open の選び方&lt;span class="hx:absolute hx:-mt-20" id="how-open-chooses"&gt;&lt;/span&gt;
+&lt;a href="#how-open-chooses" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;プラットフォームと環境&lt;/th&gt;
+&lt;th&gt;バックエンド&lt;/th&gt;
+&lt;th&gt;画面への届き方&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Linux、&lt;code&gt;$GO_WIDGETS_GTK&lt;/code&gt; が設定されている&lt;/td&gt;
+&lt;td&gt;GTK4&lt;/td&gt;
+&lt;td&gt;GTK がウィンドウを所有し、フレームバッファは &lt;code&gt;GtkPicture&lt;/code&gt; で、ネイティブコントロールはその上にある本物の GTK ウィジェットです。libgtk-4 ランタイムが必要です。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Linux、&lt;code&gt;$WAYLAND_DISPLAY&lt;/code&gt; が設定されている&lt;/td&gt;
+&lt;td&gt;Wayland&lt;/td&gt;
+&lt;td&gt;コンポジターの Unix ソケット越しの xdg-shell&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Linux、それ以外で &lt;code&gt;$DISPLAY&lt;/code&gt; がある&lt;/td&gt;
+&lt;td&gt;X11&lt;/td&gt;
+&lt;td&gt;Unix ソケット越しの X11 コアプロトコル。MIT-SHM を使用&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;macOS&lt;/td&gt;
+&lt;td&gt;Cocoa&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://github.com/go-macos/objc" target="_blank" rel="noopener"&gt;go-macos/objc&lt;/a&gt;（purego）経由の &lt;code&gt;NSWindow&lt;/code&gt; と &lt;code&gt;NSView&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Windows&lt;/td&gt;
+&lt;td&gt;Win32&lt;/td&gt;
+&lt;td&gt;user32 と gdi32 のシステムコールによるトップレベルの &lt;code&gt;HWND&lt;/code&gt;、&lt;code&gt;StretchDIBits&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Android、&lt;code&gt;$GW_ANDROID_SOCKET&lt;/code&gt; が設定されている&lt;/td&gt;
+&lt;td&gt;Android ホスト&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/ja/surfaces/android/"&gt;Java ホスト&lt;/a&gt;へのフレーム化されたプロトコル。ピクセルは共有 memfd に置かれます&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Android、それ以外&lt;/td&gt;
+&lt;td&gt;Wayland または X11&lt;/td&gt;
+&lt;td&gt;Termux の下のシェルには、接続できるディスプレイサーバーがあります&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;js/wasm&lt;/code&gt;、wasmdesk の内部&lt;/td&gt;
+&lt;td&gt;wasmbox&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/ja/surfaces/browser/#a-window-on-the-wasmdesk-desktop"&gt;wasmdesk コンポジター&lt;/a&gt;のクライアント&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;js/wasm&lt;/code&gt;、通常のページ&lt;/td&gt;
+&lt;td&gt;ブラウザのタブ&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;webcanvas&lt;/code&gt; を通したページの &lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt;（&lt;code&gt;Config.Canvas&lt;/code&gt;、デフォルトは &lt;code&gt;&amp;quot;screen&amp;quot;&lt;/code&gt;）。コンポジター、&lt;code&gt;SharedArrayBuffer&lt;/code&gt;、クロスオリジン分離は不要です&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;それ以外&lt;/td&gt;
+&lt;td&gt;—&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;window.ErrUnsupported&lt;/code&gt;。クロスビルドもコンパイルできます&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;すべてのバックエンドは &lt;code&gt;CGO_ENABLED=0&lt;/code&gt; です。X11 のバックエンドは、ソケット越しにゼロから書かれたコアプロトコルで、Xlib も XCB も使いません。両方のバイトオーダー、Xauthority クッキー、キーシムのマッピング、サーバーのリクエストサイズに合わせてタイル分割する &lt;code&gt;PutImage&lt;/code&gt;、&lt;code&gt;SCM_RIGHTS&lt;/code&gt; で共有セグメントを渡す MIT-SHM の高速経路に対応しています。Windows は、&lt;code&gt;syscall.NewLazyDLL&lt;/code&gt; と &lt;code&gt;syscall.NewCallback&lt;/code&gt; のウィンドウプロシージャによって、プロセス自身の DLL を通じて操作されます。macOS は purego による Objective-C ランタイムを通じて操作されます。&lt;/p&gt;
+&lt;p&gt;各バックエンドのプラットフォームに依存しない部分（イベントのマッピング、座標計算、ピクセルのパッキング、ダメージ矩形）は、すべてのオペレーティングシステムで 100% カバーされたコーデックにあります。薄いプラットフォーム固有のグルーコードは、実環境で動作を検証しています。&lt;a href="https://go-widgets.github.io/docs/0.2/ja/status/"&gt;状況&lt;/a&gt;を参照してください。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="only-what-changed"&gt;変更された部分だけ&lt;span class="hx:absolute hx:-mt-20" id="only-what-changed"&gt;&lt;/span&gt;
+&lt;a href="#only-what-changed" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;DamageRenderer&lt;/code&gt; を実装するルート（&lt;code&gt;toolkit/scene.HostRoot&lt;/code&gt; など）は、再描画した矩形を報告し、GTK4 を除くすべてのバックエンドは、その矩形だけを表示します。X11 は MIT-SHM の &lt;code&gt;ShmPutImage&lt;/code&gt;、Wayland は &lt;code&gt;wl_shm&lt;/code&gt; のダメージ、そして Cocoa、Win32、Android、wasmbox、ブラウザのタブが対象です。最初のフレーム、リサイズ、X11 の &lt;code&gt;Expose&lt;/code&gt; では、引き続きサーフェス全体が表示されます。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="hidpi"&gt;HiDPI&lt;span class="hx:absolute hx:-mt-20" id="hidpi"&gt;&lt;/span&gt;
+&lt;a href="#hidpi" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;デフォルトでは、論理ポイント 1 つにつきフレームバッファのピクセルは 1 つです。UI は読みやすいサイズでレイアウトされ描画され、コンポジターがそれをアップサンプリングします。Windows では、ウィンドウがモニターごとの DPI 認識を宣言し、OS が論理フレームを物理的なクライアント領域に合わせて拡大縮小します。&lt;code&gt;RenderScale&lt;/code&gt; は、パネルの実際の解像度でのフレームバッファを要求しますが、これが正しいのは、デバイスピクセルでレイアウトするルートの場合だけです。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="screens-and-showing-and-hiding"&gt;スクリーン、表示と非表示&lt;span class="hx:absolute hx:-mt-20" id="screens-and-showing-and-hiding"&gt;&lt;/span&gt;
+&lt;a href="#screens-and-showing-and-hiding" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;window.Screens()&lt;/code&gt; は、接続されているディスプレイを、プライマリを先頭に、デスクトップのパネルを除いた論理ポイントで列挙し、&lt;code&gt;Open&lt;/code&gt; の前でも呼び出せます。スクリーンの名前はパネル自身のもの（EDID から得られる &lt;code&gt;&amp;quot;DELL U2720Q&amp;quot;&lt;/code&gt;）で、何も公開していない場合はコネクタ名（&lt;code&gt;&amp;quot;HDMI-1&amp;quot;&lt;/code&gt;）にフォールバックします。接続されている 2 つのパネルが同じ名前を公開している場合もフォールバックします。2 つを区別できない名前は名前とは言えないからです。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;window.Show&lt;/code&gt;、&lt;code&gt;Hide&lt;/code&gt;、&lt;code&gt;Raise&lt;/code&gt; は、開いているウィンドウを閉じずに画面から外し、また戻します。これは&lt;a href="https://go-widgets.github.io/docs/0.2/ja/surfaces/application/#the-tray"&gt;トレイアプリケーション&lt;/a&gt;が必要とする操作です。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;バックエンド&lt;/th&gt;
+&lt;th&gt;Show&lt;/th&gt;
+&lt;th&gt;Hide&lt;/th&gt;
+&lt;th&gt;Raise&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;X11&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;MapWindow&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;ICCCM の withdraw。タスクバーから消えます&lt;/td&gt;
+&lt;td&gt;マップ、前面へ、&lt;code&gt;_NET_ACTIVE_WINDOW&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Wayland&lt;/td&gt;
+&lt;td&gt;再度コミット&lt;/td&gt;
+&lt;td&gt;null バッファとコミット&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;ErrNotSupported&lt;/code&gt;：xdg-shell にはそのようなリクエストがありません&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;macOS&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;orderFront:&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;orderOut:&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;アプリをアクティブにし、&lt;code&gt;makeKeyAndOrderFront:&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Windows&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SW_SHOWNA&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SW_HIDE&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SW_RESTORE&lt;/code&gt; と &lt;code&gt;SetForegroundWindow&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;GTK、Android、wasmbox、ブラウザのタブ&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;ErrNotSupported&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;ErrNotSupported&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;ErrNotSupported&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;フォーカスを与えるかどうかはプラットフォームが決めます。フォーカス奪取の防止機能が働いている場合、&lt;code&gt;Raise&lt;/code&gt; はウィンドウに注意を求めるマークを付けるだけになることがあり、その結果を知ることはできません。&lt;/p&gt;</description></item><item><title>アプリケーションとそのトレイ</title><link>https://go-widgets.github.io/docs/0.2/ja/surfaces/application/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/ja/surfaces/application/</guid><description>
+&lt;h2 data-hextra-search-id="the-application"&gt;アプリケーション&lt;span class="hx:absolute hx:-mt-20" id="the-application"&gt;&lt;/span&gt;
+&lt;a href="#the-application" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;a href="https://github.com/go-widgets/application" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/application&lt;/code&gt;&lt;/a&gt; は&lt;a href="https://go-widgets.github.io/docs/0.2/ja/surfaces/native-window/"&gt;&lt;code&gt;window&lt;/code&gt;&lt;/a&gt; の上位のレイヤーです。ウィンドウを開き、そのループを回し、最初のフレームが表示されたらトレイアイコンを取り付け、システムの現在の外観（ダークかライトか、アクセントカラー、システムフォント）をアプリケーションに渡し、アクセシビリティツリーを公開し、最初のフレームが画面に表示されたら&lt;code&gt;onReady&lt;/code&gt; を呼び出します。&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;spec&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;application&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Spec&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;News Reader&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Identifier&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;com.example.reader&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Version&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;1.0.0&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Tray&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nx"&gt;tray&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Menu&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;tray&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewMenu&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="nf"&gt;Add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;tray&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Item&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Refresh&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;refresh&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;tray&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Item&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Quit&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;quit&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;cfg&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;application&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Config&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;Title&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;News Reader&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Width&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;1200&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Height&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;800&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;application&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;spec&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;cfg&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;handler&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Println&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;on screen&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="コードをコピー"
+aria-label="コードをコピー"
+data-copied-label="コピーしました！"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;handler&lt;/code&gt; は &lt;code&gt;Handler&lt;/code&gt;（&lt;code&gt;Frame&lt;/code&gt;、&lt;code&gt;Resize&lt;/code&gt;、マウス、スクロール、キーのイベント）を実装し、さらにオプションの機能（外観、ショートカット、修飾キー付きのクリックとキー、副クリック、コンテキストメニュー、クリップボード、アクセシビリティ、ネイティブコントロール）のどれでも実装できます。ループはハンドラをラップしません。各機能を型アサーションで確認し、見つかったものに対応します。テストがパッケージ内のそれらのアサーションを洗い出し、パッケージのドキュメントがそのすべてに言及していなければ失敗します。&lt;/p&gt;
+&lt;p&gt;取り付けられないトレイは、沈黙ではなく &lt;code&gt;Run&lt;/code&gt; のエラーになります。&lt;code&gt;errors.Is(err, tray.ErrNoBackend)&lt;/code&gt; で理由が分かります。トレイがどうなってもウィンドウは必要というアプリケーションは、&lt;code&gt;Spec.Tray&lt;/code&gt; を nil のままにして、自前でトレイを実行します。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Run&lt;/code&gt; はループが戻るときにウィンドウを閉じるので、トレイアプリケーションの「開く」から &lt;code&gt;Run&lt;/code&gt; をもう一度呼び出して新しいウィンドウを開けます。ウィンドウではないホスト（デスクトップシェルやブラウザのタブ）向けには、&lt;code&gt;Bind&lt;/code&gt; と&lt;code&gt;BindScaled&lt;/code&gt; が、同じハンドラに接続された &lt;code&gt;*toolkit.Surface&lt;/code&gt; を返します。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="the-tray"&gt;トレイ&lt;span class="hx:absolute hx:-mt-20" id="the-tray"&gt;&lt;/span&gt;
+&lt;a href="#the-tray" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;トレイアイコンは OS との統合であり、描画されるウィジェットではありません。そのため&lt;a href="https://github.com/go-widgets/tray" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/tray&lt;/code&gt;&lt;/a&gt; は各プラットフォーム固有の API を、やはり&lt;code&gt;CGO_ENABLED=0&lt;/code&gt; のまま操作します。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;プラットフォーム&lt;/th&gt;
+&lt;th&gt;API&lt;/th&gt;
+&lt;th&gt;経由するもの&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;macOS&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;NSStatusItem&lt;/code&gt;, &lt;code&gt;NSMenu&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;purego と Objective-C ランタイム&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Windows&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Shell_NotifyIcon&lt;/code&gt;, &lt;code&gt;TrackPopupMenu&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;golang.org/x/sys/windows&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Linux&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;StatusNotifierItem&lt;/code&gt;, &lt;code&gt;com.canonical.dbusmenu&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;DBus（Go で実装）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;menu&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;tray&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewMenu&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="nf"&gt;Add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;tray&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Item&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Open&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;open&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;tray&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Checkbox&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Notifications&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;setNotify&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;tray&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;SubMenu&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Recent&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;tray&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewMenu&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="nf"&gt;Add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;tray&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Item&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;file.txt&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;))),&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;tray&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Separator&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;tray&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Item&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Quit&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;t&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Quit&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}),&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;t&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;tray&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;New&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;iconPNG&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;SetTooltip&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;My App&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;SetMenu&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;menu&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;t&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Run&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// blocks on the platform&amp;#39;s loop until Quit&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="コードをコピー"
+aria-label="コードをコピー"
+data-copied-label="コピーしました！"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;ウィンドウのループをすでに実行しているプログラムは、&lt;code&gt;Run&lt;/code&gt; にメインスレッドを渡せません。&lt;code&gt;Attach&lt;/code&gt; は同じアイコンを表示して戻り、&lt;code&gt;Quit&lt;/code&gt; がそれを取り除きます。&lt;/p&gt;
+&lt;p&gt;ネイティブのバックエンドはデフォルトで有効で、覚えておくべきビルドタグはありません。バックエンドがないプラットフォームでは、&lt;code&gt;Run&lt;/code&gt; は &lt;code&gt;ErrNoBackend&lt;/code&gt; を返します。これは「ここにはトレイがない」ことと、何もせずに黙っているトレイとを区別するためです。テストやヘッドレスのサービスは &lt;code&gt;WithBackend(tray.NewHeadless())&lt;/code&gt; を渡します。&lt;/p&gt;</description></item><item><title>描画先</title><link>https://go-widgets.github.io/docs/0.2/ja/surfaces/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/ja/surfaces/</guid><description>
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;サーフェス&lt;/th&gt;
+&lt;th&gt;モジュール&lt;/th&gt;
+&lt;th&gt;ペインタ&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;X11、Wayland、macOS、Windows の&lt;a href="https://go-widgets.github.io/docs/0.2/ja/surfaces/native-window/"&gt;ネイティブウィンドウ&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;window&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;ピクセル&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;トレイアイコンとシステムの外観を備えた&lt;a href="https://go-widgets.github.io/docs/0.2/ja/surfaces/application/"&gt;アプリケーション&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;application&lt;/code&gt;, &lt;code&gt;tray&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;ピクセル&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/ja/surfaces/browser/"&gt;ブラウザのタブ&lt;/a&gt;：素の &lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;webcanvas&lt;/code&gt;、または &lt;code&gt;window&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;ピクセル&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/ja/surfaces/browser/#a-window-on-the-wasmdesk-desktop"&gt;ブラウザ上のデスクトップ&lt;/a&gt;：wasmdesk コンポジターのウィンドウ&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;window&lt;/code&gt;（wasmbox）&lt;/td&gt;
+&lt;td&gt;ピクセル&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/ja/surfaces/terminal/"&gt;ターミナル&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;tui&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;セル&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/ja/surfaces/android/"&gt;Android の APK&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;android&lt;/code&gt;, &lt;code&gt;window&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;ピクセル&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/ja/surfaces/snapshots/"&gt;画像&lt;/a&gt;：SVG または PNG&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;svg&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;ピクセル&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;ウィジェットツリーは、どのサーフェスでも変わりません。変わるのは、バッファを所有するのが誰か、入力を届けるのが誰か（ディスプレイサーバー、ブラウザ、ターミナル、Java ホスト）という点で、各バックエンドは、その入力を同じ&lt;code&gt;toolkit.Event&lt;/code&gt; に変換します。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="chosen-by-what-is-there"&gt;存在するものに応じて選ばれる&lt;span class="hx:absolute hx:-mt-20" id="chosen-by-what-is-there"&gt;&lt;/span&gt;
+&lt;a href="#chosen-by-what-is-there" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;window.Open&lt;/code&gt; はバックエンドの引数を取りません。環境、つまりビルド対象のプラットフォーム、&lt;code&gt;$WAYLAND_DISPLAY&lt;/code&gt;、&lt;code&gt;$DISPLAY&lt;/code&gt;、Android ホストがエクスポートするソケットを調べ、動作できるものを選びます。Linux 向けにビルドしたバイナリは、Wayland セッションでは Wayland ウィンドウを、X では X11 ウィンドウを開きます。同じ Android のバイナリが、APK の中ではホストに接続し、Termux の下では通常の Linux ウィンドウを開きます。&lt;a href="https://go-widgets.github.io/docs/0.2/ja/surfaces/native-window/#how-open-chooses"&gt;&lt;code&gt;Open&lt;/code&gt; の選び方&lt;/a&gt;を参照してください。&lt;/p&gt;</description></item><item><title>ブラウザのタブ</title><link>https://go-widgets.github.io/docs/0.2/ja/surfaces/browser/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/ja/surfaces/browser/</guid><description>
+&lt;p&gt;ツールキットは DOM に依存しない純粋な Go なので、&lt;code&gt;GOOS=js GOARCH=wasm&lt;/code&gt; で他のターゲットと同じようにビルドできます。その結果を人の目に届ける方法は 2 つあります。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="a-plain-canvas"&gt;素のキャンバス&lt;span class="hx:absolute hx:-mt-20" id="a-plain-canvas"&gt;&lt;/span&gt;
+&lt;a href="#a-plain-canvas" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;a href="https://github.com/go-widgets/webcanvas" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/webcanvas&lt;/code&gt;&lt;/a&gt; は、RGBA のフレームバッファを &lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; に転送し、DOM のポインタイベントとキーボードイベントをシーンに送り返します。コンポジターも &lt;code&gt;SharedArrayBuffer&lt;/code&gt; もクロスオリジン分離ヘッダーも不要で、どんな静的ホスティングでも配信できます。&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;//go:build js &amp;amp;&amp;amp; wasm&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;package&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;main&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;github.com/go-widgets/webcanvas&amp;#34;&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;webcanvas&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;screen&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;myScene&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="コードをコピー"
+aria-label="コードをコピー"
+data-copied-label="コピーしました！"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;シーンは &lt;code&gt;App&lt;/code&gt; を実装します。&lt;code&gt;Size&lt;/code&gt;、&lt;code&gt;Draw(buf []byte)&lt;/code&gt;、そしてイベントの種類ごとに 1 つのメソッドを持ち、各メソッドは何かが変わったかどうかを報告するので、変化のないフレームは再描画されません。&lt;code&gt;Ticker&lt;/code&gt;、&lt;code&gt;Animator&lt;/code&gt;、&lt;code&gt;Resizer&lt;/code&gt;、&lt;code&gt;Scroller&lt;/code&gt; も実装できます。&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;ギャラリー&lt;/a&gt;と&lt;a href="https://go-widgets.github.io/docs/0.2/ja/getting-started/"&gt;&lt;code&gt;app-template&lt;/code&gt;&lt;/a&gt; はこの方法で動いています。&lt;/p&gt;
+&lt;p&gt;あるいは &lt;code&gt;window&lt;/code&gt; に選ばせることもできます。window v0.87.0 以降、&lt;code&gt;js/wasm&lt;/code&gt; 向けにビルドされた&lt;a href="https://go-widgets.github.io/docs/0.2/ja/surfaces/native-window/#how-open-chooses"&gt;&lt;code&gt;window.Open&lt;/code&gt;&lt;/a&gt; は、通常のページ上では、&lt;code&gt;webcanvas&lt;/code&gt; を通してページの &lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt;（&lt;code&gt;Config.Canvas&lt;/code&gt;、デフォルトは &lt;code&gt;&amp;quot;screen&amp;quot;&lt;/code&gt;）に描画するバックエンドを返します。そのため、&lt;code&gt;window&lt;/code&gt; に対して書かれたアプリケーションは、そのままネイティブウィンドウとしても、ブラウザのタブでも、wasmdesk でも動作します。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="a-window-on-the-wasmdesk-desktop"&gt;wasmdesk デスクトップ上のウィンドウ&lt;span class="hx:absolute hx:-mt-20" id="a-window-on-the-wasmdesk-desktop"&gt;&lt;/span&gt;
+&lt;a href="#a-window-on-the-wasmdesk-desktop" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;wasmdesk のワーカー内では、&lt;a href="https://go-widgets.github.io/docs/0.2/ja/surfaces/native-window/"&gt;&lt;code&gt;window.Open&lt;/code&gt;&lt;/a&gt; は&lt;a href="https://github.com/wasmdesk/wasmbox" target="_blank" rel="noopener"&gt;wasmdesk/wasmbox&lt;/a&gt; ブラウザコンポジターのクライアントを返します。このクライアントは &lt;code&gt;SharedArrayBuffer&lt;/code&gt; にサーフェスを確保し、&lt;code&gt;MessagePort&lt;/code&gt; 越しに &lt;code&gt;hello&lt;/code&gt; を送り、&lt;code&gt;welcome&lt;/code&gt; を待ち、共有バッファに描画して &lt;code&gt;commit&lt;/code&gt; を送ります。&lt;code&gt;commit&lt;/code&gt; はサーフェス全体、またはダメージを受けた矩形だけです。コンポジターの &lt;code&gt;input&lt;/code&gt; メッセージは、X11 の場合と同様に &lt;code&gt;toolkit.Event&lt;/code&gt; になります。&lt;/p&gt;
+&lt;p&gt;したがって、&lt;code&gt;window&lt;/code&gt; に対して書かれたアプリケーションは、ネイティブウィンドウとしても、ブラウザのタブの中のデスクトップのウィンドウとしても、そのまま動作します。&lt;a href="https://github.com/go-widgets/desktop" target="_blank" rel="noopener"&gt;デスクトップシェルのデモ&lt;/a&gt;は、まさにそれを 1 つのソースから行います。&lt;/p&gt;
+&lt;p&gt;プロトコルのコーデックは、すべてのプラットフォームで 100% カバーされています。実際の動作の検証では、ヘッドレスのChromium を本物の wasmdesk コンポジターに対して実行します。クライアントを起動し、コンポジターが合成したピクセルを読み取り、クリックして、そのクリックがウィジェットに届いたことを確認します。&lt;/p&gt;</description></item><item><title>ターミナル</title><link>https://go-widgets.github.io/docs/0.2/ja/surfaces/terminal/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/ja/surfaces/terminal/</guid><description>
+&lt;p&gt;&lt;a href="https://github.com/go-widgets/tui" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/tui&lt;/code&gt;&lt;/a&gt; は、&lt;a href="https://go-widgets.github.io/docs/0.2/ja/rendering/painter/"&gt;セルペインタ&lt;/a&gt;を通して、ウィジェットツリーをターミナルのフレームに変換します。標準ライブラリのみで、&lt;code&gt;x/term&lt;/code&gt; も cgo も使いません。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="one-frame"&gt;1 フレーム&lt;span class="hx:absolute hx:-mt-20" id="one-frame"&gt;&lt;/span&gt;
+&lt;a href="#one-frame" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;_&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;tui&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;RenderOnce&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;os&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Stdout&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;widgets&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// nil theme: light&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="コードをコピー"
+aria-label="コードをコピー"
+data-copied-label="コピーしました！"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;RenderOnceSized(w, cols, rows, widgets, theme)&lt;/code&gt; はサイズを明示的に受け取ります。&lt;code&gt;RenderOnce&lt;/code&gt; は &lt;code&gt;COLUMNS&lt;/code&gt; と&lt;code&gt;LINES&lt;/code&gt; を読み取り、なければ 80×24 にフォールバックします。&lt;code&gt;TIOCGWINSZ&lt;/code&gt; を呼ばず、環境変数を読むことで、パッケージにプラットフォームごとのコードが入らずに済みます。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="an-interactive-program"&gt;対話型プログラム&lt;span class="hx:absolute hx:-mt-20" id="an-interactive-program"&gt;&lt;/span&gt;
+&lt;a href="#an-interactive-program" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;app&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;tui&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewApp&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;app&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Root&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;buildScene&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;app&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Keys&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;q&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;a&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nx"&gt;tui&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;App&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Quit&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;app&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Keys&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Ctrl+C&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;a&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nx"&gt;tui&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;App&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Quit&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;os&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Exit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;app&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Run&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="コードをコピー"
+aria-label="コードをコピー"
+data-copied-label="コピーしました！"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;Run&lt;/code&gt; は代替スクリーンと raw モードに入り、入力を &lt;code&gt;Root&lt;/code&gt; に振り分け（グローバルなキーハンドラが先）、&lt;code&gt;SIGWINCH&lt;/code&gt; に追従し、パニックのときも含め、必ずターミナルを元の状態に戻します。キーハンドラは &lt;code&gt;Consume&lt;/code&gt; を呼ぶと、そのイベントを&lt;code&gt;Root&lt;/code&gt; に渡さずに済ませられます。&lt;code&gt;InputTarget&lt;/code&gt; は、消費されなかったすべてのイベントを 1 つのウィジェットに送ります。コマンドパレットが、開いている間の入力を受け止めるのはこの仕組みです。&lt;code&gt;NewFocusRing&lt;/code&gt; は、フォームに Tab とShift+Tab での移動を与えます。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="widgets-sized-for-cells"&gt;セル向けにサイズを決めたウィジェット&lt;span class="hx:absolute hx:-mt-20" id="widgets-sized-for-cells"&gt;&lt;/span&gt;
+&lt;a href="#widgets-sized-for-cells" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;ツールキットのほとんどのウィジェットはピクセル単位で設計されています。そのパディングの定数は、セルペインタの下ではセル数として数えられ、膨らんでしまいます。そこで &lt;code&gt;tui&lt;/code&gt; には独自の&lt;strong&gt;セルネイティブ&lt;/strong&gt;なセットがあります。&lt;code&gt;TextEditor&lt;/code&gt;、&lt;code&gt;Entry&lt;/code&gt;、&lt;code&gt;Button&lt;/code&gt;、&lt;code&gt;CheckButton&lt;/code&gt;、&lt;code&gt;RadioButton&lt;/code&gt;、&lt;code&gt;Scale&lt;/code&gt;、&lt;code&gt;ProgressBar&lt;/code&gt;、&lt;code&gt;Sparkline&lt;/code&gt;、&lt;code&gt;ListBox&lt;/code&gt;、&lt;code&gt;TreeView&lt;/code&gt;、&lt;code&gt;Table&lt;/code&gt;、&lt;code&gt;MenuBar&lt;/code&gt;、&lt;code&gt;Notebook&lt;/code&gt;、&lt;code&gt;HSplit&lt;/code&gt;、&lt;code&gt;VSplit&lt;/code&gt;、&lt;code&gt;Dialog&lt;/code&gt;、&lt;code&gt;Dropdown&lt;/code&gt;、&lt;code&gt;Spinner&lt;/code&gt; などで、1 つのグリフが 1 つのセルになります。それぞれが依然として &lt;code&gt;toolkit.Widget&lt;/code&gt; なので、同じインスタンスをピクセルにも描画できます。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;TextEditor&lt;/code&gt; は読み書き可能なコードエディタです。ガター、元に戻す・やり直し、検索と置換、選択、行の移動、そして Go（&lt;code&gt;go/scanner&lt;/code&gt; を使用）、JavaScript と TypeScript、Python、Ruby、シェル、C と C++、Rust、JSON、YAML、HCL、TOML、LaTeX、Markdown のシンタックスハイライトを備え、外部依存はありません。&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-sh" data-lang="sh"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;go run ./cmd/tui-widgets &lt;span class="p"&gt;|&lt;/span&gt; less -R &lt;span class="c1"&gt;# every cell-native widget, one per slot&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;go run ./cmd/tui-widget-explorer &lt;span class="c1"&gt;# the same, interactive&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;go run ./cmd/tui-explorer &lt;span class="c1"&gt;# a file browser&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;go run ./cmd/tui-editor --file&lt;span class="o"&gt;=&lt;/span&gt;x.go &lt;span class="c1"&gt;# a modal editor&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="コードをコピー"
+aria-label="コードをコピー"
+data-copied-label="コピーしました！"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;2 つのデモプログラムは、実際の pty でエンド・ツー・エンドにテストされています。本物のキーのバイト列を入力し、描画されたフレームを検証します。&lt;/p&gt;</description></item><item><title>Android</title><link>https://go-widgets.github.io/docs/0.2/ja/surfaces/android/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/ja/surfaces/android/</guid><description>
+&lt;p&gt;Android は、CGO を使わないプロセスがウィンドウを所有できない唯一のプラットフォームです。描画可能なサーフェスへの経路はすべて JNI を通り、JNI には cgo が必要です。X11 や Wayland のように、代わりに話せるワイヤプロトコルもありません。&lt;/p&gt;
+&lt;p&gt;そのため &lt;a href="https://github.com/go-widgets/android" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/android&lt;/code&gt;&lt;/a&gt; は 2 つのプロセスで構成されます。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Java ホスト&lt;/strong&gt;（&lt;code&gt;host/&lt;/code&gt;）&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Activity&lt;/code&gt;、&lt;code&gt;SurfaceView&lt;/code&gt;、タッチ、キー、ライフサイクルを所有します。ピクセルを転送するだけで、ウィジェットについては何も知りません。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Go アプリケーション&lt;/strong&gt;（&lt;code&gt;cmd/gwapp&lt;/code&gt;）&lt;/td&gt;
+&lt;td&gt;通常の &lt;code&gt;CGO_ENABLED=0 GOOS=android&lt;/code&gt; の実行ファイルです。レイアウト、ウィジェット、テーマ、ヒットテスト、フォーカスを所有し、他のすべてのバックエンドと変わりません。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Java ホストは、Linux で X サーバーがいる位置に立ちます。ピクセルは、アプリケーションが作成してソケット経由でホストに渡す &lt;strong&gt;memfd&lt;/strong&gt; を通って届きます。Go 側は RGBA_8888 を書き込み、これは Android の ARGB_8888 とバイト単位で一致するので、転送は変換なしのコピーで、ダメージを受けた矩形だけが対象です。入力、インセット、IME のテキスト、アクセシビリティツリーは、抽象的な &lt;code&gt;LocalSocket&lt;/code&gt; 上のフレーム化されたプロトコルで受け渡されます。&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;c&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;android&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Dial&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;my app&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// nil theme: toolkit.DefaultDark()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;errors&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Is&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;android&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ErrUnsupported&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// not under a host&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;defer&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Close&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;myWidgetTree&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="コードをコピー"
+aria-label="コードをコピー"
+data-copied-label="コピーしました！"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;Client&lt;/code&gt; は &lt;code&gt;window&lt;/code&gt; の &lt;code&gt;Backend&lt;/code&gt; を満たすので、アプリケーションは、ウィンドウより上の行を 1 行も変えずに、Android とデスクトップのバックエンドの間を移れます。ホストのソケットがあれば、&lt;a href="https://go-widgets.github.io/docs/0.2/ja/surfaces/native-window/#how-open-chooses"&gt;&lt;code&gt;window.Open&lt;/code&gt;&lt;/a&gt; が自動的にそれを選びます。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="arm64-only"&gt;arm64 のみ&lt;span class="hx:absolute hx:-mt-20" id="arm64-only"&gt;&lt;/span&gt;
+&lt;a href="#arm64-only" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;android/arm64&lt;/code&gt; は、Go が cgo なしでリンクできる唯一の Android ターゲットです。&lt;code&gt;arm&lt;/code&gt;、&lt;code&gt;amd64&lt;/code&gt;、&lt;code&gt;386&lt;/code&gt; には外部リンクが必要です。CI は両方の側面、つまりビルドできる 1 つとできない 3 つを検証するので、Go がこの制限を解除した日には、ビルドがそれを知らせてくれます。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="accessibility"&gt;アクセシビリティ&lt;span class="hx:absolute hx:-mt-20" id="accessibility"&gt;&lt;/span&gt;
+&lt;a href="#accessibility" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;スクリーンリーダーには、&lt;code&gt;SurfaceView&lt;/code&gt; は 1 つの不透明な矩形にしか見えません。そこでホストは代わりに仮想ビュー階層を提供します。アクセシブルなウィジェットごとに 1 つのノードがあり、Android が読み上げ内容を選ぶ基準となる&lt;code&gt;android.widget.*&lt;/code&gt; クラス、テキスト、境界、そしてアクティベーションアクションを持ちます。ツリーは、何かが読み取るときに&lt;strong&gt;プル&lt;/strong&gt;され、プッシュされることはないので、アクセシビリティサービスが接続されていないアプリでは、ツリーが構築されることはありません。アクティベーションは、要素の中心への通常のクリックとして、タッチと同じコードを通って戻ってきます。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="touch-and-animation"&gt;タッチとアニメーション&lt;span class="hx:absolute hx:-mt-20" id="touch-and-animation"&gt;&lt;/span&gt;
+&lt;a href="#touch-and-animation" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;各タッチサンプルは、タッチイベントとしてツリーに届き、続いてマウスイベントとしても届きます。前者はジェスチャーに対応するウィジェット向け、後者はクリックだけを待つ多くのウィジェット向けです。アニメーションするウィジェットはフレームループで進みます。このループは何かがアニメーションを始めたときに開始し、何もアニメーションしなくなったときに停止します。&lt;/p&gt;</description></item><item><title>スナップショット：SVG または PNG としてのウィジェット</title><link>https://go-widgets.github.io/docs/0.2/ja/surfaces/snapshots/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/ja/surfaces/snapshots/</guid><description>
+&lt;p&gt;&lt;a href="https://github.com/go-widgets/svg" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/svg&lt;/code&gt;&lt;/a&gt; は、RGBA バッファを自己完結した SVG に変換します。&lt;code&gt;viewBox&lt;/code&gt; はレンダリングのピクセルサイズに固定され、ピクセルは &lt;code&gt;image-rendering: pixelated&lt;/code&gt; の下で base-64 のPNG として埋め込まれます。表示されるすべてのピクセルは、ウィジェットが描いたそのままのピクセルです。再ベクター化もフォントの代替もなく、どんなズームでもくっきり表示されます。&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;// any RGBA producer&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;svg&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Snapshot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;f&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;surface&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;h&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;my image&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;// a toolkit widget&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;btn&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewButton&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Click me&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;btn&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;SetBounds&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Rect&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;W&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;200&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;H&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;40&lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;widget&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Snapshot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;f&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;btn&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;200&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;40&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;DefaultLight&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;widget: button&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;widget&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;PNG&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;p&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;btn&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;200&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;40&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;DefaultLight&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="コードをコピー"
+aria-label="コードをコピー"
+data-copied-label="コピーしました！"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;ラベルは SVG の &lt;code&gt;&amp;lt;title&amp;gt;&lt;/code&gt; と &lt;code&gt;aria-label&lt;/code&gt; になり、エスケープされます。ルートパッケージは何にも依存しません。&lt;code&gt;widget&lt;/code&gt; サブパッケージは別になっているので、独自のピクセル生成元を持つ利用者が、ツールキットを自分のモジュールグラフに引き込むことはありません。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;svg/cmd/gallery-render&lt;/code&gt; は、ウィジェットのカタログをライトとダークでレンダリングします：&lt;a href="https://go-widgets.github.io/svg/" target="_blank" rel="noopener"&gt;go-widgets.github.io/svg&lt;/a&gt;。&lt;/p&gt;</description></item></channel></rss>

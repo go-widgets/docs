@@ -52,8 +52,7 @@ data-copied-label="Copied!"
 &lt;/div&gt;
 &lt;h2 data-hextra-search-id="binding"&gt;Binding&lt;span class="hx:absolute hx:-mt-20" id="binding"&gt;&lt;/span&gt;
 &lt;a href="#binding" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;The generic binders reach a widget through a &lt;strong&gt;pointer to its value field and
-a pointer to its callback slot&lt;/strong&gt;: &lt;code&gt;BindField&lt;/code&gt; (two-way), &lt;code&gt;OneWay&lt;/code&gt;,
-&lt;code&gt;BindCommand&lt;/code&gt;, &lt;code&gt;BindList&lt;/code&gt;. A widget fires its callback from its event handler
+a pointer to its callback slot&lt;/strong&gt;: &lt;code&gt;BindField&lt;/code&gt; (two-way), &lt;code&gt;OneWay&lt;/code&gt;,&lt;code&gt;BindCommand&lt;/code&gt;, &lt;code&gt;BindList&lt;/code&gt;. A widget fires its callback from its event handler
 and leaves a direct field write silent, and &lt;code&gt;Observable.Set&lt;/code&gt; ignores an equal
 value — so a two-way binding can echo without recursing.&lt;/p&gt;
 &lt;p&gt;The toolkit is moving its widgets to exposing their state &lt;strong&gt;as&lt;/strong&gt; an

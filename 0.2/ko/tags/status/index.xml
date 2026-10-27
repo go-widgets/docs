@@ -1,0 +1,137 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Status</title><link>https://go-widgets.github.io/docs/0.2/ko/tags/status/</link><description>Recent content in Status on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>ko</language><atom:link href="https://go-widgets.github.io/docs/0.2/ko/tags/status/index.xml" rel="self" type="application/rss+xml"/><item><title>상태</title><link>https://go-widgets.github.io/docs/0.2/ko/status/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/ko/status/</guid><description>
+&lt;p&gt;이 페이지들은 &lt;a href="https://go-widgets.github.io/docs/0.2/ko/modules/"&gt;모듈&lt;/a&gt;에 나열된 태그의 모듈과 대조해
+확인했습니다. 모듈의 README와 코드가 서로 다를 때는 코드를 따릅니다.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="proven-live"&gt;실제 환경에서 검증됨&lt;span class="hx:absolute hx:-mt-20" id="proven-live"&gt;&lt;/span&gt;
+&lt;a href="#proven-live" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;프로세스 내부에서 테스트한 코덱은 코덱만 증명합니다. 다음은 플랫폼 자체에 직접
+물어본 항목입니다.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;항목&lt;/th&gt;
+&lt;th&gt;검증한 환경&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;X11 창&lt;/td&gt;
+&lt;td&gt;Xvfb 아래의 CI: 알려진 패턴을 표시, 캡처, 샘플링하고, &lt;code&gt;xdotool&lt;/code&gt;로 클릭과 키 입력을 합성해 전달된 &lt;code&gt;toolkit.Event&lt;/code&gt;를 검증하며, &lt;code&gt;Show&lt;/code&gt;/&lt;code&gt;Hide&lt;/code&gt;/&lt;code&gt;Raise&lt;/code&gt;를 서버에서 다시 읽어 확인&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Cocoa 창&lt;/td&gt;
+&lt;td&gt;macOS CI 레인: 창을 열어 렌더링하고, 픽셀을 샘플링하며, 클릭과 키 입력을 합성하고, 다른 고루틴에서 실제 &lt;code&gt;NSWindow&lt;/code&gt;에 &lt;code&gt;Show&lt;/code&gt;/&lt;code&gt;Hide&lt;/code&gt;/&lt;code&gt;Raise&lt;/code&gt;를 요청한 뒤 AppKit에서 다시 읽어 확인&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Win32 창&lt;/td&gt;
+&lt;td&gt;Windows 11 arm64 VM: &lt;code&gt;VBox&lt;/code&gt;, &lt;code&gt;Label&lt;/code&gt;, &lt;code&gt;Button&lt;/code&gt;을 렌더링하는 실제 창에서, 주입한 세 번의 클릭이 윈도우 프로시저를 거쳐 카운터를 0에서 3까지 올림&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Wayland 창&lt;/td&gt;
+&lt;td&gt;xdg-shell의 map 및 unmap 규칙을 강제하는 가짜 컴포지터를 상대로 검증&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;wasmbox 창&lt;/td&gt;
+&lt;td&gt;실제 wasmdesk 컴포지터를 구동하는 헤드리스 Chromium: 합성된 픽셀을 다시 읽고, 실제 클릭이 위젯으로 라우팅됨&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Android&lt;/td&gt;
+&lt;td&gt;Android 15 arm64 기기: 변경 영역만 전송하는 blit을 측정하고, memfd 더티 메모리를 측정하고, 접근성 트리를 기기에서 벤치마크&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;macOS 트레이&lt;/td&gt;
+&lt;td&gt;실제 macOS 세션: 프로그램이 멈추면 아이콘이 메뉴 막대에서 사라지고, 시작하면 돌아오며, 메뉴가 열림&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Linux 트레이&lt;/td&gt;
+&lt;td&gt;실제 세션 버스를 쓰는 CI: 이름을 획득하고, 메뉴가 &lt;code&gt;GetLayout&lt;/code&gt;에 응답하며, &lt;code&gt;Quit&lt;/code&gt;가 이름을 반납함&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Windows 트레이&lt;/td&gt;
+&lt;td&gt;Windows 11 VM의 아이콘과 메뉴&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;터미널 데모&lt;/td&gt;
+&lt;td&gt;CI의 실제 pty: 키 바이트를 보내고 렌더링된 프레임을 검증&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 data-hextra-search-id="compiled-not-run"&gt;컴파일만 됨, 실행은 안 됨&lt;span class="hx:absolute hx:-mt-20" id="compiled-not-run"&gt;&lt;/span&gt;
+&lt;a href="#compiled-not-run" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;Win32 &lt;code&gt;Show&lt;/code&gt;/&lt;code&gt;Hide&lt;/code&gt;/&lt;code&gt;Raise&lt;/code&gt;: 결정 표는 단위 테스트를 거쳤지만, 창의 스레드에서의
+호출은 컴파일만 되었습니다.&lt;/li&gt;
+&lt;li&gt;Windows 트레이의 &lt;code&gt;Attach&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;webcanvas&lt;/code&gt;의 DOM 루프(&lt;code&gt;run_js.go&lt;/code&gt;): &lt;code&gt;js &amp;amp;&amp;amp; wasm&lt;/code&gt; 빌드 태그 뒤에 있어 측정되는
+커버리지 밖에 있으며, 이를 사용하는 애플리케이션이 실행해 봅니다.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;application&lt;/code&gt;의 네이티브 &lt;code&gt;Run&lt;/code&gt;: 실제 창을 여는 부분은 커버리지 게이트에서
+제외되며, 계약, 이벤트 변환, 준비 카운터는 커버됩니다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 data-hextra-search-id="not-done"&gt;아직 안 된 것&lt;span class="hx:absolute hx:-mt-20" id="not-done"&gt;&lt;/span&gt;
+&lt;a href="#not-done" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;Windows와 Linux 트레이는 &lt;code&gt;MenuItem.Icon&lt;/code&gt;을 무시합니다. 아이콘이 있는 행도
+아이콘 없이 그려집니다.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;window&lt;/code&gt;의 Wayland 백엔드는 &lt;code&gt;Raise&lt;/code&gt;를 할 수 없습니다. xdg-shell에 그런 요청이
+없고, xdg-activation에는 사용자 자신의 입력에서 얻은 토큰이 필요합니다.&lt;/li&gt;
+&lt;li&gt;Android: &lt;code&gt;android/arm64&lt;/code&gt;만 지원합니다. cgo 없이 Go가 링크하는 유일한 Android
+대상이기 때문입니다.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;window.Screens&lt;/code&gt;는 &lt;code&gt;js/wasm&lt;/code&gt;에서 &lt;code&gt;ErrScreensUnsupported&lt;/code&gt;를 반환합니다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 data-hextra-search-id="what-ci-does-not-cover-yet"&gt;CI가 다루는 범위&lt;span class="hx:absolute hx:-mt-20" id="what-ci-does-not-cover-yet"&gt;&lt;/span&gt;
+&lt;a href="#what-ci-does-not-cover-yet" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;2026-10-10에 이 페이지에 나열되어 있던 다섯 가지 공백이 해소되었습니다.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;모듈&lt;/th&gt;
+&lt;th&gt;이전&lt;/th&gt;
+&lt;th&gt;현재&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mvvmtk&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;커버리지 게이트 없음, amd64와 arm64만&lt;/td&gt;
+&lt;td&gt;툴킷이 쓰는 것과 똑같은 100% 게이트(이미 100.0%였음), Linux는 여섯 가지 전부&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;application&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Linux, macOS, Windows가 amd64만&lt;/td&gt;
+&lt;td&gt;Linux는 여섯 가지 전부, macOS와 Windows는 amd64와 arm64&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;tray&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;OS/아키텍처 조합 다섯 개&lt;/td&gt;
+&lt;td&gt;Linux는 여섯 가지 전부, macOS는 둘, Windows는 하나&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mvvmlint&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;크로스 빌드 없음&lt;/td&gt;
+&lt;td&gt;Linux는 여섯 가지 전부, macOS와 Windows&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;bricolint&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;다섯 개를 빌드하는 &amp;ldquo;6 arches&amp;rdquo; 단계&lt;/td&gt;
+&lt;td&gt;loong64 추가&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;그 결과 열일곱 개의 라이브러리와 도구가 이제 모두 여섯 가지 64비트 Linux
+아키텍처용으로 크로스 빌드되고, 열아홉 개 전부가 100% 구문 커버리지 게이트를
+통과합니다. &lt;code&gt;app-template&lt;/code&gt;과 &lt;code&gt;gallery&lt;/code&gt;는 브라우저 애플리케이션이며 유일한 대상인&lt;code&gt;js/wasm&lt;/code&gt;용으로 빌드됩니다.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="security"&gt;보안&lt;span class="hx:absolute hx:-mt-20" id="security"&gt;&lt;/span&gt;
+&lt;a href="#security" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;2026-10-10에 &lt;code&gt;govulncheck&lt;/code&gt;(심볼 수준: 모듈이 도달할 수 있는 코드만 대상)로
+측정했습니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;19개 모듈 중 15개가 취약한 코드에 도달했습니다. go1.27.1의 표준 라이브러리(&lt;code&gt;html/template&lt;/code&gt;, &lt;code&gt;net/http&lt;/code&gt;, &lt;code&gt;crypto/tls&lt;/code&gt;, &lt;code&gt;mime/multipart&lt;/code&gt;; go1.27.2에서
+수정)와 &lt;code&gt;golang.org/x/net&lt;/code&gt; v0.58.0(&lt;code&gt;data&lt;/code&gt;의 gRPC를 통한 &lt;code&gt;http2&lt;/code&gt;; v0.60.0에서
+수정)입니다.&lt;/li&gt;
+&lt;li&gt;같은 날 저녁에 수정했습니다. 모든 모듈의 CI가 go1.27.2로 빌드하고, 모든 모듈이&lt;code&gt;x/net&lt;/code&gt; v0.60.0을 요구합니다. 대부분의 모듈에서 이는 간접 요구 사항이라 Renovate가
+갱신하지 않으므로 수동으로 올렸습니다. 19개 모듈 전체에 대한 두 번째 &lt;code&gt;govulncheck&lt;/code&gt;
+검사에서는 도달 가능한 취약점이 나오지 않습니다.&lt;/li&gt;
+&lt;li&gt;릴리스(release): android v0.16.0, app-template v0.5.0, application v0.8.0,bricolint v0.4.1, data v0.4.0, mvvm v0.15.0, mvvmlint v0.4.1, mvvmtk
+v0.15.0, painter v0.16.0, skin v0.3.0, svg v0.7.0, tray v0.15.0, webcanvas
+v0.4.1, window v0.89.0이며, 각 버전은 &lt;code&gt;gorelease&lt;/code&gt;가 API로부터 도출했습니다.2026-10-11에는 toolkit v0.329.0, 그리고 tui v0.62.0, desktop v0.20.0, gallery
+v0.7.0, isoicons v0.4.0이 릴리스되었습니다. 이 네 모듈은 모듈 그래프가&lt;code&gt;github.com/ajroetker/go-highway/hwy/goat&lt;/code&gt; v0.0.0에 닿는데 이 버전은 게시된 적이
+없어(&lt;a href="https://github.com/ajroetker/go-highway/issues/73" target="_blank" rel="noopener"&gt;ajroetker/go-highway#73&lt;/a&gt;)&lt;code&gt;gorelease&lt;/code&gt;가 모듈 그래프를 로드하지 못하므로, 같은 규칙에 따라 linux, darwin,windows에서 &lt;code&gt;apidiff&lt;/code&gt;로 버전을 도출했습니다.&lt;/li&gt;
+&lt;li&gt;23개 저장소 전체의 워크플로(파일 31개)를 &lt;code&gt;actionlint&lt;/code&gt;와 &lt;code&gt;wfaudit&lt;/code&gt;로
+감사했습니다. 권한이 상승되는 트리거, 워크플로 수준의 쓰기 권한 부여, 업로드된
+체크아웃에 남은 토큰, 셸 단계의 신뢰할 수 없는 표현식은 없습니다. 모든 워크플로가
+권한을 명시적으로 선언하므로, 저장소의 기본 토큰에 의존하는 것은 없습니다.&lt;/li&gt;
+&lt;/ul&gt;</description></item></channel></rss>

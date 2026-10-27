@@ -1,0 +1,156 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Windows</title><link>https://go-widgets.github.io/docs/0.2/ko/tags/windows/</link><description>Recent content in Windows on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>ko</language><atom:link href="https://go-widgets.github.io/docs/0.2/ko/tags/windows/index.xml" rel="self" type="application/rss+xml"/><item><title>네이티브 창</title><link>https://go-widgets.github.io/docs/0.2/ko/surfaces/native-window/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/ko/surfaces/native-window/</guid><description>
+&lt;p&gt;&lt;a href="https://github.com/go-widgets/window" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/window&lt;/code&gt;&lt;/a&gt;는 실제 창을 열고 그 안에서
+위젯 트리를 실행합니다. 레이아웃, 그리기, 표시(present), 입력을 &lt;code&gt;toolkit.Event&lt;/code&gt;로
+변환하는 과정을 창이 닫힐 때까지 반복합니다.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Config&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;Title&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Demo&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;!=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;defer&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Close&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;root&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// root is any toolkit.Widget&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="코드 복사"
+aria-label="코드 복사"
+data-copied-label="복사됨!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;Config&lt;/code&gt;는 &lt;strong&gt;논리 포인트&lt;/strong&gt;(logical point) 단위의 초기 크기(0이면 읽기 편한 기본값을
+요청), &lt;code&gt;WM_CLASS&lt;/code&gt; 인스턴스와 클래스, &lt;code&gt;Theme&lt;/code&gt;, &lt;code&gt;RenderScale&lt;/code&gt;도 받습니다.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="how-open-chooses"&gt;Open이 선택하는 방법&lt;span class="hx:absolute hx:-mt-20" id="how-open-chooses"&gt;&lt;/span&gt;
+&lt;a href="#how-open-chooses" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;플랫폼과 환경&lt;/th&gt;
+&lt;th&gt;백엔드&lt;/th&gt;
+&lt;th&gt;화면에 도달하는 방법&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Linux, &lt;code&gt;$GO_WIDGETS_GTK&lt;/code&gt; 설정됨&lt;/td&gt;
+&lt;td&gt;GTK4&lt;/td&gt;
+&lt;td&gt;GTK가 창을 소유합니다. 프레임버퍼는 &lt;code&gt;GtkPicture&lt;/code&gt;이고 네이티브 컨트롤은 그 위의 실제 GTK 위젯입니다. libgtk-4 런타임이 필요합니다.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Linux, &lt;code&gt;$WAYLAND_DISPLAY&lt;/code&gt; 설정됨&lt;/td&gt;
+&lt;td&gt;Wayland&lt;/td&gt;
+&lt;td&gt;컴포지터의 유닉스 소켓 위의 xdg-shell&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Linux, 그 외에는 &lt;code&gt;$DISPLAY&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;X11&lt;/td&gt;
+&lt;td&gt;유닉스 소켓 위의 X11 코어 프로토콜, MIT-SHM 사용&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;macOS&lt;/td&gt;
+&lt;td&gt;Cocoa&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://github.com/go-macos/objc" target="_blank" rel="noopener"&gt;go-macos/objc&lt;/a&gt;(purego)를 통한 &lt;code&gt;NSWindow&lt;/code&gt;와 &lt;code&gt;NSView&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Windows&lt;/td&gt;
+&lt;td&gt;Win32&lt;/td&gt;
+&lt;td&gt;user32와 gdi32 시스템 호출을 통한 최상위 &lt;code&gt;HWND&lt;/code&gt;, &lt;code&gt;StretchDIBits&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Android, &lt;code&gt;$GW_ANDROID_SOCKET&lt;/code&gt; 설정됨&lt;/td&gt;
+&lt;td&gt;Android 호스트&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/ko/surfaces/android/"&gt;Java 호스트&lt;/a&gt;로의 프레임 프로토콜, 픽셀은 공유 memfd에&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Android, 그 외&lt;/td&gt;
+&lt;td&gt;Wayland 또는 X11&lt;/td&gt;
+&lt;td&gt;Termux의 셸에도 연결할 디스플레이 서버가 있습니다&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;js/wasm&lt;/code&gt;, wasmdesk 안&lt;/td&gt;
+&lt;td&gt;wasmbox&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/ko/surfaces/browser/#a-window-on-the-wasmdesk-desktop"&gt;wasmdesk 컴포지터&lt;/a&gt;의 클라이언트&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;js/wasm&lt;/code&gt;, 일반 페이지&lt;/td&gt;
+&lt;td&gt;브라우저 탭&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;webcanvas&lt;/code&gt;를 통한 페이지의 &lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt;(&lt;code&gt;Config.Canvas&lt;/code&gt;, 기본값 &lt;code&gt;&amp;quot;screen&amp;quot;&lt;/code&gt;): 컴포지터도, &lt;code&gt;SharedArrayBuffer&lt;/code&gt;도, 교차 출처 격리도 없음&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;그 외 모두&lt;/td&gt;
+&lt;td&gt;—&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;window.ErrUnsupported&lt;/code&gt;, 그래서 크로스 빌드도 컴파일됩니다&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;모든 백엔드는 &lt;code&gt;CGO_ENABLED=0&lt;/code&gt;입니다. X11 백엔드는 소켓 위에 처음부터 작성한 코어
+프로토콜로, Xlib도 XCB도 쓰지 않으며, 양쪽 바이트 순서, Xauthority 쿠키, 키심(keysym)매핑, 서버의 요청 크기 아래로 타일링한 &lt;code&gt;PutImage&lt;/code&gt;, 그리고 &lt;code&gt;SCM_RIGHTS&lt;/code&gt;로 공유
+세그먼트를 전달하는 MIT-SHM 고속 경로를 갖추고 있습니다. Windows는 프로세스 자체의
+DLL을 &lt;code&gt;syscall.NewLazyDLL&lt;/code&gt;과 &lt;code&gt;syscall.NewCallback&lt;/code&gt; 창 프로시저로 통해 접근하고,macOS는 purego로 Objective-C 런타임을 통해 접근합니다.&lt;/p&gt;
+&lt;p&gt;각 백엔드에서 플랫폼과 무관한 부분(이벤트 매핑, 좌표 계산, 픽셀 패킹, 손상 사각형)은
+모든 운영 체제에서 100% 커버되는 코덱에 있습니다. 얇은 플랫폼 접착 코드는 실제로
+검증됩니다. &lt;a href="https://go-widgets.github.io/docs/0.2/ko/status/"&gt;상태&lt;/a&gt;를 참고하십시오.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="only-what-changed"&gt;바뀐 부분만&lt;span class="hx:absolute hx:-mt-20" id="only-what-changed"&gt;&lt;/span&gt;
+&lt;a href="#only-what-changed" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;(&lt;code&gt;toolkit/scene.HostRoot&lt;/code&gt;처럼) &lt;code&gt;DamageRenderer&lt;/code&gt;를 구현하는 루트는 다시 그린
+사각형을 보고하며, GTK4를 제외한 모든 백엔드는 그 사각형만 표시합니다. X11은 MIT-SHM&lt;code&gt;ShmPutImage&lt;/code&gt;로, Wayland는 &lt;code&gt;wl_shm&lt;/code&gt; 손상 영역으로, 그리고 Cocoa, Win32, Android,wasmbox, 브라우저 탭이 그렇게 합니다. 첫 프레임, 크기 조정, X11 &lt;code&gt;Expose&lt;/code&gt;는 여전히
+서피스 전체를 표시합니다.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="hidpi"&gt;HiDPI&lt;span class="hx:absolute hx:-mt-20" id="hidpi"&gt;&lt;/span&gt;
+&lt;a href="#hidpi" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;기본값은 논리 포인트당 프레임버퍼 픽셀 하나입니다. UI는 읽기 편한 크기로 레이아웃되고
+그려지며 컴포지터가 이를 확대합니다. Windows에서는 창이 모니터별 DPI 인식을
+선언하고, OS가 논리 프레임을 물리 클라이언트 영역으로 확대합니다. &lt;code&gt;RenderScale&lt;/code&gt;은
+패널의 실제 해상도로 프레임버퍼를 요청하는데, 이것은 장치 픽셀 단위로 레이아웃하는
+루트에서만 올바릅니다.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="screens-and-showing-and-hiding"&gt;화면, 그리고 표시와 숨김&lt;span class="hx:absolute hx:-mt-20" id="screens-and-showing-and-hiding"&gt;&lt;/span&gt;
+&lt;a href="#screens-and-showing-and-hiding" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;window.Screens()&lt;/code&gt;는 연결된 디스플레이를 기본 화면부터 나열하며, 논리 포인트
+단위이고 데스크톱의 패널은 제외되며, &lt;code&gt;Open&lt;/code&gt; 전에 호출할 수 있습니다. 화면의 이름은(EDID에서 가져온 &lt;code&gt;&amp;quot;DELL U2720Q&amp;quot;&lt;/code&gt;처럼) 패널 자체의 이름이고, 패널이 이름을 게시하지
+않을 때는 커넥터 이름(&lt;code&gt;&amp;quot;HDMI-1&amp;quot;&lt;/code&gt;)으로 대체됩니다. 연결된 두 패널이 같은 이름을
+게시하는 경우에도 마찬가지인데, 둘을 구별하지 못하는 이름은 이름이 아니기
+때문입니다.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;window.Show&lt;/code&gt;, &lt;code&gt;Hide&lt;/code&gt;, &lt;code&gt;Raise&lt;/code&gt;는 열린 창을 닫지 않고 화면에서 내렸다가 다시
+가져옵니다. &lt;a href="https://go-widgets.github.io/docs/0.2/ko/surfaces/application/#the-tray"&gt;트레이 애플리케이션&lt;/a&gt;에
+필요한 기능입니다.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;백엔드&lt;/th&gt;
+&lt;th&gt;Show&lt;/th&gt;
+&lt;th&gt;Hide&lt;/th&gt;
+&lt;th&gt;Raise&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;X11&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;MapWindow&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;ICCCM withdraw, so it leaves the taskbar&lt;/td&gt;
+&lt;td&gt;map, raise, &lt;code&gt;_NET_ACTIVE_WINDOW&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Wayland&lt;/td&gt;
+&lt;td&gt;commit again&lt;/td&gt;
+&lt;td&gt;null buffer and commit&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;ErrNotSupported&lt;/code&gt;: xdg-shell has no such request&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;macOS&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;orderFront:&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;orderOut:&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;activate the app, &lt;code&gt;makeKeyAndOrderFront:&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Windows&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SW_SHOWNA&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SW_HIDE&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SW_RESTORE&lt;/code&gt; and &lt;code&gt;SetForegroundWindow&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;GTK, Android, wasmbox, browser tab&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;ErrNotSupported&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;ErrNotSupported&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;ErrNotSupported&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;포커스는 플랫폼이 허용하는 것입니다. 포커스 탈취 방지 아래에서 &lt;code&gt;Raise&lt;/code&gt;는 창이 주의를
+원한다는 표시만 할 수 있으며, 그 여부를 알 수 없습니다.&lt;/p&gt;</description></item></channel></rss>

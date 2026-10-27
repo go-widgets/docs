@@ -6,15 +6,11 @@ les paquets qui importent la boîte à outils.&lt;/p&gt;
 type statique de &lt;code&gt;entry&lt;/code&gt; est un widget de la boîte à outils et &lt;code&gt;Text&lt;/code&gt; un champ d&amp;rsquo;état, est
 signalé. &lt;code&gt;&amp;amp;entry.Text&lt;/code&gt; — ce que prennent les &lt;a href="https://go-widgets.github.io/docs/0.2/fr/state/mvvm/"&gt;binders&lt;/a&gt;
 — n&amp;rsquo;est pas une affectation et n&amp;rsquo;est jamais signalé ; pas plus qu&amp;rsquo;un littéral
-composite (&lt;code&gt;toolkit.Entry{Text: &amp;quot;x&amp;quot;}&lt;/code&gt;), ni la composition d&amp;rsquo;un callback tel que
-&lt;code&gt;OnChange&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Des widgets et pas de view-model.&lt;/strong&gt; Un paquet qui importe la boîte à outils mais pas
-&lt;code&gt;go-widgets/mvvm&lt;/code&gt; reçoit un diagnostic. &lt;code&gt;-requirevm=false&lt;/code&gt; désactive ce contrôle pour
+composite (&lt;code&gt;toolkit.Entry{Text: &amp;quot;x&amp;quot;}&lt;/code&gt;), ni la composition d&amp;rsquo;un callback tel que&lt;code&gt;OnChange&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Des widgets et pas de view-model.&lt;/strong&gt; Un paquet qui importe la boîte à outils mais pas&lt;code&gt;go-widgets/mvvm&lt;/code&gt; reçoit un diagnostic. &lt;code&gt;-requirevm=false&lt;/code&gt; désactive ce contrôle pour
 une bibliothèque de widgets qui, légitimement, n&amp;rsquo;a pas de view-model.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Les champs d&amp;rsquo;état sont ceux des widgets de la boîte à outils (&lt;code&gt;Text&lt;/code&gt;, &lt;code&gt;Items&lt;/code&gt;, &lt;code&gt;Rows&lt;/code&gt;,
-&lt;code&gt;Root&lt;/code&gt;, &lt;code&gt;Selected&lt;/code&gt;, &lt;code&gt;Value&lt;/code&gt;, &lt;code&gt;Checked&lt;/code&gt;, …) ; &lt;code&gt;-statefields=&lt;/code&gt; remplace la liste.
-Un fichier nommé &lt;code&gt;*_binding.go&lt;/code&gt;, ou contenant &lt;code&gt;//mvvmlint:allow&lt;/code&gt;, est exempté de
+&lt;p&gt;Les champs d&amp;rsquo;état sont ceux des widgets de la boîte à outils (&lt;code&gt;Text&lt;/code&gt;, &lt;code&gt;Items&lt;/code&gt;, &lt;code&gt;Rows&lt;/code&gt;,&lt;code&gt;Root&lt;/code&gt;, &lt;code&gt;Selected&lt;/code&gt;, &lt;code&gt;Value&lt;/code&gt;, &lt;code&gt;Checked&lt;/code&gt;, …) ; &lt;code&gt;-statefields=&lt;/code&gt; remplace la liste.Un fichier nommé &lt;code&gt;*_binding.go&lt;/code&gt;, ou contenant &lt;code&gt;//mvvmlint:allow&lt;/code&gt;, est exempté de
 la première règle.&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
 &lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-sh" data-lang="sh"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;go install github.com/go-widgets/mvvmlint/cmd/mvvmlint@latest
@@ -76,8 +72,7 @@ data-copied-label="Copié !"
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Une primitive du painter dans le code applicatif&lt;/strong&gt; : une méthode de dessin (&lt;code&gt;FillRect&lt;/code&gt;,
-&lt;code&gt;StrokeRect&lt;/code&gt;, &lt;code&gt;FillPath&lt;/code&gt;, &lt;code&gt;DrawImage&lt;/code&gt;, &lt;code&gt;Text&lt;/code&gt;, &lt;code&gt;PutPixel&lt;/code&gt;, …) appelée sur un
+&lt;li&gt;&lt;strong&gt;Une primitive du painter dans le code applicatif&lt;/strong&gt; : une méthode de dessin (&lt;code&gt;FillRect&lt;/code&gt;,&lt;code&gt;StrokeRect&lt;/code&gt;, &lt;code&gt;FillPath&lt;/code&gt;, &lt;code&gt;DrawImage&lt;/code&gt;, &lt;code&gt;Text&lt;/code&gt;, &lt;code&gt;PutPixel&lt;/code&gt;, …) appelée sur un
 récepteur dont le type statique est un type du painter. Interroger ou découper la
 surface (&lt;code&gt;Size&lt;/code&gt;, &lt;code&gt;PushClip&lt;/code&gt;, &lt;code&gt;PushTranslate&lt;/code&gt;) n&amp;rsquo;est pas dessiner et n&amp;rsquo;est pas
 signalé. &lt;code&gt;-primitives=&lt;/code&gt; remplace la liste.&lt;/li&gt;
@@ -134,9 +129,7 @@ data-copied-label="Copié !"
 &lt;/div&gt;</description></item><item><title>Règles imposées par la CI</title><link>https://go-widgets.github.io/docs/0.2/fr/guard-rails/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/fr/guard-rails/</guid><description>
 &lt;p&gt;Deux conventions gardent honnête l&amp;rsquo;interface d&amp;rsquo;une application, et toutes deux s&amp;rsquo;éroderaient
 un raccourci commode après l&amp;rsquo;autre si elles étaient seulement écrites quelque part. Chacune est donc un
-analyseur &lt;a href="https://pkg.go.dev/golang.org/x/tools/go/analysis" target="_blank" rel="noopener"&gt;&lt;code&gt;go/analysis&lt;/code&gt;&lt;/a&gt;,
-exécuté via &lt;code&gt;go vet&lt;/code&gt;, avec un workflow réutilisable qu&amp;rsquo;une application marque comme vérification
-&lt;strong&gt;obligatoire&lt;/strong&gt;.&lt;/p&gt;
+analyseur &lt;a href="https://pkg.go.dev/golang.org/x/tools/go/analysis" target="_blank" rel="noopener"&gt;&lt;code&gt;go/analysis&lt;/code&gt;&lt;/a&gt;,exécuté via &lt;code&gt;go vet&lt;/code&gt;, avec un workflow réutilisable qu&amp;rsquo;une application marque comme vérification&lt;strong&gt;obligatoire&lt;/strong&gt;.&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -156,7 +149,6 @@ exécuté via &lt;code&gt;go vet&lt;/code&gt;, avec un workflow réutilisable qu
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;Tous deux sont prudents par construction : une règle ne se déclenche que lorsque le &lt;strong&gt;type
-statique&lt;/strong&gt; du récepteur se résout, via &lt;code&gt;go/types&lt;/code&gt;, en un type de la boîte à outils ou du painter.
-Un champ ou une méthode de même nom sur un type sans rapport n&amp;rsquo;est jamais signalé. Les
+statique&lt;/strong&gt; du récepteur se résout, via &lt;code&gt;go/types&lt;/code&gt;, en un type de la boîte à outils ou du painter.Un champ ou une méthode de même nom sur un type sans rapport n&amp;rsquo;est jamais signalé. Les
 exceptions voulues sont des directives explicites dans le code, si bien que chacune est
 écrite là où elle est faite.&lt;/p&gt;</description></item></channel></rss>

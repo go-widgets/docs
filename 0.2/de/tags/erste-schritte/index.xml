@@ -1,11 +1,8 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Erste-Schritte</title><link>https://go-widgets.github.io/docs/0.2/de/tags/erste-schritte/</link><description>Recent content in Erste-Schritte on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>de</language><atom:link href="https://go-widgets.github.io/docs/0.2/de/tags/erste-schritte/index.xml" rel="self" type="application/rss+xml"/><item><title>Eine erste Anwendung</title><link>https://go-widgets.github.io/docs/0.2/de/getting-started/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/de/getting-started/</guid><description>
 &lt;h2 data-hextra-search-id="from-the-template"&gt;Aus dem Template&lt;span class="hx:absolute hx:-mt-20" id="from-the-template"&gt;&lt;/span&gt;
 &lt;a href="#from-the-template" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;a href="https://github.com/go-widgets/app-template" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/app-template&lt;/code&gt;&lt;/a&gt; ist ein
-Template-Repository: eine kleine, aber echte Browser-Anwendung mit einem Suchfeld,
-einem Kategoriefilter, einer Liste der passenden Zeilen und einer Statuszeile.
-Alles, was eine größere Anwendung braucht, ist bereits verdrahtet: ein View-Model ohne
-Widget darin, eine daran gebundene View, ein wasm-Host, eine 100-%-Coverage-Schranke und die
-&lt;a href="https://go-widgets.github.io/docs/0.2/de/guard-rails/mvvmlint/"&gt;MVVM-Schranke&lt;/a&gt;.&lt;/p&gt;
+Template-Repository: eine kleine, aber echte Browser-Anwendung mit einem Suchfeld,einem Kategoriefilter, einer Liste der passenden Zeilen und einer Statuszeile.Alles, was eine größere Anwendung braucht, ist bereits verdrahtet: ein View-Model ohne
+Widget darin, eine daran gebundene View, ein wasm-Host, eine 100-%-Coverage-Schranke und die&lt;a href="https://go-widgets.github.io/docs/0.2/de/guard-rails/mvvmlint/"&gt;MVVM-Schranke&lt;/a&gt;.&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
 &lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-sh" data-lang="sh"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git clone https://github.com/go-widgets/app-template my-app
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; my-app
@@ -45,8 +42,7 @@ data-copied-label="Kopiert!"
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;Bearbeiten Sie die ersten beiden und lassen Sie den Zustand weiter durch die Binder fließen: Der
-&lt;code&gt;mvvm&lt;/code&gt;-Job in der CI lässt einen Pull Request scheitern, der ein Feld eines Widgets direkt zuweist.&lt;/p&gt;
+&lt;p&gt;Bearbeiten Sie die ersten beiden und lassen Sie den Zustand weiter durch die Binder fließen: Der&lt;code&gt;mvvm&lt;/code&gt;-Job in der CI lässt einen Pull Request scheitern, der ein Feld eines Widgets direkt zuweist.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="from-a-bare-window"&gt;Aus einem nackten Fenster&lt;span class="hx:absolute hx:-mt-20" id="from-a-bare-window"&gt;&lt;/span&gt;
 &lt;a href="#from-a-bare-window" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
 &lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;package&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;main&lt;/span&gt;&lt;span class="w"&gt;
@@ -120,6 +116,4 @@ das Binary für jede Plattform, von jeder Maschine aus.&lt;/p&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;Um den Widget-Satz zu sehen, bevor Sie etwas schreiben, öffnen Sie die
-&lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;Galerie&lt;/a&gt;: jede Widget-Familie, live,
-in einem Browser-Canvas.&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;Um den Widget-Satz zu sehen, bevor Sie etwas schreiben, öffnen Sie die&lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;Galerie&lt;/a&gt;: jede Widget-Familie, live,in einem Browser-Canvas.&lt;/p&gt;</description></item></channel></rss>

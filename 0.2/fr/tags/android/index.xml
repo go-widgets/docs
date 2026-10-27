@@ -23,11 +23,8 @@ processus :&lt;/p&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;L&amp;rsquo;hôte Java tient la place du serveur X sous Linux. Les pixels transitent par
-un &lt;strong&gt;memfd&lt;/strong&gt; que l&amp;rsquo;application crée et remet à l&amp;rsquo;hôte par le socket ;
-le côté Go écrit du RGBA_8888, qui est octet pour octet l&amp;rsquo;ARGB_8888 d&amp;rsquo;Android, si bien que
-la copie se fait sans conversion, et seulement pour le rectangle endommagé. Les entrées,
-les marges (insets), le texte IME et l&amp;rsquo;arbre d&amp;rsquo;accessibilité passent par un protocole tramé sur un
-&lt;code&gt;LocalSocket&lt;/code&gt; abstrait.&lt;/p&gt;
+un &lt;strong&gt;memfd&lt;/strong&gt; que l&amp;rsquo;application crée et remet à l&amp;rsquo;hôte par le socket ;le côté Go écrit du RGBA_8888, qui est octet pour octet l&amp;rsquo;ARGB_8888 d&amp;rsquo;Android, si bien que
+la copie se fait sans conversion, et seulement pour le rectangle endommagé. Les entrées,les marges (insets), le texte IME et l&amp;rsquo;arbre d&amp;rsquo;accessibilité passent par un protocole tramé sur un&lt;code&gt;LocalSocket&lt;/code&gt; abstrait.&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
 &lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;c&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;android&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Dial&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;my app&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// nil theme: toolkit.DefaultDark()&lt;/span&gt;&lt;span class="w"&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;errors&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Is&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;android&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ErrUnsupported&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
@@ -47,18 +44,14 @@ data-copied-label="Copié !"
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;&lt;code&gt;Client&lt;/code&gt; satisfait le &lt;code&gt;Backend&lt;/code&gt; de &lt;code&gt;window&lt;/code&gt;, si bien qu&amp;rsquo;une application passe d&amp;rsquo;Android
-aux back-ends de bureau sans changer une ligne au-dessus de la fenêtre —
-et &lt;a href="https://go-widgets.github.io/docs/0.2/fr/surfaces/native-window/#how-open-chooses"&gt;&lt;code&gt;window.Open&lt;/code&gt;&lt;/a&gt;
+aux back-ends de bureau sans changer une ligne au-dessus de la fenêtre —et &lt;a href="https://go-widgets.github.io/docs/0.2/fr/surfaces/native-window/#how-open-chooses"&gt;&lt;code&gt;window.Open&lt;/code&gt;&lt;/a&gt;
 le choisit de lui-même quand le socket de l&amp;rsquo;hôte est présent.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="arm64-only"&gt;arm64 uniquement&lt;span class="hx:absolute hx:-mt-20" id="arm64-only"&gt;&lt;/span&gt;
-&lt;a href="#arm64-only" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;android/arm64&lt;/code&gt; est la seule cible Android que Go sait lier sans cgo ; &lt;code&gt;arm&lt;/code&gt;,
-&lt;code&gt;amd64&lt;/code&gt; et &lt;code&gt;386&lt;/code&gt; exigent une édition de liens externe. La CI vérifie les deux moitiés — celle
-qui se compile et les trois qui ne se compilent pas — si bien que le jour où Go lèvera cette restriction,
-la compilation le dira.&lt;/p&gt;
+&lt;a href="#arm64-only" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;android/arm64&lt;/code&gt; est la seule cible Android que Go sait lier sans cgo ; &lt;code&gt;arm&lt;/code&gt;,&lt;code&gt;amd64&lt;/code&gt; et &lt;code&gt;386&lt;/code&gt; exigent une édition de liens externe. La CI vérifie les deux moitiés — celle
+qui se compile et les trois qui ne se compilent pas — si bien que le jour où Go lèvera cette restriction,la compilation le dira.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="accessibility"&gt;Accessibilité&lt;span class="hx:absolute hx:-mt-20" id="accessibility"&gt;&lt;/span&gt;
 &lt;a href="#accessibility" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Un lecteur d&amp;rsquo;écran verrait la &lt;code&gt;SurfaceView&lt;/code&gt; comme un unique rectangle opaque. L&amp;rsquo;hôte
-lui donne à la place une hiérarchie de vues virtuelle : un nœud par widget accessible,
-avec la classe &lt;code&gt;android.widget.*&lt;/code&gt; d&amp;rsquo;après laquelle Android choisit ses annonces, le
+lui donne à la place une hiérarchie de vues virtuelle : un nœud par widget accessible,avec la classe &lt;code&gt;android.widget.*&lt;/code&gt; d&amp;rsquo;après laquelle Android choisit ses annonces, le
 texte, les limites, et une action d&amp;rsquo;activation. L&amp;rsquo;arbre est &lt;strong&gt;tiré&lt;/strong&gt; quand
 quelque chose le lit, jamais poussé, si bien qu&amp;rsquo;une application à laquelle aucun service d&amp;rsquo;accessibilité
 n&amp;rsquo;est attaché n&amp;rsquo;en construit jamais. Une activation revient sous forme d&amp;rsquo;un clic ordinaire au

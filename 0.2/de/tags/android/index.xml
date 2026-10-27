@@ -23,10 +23,8 @@ Prozessen:&lt;/p&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;Der Java-Host steht dort, wo unter Linux der X-Server steht. Pixel reisen durch
-ein &lt;strong&gt;memfd&lt;/strong&gt;, das die Anwendung anlegt und dem Host über den Socket übergibt;
-die Go-Seite schreibt RGBA_8888, was Byte für Byte Androids ARGB_8888 entspricht, sodass
-der Blit eine Kopie ohne Umwandlung ist, und zwar nur des geschädigten Rechtecks. Eingaben,
-Insets, IME-Text und der Barrierefreiheitsbaum gehen über ein gerahmtes Protokoll über einen
+ein &lt;strong&gt;memfd&lt;/strong&gt;, das die Anwendung anlegt und dem Host über den Socket übergibt;die Go-Seite schreibt RGBA_8888, was Byte für Byte Androids ARGB_8888 entspricht, sodass
+der Blit eine Kopie ohne Umwandlung ist, und zwar nur des geschädigten Rechtecks. Eingaben,Insets, IME-Text und der Barrierefreiheitsbaum gehen über ein gerahmtes Protokoll über einen
 abstrakten &lt;code&gt;LocalSocket&lt;/code&gt;.&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
 &lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;c&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;android&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Dial&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;my app&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// nil theme: toolkit.DefaultDark()&lt;/span&gt;&lt;span class="w"&gt;
@@ -47,17 +45,13 @@ data-copied-label="Kopiert!"
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;&lt;code&gt;Client&lt;/code&gt; erfüllt das &lt;code&gt;Backend&lt;/code&gt; von &lt;code&gt;window&lt;/code&gt;, sodass eine Anwendung zwischen
-Android und den Desktop-Back-Ends wechselt, ohne eine Zeile oberhalb des Fensters zu ändern –
-und &lt;a href="https://go-widgets.github.io/docs/0.2/de/surfaces/native-window/#how-open-chooses"&gt;&lt;code&gt;window.Open&lt;/code&gt;&lt;/a&gt;
+Android und den Desktop-Back-Ends wechselt, ohne eine Zeile oberhalb des Fensters zu ändern –und &lt;a href="https://go-widgets.github.io/docs/0.2/de/surfaces/native-window/#how-open-chooses"&gt;&lt;code&gt;window.Open&lt;/code&gt;&lt;/a&gt;
 wählt es von selbst, wenn der Socket des Hosts vorhanden ist.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="arm64-only"&gt;Nur arm64&lt;span class="hx:absolute hx:-mt-20" id="arm64-only"&gt;&lt;/span&gt;
-&lt;a href="#arm64-only" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;android/arm64&lt;/code&gt; ist das einzige Android-Ziel, das Go ohne cgo linkt; &lt;code&gt;arm&lt;/code&gt;,
-&lt;code&gt;amd64&lt;/code&gt; und &lt;code&gt;386&lt;/code&gt; erfordern externes Linken. Die CI prüft beide Hälften – das eine Ziel,
-das baut, und die drei, die es nicht tun –, sodass der Build es meldet, sobald Go die Einschränkung aufhebt.&lt;/p&gt;
+&lt;a href="#arm64-only" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;android/arm64&lt;/code&gt; ist das einzige Android-Ziel, das Go ohne cgo linkt; &lt;code&gt;arm&lt;/code&gt;,&lt;code&gt;amd64&lt;/code&gt; und &lt;code&gt;386&lt;/code&gt; erfordern externes Linken. Die CI prüft beide Hälften – das eine Ziel,das baut, und die drei, die es nicht tun –, sodass der Build es meldet, sobald Go die Einschränkung aufhebt.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="accessibility"&gt;Barrierefreiheit&lt;span class="hx:absolute hx:-mt-20" id="accessibility"&gt;&lt;/span&gt;
 &lt;a href="#accessibility" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Ein Screenreader würde die &lt;code&gt;SurfaceView&lt;/code&gt; als ein einziges undurchsichtiges Rechteck sehen. Der Host
-gibt ihm stattdessen eine virtuelle View-Hierarchie: einen Knoten pro zugänglichem Widget,
-mit der &lt;code&gt;android.widget.*&lt;/code&gt;-Klasse, nach der Android seine Ansagen auswählt, dem
+gibt ihm stattdessen eine virtuelle View-Hierarchie: einen Knoten pro zugänglichem Widget,mit der &lt;code&gt;android.widget.*&lt;/code&gt;-Klasse, nach der Android seine Ansagen auswählt, dem
 Text, den Grenzen und einer Aktivierungsaktion. Der Baum wird &lt;strong&gt;abgeholt&lt;/strong&gt;, wenn
 etwas ihn liest, nie gepusht, sodass eine App ohne angeschlossenen Barrierefreiheitsdienst
 nie einen aufbaut. Eine Aktivierung kommt als gewöhnlicher Klick in der

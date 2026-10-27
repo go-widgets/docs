@@ -1,0 +1,162 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>go-widgets – Accessibility</title><link>https://go-widgets.github.io/docs/0.2/ja/tags/accessibility/</link><description>Recent content in Accessibility on go-widgets</description><generator>Hugo -- gohugo.io</generator><language>ja</language><atom:link href="https://go-widgets.github.io/docs/0.2/ja/tags/accessibility/index.xml" rel="self" type="application/rss+xml"/><item><title>ツールキット</title><link>https://go-widgets.github.io/docs/0.2/ja/rendering/toolkit/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/ja/rendering/toolkit/</guid><description>
+&lt;p&gt;&lt;a href="https://github.com/go-widgets/toolkit" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/toolkit&lt;/code&gt;&lt;/a&gt; はウィジェットのセットです。すべてのウィジェットが同じインターフェース（&lt;code&gt;Bounds&lt;/code&gt;、&lt;code&gt;SetBounds&lt;/code&gt;、&lt;code&gt;Draw(p painter.Painter, theme *Theme)&lt;/code&gt;、&lt;code&gt;HitTest&lt;/code&gt;、&lt;code&gt;OnEvent&lt;/code&gt;）を実装しているため、ホストはボタンもテーブルもイベントカレンダーも同じように扱えます。標準ライブラリのみを使用し、&lt;code&gt;CGO_ENABLED=0&lt;/code&gt; で、ステートメントカバレッジは 100% です。&lt;/p&gt;
+&lt;p&gt;v0.329.0 では、公開されているウィジェット型が &lt;strong&gt;160 種類&lt;/strong&gt;、ウィジェットのコードが約 &lt;strong&gt;69,000 行&lt;/strong&gt;あります。この 2 つの数値はそのタグで測定したもので、以前の値を引き継いだものではありません。ツールキットの README に測定用のコマンドが載っているので、数値を書き写すのではなく、コマンドを再実行してください。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="the-families"&gt;ファミリー&lt;span class="hx:absolute hx:-mt-20" id="the-families"&gt;&lt;/span&gt;
+&lt;a href="#the-families" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;ファミリー&lt;/th&gt;
+&lt;th&gt;ウィジェット&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;アクション&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Button&lt;/code&gt;, &lt;code&gt;ToggleButton&lt;/code&gt;, &lt;code&gt;CheckButton&lt;/code&gt;, &lt;code&gt;RadioButton&lt;/code&gt; + &lt;code&gt;RadioGroup&lt;/code&gt;, &lt;code&gt;Switch&lt;/code&gt;, &lt;code&gt;SplitButton&lt;/code&gt;, &lt;code&gt;IconButton&lt;/code&gt;, &lt;code&gt;CycleButton&lt;/code&gt;, &lt;code&gt;Chip&lt;/code&gt;, &lt;code&gt;SegmentedBar&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;入力&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Entry&lt;/code&gt;, &lt;code&gt;TextView&lt;/code&gt;（選択、IME プレビュー、シンタックススパン、行番号）, &lt;code&gt;SpinButton&lt;/code&gt;, &lt;code&gt;Scale&lt;/code&gt;, &lt;code&gt;RangeSlider&lt;/code&gt;, &lt;code&gt;SearchEntry&lt;/code&gt;, &lt;code&gt;TagField&lt;/code&gt;, &lt;code&gt;ComboBox&lt;/code&gt;, &lt;code&gt;FormField&lt;/code&gt; と &lt;code&gt;Validate&lt;/code&gt;/&lt;code&gt;Rule&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;選択&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;ListBox&lt;/code&gt;, &lt;code&gt;TreeView&lt;/code&gt;, &lt;code&gt;DropDown&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;コンテナ&lt;/td&gt;
+&lt;td&gt;差し替え可能な &lt;code&gt;Layout&lt;/code&gt; を持つ &lt;code&gt;Container&lt;/code&gt;（&lt;code&gt;FitLayout&lt;/code&gt;, &lt;code&gt;BoxLayout&lt;/code&gt;, &lt;code&gt;BorderLayout&lt;/code&gt;, &lt;code&gt;CardLayout&lt;/code&gt;, &lt;code&gt;FlowLayout&lt;/code&gt;）、&lt;code&gt;HBox&lt;/code&gt;, &lt;code&gt;VBox&lt;/code&gt;, &lt;code&gt;Grid&lt;/code&gt;, &lt;code&gt;Frame&lt;/code&gt;, &lt;code&gt;Dock&lt;/code&gt;, &lt;code&gt;Border&lt;/code&gt;, &lt;code&gt;Stack&lt;/code&gt;, &lt;code&gt;Overlay&lt;/code&gt;, &lt;code&gt;Paned&lt;/code&gt;, &lt;code&gt;Splitter&lt;/code&gt;, &lt;code&gt;Expander&lt;/code&gt;, &lt;code&gt;Accordion&lt;/code&gt;、宣言的な &lt;code&gt;Node&lt;/code&gt; ビルダー&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ナビゲーション&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Menu&lt;/code&gt;, &lt;code&gt;MenuBar&lt;/code&gt;（&lt;code&gt;Alt&lt;/code&gt;+文字キー対応）, &lt;code&gt;ContextMenu&lt;/code&gt;, &lt;code&gt;Popover&lt;/code&gt;, &lt;code&gt;CommandPalette&lt;/code&gt;, &lt;code&gt;Dialog&lt;/code&gt;, &lt;code&gt;MessageDialog&lt;/code&gt;, &lt;code&gt;Wizard&lt;/code&gt;, &lt;code&gt;Notebook&lt;/code&gt;, &lt;code&gt;ViewSwitcher&lt;/code&gt;, &lt;code&gt;Carousel&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;フィードバック&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;ProgressBar&lt;/code&gt;, &lt;code&gt;ProgressCircle&lt;/code&gt;, &lt;code&gt;LevelBar&lt;/code&gt;, &lt;code&gt;Spinner&lt;/code&gt;, &lt;code&gt;Tooltip&lt;/code&gt;, &lt;code&gt;Notification&lt;/code&gt;, &lt;code&gt;Toast&lt;/code&gt;, &lt;code&gt;Banner&lt;/code&gt;, &lt;code&gt;Alert&lt;/code&gt;, &lt;code&gt;Badge&lt;/code&gt;, &lt;code&gt;Skeleton&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;データ&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Table&lt;/code&gt;（セル編集、列の固定、グループ行、集計、行エキスパンダー）, &lt;code&gt;TreeTable&lt;/code&gt;, &lt;code&gt;PropertyGrid&lt;/code&gt;, &lt;code&gt;Kanban&lt;/code&gt;, &lt;code&gt;Gantt&lt;/code&gt;, &lt;code&gt;Agenda&lt;/code&gt;（週、月、四半期、年。複数のカレンダー）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;チャート&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;LineChart&lt;/code&gt;, &lt;code&gt;BarChart&lt;/code&gt;, &lt;code&gt;PieChart&lt;/code&gt;, &lt;code&gt;AreaChart&lt;/code&gt;, &lt;code&gt;ScatterChart&lt;/code&gt;, &lt;code&gt;RadarChart&lt;/code&gt;, &lt;code&gt;Gauge&lt;/code&gt;, &lt;code&gt;Sparkline&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;複合&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;FileChooser&lt;/code&gt;, &lt;code&gt;ColorChooser&lt;/code&gt;, &lt;code&gt;ColorPicker&lt;/code&gt;, &lt;code&gt;FontChooser&lt;/code&gt;, &lt;code&gt;Calendar&lt;/code&gt;, &lt;code&gt;DatePicker&lt;/code&gt;, &lt;code&gt;DateRangePicker&lt;/code&gt;, &lt;code&gt;TimePicker&lt;/code&gt;, &lt;code&gt;MarkdownView&lt;/code&gt;, &lt;code&gt;MarkdownEditor&lt;/code&gt;, &lt;code&gt;TerminalView&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;シェル&lt;/td&gt;
+&lt;td&gt;クライアントサイドの装飾を持つ &lt;code&gt;Window&lt;/code&gt;, &lt;code&gt;HeaderBar&lt;/code&gt;, &lt;code&gt;Toolbar&lt;/code&gt;, &lt;code&gt;Ribbon&lt;/code&gt;, &lt;code&gt;Statusbar&lt;/code&gt;, &lt;code&gt;StatusIcon&lt;/code&gt;, &lt;code&gt;StatusArea&lt;/code&gt;, &lt;code&gt;Wallpaper&lt;/code&gt;, &lt;code&gt;Thumbnail&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;そのすべてを実際に動かして見られます：&lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;ギャラリー&lt;/a&gt;。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="ribbon"&gt;リボン&lt;span class="hx:absolute hx:-mt-20" id="ribbon"&gt;&lt;/span&gt;
+&lt;a href="#ribbon" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Ribbon&lt;/code&gt; は Office 風のコマンドリボンです。ラベル付きのグループをタブにまとめ、大きなボタン（アイコンがテキストの上）、小さなボタン（アイコンがテキストの横）、トグル、スプリットボタン、ドロップダウン、小さなギャラリーを置けます。Windows のリボンのガイドラインに従っており、ウィンドウが狭くなると各グループが優先度順に、フル表示、コンパクト、アイコンのみ、1 つのポップアップボタン、と段階的に縮小するため、リボンは収まる中で最大の組み合わせを表示します。タブだけに折りたたむこともでき（Ctrl+F1、またはシェブロン）、そのときはタブを選ぶと本体がのぞき表示されます。Alt を押すとキーチップが表示され、ツールチップにはショートカットと説明が載ります。タブとツールバーの操作は WAI-ARIA のパターンに従い、境界線とフォーカスリングはライトテーマでもダークテーマでも 3:1 のコントラストを保ちます。&lt;/p&gt;
+&lt;p&gt;どのコントロールも &lt;code&gt;Action&lt;/code&gt; のビューです。&lt;code&gt;Action&lt;/code&gt; はメニュー、パレット、リボンが共有する 1 つのコマンドで、&lt;code&gt;NewCommandAction&lt;/code&gt; はビューモデルの &lt;code&gt;mvvm.Command&lt;/code&gt; から &lt;code&gt;Action&lt;/code&gt; を作るため、その &lt;code&gt;CanExecute&lt;/code&gt; がコントロールをグレーアウトします。アクティブなタブ、折りたたみ状態、トグル、ドロップダウンの選択は &lt;code&gt;mvvm.Observable&lt;/code&gt; です。リボンを &lt;code&gt;PopoverHost&lt;/code&gt; の下に置けば、そのメニューはホスト側のコードなしでページの上に描画されます。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;RibbonGrid&lt;/code&gt; はコントロールの一種で、そのポップアップは &lt;code&gt;GridCols&lt;/code&gt; × &lt;code&gt;GridRows&lt;/code&gt; のセルのグリッドです（0 のとき 8 × 6、最大 16 × 16）。ワープロの「表」ボタンと同じです。ポインタまたは矢印キーで、角からその下のセルまでが点灯し、キャプションに「3 × 2」と表示されます。クリックまたは Enter で選択して&lt;code&gt;OnGrid(cols, rows)&lt;/code&gt; を呼び出し、Home と End でジャンプし、Escape で閉じます。ライトとダークの両方で描画され、支援技術にはグリッドが開いている間は展開状態のボタンとして伝えられます。&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;RibbonControl&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;Kind&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;RibbonGrid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Label&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Table&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;GridCols&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;GridRows&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;OnGrid&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;insertTable&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="コードをコピー"
+aria-label="コードをコピー"
+data-copied-label="コピーしました！"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 data-hextra-search-id="splitter"&gt;スプリッター&lt;span class="hx:absolute hx:-mt-20" id="splitter"&gt;&lt;/span&gt;
+&lt;a href="#splitter" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Splitter&lt;/code&gt; は N 個のペインを横に（&lt;code&gt;vertical&lt;/code&gt; が true なら縦に）並べ、隣り合う各ペインの間に、ドラッグでき、フォーカスも受け取れる分割バーを置きます。WAI-ARIA の window splitter パターンに従っています。ペインは &lt;strong&gt;固定&lt;/strong&gt;（その &lt;code&gt;Size&lt;/code&gt; は論理ピクセル単位の &lt;code&gt;mvvm.Observable[int]&lt;/code&gt; で、分割バーがそれに書き込みます）か、&lt;strong&gt;可変&lt;/strong&gt;（固定ペインが残した領域を、同じく &lt;code&gt;Observable&lt;/code&gt; である &lt;code&gt;Weight&lt;/code&gt; に応じて分け合います）のどちらかです。各ペインには &lt;code&gt;Min&lt;/code&gt; と &lt;code&gt;Max&lt;/code&gt; があります。&lt;code&gt;Collapsible&lt;/code&gt; な固定ペインは、分割バーを &lt;code&gt;Min&lt;/code&gt; の半分より小さくなるまで引くか、ダブルクリックまたは Enter で閉じ（サイズ 0）、同じ操作でまた開きます。ペインの&lt;code&gt;Visible&lt;/code&gt; オブザーバブルで、そのペインと分割バーを非表示にできます。サイズがオブザーバブルに保持されているため、ビューモデルがバインド、永続化、復元できます。&lt;code&gt;OnResized&lt;/code&gt; は 1 回のジェスチャーが終わるたびに、ユーザーが変更したペインについて呼び出されます。ウィンドウのリサイズにレイアウトが追従しただけの場合は呼び出されません。&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;files&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewObservable&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;240&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// fixed pane, logical px&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;mvvm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewObservable&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// flexible pane, weight&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewSplitter&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;SplitPane&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;Widget&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;tree&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Files&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Size&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;files&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Min&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;120&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Max&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;480&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Collapsible&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;SplitPane&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;Widget&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;editor&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Editor&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Weight&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Min&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;200&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;OnResized&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;changed&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;save&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;files&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Get&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Get&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="コードをコピー"
+aria-label="コードをコピー"
+data-copied-label="コピーしました！"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;分割バーはフォーカスを受け取ります。矢印キー（縦の場合は上下）で &lt;code&gt;Step&lt;/code&gt; 論理ピクセルずつ動かし、Shift を押すとその 4 倍動きます。Home と End はその前にあるペインを最小または最大にし、Enter は制御対象の固定ペインを折りたたむか元に戻し、Tab は分割バー間を移動します。各分割バーは &lt;code&gt;RoleSeparator&lt;/code&gt; で、&lt;code&gt;aria-valuemin&lt;/code&gt;、&lt;code&gt;aria-valuemax&lt;/code&gt;、&lt;code&gt;aria-valuenow&lt;/code&gt; を持ち、名前は「Resize」とペインの &lt;code&gt;Name&lt;/code&gt; です。&lt;code&gt;Cursor(x, y)&lt;/code&gt; は分割バーの上で &lt;code&gt;&amp;quot;col-resize&amp;quot;&lt;/code&gt; または &lt;code&gt;&amp;quot;row-resize&amp;quot;&lt;/code&gt; を返し、&lt;code&gt;SplitterColors(theme)&lt;/code&gt; は分割線とアクセントの色を返します。これらは、フォーカスリングと同様、2 つのデフォルトテーマのどちらでも背景とサーフェス（surface）に対して3:1 のコントラストを保ちます。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="themes"&gt;テーマ&lt;span class="hx:absolute hx:-mt-20" id="themes"&gt;&lt;/span&gt;
+&lt;a href="#themes" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;1 つの &lt;code&gt;Theme&lt;/code&gt; の値がツリー全体に伝わります。ルートで色を 1 つ変えれば、すべてのウィジェットがその色で再描画されます。&lt;code&gt;DefaultLight()&lt;/code&gt; と &lt;code&gt;DefaultDark()&lt;/code&gt; は組み込みで、&lt;code&gt;LoadGTKTheme(css)&lt;/code&gt; は GTK 3 や libadwaita の任意のテーマ（Adwaita、WhiteSur、Solarized など）の &lt;code&gt;@define-color&lt;/code&gt; ブロックを読み込んで &lt;code&gt;Theme&lt;/code&gt; にします。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="text"&gt;テキスト&lt;span class="hx:absolute hx:-mt-20" id="text"&gt;&lt;/span&gt;
+&lt;a href="#text" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;コンパイル時に組み込まれるデフォルトは 5×7 のビットマップフォントなので、ピクセルテストのジオメトリは変わりません。1 回の呼び出しで、UI 全体をアンチエイリアス付きのシェーピング済みテキストに切り替えられます。&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;UseOpenTypeText&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// Atkinson Hyperlegible, bundled; js/wasm-safe&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="コードをコピー"
+aria-label="コードをコピー"
+data-copied-label="コピーしました！"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;書体は &lt;a href="https://github.com/go-opentype/fonts" target="_blank" rel="noopener"&gt;go-opentype/fonts&lt;/a&gt; から提供され、&lt;a href="https://github.com/go-opentype/opentype" target="_blank" rel="noopener"&gt;go-opentype&lt;/a&gt; が Go でラスタライズします。C のフォントライブラリもシステムのフォント検索も使いません。&lt;code&gt;NewTrueTypeFont(ttf, px)&lt;/code&gt; は別の書体を読み込み、&lt;code&gt;NewFallbackFont&lt;/code&gt; は複数の書体を連結します（たとえば CJK やアラビア文字の書体を追加する場合）。ウィジェット自身の &lt;code&gt;Font&lt;/code&gt; フィールドは、そのウィジェットに限ってグローバルな設定を上書きします。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="input"&gt;入力&lt;span class="hx:absolute hx:-mt-20" id="input"&gt;&lt;/span&gt;
+&lt;a href="#input" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;マウス、キーボード、IME の変換入力、タッチ（&lt;code&gt;EventTouchStart&lt;/code&gt;/&lt;code&gt;Move&lt;/code&gt;/&lt;code&gt;End&lt;/code&gt;。タップ、長押し、スワイプには&lt;code&gt;GestureRecognizer&lt;/code&gt;）、ドラッグアンドドロップ（&lt;code&gt;DragSource&lt;/code&gt;、&lt;code&gt;DropTarget&lt;/code&gt;）に対応しています。&lt;code&gt;ListBox&lt;/code&gt;、&lt;code&gt;Table&lt;/code&gt;、&lt;code&gt;TreeView&lt;/code&gt; での複数行の選択は、マウスでもキーボードでも行え、Ctrl に加えて ⌘ にも対応しています。macOS ではCtrl クリックが副クリックだからです。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="binary-size"&gt;バイナリサイズ：プログラムは使うものだけをリンクする&lt;span class="hx:absolute hx:-mt-20" id="binary-size"&gt;&lt;/span&gt;
+&lt;a href="#binary-size" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;ツールキットは 1 つの大きなパッケージですが、リンカにとっては問題ありません。Go のデッドコード除去は、&lt;code&gt;main.main&lt;/code&gt; &lt;strong&gt;と、インポートされたすべてのパッケージの init タスク&lt;/strong&gt;から到達できるものだけを残します。プログラムが一度も使わないウィジェットは削除されます。削除されないのは、パッケージレベルの初期化子や、インポートされたパッケージの &lt;code&gt;init&lt;/code&gt; が到達するものです。そのため v0.345.0 以降、ツールキットは自身の初期化子から処理を取り除き、&lt;code&gt;init&lt;/code&gt; がコードを引き込むパッケージのインポートを避けています。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Material&lt;/code&gt; と &lt;code&gt;Thumbnail&lt;/code&gt; は、&lt;code&gt;github.com/go-images/images&lt;/code&gt; ではなく、コーデックを含まない&lt;a href="https://github.com/go-images/images" target="_blank" rel="noopener"&gt;&lt;code&gt;github.com/go-images/images/ops&lt;/code&gt;&lt;/a&gt; を使います。&lt;code&gt;github.com/go-images/images&lt;/code&gt; のデコーダは &lt;code&gt;init&lt;/code&gt; で自身を登録します（WebAssembly コードで約 1.7 MB）。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CollabText&lt;/code&gt;、&lt;code&gt;NewCollabText&lt;/code&gt;、&lt;code&gt;MetaName&lt;/code&gt;、&lt;code&gt;MetaColor&lt;/code&gt; は&lt;strong&gt;&lt;code&gt;github.com/go-widgets/toolkit/collabui&lt;/code&gt;&lt;/strong&gt; に移りました。これらは稼働中の &lt;code&gt;go-crdt/collab&lt;/code&gt; セッションを必要とし、そのトランスポートが &lt;code&gt;net/http&lt;/code&gt; と &lt;code&gt;crypto/tls&lt;/code&gt; を引き込むためです。&lt;code&gt;CollabSheet&lt;/code&gt; と&lt;code&gt;IsoCRDTDocument&lt;/code&gt; は &lt;code&gt;go-crdt/crdt&lt;/code&gt; だけで済むので、&lt;code&gt;toolkit&lt;/code&gt; に残っています。&lt;/li&gt;
+&lt;li&gt;メール用 &lt;code&gt;Rule&lt;/code&gt; の正規表現、組み込みの iso アイコンレジストリ、&lt;code&gt;RichEditorToolbar&lt;/code&gt; のボタンテーブルは、初期化子ではなく、初めて使われたときに構築されます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;⛔ &lt;strong&gt;この移動は破壊的変更であり、非推奨の転送用定義はありません。&lt;/strong&gt; 上記 4 つの名前のインポートを&lt;code&gt;collabui&lt;/code&gt; に変更してください。それ以外は何も変わりません。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;GOOS=js GOARCH=wasm&lt;/code&gt; で &lt;code&gt;-ldflags=&amp;quot;-s -w&amp;quot;&lt;/code&gt; を付けたときのサイズです（生のサイズと gzip -9）。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;プログラム&lt;/th&gt;
+&lt;th&gt;変更前（生 / gzip）&lt;/th&gt;
+&lt;th&gt;変更後（生 / gzip）&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Label&lt;/code&gt; 1 つ（v0.345.0）&lt;/td&gt;
+&lt;td&gt;10.49 / 2.88 MB&lt;/td&gt;
+&lt;td&gt;7.48 / 2.13 MB&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Label&lt;/code&gt; 1 つ（v0.345.1）&lt;/td&gt;
+&lt;td&gt;10.49 / 2.88 MB&lt;/td&gt;
+&lt;td&gt;5.66 / 1.61 MB&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;go-wasmcontainers/dashboard&lt;/td&gt;
+&lt;td&gt;20.42 / 5.17 MB&lt;/td&gt;
+&lt;td&gt;17.72 / 4.58 MB&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;リレーのフローマップ&lt;/td&gt;
+&lt;td&gt;22.62 / 5.44 MB&lt;/td&gt;
+&lt;td&gt;19.95 / 4.85 MB&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;残っているのは主にランタイムと、テキストレンダラーが必要とする OpenType スタックです。自分のプログラムでシンボルが残っている理由を調べるには、&lt;code&gt;-ldflags=-dumpdep&lt;/code&gt; でビルドし、そのシンボルから &lt;code&gt;main.main&lt;/code&gt; または&lt;code&gt;go:main.inittasks&lt;/code&gt; まで、最初の親をたどる連鎖を追ってください。&lt;/p&gt;
+&lt;p&gt;v0.345.0 では &lt;code&gt;ColorHex&lt;/code&gt; と &lt;code&gt;ParseColorHex&lt;/code&gt; も追加され、色を 16 進数で書き出し、読み戻せるようになりました。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="accessibility"&gt;アクセシビリティ&lt;span class="hx:absolute hx:-mt-20" id="accessibility"&gt;&lt;/span&gt;
+&lt;a href="#accessibility" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;自前でピクセルを描画するツールキットは、描いたものが何かを伝えない限り、スクリーンリーダーに読み上げるものを与えません。ウィジェットは &lt;code&gt;Accessible&lt;/code&gt;（ロール、名前、値）を実装し、&lt;code&gt;CollectA11y&lt;/code&gt; がそれらを集めてホストが公開できるようにします。Linux では &lt;a href="https://go-widgets.github.io/docs/0.2/ja/surfaces/native-window/"&gt;&lt;code&gt;window&lt;/code&gt;&lt;/a&gt; を通じて AT-SPI で、&lt;a href="https://go-widgets.github.io/docs/0.2/ja/surfaces/android/#accessibility"&gt;Android&lt;/a&gt; では仮想ビュー階層として公開されます。&lt;/p&gt;</description></item></channel></rss>

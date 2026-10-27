@@ -52,8 +52,7 @@ data-copied-label="Copié !"
 &lt;/div&gt;
 &lt;h2 data-hextra-search-id="binding"&gt;Liaison&lt;span class="hx:absolute hx:-mt-20" id="binding"&gt;&lt;/span&gt;
 &lt;a href="#binding" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Les binders génériques atteignent un widget par un &lt;strong&gt;pointeur vers son champ de valeur et
-un pointeur vers son emplacement de callback&lt;/strong&gt; : &lt;code&gt;BindField&lt;/code&gt; (bidirectionnel), &lt;code&gt;OneWay&lt;/code&gt;,
-&lt;code&gt;BindCommand&lt;/code&gt;, &lt;code&gt;BindList&lt;/code&gt;. Un widget déclenche son callback depuis son gestionnaire d&amp;rsquo;événements
+un pointeur vers son emplacement de callback&lt;/strong&gt; : &lt;code&gt;BindField&lt;/code&gt; (bidirectionnel), &lt;code&gt;OneWay&lt;/code&gt;,&lt;code&gt;BindCommand&lt;/code&gt;, &lt;code&gt;BindList&lt;/code&gt;. Un widget déclenche son callback depuis son gestionnaire d&amp;rsquo;événements
 et laisse silencieuse une écriture directe dans le champ, et &lt;code&gt;Observable.Set&lt;/code&gt; ignore une valeur
 égale — si bien qu&amp;rsquo;une liaison bidirectionnelle peut renvoyer l&amp;rsquo;écho sans récursion.&lt;/p&gt;
 &lt;p&gt;La boîte à outils fait évoluer ses widgets pour qu&amp;rsquo;ils exposent leur état &lt;strong&gt;sous forme&lt;/strong&gt; d&amp;rsquo;un
