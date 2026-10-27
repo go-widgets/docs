@@ -172,7 +172,8 @@ Tailles pour `GOOS=js GOARCH=wasm` avec `-ldflags="-s -w"`, brut et gzip -9 :
 
 | Programme | avant (brut / gzip) | après (brut / gzip) |
 |---|---|---|
-| un `Label` | 10,49 / 2,88 Mo | 7,48 / 2,13 Mo |
+| un `Label` (v0.345.0) | 10,49 / 2,88 Mo | 7,48 / 2,13 Mo |
+| un `Label` (v0.345.1) | 10,49 / 2,88 Mo | 5,66 / 1,61 Mo |
 | go-wasmcontainers/dashboard | 20,42 / 5,17 Mo | 17,72 / 4,58 Mo |
 | la carte de flux du relais | 22,62 / 5,44 Mo | 19,95 / 4,85 Mo |
 

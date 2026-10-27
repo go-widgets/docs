@@ -165,7 +165,8 @@ Sizes for `GOOS=js GOARCH=wasm` with `-ldflags="-s -w"`, raw and gzip -9:
 
 | Program | before (raw / gzip) | after (raw / gzip) |
 |---|---|---|
-| one `Label` | 10.49 / 2.88 MB | 7.48 / 2.13 MB |
+| one `Label` (v0.345.0) | 10.49 / 2.88 MB | 7.48 / 2.13 MB |
+| one `Label` (v0.345.1) | 10.49 / 2.88 MB | 5.66 / 1.61 MB |
 | go-wasmcontainers/dashboard | 20.42 / 5.17 MB | 17.72 / 4.58 MB |
 | the relay flow map | 22.62 / 5.44 MB | 19.95 / 4.85 MB |
 
