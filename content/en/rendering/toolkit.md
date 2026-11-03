@@ -135,6 +135,34 @@ Mouse, keyboard, IME composition, touch (`EventTouchStart`/`Move`/`End`, with
 `TreeView` works from the mouse and from the keyboard, and honours ⌘ as well
 as Ctrl, because on macOS Ctrl-click is the secondary click.
 
+## Several people in one buffer {#collaboration}
+
+`collabui.CollabText` binds a `CodeEditor` to one text part of a
+[`go-crdt/collab`](https://github.com/go-crdt/collab) session. The merge is the
+CRDT's and the binding adds none of it. **Where** an edit is applied is the
+binding's, and that is a different question.
+
+A peer's edit merges into the replica the moment it arrives off the wire; the
+editor is repainted later, when the host runs the closure the binding handed
+it. In between, the screen shows one text and the replica holds another — and a
+keystroke in that window was aimed at the screen. Applied at its raw offset it
+lands elsewhere, and every replica agrees on the result, which is why it does
+not look like a defect. It was one:
+
+| the person did | before | now |
+|---|---|---|
+| typed `Y` after the `abc` on screen, while `Xabc` had merged | `XabYc` | `XabcY` |
+| deleted the `bc` on screen, a peer's `X` between them | `acd` — the peer's `X` destroyed | `aXd` |
+
+A local edit is carried across that gap before it is applied: the inclusion
+transformation of Ellis & Gibbs (SIGMOD '89), on the side Jupiter (Nichols
+et al., UIST '95) transforms on — our own edit against what has already merged.
+An offset moves with what landed before it and goes the same distance into what
+replaced it. A deletion takes the characters the person could see and not the
+ones they could not, so a peer's insertion inside the deleted range is deleted
+*around* and survives. Placement is a guess; a character that was on somebody's
+screen a moment ago is not.
+
 ## Binary size: a program links what it uses {#binary-size}
 
 The toolkit is one large package, and that is fine for the linker: Go's

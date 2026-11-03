@@ -141,6 +141,36 @@ Souris, clavier, composition IME, tactile (`EventTouchStart`/`Move`/`End`, avec
 `TreeView` fonctionne à la souris comme au clavier, et respecte ⌘ aussi bien
 que Ctrl, car sous macOS Ctrl-clic est le clic secondaire.
 
+## Plusieurs personnes dans un même tampon {#collaboration}
+
+`collabui.CollabText` relie un `CodeEditor` à une partie texte d'une session
+[`go-crdt/collab`](https://github.com/go-crdt/collab). La fusion appartient au
+CRDT et la liaison n'en ajoute rien. **Où** une modification est appliquée
+appartient à la liaison, et c'est une autre question.
+
+La modification d'un pair fusionne dans la réplique dès qu'elle arrive du
+réseau ; l'éditeur est repeint plus tard, quand l'hôte exécute la fermeture que
+la liaison lui a confiée. Entre les deux, l'écran montre un texte et la réplique
+en détient un autre — et une frappe dans cette fenêtre visait l'écran. Appliquée
+à son décalage brut, elle atterrit ailleurs, et toutes les répliques s'accordent
+sur le résultat : voilà pourquoi cela ne ressemblait pas à un défaut. C'en était
+un :
+
+| ce que la personne a fait | avant | maintenant |
+|---|---|---|
+| tapé `Y` après le `abc` à l'écran, alors que `Xabc` avait fusionné | `XabYc` | `XabcY` |
+| supprimé le `bc` à l'écran, un `X` d'un pair entre les deux | `acd` — le `X` du pair détruit | `aXd` |
+
+Une modification locale est désormais transportée à travers cet écart avant
+d'être appliquée : la transformation d'inclusion d'Ellis & Gibbs (SIGMOD 1989),
+du côté où Jupiter (Nichols et al., UIST 1995) transforme — notre propre
+modification contre ce qui a déjà fusionné. Un décalage se déplace avec ce qui
+s'est posé avant lui et entre d'autant dans ce qui l'a remplacé. Une suppression
+prend les caractères que la personne voyait et non ceux qu'elle ne voyait pas :
+l'insertion d'un pair à l'intérieur de la plage supprimée est supprimée *autour*
+et survit. Le placement est une estimation ; un caractère qui était sur l'écran
+de quelqu'un il y a un instant n'en est pas une.
+
 ## Taille du binaire : un programme lie ce qu'il utilise {#binary-size}
 
 La boîte à outils est un grand paquet, et l'éditeur de liens s'en accommode :

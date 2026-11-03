@@ -142,6 +142,38 @@ Maus, Tastatur, IME-Komposition, Touch (`EventTouchStart`/`Move`/`End`, mit
 `TreeView` funktioniert mit der Maus und mit der Tastatur und beachtet ⌘ ebenso
 wie Ctrl, weil unter macOS Ctrl-Klick der Sekundärklick ist.
 
+## Mehrere Personen in einem Puffer {#collaboration}
+
+`collabui.CollabText` bindet einen `CodeEditor` an einen Textteil einer
+[`go-crdt/collab`](https://github.com/go-crdt/collab)-Sitzung. Das
+Zusammenführen gehört dem CRDT, und die Bindung fügt nichts davon hinzu. **Wo**
+eine Änderung angewendet wird, gehört der Bindung, und das ist eine andere
+Frage.
+
+Die Änderung eines Peers wird in die Replik übernommen, sobald sie über das Netz
+eintrifft; der Editor wird später neu gezeichnet, wenn der Host die Closure
+ausführt, die die Bindung ihm übergeben hat. Dazwischen zeigt der Bildschirm
+einen Text und die Replik hält einen anderen – und ein Tastendruck in diesem
+Fenster zielte auf den Bildschirm. An seinem rohen Offset angewendet landet er
+woanders, und alle Repliken stimmen im Ergebnis überein: deshalb sah es nicht
+wie ein Fehler aus. Es war einer:
+
+| was die Person tat | vorher | jetzt |
+|---|---|---|
+| `Y` hinter das `abc` auf dem Bildschirm getippt, während `Xabc` schon zusammengeführt war | `XabYc` | `XabcY` |
+| das `bc` auf dem Bildschirm gelöscht, ein `X` eines Peers dazwischen | `acd` – das `X` des Peers zerstört | `aXd` |
+
+Eine lokale Änderung wird jetzt über diese Lücke getragen, bevor sie angewendet
+wird: die Inklusionstransformation von Ellis & Gibbs (SIGMOD '89), auf der
+Seite, auf der Jupiter (Nichols et al., UIST '95) transformiert – die eigene
+Änderung gegen das, was bereits zusammengeführt wurde. Ein Offset wandert mit
+dem mit, was vor ihm gelandet ist, und geht ebenso weit in das hinein, was es
+ersetzt hat. Eine Löschung nimmt die Zeichen, die die Person sehen konnte, und
+nicht die, die sie nicht sehen konnte: die Einfügung eines Peers innerhalb des
+gelöschten Bereichs wird *darum herum* gelöscht und überlebt. Platzierung ist
+eine Schätzung; ein Zeichen, das vor einem Augenblick auf jemandes Bildschirm
+stand, ist keine.
+
 ## Binärgröße: ein Programm linkt, was es benutzt {#binary-size}
 
 Das Toolkit ist ein großes Paket, und für den Linker ist das in Ordnung: Die

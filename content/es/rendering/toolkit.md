@@ -142,6 +142,34 @@ arrastrar y soltar (`DragSource`, `DropTarget`). La selección de varias filas e
 `ListBox`, `Table` y `TreeView` funciona con el ratón y con el teclado, y
 respeta ⌘ además de Ctrl, porque en macOS Ctrl-clic es el clic secundario.
 
+## Varias personas en un mismo búfer {#collaboration}
+
+`collabui.CollabText` vincula un `CodeEditor` a una parte de texto de una sesión
+[`go-crdt/collab`](https://github.com/go-crdt/collab). La fusión es del CRDT y el
+vínculo no añade nada de ella. **Dónde** se aplica una edición es del vínculo, y
+esa es otra cuestión.
+
+La edición de un par se fusiona en la réplica en cuanto llega por la red; el
+editor se repinta más tarde, cuando el anfitrión ejecuta el cierre que el
+vínculo le entregó. Entre ambos momentos la pantalla muestra un texto y la
+réplica contiene otro — y una pulsación en esa ventana apuntaba a la pantalla.
+Aplicada en su desplazamiento crudo aterriza en otro sitio, y todas las réplicas
+coinciden en el resultado: por eso no parecía un defecto. Lo era:
+
+| lo que hizo la persona | antes | ahora |
+|---|---|---|
+| escribió `Y` tras el `abc` de la pantalla, con `Xabc` ya fusionado | `XabYc` | `XabcY` |
+| borró el `bc` de la pantalla, con la `X` de un par entre medias | `acd` — la `X` del par destruida | `aXd` |
+
+Una edición local se transporta ahora a través de esa brecha antes de aplicarse:
+la transformación de inclusión de Ellis & Gibbs (SIGMOD '89), por el lado en que
+transforma Jupiter (Nichols et al., UIST '95) — la edición propia contra lo que
+ya se ha fusionado. Un desplazamiento se mueve con lo que aterrizó antes que él y
+entra otro tanto en lo que lo reemplazó. Un borrado se lleva los caracteres que
+la persona podía ver y no los que no podía: la inserción de un par dentro del
+rango borrado se borra *alrededor* y sobrevive. La colocación es una conjetura;
+un carácter que hace un instante estaba en la pantalla de alguien no lo es.
+
 ## Tamaño del binario: un programa enlaza lo que usa {#binary-size}
 
 El toolkit es un paquete grande, y para el enlazador eso no es un problema: la
