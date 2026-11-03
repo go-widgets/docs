@@ -333,6 +333,49 @@ mehrere, etwa um eine CJK- oder arabische Schrift hinzuzufügen; das eigene &lt;
 &lt;h2 data-hextra-search-id="input"&gt;Eingabe&lt;span class="hx:absolute hx:-mt-20" id="input"&gt;&lt;/span&gt;
 &lt;a href="#input" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Maus, Tastatur, IME-Komposition, Touch (&lt;code&gt;EventTouchStart&lt;/code&gt;/&lt;code&gt;Move&lt;/code&gt;/&lt;code&gt;End&lt;/code&gt;, mit&lt;code&gt;GestureRecognizer&lt;/code&gt; für Tippen, langes Drücken und Wischen), Drag and Drop(&lt;code&gt;DragSource&lt;/code&gt;, &lt;code&gt;DropTarget&lt;/code&gt;). Mehrfachauswahl von Zeilen in &lt;code&gt;ListBox&lt;/code&gt;, &lt;code&gt;Table&lt;/code&gt; und&lt;code&gt;TreeView&lt;/code&gt; funktioniert mit der Maus und mit der Tastatur und beachtet ⌘ ebenso
 wie Ctrl, weil unter macOS Ctrl-Klick der Sekundärklick ist.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="collaboration"&gt;Mehrere Personen in einem Puffer&lt;span class="hx:absolute hx:-mt-20" id="collaboration"&gt;&lt;/span&gt;
+&lt;a href="#collaboration" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;collabui.CollabText&lt;/code&gt; bindet einen &lt;code&gt;CodeEditor&lt;/code&gt; an einen Textteil einer&lt;a href="https://github.com/go-crdt/collab" target="_blank" rel="noopener"&gt;&lt;code&gt;go-crdt/collab&lt;/code&gt;&lt;/a&gt;-Sitzung. Das
+Zusammenführen gehört dem CRDT, und die Bindung fügt nichts davon hinzu. &lt;strong&gt;Wo&lt;/strong&gt;
+eine Änderung angewendet wird, gehört der Bindung, und das ist eine andere
+Frage.&lt;/p&gt;
+&lt;p&gt;Die Änderung eines Peers wird in die Replik übernommen, sobald sie über das Netz
+eintrifft; der Editor wird später neu gezeichnet, wenn der Host die Closure
+ausführt, die die Bindung ihm übergeben hat. Dazwischen zeigt der Bildschirm
+einen Text und die Replik hält einen anderen – und ein Tastendruck in diesem
+Fenster zielte auf den Bildschirm. An seinem rohen Offset angewendet landet er
+woanders, und alle Repliken stimmen im Ergebnis überein: deshalb sah es nicht
+wie ein Fehler aus. Es war einer:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;was die Person tat&lt;/th&gt;
+&lt;th&gt;vorher&lt;/th&gt;
+&lt;th&gt;jetzt&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Y&lt;/code&gt; hinter das &lt;code&gt;abc&lt;/code&gt; auf dem Bildschirm getippt, während &lt;code&gt;Xabc&lt;/code&gt; schon zusammengeführt war&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;XabYc&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;XabcY&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;das &lt;code&gt;bc&lt;/code&gt; auf dem Bildschirm gelöscht, ein &lt;code&gt;X&lt;/code&gt; eines Peers dazwischen&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;acd&lt;/code&gt; – das &lt;code&gt;X&lt;/code&gt; des Peers zerstört&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;aXd&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Eine lokale Änderung wird jetzt über diese Lücke getragen, bevor sie angewendet
+wird: die Inklusionstransformation von Ellis &amp;amp; Gibbs (SIGMOD &amp;lsquo;89), auf der
+Seite, auf der Jupiter (Nichols et al., UIST &amp;lsquo;95) transformiert – die eigene
+Änderung gegen das, was bereits zusammengeführt wurde. Ein Offset wandert mit
+dem mit, was vor ihm gelandet ist, und geht ebenso weit in das hinein, was es
+ersetzt hat. Eine Löschung nimmt die Zeichen, die die Person sehen konnte, und
+nicht die, die sie nicht sehen konnte: die Einfügung eines Peers innerhalb des
+gelöschten Bereichs wird &lt;em&gt;darum herum&lt;/em&gt; gelöscht und überlebt. Platzierung ist
+eine Schätzung; ein Zeichen, das vor einem Augenblick auf jemandes Bildschirm
+stand, ist keine.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="binary-size"&gt;Binärgröße: ein Programm linkt, was es benutzt&lt;span class="hx:absolute hx:-mt-20" id="binary-size"&gt;&lt;/span&gt;
 &lt;a href="#binary-size" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Das Toolkit ist ein großes Paket, und für den Linker ist das in Ordnung: Die
 Dead-Code-Eliminierung von Go behält nur, was von &lt;code&gt;main.main&lt;/code&gt; &lt;strong&gt;und von den

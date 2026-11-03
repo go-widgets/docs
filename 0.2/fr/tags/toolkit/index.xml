@@ -209,6 +209,45 @@ remplace la police globale pour ce seul widget.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="input"&gt;Saisie&lt;span class="hx:absolute hx:-mt-20" id="input"&gt;&lt;/span&gt;
 &lt;a href="#input" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Souris, clavier, composition IME, tactile (&lt;code&gt;EventTouchStart&lt;/code&gt;/&lt;code&gt;Move&lt;/code&gt;/&lt;code&gt;End&lt;/code&gt;, avec&lt;code&gt;GestureRecognizer&lt;/code&gt; pour les tapes, les appuis longs et les balayages), glisser-déposer(&lt;code&gt;DragSource&lt;/code&gt;, &lt;code&gt;DropTarget&lt;/code&gt;). La sélection de plusieurs lignes dans &lt;code&gt;ListBox&lt;/code&gt;, &lt;code&gt;Table&lt;/code&gt; et&lt;code&gt;TreeView&lt;/code&gt; fonctionne à la souris comme au clavier, et respecte ⌘ aussi bien
 que Ctrl, car sous macOS Ctrl-clic est le clic secondaire.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="collaboration"&gt;Plusieurs personnes dans un même tampon&lt;span class="hx:absolute hx:-mt-20" id="collaboration"&gt;&lt;/span&gt;
+&lt;a href="#collaboration" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;collabui.CollabText&lt;/code&gt; relie un &lt;code&gt;CodeEditor&lt;/code&gt; à une partie texte d&amp;rsquo;une session&lt;a href="https://github.com/go-crdt/collab" target="_blank" rel="noopener"&gt;&lt;code&gt;go-crdt/collab&lt;/code&gt;&lt;/a&gt;. La fusion appartient au
+CRDT et la liaison n&amp;rsquo;en ajoute rien. &lt;strong&gt;Où&lt;/strong&gt; une modification est appliquée
+appartient à la liaison, et c&amp;rsquo;est une autre question.&lt;/p&gt;
+&lt;p&gt;La modification d&amp;rsquo;un pair fusionne dans la réplique dès qu&amp;rsquo;elle arrive du
+réseau ; l&amp;rsquo;éditeur est repeint plus tard, quand l&amp;rsquo;hôte exécute la fermeture que
+la liaison lui a confiée. Entre les deux, l&amp;rsquo;écran montre un texte et la réplique
+en détient un autre — et une frappe dans cette fenêtre visait l&amp;rsquo;écran. Appliquée
+à son décalage brut, elle atterrit ailleurs, et toutes les répliques s&amp;rsquo;accordent
+sur le résultat : voilà pourquoi cela ne ressemblait pas à un défaut. C&amp;rsquo;en était
+un :&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;ce que la personne a fait&lt;/th&gt;
+&lt;th&gt;avant&lt;/th&gt;
+&lt;th&gt;maintenant&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;tapé &lt;code&gt;Y&lt;/code&gt; après le &lt;code&gt;abc&lt;/code&gt; à l&amp;rsquo;écran, alors que &lt;code&gt;Xabc&lt;/code&gt; avait fusionné&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;XabYc&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;XabcY&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;supprimé le &lt;code&gt;bc&lt;/code&gt; à l&amp;rsquo;écran, un &lt;code&gt;X&lt;/code&gt; d&amp;rsquo;un pair entre les deux&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;acd&lt;/code&gt; — le &lt;code&gt;X&lt;/code&gt; du pair détruit&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;aXd&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Une modification locale est désormais transportée à travers cet écart avant
+d&amp;rsquo;être appliquée : la transformation d&amp;rsquo;inclusion d&amp;rsquo;Ellis &amp;amp; Gibbs (SIGMOD 1989),du côté où Jupiter (Nichols et al., UIST 1995) transforme — notre propre
+modification contre ce qui a déjà fusionné. Un décalage se déplace avec ce qui
+s&amp;rsquo;est posé avant lui et entre d&amp;rsquo;autant dans ce qui l&amp;rsquo;a remplacé. Une suppression
+prend les caractères que la personne voyait et non ceux qu&amp;rsquo;elle ne voyait pas :l&amp;rsquo;insertion d&amp;rsquo;un pair à l&amp;rsquo;intérieur de la plage supprimée est supprimée &lt;em&gt;autour&lt;/em&gt;
+et survit. Le placement est une estimation ; un caractère qui était sur l&amp;rsquo;écran
+de quelqu&amp;rsquo;un il y a un instant n&amp;rsquo;en est pas une.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="binary-size"&gt;Taille du binaire : un programme lie ce qu&amp;rsquo;il utilise&lt;span class="hx:absolute hx:-mt-20" id="binary-size"&gt;&lt;/span&gt;
 &lt;a href="#binary-size" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;La boîte à outils est un grand paquet, et l&amp;rsquo;éditeur de liens s&amp;rsquo;en accommode :l&amp;rsquo;élimination de code mort de Go ne garde que ce qui est atteignable depuis&lt;code&gt;main.main&lt;/code&gt; &lt;strong&gt;et depuis les tâches d&amp;rsquo;initialisation de chaque paquet importé&lt;/strong&gt;.Les widgets qu&amp;rsquo;un programme ne touche jamais sont retirés. Ce qui n&amp;rsquo;est pas
 retiré, c&amp;rsquo;est tout ce qu&amp;rsquo;atteint un initialiseur de niveau paquet ou le &lt;code&gt;init&lt;/code&gt;

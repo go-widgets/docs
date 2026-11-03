@@ -158,6 +158,43 @@ overrides the global one for that widget alone.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="input"&gt;Input&lt;span class="hx:absolute hx:-mt-20" id="input"&gt;&lt;/span&gt;
 &lt;a href="#input" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Mouse, keyboard, IME composition, touch (&lt;code&gt;EventTouchStart&lt;/code&gt;/&lt;code&gt;Move&lt;/code&gt;/&lt;code&gt;End&lt;/code&gt;, with&lt;code&gt;GestureRecognizer&lt;/code&gt; for taps, long presses and swipes), drag and drop(&lt;code&gt;DragSource&lt;/code&gt;, &lt;code&gt;DropTarget&lt;/code&gt;). Multi-row selection in &lt;code&gt;ListBox&lt;/code&gt;, &lt;code&gt;Table&lt;/code&gt; and&lt;code&gt;TreeView&lt;/code&gt; works from the mouse and from the keyboard, and honours ⌘ as well
 as Ctrl, because on macOS Ctrl-click is the secondary click.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="collaboration"&gt;Several people in one buffer&lt;span class="hx:absolute hx:-mt-20" id="collaboration"&gt;&lt;/span&gt;
+&lt;a href="#collaboration" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;collabui.CollabText&lt;/code&gt; binds a &lt;code&gt;CodeEditor&lt;/code&gt; to one text part of a&lt;a href="https://github.com/go-crdt/collab" target="_blank" rel="noopener"&gt;&lt;code&gt;go-crdt/collab&lt;/code&gt;&lt;/a&gt; session. The merge is the
+CRDT&amp;rsquo;s and the binding adds none of it. &lt;strong&gt;Where&lt;/strong&gt; an edit is applied is the
+binding&amp;rsquo;s, and that is a different question.&lt;/p&gt;
+&lt;p&gt;A peer&amp;rsquo;s edit merges into the replica the moment it arrives off the wire; the
+editor is repainted later, when the host runs the closure the binding handed
+it. In between, the screen shows one text and the replica holds another — and a
+keystroke in that window was aimed at the screen. Applied at its raw offset it
+lands elsewhere, and every replica agrees on the result, which is why it does
+not look like a defect. It was one:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;the person did&lt;/th&gt;
+&lt;th&gt;before&lt;/th&gt;
+&lt;th&gt;now&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;typed &lt;code&gt;Y&lt;/code&gt; after the &lt;code&gt;abc&lt;/code&gt; on screen, while &lt;code&gt;Xabc&lt;/code&gt; had merged&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;XabYc&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;XabcY&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;deleted the &lt;code&gt;bc&lt;/code&gt; on screen, a peer&amp;rsquo;s &lt;code&gt;X&lt;/code&gt; between them&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;acd&lt;/code&gt; — the peer&amp;rsquo;s &lt;code&gt;X&lt;/code&gt; destroyed&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;aXd&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;A local edit is carried across that gap before it is applied: the inclusion
+transformation of Ellis &amp;amp; Gibbs (SIGMOD &amp;lsquo;89), on the side Jupiter (Nichols
+et al., UIST &amp;lsquo;95) transforms on — our own edit against what has already merged.An offset moves with what landed before it and goes the same distance into what
+replaced it. A deletion takes the characters the person could see and not the
+ones they could not, so a peer&amp;rsquo;s insertion inside the deleted range is deleted&lt;em&gt;around&lt;/em&gt; and survives. Placement is a guess; a character that was on somebody&amp;rsquo;s
+screen a moment ago is not.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="binary-size"&gt;Binary size: a program links what it uses&lt;span class="hx:absolute hx:-mt-20" id="binary-size"&gt;&lt;/span&gt;
 &lt;a href="#binary-size" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;The toolkit is one large package, and that is fine for the linker: Go&amp;rsquo;s
 dead-code elimination keeps only what is reachable from &lt;code&gt;main.main&lt;/code&gt; &lt;strong&gt;and from

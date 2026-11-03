@@ -205,6 +205,42 @@ propio de un widget sustituye la global solo para ese widget.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="input"&gt;Entrada&lt;span class="hx:absolute hx:-mt-20" id="input"&gt;&lt;/span&gt;
 &lt;a href="#input" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Ratón, teclado, composición IME, táctil (&lt;code&gt;EventTouchStart&lt;/code&gt;/&lt;code&gt;Move&lt;/code&gt;/&lt;code&gt;End&lt;/code&gt;, con&lt;code&gt;GestureRecognizer&lt;/code&gt; para toques, pulsaciones largas y deslizamientos),arrastrar y soltar (&lt;code&gt;DragSource&lt;/code&gt;, &lt;code&gt;DropTarget&lt;/code&gt;). La selección de varias filas en&lt;code&gt;ListBox&lt;/code&gt;, &lt;code&gt;Table&lt;/code&gt; y &lt;code&gt;TreeView&lt;/code&gt; funciona con el ratón y con el teclado, y
 respeta ⌘ además de Ctrl, porque en macOS Ctrl-clic es el clic secundario.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="collaboration"&gt;Varias personas en un mismo búfer&lt;span class="hx:absolute hx:-mt-20" id="collaboration"&gt;&lt;/span&gt;
+&lt;a href="#collaboration" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;collabui.CollabText&lt;/code&gt; vincula un &lt;code&gt;CodeEditor&lt;/code&gt; a una parte de texto de una sesión&lt;a href="https://github.com/go-crdt/collab" target="_blank" rel="noopener"&gt;&lt;code&gt;go-crdt/collab&lt;/code&gt;&lt;/a&gt;. La fusión es del CRDT y el
+vínculo no añade nada de ella. &lt;strong&gt;Dónde&lt;/strong&gt; se aplica una edición es del vínculo, y
+esa es otra cuestión.&lt;/p&gt;
+&lt;p&gt;La edición de un par se fusiona en la réplica en cuanto llega por la red; el
+editor se repinta más tarde, cuando el anfitrión ejecuta el cierre que el
+vínculo le entregó. Entre ambos momentos la pantalla muestra un texto y la
+réplica contiene otro — y una pulsación en esa ventana apuntaba a la pantalla.Aplicada en su desplazamiento crudo aterriza en otro sitio, y todas las réplicas
+coinciden en el resultado: por eso no parecía un defecto. Lo era:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;lo que hizo la persona&lt;/th&gt;
+&lt;th&gt;antes&lt;/th&gt;
+&lt;th&gt;ahora&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;escribió &lt;code&gt;Y&lt;/code&gt; tras el &lt;code&gt;abc&lt;/code&gt; de la pantalla, con &lt;code&gt;Xabc&lt;/code&gt; ya fusionado&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;XabYc&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;XabcY&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;borró el &lt;code&gt;bc&lt;/code&gt; de la pantalla, con la &lt;code&gt;X&lt;/code&gt; de un par entre medias&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;acd&lt;/code&gt; — la &lt;code&gt;X&lt;/code&gt; del par destruida&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;aXd&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Una edición local se transporta ahora a través de esa brecha antes de aplicarse:la transformación de inclusión de Ellis &amp;amp; Gibbs (SIGMOD &amp;lsquo;89), por el lado en que
+transforma Jupiter (Nichols et al., UIST &amp;lsquo;95) — la edición propia contra lo que
+ya se ha fusionado. Un desplazamiento se mueve con lo que aterrizó antes que él y
+entra otro tanto en lo que lo reemplazó. Un borrado se lleva los caracteres que
+la persona podía ver y no los que no podía: la inserción de un par dentro del
+rango borrado se borra &lt;em&gt;alrededor&lt;/em&gt; y sobrevive. La colocación es una conjetura;un carácter que hace un instante estaba en la pantalla de alguien no lo es.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="binary-size"&gt;Tamaño del binario: un programa enlaza lo que usa&lt;span class="hx:absolute hx:-mt-20" id="binary-size"&gt;&lt;/span&gt;
 &lt;a href="#binary-size" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;El toolkit es un paquete grande, y para el enlazador eso no es un problema: la
 eliminación de código muerto de Go solo conserva lo alcanzable desde&lt;code&gt;main.main&lt;/code&gt; &lt;strong&gt;y desde las tareas de inicialización de cada paquete
