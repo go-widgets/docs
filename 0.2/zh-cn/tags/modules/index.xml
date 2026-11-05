@@ -18,7 +18,7 @@
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;a href="https://github.com/go-widgets/toolkit" target="_blank" rel="noopener"&gt;&lt;code&gt;toolkit&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
-&lt;td&gt;v0.345.1&lt;/td&gt;
+&lt;td&gt;v0.355.1&lt;/td&gt;
 &lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/zh-cn/rendering/toolkit/"&gt;控件集&lt;/a&gt;、主题、布局、文本&lt;/td&gt;
 &lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/toolkit" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
 &lt;/tr&gt;
