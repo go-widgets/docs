@@ -10,7 +10,7 @@ API リファレンスは [pkg.go.dev](https://pkg.go.dev/) がソースから�
 | モジュール | タグ | 概要 | リファレンス |
 |---|---|---|---|
 | [`painter`](https://github.com/go-widgets/painter) | v0.16.0 | [描画の継ぎ目]({{< relref "/rendering/painter.md" >}}): ピクセルペインタとセルペインタ | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/painter) |
-| [`toolkit`](https://github.com/go-widgets/toolkit) | v0.345.1 | [ウィジェットセット]({{< relref "/rendering/toolkit.md" >}})、テーマ、レイアウト、テキスト | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/toolkit) |
+| [`toolkit`](https://github.com/go-widgets/toolkit) | v0.355.1 | [ウィジェットセット]({{< relref "/rendering/toolkit.md" >}})、テーマ、レイアウト、テキスト | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/toolkit) |
 | [`skin`](https://github.com/go-widgets/skin) | v0.3.0 | [データとして記述されたウィジェット]({{< relref "/rendering/skin.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/skin) |
 | [`isoicons`](https://github.com/go-widgets/isoicons) | v0.4.0 | ツールキットのアイソメトリック図のための、アイソメトリックアイコンパック（クラウドネイティブ、AWS） | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/isoicons) |
 | [`mvvm`](https://github.com/go-widgets/mvvm) | v0.15.0 | [オブザーバブル、コマンド、バインダ、undo]({{< relref "/state/mvvm.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvm) |
