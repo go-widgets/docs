@@ -94,6 +94,17 @@ maths, pixel packing, damage rectangles — lives in a codec covered at 100%,on 
 &lt;a href="#only-what-changed" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;A root that implements &lt;code&gt;DamageRenderer&lt;/code&gt; (as &lt;code&gt;toolkit/scene.HostRoot&lt;/code&gt; does)reports the rectangles it repainted, and every back-end but GTK4 presents only
 those: X11 through MIT-SHM &lt;code&gt;ShmPutImage&lt;/code&gt;, Wayland through &lt;code&gt;wl_shm&lt;/code&gt; damage,Cocoa, Win32, Android, wasmbox and the browser tab. The first frame, a
 resize and an X11 &lt;code&gt;Expose&lt;/code&gt; still present the whole surface.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="on-the-gpu"&gt;On the GPU&lt;span class="hx:absolute hx:-mt-20" id="on-the-gpu"&gt;&lt;/span&gt;
+&lt;a href="#on-the-gpu" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;On macOS, &lt;code&gt;Config{GPU: true}&lt;/code&gt; draws frames on the GPU.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;How:&lt;/strong&gt; the widgets are recorded through&lt;a href="https://github.com/go-widgets/gpupainter" target="_blank" rel="noopener"&gt;gpupainter&lt;/a&gt; into a&lt;a href="https://github.com/go-gfx/gpu2d" target="_blank" rel="noopener"&gt;go-gfx/gpu2d&lt;/a&gt; list. Its Metal renderer draws
+the frame and presents it in a &lt;code&gt;CAMetalLayer&lt;/code&gt;, without the frame returning to
+the CPU.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Exactness:&lt;/strong&gt; the pixels are the CPU path&amp;rsquo;s, byte for byte.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Cost:&lt;/strong&gt; a whole frame costs the processor 0.59 ms instead of 1.58 ms at
+960 × 640, and 0.99 ms instead of 5.96 ms at 1920 × 1200 (Apple M4 Max).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Fallbacks:&lt;/strong&gt; a window with a translucent material stays on the CPU path,and so does a machine where Metal will not start. Neither is an error.Other back-ends ignore the option.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 data-hextra-search-id="hidpi"&gt;HiDPI&lt;span class="hx:absolute hx:-mt-20" id="hidpi"&gt;&lt;/span&gt;
 &lt;a href="#hidpi" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;The default is one framebuffer pixel per logical point: the UI is laid out
 and painted at a readable size, and the compositor up-samples it. On Windows

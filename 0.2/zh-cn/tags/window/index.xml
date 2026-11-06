@@ -199,6 +199,14 @@ data-copied-label="已复制！"
 &lt;p&gt;每个后端中与平台无关的部分——事件映射、坐标运算、像素打包、受损矩形——都放在一个覆盖率为 100% 的编解码器中，在每个操作系统上都是如此。很薄的平台胶水代码则做实时验证：参见&lt;a href="https://go-widgets.github.io/docs/0.2/zh-cn/status/"&gt;状态&lt;/a&gt;。&lt;/p&gt;
 &lt;h2 data-hextra-search-id="only-what-changed"&gt;只绘制变化的部分&lt;span class="hx:absolute hx:-mt-20" id="only-what-changed"&gt;&lt;/span&gt;
 &lt;a href="#only-what-changed" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;实现了 &lt;code&gt;DamageRenderer&lt;/code&gt; 的根（如 &lt;code&gt;toolkit/scene.HostRoot&lt;/code&gt;）会报告它重绘的矩形，除 GTK4 之外的每个后端都只呈现这些矩形：X11 通过 MIT-SHM 的 &lt;code&gt;ShmPutImage&lt;/code&gt;，Wayland 通过 &lt;code&gt;wl_shm&lt;/code&gt; 的 damage，以及 Cocoa、Win32、Android、wasmbox 和浏览器标签页。第一帧、窗口缩放和 X11 的 &lt;code&gt;Expose&lt;/code&gt; 仍然呈现整个绘制表面。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="on-the-gpu"&gt;在 GPU 上绘制&lt;span class="hx:absolute hx:-mt-20" id="on-the-gpu"&gt;&lt;/span&gt;
+&lt;a href="#on-the-gpu" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;在 macOS 上，&lt;code&gt;Config{GPU: true}&lt;/code&gt; 让帧在 GPU 上绘制。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;方式：&lt;/strong&gt; 控件通过 &lt;a href="https://github.com/go-widgets/gpupainter" target="_blank" rel="noopener"&gt;gpupainter&lt;/a&gt; 记录到&lt;a href="https://github.com/go-gfx/gpu2d" target="_blank" rel="noopener"&gt;go-gfx/gpu2d&lt;/a&gt; 列表中，由它的 Metal渲染器绘制帧并呈现在 &lt;code&gt;CAMetalLayer&lt;/code&gt; 中，帧不会回到 CPU。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;精确性：&lt;/strong&gt; 像素与 CPU 路径逐字节相同。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;开销：&lt;/strong&gt; 每帧占用的处理器时间在 960 × 640 下从 1.58 ms 降到 0.59 ms，在1920 × 1200 下从 5.96 ms 降到 0.99 ms（Apple M4 Max）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;回退：&lt;/strong&gt; 带半透明材质的窗口仍走 CPU 路径，Metal 无法启动的机器也一样，二者都不算错误。其他后端忽略此选项。&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 data-hextra-search-id="hidpi"&gt;HiDPI&lt;span class="hx:absolute hx:-mt-20" id="hidpi"&gt;&lt;/span&gt;
 &lt;a href="#hidpi" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;默认是每个逻辑点对应一个帧缓冲像素：界面以可读的大小布局和绘制，由合成器对其放大。在 Windows 上，窗口声明按显示器的 DPI 感知，由操作系统把逻辑帧缩放到物理客户区。&lt;code&gt;RenderScale&lt;/code&gt; 请求一个具有面板真实分辨率的帧缓冲区，这只对以设备像素进行布局的根才是正确的。&lt;/p&gt;
 &lt;h2 data-hextra-search-id="screens-and-showing-and-hiding"&gt;屏幕，以及显示和隐藏&lt;span class="hx:absolute hx:-mt-20" id="screens-and-showing-and-hiding"&gt;&lt;/span&gt;

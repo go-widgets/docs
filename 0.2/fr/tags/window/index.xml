@@ -213,6 +213,18 @@ coordonnées, empaquetage des pixels, rectangles endommagés — vit dans un cod
 &lt;a href="#only-what-changed" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Une racine qui implémente &lt;code&gt;DamageRenderer&lt;/code&gt; (comme le fait &lt;code&gt;toolkit/scene.HostRoot&lt;/code&gt;)signale les rectangles qu&amp;rsquo;elle a repeints, et chaque back-end sauf GTK4 ne présente que
 ceux-là : X11 via &lt;code&gt;ShmPutImage&lt;/code&gt; de MIT-SHM, Wayland via les zones endommagées de &lt;code&gt;wl_shm&lt;/code&gt;,Cocoa, Win32, Android, wasmbox et l&amp;rsquo;onglet de navigateur. La première image, un
 redimensionnement et un &lt;code&gt;Expose&lt;/code&gt; X11 présentent encore toute la surface.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="on-the-gpu"&gt;Sur le GPU&lt;span class="hx:absolute hx:-mt-20" id="on-the-gpu"&gt;&lt;/span&gt;
+&lt;a href="#on-the-gpu" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Sous macOS, &lt;code&gt;Config{GPU: true}&lt;/code&gt; dessine les images sur le GPU.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Comment :&lt;/strong&gt; les widgets sont enregistrés par&lt;a href="https://github.com/go-widgets/gpupainter" target="_blank" rel="noopener"&gt;gpupainter&lt;/a&gt; dans une liste&lt;a href="https://github.com/go-gfx/gpu2d" target="_blank" rel="noopener"&gt;go-gfx/gpu2d&lt;/a&gt;. Son moteur Metal dessine
+l&amp;rsquo;image et la présente dans une &lt;code&gt;CAMetalLayer&lt;/code&gt;, sans que l&amp;rsquo;image revienne au
+CPU.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Exactitude :&lt;/strong&gt; les pixels sont ceux du chemin CPU, octet pour octet.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Coût :&lt;/strong&gt; une image entière coûte au processeur 0,59 ms au lieu de 1,58 ms
+en 960 × 640, et 0,99 ms au lieu de 5,96 ms en 1920 × 1200 (Apple M4 Max).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Repli :&lt;/strong&gt; une fenêtre avec un matériau translucide reste sur le chemin CPU,de même qu&amp;rsquo;une machine où Metal ne démarre pas. Ni l&amp;rsquo;un ni l&amp;rsquo;autre n&amp;rsquo;est une
+erreur. Les autres back-ends ignorent l&amp;rsquo;option.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 data-hextra-search-id="hidpi"&gt;HiDPI&lt;span class="hx:absolute hx:-mt-20" id="hidpi"&gt;&lt;/span&gt;
 &lt;a href="#hidpi" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Par défaut, un pixel du framebuffer correspond à un point logique : l&amp;rsquo;interface est mise en page
 et peinte à une taille lisible, et le compositeur la suréchantillonne. Sous Windows,la fenêtre déclare une prise en charge du DPI par moniteur et le système met à l&amp;rsquo;échelle l&amp;rsquo;image

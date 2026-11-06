@@ -201,6 +201,15 @@ data-copied-label="コピーしました！"
 &lt;p&gt;各バックエンドのプラットフォームに依存しない部分（イベントのマッピング、座標計算、ピクセルのパッキング、ダメージ矩形）は、すべてのオペレーティングシステムで 100% カバーされたコーデックにあります。薄いプラットフォーム固有のグルーコードは、実環境で動作を検証しています。&lt;a href="https://go-widgets.github.io/docs/0.2/ja/status/"&gt;状況&lt;/a&gt;を参照してください。&lt;/p&gt;
 &lt;h2 data-hextra-search-id="only-what-changed"&gt;変更された部分だけ&lt;span class="hx:absolute hx:-mt-20" id="only-what-changed"&gt;&lt;/span&gt;
 &lt;a href="#only-what-changed" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;DamageRenderer&lt;/code&gt; を実装するルート（&lt;code&gt;toolkit/scene.HostRoot&lt;/code&gt; など）は、再描画した矩形を報告し、GTK4 を除くすべてのバックエンドは、その矩形だけを表示します。X11 は MIT-SHM の &lt;code&gt;ShmPutImage&lt;/code&gt;、Wayland は &lt;code&gt;wl_shm&lt;/code&gt; のダメージ、そして Cocoa、Win32、Android、wasmbox、ブラウザのタブが対象です。最初のフレーム、リサイズ、X11 の &lt;code&gt;Expose&lt;/code&gt; では、引き続きサーフェス全体が表示されます。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="on-the-gpu"&gt;GPU での描画&lt;span class="hx:absolute hx:-mt-20" id="on-the-gpu"&gt;&lt;/span&gt;
+&lt;a href="#on-the-gpu" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;macOS では &lt;code&gt;Config{GPU: true}&lt;/code&gt; でフレームを GPU で描画します。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;仕組み:&lt;/strong&gt; ウィジェットは &lt;a href="https://github.com/go-widgets/gpupainter" target="_blank" rel="noopener"&gt;gpupainter&lt;/a&gt;
+を通じて &lt;a href="https://github.com/go-gfx/gpu2d" target="_blank" rel="noopener"&gt;go-gfx/gpu2d&lt;/a&gt; のリストに記録されます。その Metal レンダラーがフレームを描画し、&lt;code&gt;CAMetalLayer&lt;/code&gt; に表示します。フレームがCPU に戻ることはありません。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;正確さ:&lt;/strong&gt; ピクセルは CPU パスとバイト単位で同一です。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;コスト:&lt;/strong&gt; 1 フレームあたりのプロセッサ時間は、960 × 640 で 1.58 ms から0.59 ms に、1920 × 1200 で 5.96 ms から 0.99 ms になります(Apple M4 Max)。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;フォールバック:&lt;/strong&gt; 半透明マテリアルを持つウィンドウは CPU パスのままです。Metal が起動しないマシンでも同様で、どちらもエラーではありません。ほかのバックエンドはこのオプションを無視します。&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 data-hextra-search-id="hidpi"&gt;HiDPI&lt;span class="hx:absolute hx:-mt-20" id="hidpi"&gt;&lt;/span&gt;
 &lt;a href="#hidpi" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;デフォルトでは、論理ポイント 1 つにつきフレームバッファのピクセルは 1 つです。UI は読みやすいサイズでレイアウトされ描画され、コンポジターがそれをアップサンプリングします。Windows では、ウィンドウがモニターごとの DPI 認識を宣言し、OS が論理フレームを物理的なクライアント領域に合わせて拡大縮小します。&lt;code&gt;RenderScale&lt;/code&gt; は、パネルの実際の解像度でのフレームバッファを要求しますが、これが正しいのは、デバイスピクセルでレイアウトするルートの場合だけです。&lt;/p&gt;
 &lt;h2 data-hextra-search-id="screens-and-showing-and-hiding"&gt;スクリーン、表示と非表示&lt;span class="hx:absolute hx:-mt-20" id="screens-and-showing-and-hiding"&gt;&lt;/span&gt;

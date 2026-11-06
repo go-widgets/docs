@@ -217,6 +217,19 @@ DLL을 &lt;code&gt;syscall.NewLazyDLL&lt;/code&gt;과 &lt;code&gt;syscall.NewCal
 &lt;a href="#only-what-changed" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;(&lt;code&gt;toolkit/scene.HostRoot&lt;/code&gt;처럼) &lt;code&gt;DamageRenderer&lt;/code&gt;를 구현하는 루트는 다시 그린
 사각형을 보고하며, GTK4를 제외한 모든 백엔드는 그 사각형만 표시합니다. X11은 MIT-SHM&lt;code&gt;ShmPutImage&lt;/code&gt;로, Wayland는 &lt;code&gt;wl_shm&lt;/code&gt; 손상 영역으로, 그리고 Cocoa, Win32, Android,wasmbox, 브라우저 탭이 그렇게 합니다. 첫 프레임, 크기 조정, X11 &lt;code&gt;Expose&lt;/code&gt;는 여전히
 서피스 전체를 표시합니다.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="on-the-gpu"&gt;GPU에서 그리기&lt;span class="hx:absolute hx:-mt-20" id="on-the-gpu"&gt;&lt;/span&gt;
+&lt;a href="#on-the-gpu" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;macOS에서는 &lt;code&gt;Config{GPU: true}&lt;/code&gt;로 프레임을 GPU에서 그립니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;방식:&lt;/strong&gt; 위젯은 &lt;a href="https://github.com/go-widgets/gpupainter" target="_blank" rel="noopener"&gt;gpupainter&lt;/a&gt;를 통해&lt;a href="https://github.com/go-gfx/gpu2d" target="_blank" rel="noopener"&gt;go-gfx/gpu2d&lt;/a&gt; 목록에 기록됩니다. 그 Metal
+렌더러가 프레임을 그리고 &lt;code&gt;CAMetalLayer&lt;/code&gt;에 표시하며, 프레임은 CPU로 돌아오지
+않습니다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;정확성:&lt;/strong&gt; 픽셀은 CPU 경로와 바이트 단위로 같습니다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;비용:&lt;/strong&gt; 프레임 하나에 드는 프로세서 시간은 960 × 640에서 1.58 ms 대신
+0.59 ms, 1920 × 1200에서 5.96 ms 대신 0.99 ms입니다(Apple M4 Max).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;대체:&lt;/strong&gt; 반투명 머티리얼이 있는 창은 CPU 경로에 남고, Metal이 시작되지 않는
+기기도 마찬가지입니다. 둘 다 오류가 아닙니다. 다른 백엔드는 이 옵션을
+무시합니다.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 data-hextra-search-id="hidpi"&gt;HiDPI&lt;span class="hx:absolute hx:-mt-20" id="hidpi"&gt;&lt;/span&gt;
 &lt;a href="#hidpi" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;기본값은 논리 포인트당 프레임버퍼 픽셀 하나입니다. UI는 읽기 편한 크기로 레이아웃되고
 그려지며 컴포지터가 이를 확대합니다. Windows에서는 창이 모니터별 DPI 인식을

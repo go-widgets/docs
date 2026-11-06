@@ -13,13 +13,13 @@
 &lt;tbody&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;a href="https://github.com/go-widgets/painter" target="_blank" rel="noopener"&gt;&lt;code&gt;painter&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
-&lt;td&gt;v0.16.0&lt;/td&gt;
+&lt;td&gt;v0.17.0&lt;/td&gt;
 &lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/ko/rendering/painter/"&gt;그리기 경계&lt;/a&gt;: 픽셀 및 셀 페인터&lt;/td&gt;
 &lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/painter" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;a href="https://github.com/go-widgets/toolkit" target="_blank" rel="noopener"&gt;&lt;code&gt;toolkit&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
-&lt;td&gt;v0.355.1&lt;/td&gt;
+&lt;td&gt;v0.356.0&lt;/td&gt;
 &lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/ko/rendering/toolkit/"&gt;위젯 세트&lt;/a&gt;, 테마, 레이아웃, 텍스트&lt;/td&gt;
 &lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/toolkit" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
 &lt;/tr&gt;
@@ -55,7 +55,7 @@
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;a href="https://github.com/go-widgets/window" target="_blank" rel="noopener"&gt;&lt;code&gt;window&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
-&lt;td&gt;v0.89.1&lt;/td&gt;
+&lt;td&gt;v0.90.0&lt;/td&gt;
 &lt;td&gt;여덟 가지 백엔드를 지원하는 &lt;a href="https://go-widgets.github.io/docs/0.2/ko/surfaces/native-window/"&gt;네이티브 창&lt;/a&gt;&lt;/td&gt;
 &lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/window" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
 &lt;/tr&gt;

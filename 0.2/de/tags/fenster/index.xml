@@ -211,6 +211,16 @@ Anfragegröße des Servers und dem schnellen MIT-SHM-Pfad, wobei das gemeinsame 
 &lt;a href="#only-what-changed" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Eine Wurzel, die &lt;code&gt;DamageRenderer&lt;/code&gt; implementiert (wie &lt;code&gt;toolkit/scene.HostRoot&lt;/code&gt;),meldet die Rechtecke, die sie neu gezeichnet hat, und jedes Back-End außer GTK4 stellt nur
 diese dar: X11 über MIT-SHM &lt;code&gt;ShmPutImage&lt;/code&gt;, Wayland über &lt;code&gt;wl_shm&lt;/code&gt;-Damage, Cocoa, Win32,Android, wasmbox und der Browser-Tab. Der erste Frame, eine Größenänderung und ein
 X11-&lt;code&gt;Expose&lt;/code&gt; stellen weiterhin die ganze Oberfläche dar.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="on-the-gpu"&gt;Auf der GPU&lt;span class="hx:absolute hx:-mt-20" id="on-the-gpu"&gt;&lt;/span&gt;
+&lt;a href="#on-the-gpu" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Unter macOS zeichnet &lt;code&gt;Config{GPU: true}&lt;/code&gt; die Frames auf der GPU.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Wie:&lt;/strong&gt; Die Widgets werden über&lt;a href="https://github.com/go-widgets/gpupainter" target="_blank" rel="noopener"&gt;gpupainter&lt;/a&gt; in eine&lt;a href="https://github.com/go-gfx/gpu2d" target="_blank" rel="noopener"&gt;go-gfx/gpu2d&lt;/a&gt;-Liste aufgezeichnet. Deren
+Metal-Renderer zeichnet den Frame und stellt ihn in einem &lt;code&gt;CAMetalLayer&lt;/code&gt; dar,ohne dass er zur CPU zurückkehrt.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Genauigkeit:&lt;/strong&gt; Die Pixel sind Byte für Byte die des CPU-Pfads.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Kosten:&lt;/strong&gt; Ein ganzer Frame kostet den Prozessor 0,59 ms statt 1,58 ms bei
+960 × 640 und 0,99 ms statt 5,96 ms bei 1920 × 1200 (Apple M4 Max).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Rückfall:&lt;/strong&gt; Ein Fenster mit transluzentem Material bleibt auf dem CPU-Pfad,ebenso ein Rechner, auf dem Metal nicht startet. Beides ist kein Fehler.Andere Back-ends ignorieren die Option.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 data-hextra-search-id="hidpi"&gt;HiDPI&lt;span class="hx:absolute hx:-mt-20" id="hidpi"&gt;&lt;/span&gt;
 &lt;a href="#hidpi" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Standard ist ein Framebuffer-Pixel pro logischem Punkt: Die UI wird in einer
 lesbaren Größe angeordnet und gezeichnet, und der Compositor skaliert sie hoch. Unter Windows

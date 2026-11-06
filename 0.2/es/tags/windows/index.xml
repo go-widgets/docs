@@ -101,6 +101,19 @@ unión con la plataforma se demuestra en vivo: consulte&lt;a href="https://go-wi
 presentan solo esos: X11 mediante &lt;code&gt;ShmPutImage&lt;/code&gt; de MIT-SHM, Wayland mediante
 el daño de &lt;code&gt;wl_shm&lt;/code&gt;, Cocoa, Win32, Android, wasmbox y la pestaña del navegador.El primer fotograma, un cambio de tamaño y un &lt;code&gt;Expose&lt;/code&gt; de X11 siguen
 presentando toda la superficie.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="on-the-gpu"&gt;En la GPU&lt;span class="hx:absolute hx:-mt-20" id="on-the-gpu"&gt;&lt;/span&gt;
+&lt;a href="#on-the-gpu" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;En macOS, &lt;code&gt;Config{GPU: true}&lt;/code&gt; dibuja los fotogramas en la GPU.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Cómo:&lt;/strong&gt; los widgets se registran mediante&lt;a href="https://github.com/go-widgets/gpupainter" target="_blank" rel="noopener"&gt;gpupainter&lt;/a&gt; en una lista de&lt;a href="https://github.com/go-gfx/gpu2d" target="_blank" rel="noopener"&gt;go-gfx/gpu2d&lt;/a&gt;. Su renderizador Metal dibuja
+el fotograma y lo presenta en una &lt;code&gt;CAMetalLayer&lt;/code&gt;, sin que el fotograma vuelva
+a la CPU.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Exactitud:&lt;/strong&gt; los píxeles son los del camino de CPU, byte a byte.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Coste:&lt;/strong&gt; un fotograma completo cuesta al procesador 0,59 ms en lugar de
+1,58 ms a 960 × 640, y 0,99 ms en lugar de 5,96 ms a 1920 × 1200(Apple M4 Max).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Alternativa:&lt;/strong&gt; una ventana con un material translúcido se queda en el
+camino de CPU, igual que una máquina donde Metal no arranca. Ninguno de los
+dos casos es un error. Los demás back-ends ignoran la opción.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 data-hextra-search-id="hidpi"&gt;HiDPI&lt;span class="hx:absolute hx:-mt-20" id="hidpi"&gt;&lt;/span&gt;
 &lt;a href="#hidpi" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Por defecto hay un píxel de framebuffer por punto lógico: la interfaz se
 organiza y se pinta a un tamaño legible, y el compositor la sobremuestrea. En
