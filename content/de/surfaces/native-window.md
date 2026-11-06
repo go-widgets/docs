@@ -59,6 +59,21 @@ diese dar: X11 über MIT-SHM `ShmPutImage`, Wayland über `wl_shm`-Damage, Cocoa
 Android, wasmbox und der Browser-Tab. Der erste Frame, eine Größenänderung und ein
 X11-`Expose` stellen weiterhin die ganze Oberfläche dar.
 
+## Auf der GPU {#on-the-gpu}
+
+Unter macOS zeichnet `Config{GPU: true}` die Frames auf der GPU.
+- **Wie:** Die Widgets werden über
+  [gpupainter](https://github.com/go-widgets/gpupainter) in eine
+  [go-gfx/gpu2d](https://github.com/go-gfx/gpu2d)-Liste aufgezeichnet. Deren
+  Metal-Renderer zeichnet den Frame und stellt ihn in einem `CAMetalLayer` dar,
+  ohne dass er zur CPU zurückkehrt.
+- **Genauigkeit:** Die Pixel sind Byte für Byte die des CPU-Pfads.
+- **Kosten:** Ein ganzer Frame kostet den Prozessor 0,59 ms statt 1,58 ms bei
+  960 × 640 und 0,99 ms statt 5,96 ms bei 1920 × 1200 (Apple M4 Max).
+- **Rückfall:** Ein Fenster mit transluzentem Material bleibt auf dem CPU-Pfad,
+  ebenso ein Rechner, auf dem Metal nicht startet. Beides ist kein Fehler.
+  Andere Back-ends ignorieren die Option.
+
 ## HiDPI {#hidpi}
 
 Standard ist ein Framebuffer-Pixel pro logischem Punkt: Die UI wird in einer

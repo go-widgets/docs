@@ -59,6 +59,21 @@ those: X11 through MIT-SHM `ShmPutImage`, Wayland through `wl_shm` damage,
 Cocoa, Win32, Android, wasmbox and the browser tab. The first frame, a
 resize and an X11 `Expose` still present the whole surface.
 
+## On the GPU
+
+On macOS, `Config{GPU: true}` draws frames on the GPU.
+- **How:** the widgets are recorded through
+  [gpupainter](https://github.com/go-widgets/gpupainter) into a
+  [go-gfx/gpu2d](https://github.com/go-gfx/gpu2d) list. Its Metal renderer draws
+  the frame and presents it in a `CAMetalLayer`, without the frame returning to
+  the CPU.
+- **Exactness:** the pixels are the CPU path's, byte for byte.
+- **Cost:** a whole frame costs the processor 0.59 ms instead of 1.58 ms at
+  960 × 640, and 0.99 ms instead of 5.96 ms at 1920 × 1200 (Apple M4 Max).
+- **Fallbacks:** a window with a translucent material stays on the CPU path,
+  and so does a machine where Metal will not start. Neither is an error.
+  Other back-ends ignore the option.
+
 ## HiDPI
 
 The default is one framebuffer pixel per logical point: the UI is laid out

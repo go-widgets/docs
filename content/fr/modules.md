@@ -12,14 +12,14 @@ rédaction — la liste des étiquettes du dépôt lui-même fait foi.
 
 | Module | Étiquette | Ce que c'est | Référence |
 |---|---|---|---|
-| [`painter`](https://github.com/go-widgets/painter) | v0.16.0 | [la jonction de dessin]({{< relref "/rendering/painter.md" >}}) : painters en pixels et en cellules | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/painter) |
-| [`toolkit`](https://github.com/go-widgets/toolkit) | v0.355.1 | [le jeu de widgets]({{< relref "/rendering/toolkit.md" >}}), thèmes, mises en page, texte | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/toolkit) |
+| [`painter`](https://github.com/go-widgets/painter) | v0.17.0 | [la jonction de dessin]({{< relref "/rendering/painter.md" >}}) : painters en pixels et en cellules | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/painter) |
+| [`toolkit`](https://github.com/go-widgets/toolkit) | v0.356.0 | [le jeu de widgets]({{< relref "/rendering/toolkit.md" >}}), thèmes, mises en page, texte | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/toolkit) |
 | [`skin`](https://github.com/go-widgets/skin) | v0.3.0 | [des widgets décrits par des données]({{< relref "/rendering/skin.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/skin) |
 | [`isoicons`](https://github.com/go-widgets/isoicons) | v0.4.0 | jeux d'icônes isométriques (cloud-native, AWS) pour les diagrammes isométriques de la boîte à outils | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/isoicons) |
 | [`mvvm`](https://github.com/go-widgets/mvvm) | v0.15.0 | [observables, commandes, binders, annulation]({{< relref "/state/mvvm.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvm) |
 | [`mvvmtk`](https://github.com/go-widgets/mvvmtk) | v0.15.0 | [des binders en un appel pour les widgets de la boîte à outils]({{< relref "/state/mvvm.md#mvvmtk-one-call-per-widget" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvmtk) |
 | [`data`](https://github.com/go-widgets/data) | v0.4.0 | [enregistrements typés, requêtes, stockage local ou distant]({{< relref "/state/data.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/data) |
-| [`window`](https://github.com/go-widgets/window) | v0.89.1 | [une fenêtre native]({{< relref "/surfaces/native-window.md" >}}) sur huit back-ends | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/window) |
+| [`window`](https://github.com/go-widgets/window) | v0.90.0 | [une fenêtre native]({{< relref "/surfaces/native-window.md" >}}) sur huit back-ends | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/window) |
 | [`application`](https://github.com/go-widgets/application) | v0.8.1 | [le cycle de vie de l'application]({{< relref "/surfaces/application.md" >}}) au-dessus d'une fenêtre | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/application) |
 | [`tray`](https://github.com/go-widgets/tray) | v0.15.0 | [une icône de zone de notification et son menu]({{< relref "/surfaces/application.md#the-tray" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/tray) |
 | [`webcanvas`](https://github.com/go-widgets/webcanvas) | v0.4.1 | [une scène dans un `<canvas>` de navigateur]({{< relref "/surfaces/browser.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/webcanvas) |

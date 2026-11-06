@@ -53,6 +53,20 @@ Windows は、`syscall.NewLazyDLL` と `syscall.NewCallback` のウィンドウ�
 ダメージ、そして Cocoa、Win32、Android、wasmbox、ブラウザのタブが対象です。最初のフレーム、リサイズ、
 X11 の `Expose` では、引き続きサーフェス全体が表示されます。
 
+## GPU での描画 {#on-the-gpu}
+
+macOS では `Config{GPU: true}` でフレームを GPU で描画します。
+- **仕組み:** ウィジェットは [gpupainter](https://github.com/go-widgets/gpupainter)
+  を通じて [go-gfx/gpu2d](https://github.com/go-gfx/gpu2d) のリストに記録されます。
+  その Metal レンダラーがフレームを描画し、`CAMetalLayer` に表示します。フレームが
+  CPU に戻ることはありません。
+- **正確さ:** ピクセルは CPU パスとバイト単位で同一です。
+- **コスト:** 1 フレームあたりのプロセッサ時間は、960 × 640 で 1.58 ms から
+  0.59 ms に、1920 × 1200 で 5.96 ms から 0.99 ms になります(Apple M4 Max)。
+- **フォールバック:** 半透明マテリアルを持つウィンドウは CPU パスのままです。
+  Metal が起動しないマシンでも同様で、どちらもエラーではありません。
+  ほかのバックエンドはこのオプションを無視します。
+
 ## HiDPI {#hidpi}
 
 デフォルトでは、論理ポイント 1 つにつきフレームバッファのピクセルは 1 つです。UI は読みやすいサイズでレイアウトされ
