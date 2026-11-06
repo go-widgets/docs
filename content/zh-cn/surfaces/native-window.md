@@ -50,6 +50,18 @@ return w.Run(root) // root is any toolkit.Widget
 除 GTK4 之外的每个后端都只呈现这些矩形：X11 通过 MIT-SHM 的 `ShmPutImage`，Wayland 通过 `wl_shm` 的 damage，
 以及 Cocoa、Win32、Android、wasmbox 和浏览器标签页。第一帧、窗口缩放和 X11 的 `Expose` 仍然呈现整个绘制表面。
 
+## 在 GPU 上绘制 {#on-the-gpu}
+
+在 macOS 上，`Config{GPU: true}` 让帧在 GPU 上绘制。
+- **方式：** 控件通过 [gpupainter](https://github.com/go-widgets/gpupainter) 记录到
+  [go-gfx/gpu2d](https://github.com/go-gfx/gpu2d) 列表中，由它的 Metal
+  渲染器绘制帧并呈现在 `CAMetalLayer` 中，帧不会回到 CPU。
+- **精确性：** 像素与 CPU 路径逐字节相同。
+- **开销：** 每帧占用的处理器时间在 960 × 640 下从 1.58 ms 降到 0.59 ms，在
+  1920 × 1200 下从 5.96 ms 降到 0.99 ms（Apple M4 Max）。
+- **回退：** 带半透明材质的窗口仍走 CPU 路径，Metal 无法启动的机器也一样，二者都不算
+  错误。其他后端忽略此选项。
+
 ## HiDPI {#hidpi}
 
 默认是每个逻辑点对应一个帧缓冲像素：界面以可读的大小布局和绘制，由合成器对其放大。

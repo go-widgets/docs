@@ -59,6 +59,21 @@ ceux-là : X11 via `ShmPutImage` de MIT-SHM, Wayland via les zones endommagées 
 Cocoa, Win32, Android, wasmbox et l'onglet de navigateur. La première image, un
 redimensionnement et un `Expose` X11 présentent encore toute la surface.
 
+## Sur le GPU {#on-the-gpu}
+
+Sous macOS, `Config{GPU: true}` dessine les images sur le GPU.
+- **Comment :** les widgets sont enregistrés par
+  [gpupainter](https://github.com/go-widgets/gpupainter) dans une liste
+  [go-gfx/gpu2d](https://github.com/go-gfx/gpu2d). Son moteur Metal dessine
+  l'image et la présente dans une `CAMetalLayer`, sans que l'image revienne au
+  CPU.
+- **Exactitude :** les pixels sont ceux du chemin CPU, octet pour octet.
+- **Coût :** une image entière coûte au processeur 0,59 ms au lieu de 1,58 ms
+  en 960 × 640, et 0,99 ms au lieu de 5,96 ms en 1920 × 1200 (Apple M4 Max).
+- **Repli :** une fenêtre avec un matériau translucide reste sur le chemin CPU,
+  de même qu'une machine où Metal ne démarre pas. Ni l'un ni l'autre n'est une
+  erreur. Les autres back-ends ignorent l'option.
+
 ## HiDPI {#hidpi}
 
 Par défaut, un pixel du framebuffer correspond à un point logique : l'interface est mise en page

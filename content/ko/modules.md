@@ -11,14 +11,14 @@ API 참조 문서는 릴리스된 태그를 따라가는 [pkg.go.dev](https://pk
 
 | 모듈 | 태그 | 설명 | 참조 문서 |
 |---|---|---|---|
-| [`painter`](https://github.com/go-widgets/painter) | v0.16.0 | [그리기 경계]({{< relref "/rendering/painter.md" >}}): 픽셀 및 셀 페인터 | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/painter) |
-| [`toolkit`](https://github.com/go-widgets/toolkit) | v0.355.1 | [위젯 세트]({{< relref "/rendering/toolkit.md" >}}), 테마, 레이아웃, 텍스트 | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/toolkit) |
+| [`painter`](https://github.com/go-widgets/painter) | v0.17.0 | [그리기 경계]({{< relref "/rendering/painter.md" >}}): 픽셀 및 셀 페인터 | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/painter) |
+| [`toolkit`](https://github.com/go-widgets/toolkit) | v0.356.0 | [위젯 세트]({{< relref "/rendering/toolkit.md" >}}), 테마, 레이아웃, 텍스트 | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/toolkit) |
 | [`skin`](https://github.com/go-widgets/skin) | v0.3.0 | [데이터로 기술한 위젯]({{< relref "/rendering/skin.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/skin) |
 | [`isoicons`](https://github.com/go-widgets/isoicons) | v0.4.0 | 툴킷의 아이소메트릭 다이어그램용 아이소메트릭 아이콘 팩(클라우드 네이티브, AWS) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/isoicons) |
 | [`mvvm`](https://github.com/go-widgets/mvvm) | v0.15.0 | [옵저버블, 커맨드, 바인더, 실행 취소]({{< relref "/state/mvvm.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvm) |
 | [`mvvmtk`](https://github.com/go-widgets/mvvmtk) | v0.15.0 | [툴킷 위젯을 위한 단일 호출 바인더]({{< relref "/state/mvvm.md#mvvmtk-one-call-per-widget" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvmtk) |
 | [`data`](https://github.com/go-widgets/data) | v0.4.0 | [타입이 있는 레코드, 쿼리, 로컬 또는 원격 저장소]({{< relref "/state/data.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/data) |
-| [`window`](https://github.com/go-widgets/window) | v0.89.1 | 여덟 가지 백엔드를 지원하는 [네이티브 창]({{< relref "/surfaces/native-window.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/window) |
+| [`window`](https://github.com/go-widgets/window) | v0.90.0 | 여덟 가지 백엔드를 지원하는 [네이티브 창]({{< relref "/surfaces/native-window.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/window) |
 | [`application`](https://github.com/go-widgets/application) | v0.8.1 | 창 위에 놓이는 [애플리케이션 수명 주기]({{< relref "/surfaces/application.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/application) |
 | [`tray`](https://github.com/go-widgets/tray) | v0.15.0 | [트레이 아이콘과 그 메뉴]({{< relref "/surfaces/application.md#the-tray" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/tray) |
 | [`webcanvas`](https://github.com/go-widgets/webcanvas) | v0.4.1 | [브라우저 `<canvas>`에 그리는 장면]({{< relref "/surfaces/browser.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/webcanvas) |

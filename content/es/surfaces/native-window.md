@@ -63,6 +63,22 @@ el daño de `wl_shm`, Cocoa, Win32, Android, wasmbox y la pestaña del navegador
 El primer fotograma, un cambio de tamaño y un `Expose` de X11 siguen
 presentando toda la superficie.
 
+## En la GPU {#on-the-gpu}
+
+En macOS, `Config{GPU: true}` dibuja los fotogramas en la GPU.
+- **Cómo:** los widgets se registran mediante
+  [gpupainter](https://github.com/go-widgets/gpupainter) en una lista de
+  [go-gfx/gpu2d](https://github.com/go-gfx/gpu2d). Su renderizador Metal dibuja
+  el fotograma y lo presenta en una `CAMetalLayer`, sin que el fotograma vuelva
+  a la CPU.
+- **Exactitud:** los píxeles son los del camino de CPU, byte a byte.
+- **Coste:** un fotograma completo cuesta al procesador 0,59 ms en lugar de
+  1,58 ms a 960 × 640, y 0,99 ms en lugar de 5,96 ms a 1920 × 1200
+  (Apple M4 Max).
+- **Alternativa:** una ventana con un material translúcido se queda en el
+  camino de CPU, igual que una máquina donde Metal no arranca. Ninguno de los
+  dos casos es un error. Los demás back-ends ignoran la opción.
+
 ## HiDPI {#hidpi}
 
 Por defecto hay un píxel de framebuffer por punto lógico: la interfaz se

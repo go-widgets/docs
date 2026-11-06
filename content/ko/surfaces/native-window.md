@@ -56,6 +56,20 @@ macOS는 purego로 Objective-C 런타임을 통해 접근합니다.
 wasmbox, 브라우저 탭이 그렇게 합니다. 첫 프레임, 크기 조정, X11 `Expose`는 여전히
 서피스 전체를 표시합니다.
 
+## GPU에서 그리기 {#on-the-gpu}
+
+macOS에서는 `Config{GPU: true}`로 프레임을 GPU에서 그립니다.
+- **방식:** 위젯은 [gpupainter](https://github.com/go-widgets/gpupainter)를 통해
+  [go-gfx/gpu2d](https://github.com/go-gfx/gpu2d) 목록에 기록됩니다. 그 Metal
+  렌더러가 프레임을 그리고 `CAMetalLayer`에 표시하며, 프레임은 CPU로 돌아오지
+  않습니다.
+- **정확성:** 픽셀은 CPU 경로와 바이트 단위로 같습니다.
+- **비용:** 프레임 하나에 드는 프로세서 시간은 960 × 640에서 1.58 ms 대신
+  0.59 ms, 1920 × 1200에서 5.96 ms 대신 0.99 ms입니다(Apple M4 Max).
+- **대체:** 반투명 머티리얼이 있는 창은 CPU 경로에 남고, Metal이 시작되지 않는
+  기기도 마찬가지입니다. 둘 다 오류가 아닙니다. 다른 백엔드는 이 옵션을
+  무시합니다.
+
 ## HiDPI {#hidpi}
 
 기본값은 논리 포인트당 프레임버퍼 픽셀 하나입니다. UI는 읽기 편한 크기로 레이아웃되고
