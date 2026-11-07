@@ -73,7 +73,7 @@
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;a href="https://github.com/go-widgets/webcanvas" target="_blank" rel="noopener"&gt;&lt;code&gt;webcanvas&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
-&lt;td&gt;v0.4.1&lt;/td&gt;
+&lt;td&gt;v0.9.0&lt;/td&gt;
 &lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/ko/surfaces/browser/"&gt;브라우저 &lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt;에 그리는 장면&lt;/a&gt;&lt;/td&gt;
 &lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/webcanvas" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
 &lt;/tr&gt;

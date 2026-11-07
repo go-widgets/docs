@@ -292,6 +292,22 @@ ne soit pas repeinte. Elle peut aussi implémenter &lt;code&gt;Ticker&lt;/code&g
 compilé pour &lt;code&gt;js/wasm&lt;/code&gt; sur une page ordinaire renvoie un back-end qui dessine dans le&lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; de la page (&lt;code&gt;Config.Canvas&lt;/code&gt;, par défaut &lt;code&gt;&amp;quot;screen&amp;quot;&lt;/code&gt;) via &lt;code&gt;webcanvas&lt;/code&gt;. Une
 application écrite pour &lt;code&gt;window&lt;/code&gt; fonctionne alors sans modification comme fenêtre native, dans
 un onglet de navigateur et dans wasmdesk.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="on-the-gpu"&gt;Sur le GPU&lt;span class="hx:absolute hx:-mt-20" id="on-the-gpu"&gt;&lt;/span&gt;
+&lt;a href="#on-the-gpu" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;webcanvas.RunWith(id, app, presenter)&lt;/code&gt; prend un &lt;code&gt;Presenter&lt;/code&gt;, et le paquet&lt;code&gt;webcanvas/gpu&lt;/code&gt; en fournit un qui dessine les images avec WebGPU.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Comment :&lt;/strong&gt; une App qui implémente aussi &lt;code&gt;Paint(painter.Painter)&lt;/code&gt; est
+enregistrée par &lt;a href="https://github.com/go-widgets/gpupainter" target="_blank" rel="noopener"&gt;gpupainter&lt;/a&gt; dans
+une liste &lt;a href="https://github.com/go-gfx/gpu2d" target="_blank" rel="noopener"&gt;go-gfx/gpu2d&lt;/a&gt;. Son moteur WebGPU
+dessine l&amp;rsquo;image, qui est copiée dans la texture du canvas sur le GPU.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Pourquoi un presenter :&lt;/strong&gt; un canvas n&amp;rsquo;accepte qu&amp;rsquo;un seul type de contexte
+pour toute sa vie ; le presenter décide donc une fois, avant la première
+image.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Exactitude :&lt;/strong&gt; les pixels sont ceux de l&amp;rsquo;image CPU de &lt;code&gt;Draw&lt;/code&gt;, octet pour
+octet (un test le garantit).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Repli :&lt;/strong&gt; un navigateur sans WebGPU, ou une App sans &lt;code&gt;Paint&lt;/code&gt;, reste sur le
+canvas 2D. Ce n&amp;rsquo;est une erreur ni dans un cas ni dans l&amp;rsquo;autre.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;La &lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;galerie web&lt;/a&gt; dessine ainsi.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="a-window-on-the-wasmdesk-desktop"&gt;Une fenêtre sur le bureau wasmdesk&lt;span class="hx:absolute hx:-mt-20" id="a-window-on-the-wasmdesk-desktop"&gt;&lt;/span&gt;
 &lt;a href="#a-window-on-the-wasmdesk-desktop" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Dans un worker wasmdesk, &lt;a href="https://go-widgets.github.io/docs/0.2/fr/surfaces/native-window/"&gt;&lt;code&gt;window.Open&lt;/code&gt;&lt;/a&gt;
 renvoie un client du compositeur de navigateur &lt;a href="https://github.com/wasmdesk/wasmbox" target="_blank" rel="noopener"&gt;wasmdesk/wasmbox&lt;/a&gt;.Il alloue sa surface dans un &lt;code&gt;SharedArrayBuffer&lt;/code&gt;, dit&lt;code&gt;hello&lt;/code&gt; sur son &lt;code&gt;MessagePort&lt;/code&gt;, attend &lt;code&gt;welcome&lt;/code&gt;, peint dans le tampon partagé

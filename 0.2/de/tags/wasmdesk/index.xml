@@ -28,6 +28,20 @@ Ereignisart, die jeweils meldet, ob sich etwas geändert hat, damit ein unverän
 nicht neu gezeichnet wird. Sie kann außerdem &lt;code&gt;Ticker&lt;/code&gt;, &lt;code&gt;Animator&lt;/code&gt;, &lt;code&gt;Resizer&lt;/code&gt; oder&lt;code&gt;Scroller&lt;/code&gt; implementieren.&lt;/p&gt;
 &lt;p&gt;Die &lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;Galerie&lt;/a&gt; und&lt;a href="https://go-widgets.github.io/docs/0.2/de/getting-started/"&gt;&lt;code&gt;app-template&lt;/code&gt;&lt;/a&gt; laufen auf diese Weise.&lt;/p&gt;
 &lt;p&gt;Oder man lässt &lt;code&gt;window&lt;/code&gt; wählen. Seit window v0.87.0 gibt&lt;a href="https://go-widgets.github.io/docs/0.2/de/surfaces/native-window/#how-open-chooses"&gt;&lt;code&gt;window.Open&lt;/code&gt;&lt;/a&gt;,für &lt;code&gt;js/wasm&lt;/code&gt; gebaut, auf einer gewöhnlichen Seite ein Back-End zurück, das über&lt;code&gt;webcanvas&lt;/code&gt; in das &lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; der Seite zeichnet (&lt;code&gt;Config.Canvas&lt;/code&gt;, Standard &lt;code&gt;&amp;quot;screen&amp;quot;&lt;/code&gt;).Eine gegen &lt;code&gt;window&lt;/code&gt; geschriebene Anwendung läuft dann unverändert als natives Fenster,in einem Browser-Tab und in wasmdesk.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="on-the-gpu"&gt;Auf der GPU&lt;span class="hx:absolute hx:-mt-20" id="on-the-gpu"&gt;&lt;/span&gt;
+&lt;a href="#on-the-gpu" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;webcanvas.RunWith(id, app, presenter)&lt;/code&gt; nimmt einen &lt;code&gt;Presenter&lt;/code&gt; entgegen, und
+das Paket &lt;code&gt;webcanvas/gpu&lt;/code&gt; liefert einen, der Bilder mit WebGPU zeichnet.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Wie:&lt;/strong&gt; Eine App, die auch &lt;code&gt;Paint(painter.Painter)&lt;/code&gt; implementiert, wird über&lt;a href="https://github.com/go-widgets/gpupainter" target="_blank" rel="noopener"&gt;gpupainter&lt;/a&gt; in eine&lt;a href="https://github.com/go-gfx/gpu2d" target="_blank" rel="noopener"&gt;go-gfx/gpu2d&lt;/a&gt;-Liste aufgezeichnet. Der
+WebGPU-Renderer zeichnet das Bild, das auf der GPU in die Canvas-Textur
+kopiert wird.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Warum ein Presenter:&lt;/strong&gt; Ein Canvas nimmt ein Leben lang nur eine
+Kontextart an; der Presenter entscheidet deshalb einmal, vor dem ersten Bild.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Exaktheit:&lt;/strong&gt; Die Pixel sind die des CPU-Bildes von &lt;code&gt;Draw&lt;/code&gt;, Byte für Byte(ein Test sichert das).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Rückfälle:&lt;/strong&gt; Ein Browser ohne WebGPU oder eine App ohne &lt;code&gt;Paint&lt;/code&gt; bleibt beim
+2D-Canvas. Beides ist kein Fehler.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Die &lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;Web-Galerie&lt;/a&gt; zeichnet so.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="a-window-on-the-wasmdesk-desktop"&gt;Ein Fenster auf dem wasmdesk-Desktop&lt;span class="hx:absolute hx:-mt-20" id="a-window-on-the-wasmdesk-desktop"&gt;&lt;/span&gt;
 &lt;a href="#a-window-on-the-wasmdesk-desktop" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;In einem wasmdesk-Worker gibt &lt;a href="https://go-widgets.github.io/docs/0.2/de/surfaces/native-window/"&gt;&lt;code&gt;window.Open&lt;/code&gt;&lt;/a&gt;
 einen Client des Browser-Compositors &lt;a href="https://github.com/wasmdesk/wasmbox" target="_blank" rel="noopener"&gt;wasmdesk/wasmbox&lt;/a&gt;

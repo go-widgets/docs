@@ -310,6 +310,21 @@ compilado para &lt;code&gt;js/wasm&lt;/code&gt; en una página corriente devuelv
 en el &lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; de la página (&lt;code&gt;Config.Canvas&lt;/code&gt;, por defecto &lt;code&gt;&amp;quot;screen&amp;quot;&lt;/code&gt;) a través
 de &lt;code&gt;webcanvas&lt;/code&gt;. Una aplicación escrita contra &lt;code&gt;window&lt;/code&gt; se ejecuta entonces sin
 cambios como ventana nativa, en una pestaña del navegador y en wasmdesk.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="on-the-gpu"&gt;En la GPU&lt;span class="hx:absolute hx:-mt-20" id="on-the-gpu"&gt;&lt;/span&gt;
+&lt;a href="#on-the-gpu" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;webcanvas.RunWith(id, app, presenter)&lt;/code&gt; recibe un &lt;code&gt;Presenter&lt;/code&gt;, y el paquete&lt;code&gt;webcanvas/gpu&lt;/code&gt; aporta uno que dibuja los fotogramas con WebGPU.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Cómo:&lt;/strong&gt; una App que implementa también &lt;code&gt;Paint(painter.Painter)&lt;/code&gt; se graba
+mediante &lt;a href="https://github.com/go-widgets/gpupainter" target="_blank" rel="noopener"&gt;gpupainter&lt;/a&gt; en una lista
+de &lt;a href="https://github.com/go-gfx/gpu2d" target="_blank" rel="noopener"&gt;go-gfx/gpu2d&lt;/a&gt;. Su renderizador WebGPU
+dibuja el fotograma, que se copia en la textura del canvas dentro de la GPU.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Por qué un presentador:&lt;/strong&gt; un canvas admite un solo tipo de contexto de por
+vida, así que el presentador decide una vez, antes del primer fotograma.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Exactitud:&lt;/strong&gt; los píxeles son los del fotograma de CPU de &lt;code&gt;Draw&lt;/code&gt;, byte a
+byte (lo garantiza una prueba).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Alternativas:&lt;/strong&gt; un navegador sin WebGPU, o una App sin &lt;code&gt;Paint&lt;/code&gt;, se queda en
+el canvas 2D. Ninguno de los dos casos es un error.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;La &lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;galería web&lt;/a&gt; dibuja así.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="a-window-on-the-wasmdesk-desktop"&gt;Una ventana en el escritorio wasmdesk&lt;span class="hx:absolute hx:-mt-20" id="a-window-on-the-wasmdesk-desktop"&gt;&lt;/span&gt;
 &lt;a href="#a-window-on-the-wasmdesk-desktop" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Dentro de un worker de wasmdesk, &lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/native-window/"&gt;&lt;code&gt;window.Open&lt;/code&gt;&lt;/a&gt;
 devuelve un cliente del compositor de navegador&lt;a href="https://github.com/wasmdesk/wasmbox" target="_blank" rel="noopener"&gt;wasmdesk/wasmbox&lt;/a&gt;. Asigna su superficie

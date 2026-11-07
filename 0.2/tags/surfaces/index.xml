@@ -293,6 +293,20 @@ built for &lt;code&gt;js/wasm&lt;/code&gt; on an ordinary page returns a back-en
 page&amp;rsquo;s &lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; (&lt;code&gt;Config.Canvas&lt;/code&gt;, default &lt;code&gt;&amp;quot;screen&amp;quot;&lt;/code&gt;) through &lt;code&gt;webcanvas&lt;/code&gt;. An
 application written against &lt;code&gt;window&lt;/code&gt; then runs unchanged as a native window, in
 a browser tab, and in wasmdesk.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="on-the-gpu"&gt;On the GPU&lt;span class="hx:absolute hx:-mt-20" id="on-the-gpu"&gt;&lt;/span&gt;
+&lt;a href="#on-the-gpu" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;webcanvas.RunWith(id, app, presenter)&lt;/code&gt; takes a &lt;code&gt;Presenter&lt;/code&gt;, and the package&lt;code&gt;webcanvas/gpu&lt;/code&gt; provides one that draws frames with WebGPU.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;How:&lt;/strong&gt; an App that also implements &lt;code&gt;Paint(painter.Painter)&lt;/code&gt; is recorded
+through &lt;a href="https://github.com/go-widgets/gpupainter" target="_blank" rel="noopener"&gt;gpupainter&lt;/a&gt; into a&lt;a href="https://github.com/go-gfx/gpu2d" target="_blank" rel="noopener"&gt;go-gfx/gpu2d&lt;/a&gt; list. Its WebGPU renderer
+draws the frame, which is copied into the canvas texture on the GPU.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Why a presenter:&lt;/strong&gt; a canvas takes one context kind for life, so the
+presenter decides once, before the first frame.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Exactness:&lt;/strong&gt; the pixels are the CPU &lt;code&gt;Draw&lt;/code&gt; frame&amp;rsquo;s, byte for byte (a test
+holds it).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Fallbacks:&lt;/strong&gt; a browser without WebGPU, or an App without &lt;code&gt;Paint&lt;/code&gt;, stays on
+the 2D canvas. Neither is an error.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The &lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;web gallery&lt;/a&gt; draws this way.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="a-window-on-the-wasmdesk-desktop"&gt;A window on the wasmdesk desktop&lt;span class="hx:absolute hx:-mt-20" id="a-window-on-the-wasmdesk-desktop"&gt;&lt;/span&gt;
 &lt;a href="#a-window-on-the-wasmdesk-desktop" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Inside a wasmdesk worker, &lt;a href="https://go-widgets.github.io/docs/0.2/surfaces/native-window/"&gt;&lt;code&gt;window.Open&lt;/code&gt;&lt;/a&gt;
 returns a client of the &lt;a href="https://github.com/wasmdesk/wasmbox" target="_blank" rel="noopener"&gt;wasmdesk/wasmbox&lt;/a&gt;
