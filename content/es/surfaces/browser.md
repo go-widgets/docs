@@ -42,6 +42,23 @@ en el `<canvas>` de la página (`Config.Canvas`, por defecto `"screen"`) a trav�
 de `webcanvas`. Una aplicación escrita contra `window` se ejecuta entonces sin
 cambios como ventana nativa, en una pestaña del navegador y en wasmdesk.
 
+## En la GPU {#on-the-gpu}
+
+`webcanvas.RunWith(id, app, presenter)` recibe un `Presenter`, y el paquete
+`webcanvas/gpu` aporta uno que dibuja los fotogramas con WebGPU.
+- **Cómo:** una App que implementa también `Paint(painter.Painter)` se graba
+  mediante [gpupainter](https://github.com/go-widgets/gpupainter) en una lista
+  de [go-gfx/gpu2d](https://github.com/go-gfx/gpu2d). Su renderizador WebGPU
+  dibuja el fotograma, que se copia en la textura del canvas dentro de la GPU.
+- **Por qué un presentador:** un canvas admite un solo tipo de contexto de por
+  vida, así que el presentador decide una vez, antes del primer fotograma.
+- **Exactitud:** los píxeles son los del fotograma de CPU de `Draw`, byte a
+  byte (lo garantiza una prueba).
+- **Alternativas:** un navegador sin WebGPU, o una App sin `Paint`, se queda en
+  el canvas 2D. Ninguno de los dos casos es un error.
+
+La [galería web](https://go-widgets.github.io/gallery/) dibuja así.
+
 ## Una ventana en el escritorio wasmdesk {#a-window-on-the-wasmdesk-desktop}
 
 Dentro de un worker de wasmdesk, [`window.Open`]({{< relref "/surfaces/native-window.md" >}})

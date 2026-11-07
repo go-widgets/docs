@@ -40,6 +40,22 @@ func main() { webcanvas.Run("screen", myScene()) }
 백엔드를 반환합니다. 그러면 `window`에 맞춰 작성된 애플리케이션이 네이티브 창으로도,
 브라우저 탭에서도, wasmdesk에서도 그대로 실행됩니다.
 
+## GPU에서 그리기 {#on-the-gpu}
+
+`webcanvas.RunWith(id, app, presenter)`는 `Presenter`를 받고, `webcanvas/gpu`
+패키지가 WebGPU로 프레임을 그리는 Presenter를 제공합니다.
+- **방식:** `Paint(painter.Painter)`도 구현한 App은
+  [gpupainter](https://github.com/go-widgets/gpupainter)를 거쳐
+  [go-gfx/gpu2d](https://github.com/go-gfx/gpu2d) 목록으로 기록됩니다.
+  WebGPU 렌더러가 프레임을 그리고, 그 프레임은 GPU 안에서 캔버스 텍스처로 복사됩니다.
+- **Presenter인 이유:** 캔버스는 평생 한 종류의 컨텍스트만 가질 수 있으므로,
+  Presenter가 첫 프레임 전에 한 번 결정합니다.
+- **정확성:** 픽셀은 `Draw`의 CPU 프레임과 바이트 단위로 같습니다(테스트로 보장).
+- **대체 동작:** WebGPU가 없는 브라우저나 `Paint`가 없는 App은 2D 캔버스에 머뭅니다.
+  어느 쪽도 오류가 아닙니다.
+
+[웹 갤러리](https://go-widgets.github.io/gallery/)가 이 방식으로 그립니다.
+
 ## wasmdesk 데스크톱의 창 {#a-window-on-the-wasmdesk-desktop}
 
 wasmdesk 워커 안에서 [`window.Open`]({{< relref "/surfaces/native-window.md" >}})은

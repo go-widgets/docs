@@ -22,7 +22,7 @@ writing — the repository's own tag list is the authority.
 | [`window`](https://github.com/go-widgets/window) | v0.90.0 | [a native window]({{< relref "/surfaces/native-window.md" >}}) on eight back-ends | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/window) |
 | [`application`](https://github.com/go-widgets/application) | v0.8.1 | [the application lifecycle]({{< relref "/surfaces/application.md" >}}) above a window | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/application) |
 | [`tray`](https://github.com/go-widgets/tray) | v0.15.0 | [a tray icon and its menu]({{< relref "/surfaces/application.md#the-tray" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/tray) |
-| [`webcanvas`](https://github.com/go-widgets/webcanvas) | v0.4.1 | [a scene in a browser `<canvas>`]({{< relref "/surfaces/browser.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/webcanvas) |
+| [`webcanvas`](https://github.com/go-widgets/webcanvas) | v0.9.0 | [a scene in a browser `<canvas>`]({{< relref "/surfaces/browser.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/webcanvas) |
 | [`tui`](https://github.com/go-widgets/tui) | v0.62.0 | [terminal rendering and cell-native widgets]({{< relref "/surfaces/terminal.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/tui) |
 | [`android`](https://github.com/go-widgets/android) | v0.16.0 | [an APK painted by a CGO-free process]({{< relref "/surfaces/android.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/android) |
 | [`svg`](https://github.com/go-widgets/svg) | v0.7.0 | [a render as SVG or PNG]({{< relref "/surfaces/snapshots.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/svg) |

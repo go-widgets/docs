@@ -41,6 +41,23 @@ page's `<canvas>` (`Config.Canvas`, default `"screen"`) through `webcanvas`. An
 application written against `window` then runs unchanged as a native window, in
 a browser tab, and in wasmdesk.
 
+## On the GPU
+
+`webcanvas.RunWith(id, app, presenter)` takes a `Presenter`, and the package
+`webcanvas/gpu` provides one that draws frames with WebGPU.
+- **How:** an App that also implements `Paint(painter.Painter)` is recorded
+  through [gpupainter](https://github.com/go-widgets/gpupainter) into a
+  [go-gfx/gpu2d](https://github.com/go-gfx/gpu2d) list. Its WebGPU renderer
+  draws the frame, which is copied into the canvas texture on the GPU.
+- **Why a presenter:** a canvas takes one context kind for life, so the
+  presenter decides once, before the first frame.
+- **Exactness:** the pixels are the CPU `Draw` frame's, byte for byte (a test
+  holds it).
+- **Fallbacks:** a browser without WebGPU, or an App without `Paint`, stays on
+  the 2D canvas. Neither is an error.
+
+The [web gallery](https://go-widgets.github.io/gallery/) draws this way.
+
 ## A window on the wasmdesk desktop
 
 Inside a wasmdesk worker, [`window.Open`]({{< relref "/surfaces/native-window.md" >}})

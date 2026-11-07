@@ -41,6 +41,24 @@ compilé pour `js/wasm` sur une page ordinaire renvoie un back-end qui dessine d
 application écrite pour `window` fonctionne alors sans modification comme fenêtre native, dans
 un onglet de navigateur et dans wasmdesk.
 
+## Sur le GPU {#on-the-gpu}
+
+`webcanvas.RunWith(id, app, presenter)` prend un `Presenter`, et le paquet
+`webcanvas/gpu` en fournit un qui dessine les images avec WebGPU.
+- **Comment :** une App qui implémente aussi `Paint(painter.Painter)` est
+  enregistrée par [gpupainter](https://github.com/go-widgets/gpupainter) dans
+  une liste [go-gfx/gpu2d](https://github.com/go-gfx/gpu2d). Son moteur WebGPU
+  dessine l'image, qui est copiée dans la texture du canvas sur le GPU.
+- **Pourquoi un presenter :** un canvas n'accepte qu'un seul type de contexte
+  pour toute sa vie ; le presenter décide donc une fois, avant la première
+  image.
+- **Exactitude :** les pixels sont ceux de l'image CPU de `Draw`, octet pour
+  octet (un test le garantit).
+- **Repli :** un navigateur sans WebGPU, ou une App sans `Paint`, reste sur le
+  canvas 2D. Ce n'est une erreur ni dans un cas ni dans l'autre.
+
+La [galerie web](https://go-widgets.github.io/gallery/) dessine ainsi.
+
 ## Une fenêtre sur le bureau wasmdesk {#a-window-on-the-wasmdesk-desktop}
 
 Dans un worker wasmdesk, [`window.Open`]({{< relref "/surfaces/native-window.md" >}})
