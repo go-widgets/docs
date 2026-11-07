@@ -38,6 +38,22 @@ func main() { webcanvas.Run("screen", myScene()) }
 返します。そのため、`window` に対して書かれたアプリケーションは、そのままネイティブウィンドウとしても、
 ブラウザのタブでも、wasmdesk でも動作します。
 
+## GPU での描画 {#on-the-gpu}
+
+`webcanvas.RunWith(id, app, presenter)` は `Presenter` を受け取り、パッケージ
+`webcanvas/gpu` が WebGPU でフレームを描く Presenter を提供します。
+- **仕組み:** `Paint(painter.Painter)` も実装している App は、
+  [gpupainter](https://github.com/go-widgets/gpupainter) を通して
+  [go-gfx/gpu2d](https://github.com/go-gfx/gpu2d) のリストに記録されます。
+  WebGPU レンダラーがフレームを描き、GPU 上でキャンバスのテクスチャにコピーされます。
+- **Presenter の理由:** キャンバスは一生に一種類のコンテキストしか持てないため、
+  Presenter が最初のフレームの前に一度だけ決めます。
+- **正確さ:** ピクセルは `Draw` の CPU フレームとバイト単位で同一です(テストで保証)。
+- **フォールバック:** WebGPU のないブラウザや `Paint` のない App は 2D キャンバスのままです。
+  どちらもエラーではありません。
+
+[Web ギャラリー](https://go-widgets.github.io/gallery/)はこの方法で描画しています。
+
 ## wasmdesk デスクトップ上のウィンドウ {#a-window-on-the-wasmdesk-desktop}
 
 wasmdesk のワーカー内では、[`window.Open`]({{< relref "/surfaces/native-window.md" >}}) は

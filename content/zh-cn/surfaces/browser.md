@@ -36,6 +36,20 @@ func main() { webcanvas.Run("screen", myScene()) }
 会返回一个后端，它通过 `webcanvas` 绘制到页面的 `<canvas>`（`Config.Canvas`，默认为 `"screen"`）。
 这样，针对 `window` 编写的应用无需改动就能作为原生窗口、在浏览器标签页中以及在 wasmdesk 中运行。
 
+## 在 GPU 上绘制 {#on-the-gpu}
+
+`webcanvas.RunWith(id, app, presenter)` 接收一个 `Presenter`,`webcanvas/gpu`
+包提供了一个用 WebGPU 绘制帧的实现。
+- **方式:** 同时实现了 `Paint(painter.Painter)` 的 App,经
+  [gpupainter](https://github.com/go-widgets/gpupainter) 记录为
+  [go-gfx/gpu2d](https://github.com/go-gfx/gpu2d) 列表。它的 WebGPU 渲染器绘制该帧,
+  并在 GPU 上把帧复制到画布纹理中。
+- **为何用 Presenter:** 一个画布终生只能取一种上下文,因此由 Presenter 在第一帧之前一次性决定。
+- **精确性:** 像素与 `Draw` 的 CPU 帧逐字节相同(有测试保证)。
+- **回退:** 没有 WebGPU 的浏览器,或没有 `Paint` 的 App,仍使用 2D 画布。两种情况都不算错误。
+
+[Web 画廊](https://go-widgets.github.io/gallery/)就是这样绘制的。
+
 ## wasmdesk 桌面上的一个窗口 {#a-window-on-the-wasmdesk-desktop}
 
 在 wasmdesk 工作线程内，[`window.Open`]({{< relref "/surfaces/native-window.md" >}})

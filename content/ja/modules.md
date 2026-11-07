@@ -19,7 +19,7 @@ API リファレンスは [pkg.go.dev](https://pkg.go.dev/) がソースから�
 | [`window`](https://github.com/go-widgets/window) | v0.90.0 | 8 つのバックエンドに対応した[ネイティブウィンドウ]({{< relref "/surfaces/native-window.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/window) |
 | [`application`](https://github.com/go-widgets/application) | v0.8.1 | ウィンドウの上に載る[アプリケーションのライフサイクル]({{< relref "/surfaces/application.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/application) |
 | [`tray`](https://github.com/go-widgets/tray) | v0.15.0 | [トレイアイコンとそのメニュー]({{< relref "/surfaces/application.md#the-tray" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/tray) |
-| [`webcanvas`](https://github.com/go-widgets/webcanvas) | v0.4.1 | [ブラウザの `<canvas>` 内のシーン]({{< relref "/surfaces/browser.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/webcanvas) |
+| [`webcanvas`](https://github.com/go-widgets/webcanvas) | v0.9.0 | [ブラウザの `<canvas>` 内のシーン]({{< relref "/surfaces/browser.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/webcanvas) |
 | [`tui`](https://github.com/go-widgets/tui) | v0.62.0 | [ターミナルへの描画とセルネイティブなウィジェット]({{< relref "/surfaces/terminal.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/tui) |
 | [`android`](https://github.com/go-widgets/android) | v0.16.0 | [CGO を使わないプロセスが描画する APK]({{< relref "/surfaces/android.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/android) |
 | [`svg`](https://github.com/go-widgets/svg) | v0.7.0 | [SVG または PNG としての描画結果]({{< relref "/surfaces/snapshots.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/svg) |
