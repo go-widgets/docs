@@ -87,7 +87,7 @@ data-copied-label="コピーしました！"
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;複合&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;FileChooser&lt;/code&gt;, &lt;code&gt;ColorChooser&lt;/code&gt;, &lt;code&gt;ColorPicker&lt;/code&gt;, &lt;code&gt;FontChooser&lt;/code&gt;, &lt;code&gt;Calendar&lt;/code&gt;, &lt;code&gt;DatePicker&lt;/code&gt;, &lt;code&gt;DateRangePicker&lt;/code&gt;, &lt;code&gt;TimePicker&lt;/code&gt;, &lt;code&gt;MarkdownView&lt;/code&gt;, &lt;code&gt;MarkdownEditor&lt;/code&gt;, &lt;code&gt;TerminalView&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;FileChooser&lt;/code&gt;, &lt;code&gt;FileTree&lt;/code&gt;, &lt;code&gt;ColorChooser&lt;/code&gt;, &lt;code&gt;ColorPicker&lt;/code&gt;, &lt;code&gt;FontChooser&lt;/code&gt;, &lt;code&gt;Calendar&lt;/code&gt;, &lt;code&gt;DatePicker&lt;/code&gt;, &lt;code&gt;DateRangePicker&lt;/code&gt;, &lt;code&gt;TimePicker&lt;/code&gt;, &lt;code&gt;MarkdownView&lt;/code&gt;, &lt;code&gt;MarkdownEditor&lt;/code&gt;, &lt;code&gt;TerminalView&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;シェル&lt;/td&gt;

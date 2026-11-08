@@ -223,7 +223,7 @@ the figures repeated.&lt;/p&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;Composite&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;FileChooser&lt;/code&gt;, &lt;code&gt;ColorChooser&lt;/code&gt;, &lt;code&gt;ColorPicker&lt;/code&gt;, &lt;code&gt;FontChooser&lt;/code&gt;, &lt;code&gt;Calendar&lt;/code&gt;, &lt;code&gt;DatePicker&lt;/code&gt;, &lt;code&gt;DateRangePicker&lt;/code&gt;, &lt;code&gt;TimePicker&lt;/code&gt;, &lt;code&gt;MarkdownView&lt;/code&gt;, &lt;code&gt;MarkdownEditor&lt;/code&gt;, &lt;code&gt;TerminalView&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;FileChooser&lt;/code&gt;, &lt;code&gt;FileTree&lt;/code&gt;, &lt;code&gt;ColorChooser&lt;/code&gt;, &lt;code&gt;ColorPicker&lt;/code&gt;, &lt;code&gt;FontChooser&lt;/code&gt;, &lt;code&gt;Calendar&lt;/code&gt;, &lt;code&gt;DatePicker&lt;/code&gt;, &lt;code&gt;DateRangePicker&lt;/code&gt;, &lt;code&gt;TimePicker&lt;/code&gt;, &lt;code&gt;MarkdownView&lt;/code&gt;, &lt;code&gt;MarkdownEditor&lt;/code&gt;, &lt;code&gt;TerminalView&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;Shell&lt;/td&gt;
@@ -439,7 +439,60 @@ horizontally, and the caret, selection and input methods work as before.&lt;code
 top inset, the lines, the bottom padding, and the horizontal bar when a line
 overflows. It changes on edits, undo, a new font or a new width, so a host
 subscribes once and sizes the surface from the callback, as a notebook does
-for each code cell.&lt;/p&gt;</description></item><item><title>Skins: a widget's parts and states as data</title><link>https://go-widgets.github.io/docs/0.2/rendering/skin/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/rendering/skin/</guid><description>
+for each code cell.&lt;/p&gt;
+&lt;h3 data-hextra-search-id="a-file-tree-over-a-versioned-working-tree"&gt;A file tree over a versioned working tree&lt;span class="hx:absolute hx:-mt-20" id="a-file-tree-over-a-versioned-working-tree"&gt;&lt;/span&gt;
+&lt;a href="#a-file-tree-over-a-versioned-working-tree" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;&lt;code&gt;FileTree&lt;/code&gt; is an Explorer over a flat list of paths: folders first, rename in
+place with F2, new file and new folder, Delete after a confirmation, a row
+dragged onto a folder to move it, files dropped from outside, a context menu,the WAI-ARIA treeview keys and type-ahead. It never changes its own entries —every verb becomes a &lt;code&gt;FileRequest&lt;/code&gt; handed to &lt;code&gt;OnRequest&lt;/code&gt;, and the host applies
+it and sets &lt;code&gt;Entries&lt;/code&gt;, so the store stays the one source of truth.&lt;/p&gt;
+&lt;p&gt;Since v0.361.0, each &lt;code&gt;FileEntry&lt;/code&gt; also carries a &lt;code&gt;Status&lt;/code&gt;:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;code&gt;FileStatus&lt;/code&gt;&lt;/th&gt;
+&lt;th&gt;mark&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;FileUnchanged&lt;/code&gt; (the zero value)&lt;/td&gt;
+&lt;td&gt;none&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;FileModified&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;M&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;FileAdded&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;A&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;FileDeleted&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;D&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;FileUntracked&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;?&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;FileConflicted&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;!&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;It is deliberately &lt;strong&gt;not&lt;/strong&gt; &amp;ldquo;git status&amp;rdquo;. Those six states are the vocabulary
+git, Mercurial, Subversion, Jujutsu and Fossil all share, so the tree knows
+which mark to draw and the host knows why; nothing here understands a commit.The marks are the ones &lt;code&gt;git status --short&lt;/code&gt;, &lt;code&gt;hg status&lt;/code&gt; and &lt;code&gt;svn status&lt;/code&gt; use,and they are drawn inboard of the size, so &lt;code&gt;ShowSizes&lt;/code&gt; does not move them.&lt;/p&gt;
+&lt;p&gt;The meaning is carried by the &lt;strong&gt;glyph&lt;/strong&gt;, not the colour: each status offers two
+candidate inks and the first that clears 4.5:1 against the row wins, otherwise
+the row&amp;rsquo;s own ink is used — so a mark is never unreadable, and a reader who
+cannot distinguish colours loses nothing. The selected entry&amp;rsquo;s state is also
+spoken through &lt;code&gt;A11y&lt;/code&gt;, as &lt;code&gt;&amp;quot;main.tex, modified&amp;quot;&lt;/code&gt;, because a glyph in a colour
+is unavailable to a screen reader.&lt;/p&gt;
+&lt;p&gt;A folder&amp;rsquo;s status is not derived from its children: &amp;ldquo;a folder holding a
+modified file&amp;rdquo; is a policy rather than a fact, and git says nothing about
+folders at all. An explicit &lt;code&gt;Dir&lt;/code&gt; entry carries its own status — a submodule, a
+directory a merge left conflicted — while an implied parent has none.&lt;/p&gt;</description></item><item><title>Skins: a widget's parts and states as data</title><link>https://go-widgets.github.io/docs/0.2/rendering/skin/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/rendering/skin/</guid><description>
 &lt;p&gt;The toolkit&amp;rsquo;s widgets are written in Go: a &lt;code&gt;Button&lt;/code&gt;&amp;rsquo;s parts, its hover,pressed and disabled faces and its click feedback all live in &lt;code&gt;button.go&lt;/code&gt;.That is fast and exact, and every visual change is a code change.&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://github.com/go-widgets/skin" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/skin&lt;/code&gt;&lt;/a&gt; moves that description
 into data — the idea of Enlightenment&amp;rsquo;s Edje. A &lt;code&gt;.skin.json&lt;/code&gt; document names a
