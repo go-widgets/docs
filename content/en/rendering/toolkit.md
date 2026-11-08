@@ -213,3 +213,17 @@ unless it says what it drew. Widgets implement `Accessible` — a role, a name,
 a value — and `CollectA11y` gathers them for the host to publish: AT-SPI on
 Linux through [`window`]({{< relref "/surfaces/native-window.md" >}}), and a
 virtual view hierarchy on [Android]({{< relref "/surfaces/android.md#accessibility" >}}).
+
+Since v0.359.0, `A11yInfo` also carries `Focused`, `Disabled`, `ReadOnly` and
+`Multiline`. Each `A11yNode.Key` is a stable path of `@<A11yID>` or
+`<Type>#<n>` segments, with `~2` appended on a duplicate ID, so a host can
+recognise a node from one frame to the next. A widget may implement the new
+optional interface `A11yIdentified` to supply its own ID, and `TextView`,
+`CodeEditor` and `Entry` have an `AccessibleName`.
+
+### Focus
+
+⛔ Breaking in v0.357.0: `Focused()` is now `HasFocus()` on `TextView`,
+`AddressBar` and `RichEditor`. Migrate with one rename: `ed.Focused()` becomes
+`ed.HasFocus()`. Each of the three now implements `Focusable`, so Tab reaches
+the editors; `CodeEditor` inherits this.
