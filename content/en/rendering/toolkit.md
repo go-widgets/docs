@@ -213,3 +213,28 @@ unless it says what it drew. Widgets implement `Accessible` — a role, a name,
 a value — and `CollectA11y` gathers them for the host to publish: AT-SPI on
 Linux through [`window`]({{< relref "/surfaces/native-window.md" >}}), and a
 virtual view hierarchy on [Android]({{< relref "/surfaces/android.md#accessibility" >}}).
+
+Since v0.359.0, `A11yInfo` also carries `Focused`, `Disabled`, `ReadOnly` and
+`Multiline`. Each `A11yNode.Key` is a stable path of `@<A11yID>` or
+`<Type>#<n>` segments, with `~2` appended on a duplicate ID, so a host can
+recognise a node from one frame to the next. A widget may implement the new
+optional interface `A11yIdentified` to supply its own ID, and `TextView`,
+`CodeEditor` and `Entry` have an `AccessibleName`.
+
+### Focus
+
+⛔ Breaking in v0.357.0: `Focused()` is now `HasFocus()` on `TextView`,
+`AddressBar` and `RichEditor`. Migrate with one rename: `ed.Focused()` becomes
+`ed.HasFocus()`. Each of the three now implements `Focusable`, so Tab reaches
+the editors; `CodeEditor` inherits this.
+
+### Sizing an editor to its content
+
+Since v0.360.0, a `TextView` or `CodeEditor` with `NoVerticalScroll` set lays
+out every line and never scrolls vertically; long lines still scroll
+horizontally, and the caret, selection and input methods work as before.
+`PreferredHeight()` is an Observable of the height that shows every line: the
+top inset, the lines, the bottom padding, and the horizontal bar when a line
+overflows. It changes on edits, undo, a new font or a new width, so a host
+subscribes once and sizes the surface from the callback, as a notebook does
+for each code cell.
