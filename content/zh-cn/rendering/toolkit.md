@@ -27,7 +27,7 @@ tags: [rendering, toolkit, widgets, theme, accessibility]
 | 反馈 | `ProgressBar`、`ProgressCircle`、`LevelBar`、`Spinner`、`Tooltip`、`Notification`、`Toast`、`Banner`、`Alert`、`Badge`、`Skeleton` |
 | 数据 | `Table`（单元格编辑、冻结列、分组行、聚合、行展开器）、`TreeTable`、`PropertyGrid`、`Kanban`、`Gantt`、`Agenda`（周、月、季度、年；多个日历） |
 | 图表 | `LineChart`、`BarChart`、`PieChart`、`AreaChart`、`ScatterChart`、`RadarChart`、`Gauge`、`Sparkline` |
-| 复合 | `FileChooser`、`ColorChooser`、`ColorPicker`、`FontChooser`、`Calendar`、`DatePicker`、`DateRangePicker`、`TimePicker`、`MarkdownView`、`MarkdownEditor`、`TerminalView` |
+| 复合 | `FileChooser`、`FileTree`、`ColorChooser`、`ColorPicker`、`FontChooser`、`Calendar`、`DatePicker`、`DateRangePicker`、`TimePicker`、`MarkdownView`、`MarkdownEditor`、`TerminalView` |
 | 外壳 | 带客户端装饰的 `Window`、`HeaderBar`、`Toolbar`、`Ribbon`、`Statusbar`、`StatusIcon`、`StatusArea`、`Wallpaper`、`Thumbnail` |
 
 每一个控件的实时演示：[画廊（gallery）](https://go-widgets.github.io/gallery/)。

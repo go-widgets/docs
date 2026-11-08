@@ -12,7 +12,7 @@ API 참조 문서는 릴리스된 태그를 따라가는 [pkg.go.dev](https://pk
 | 모듈 | 태그 | 설명 | 참조 문서 |
 |---|---|---|---|
 | [`painter`](https://github.com/go-widgets/painter) | v0.17.0 | [그리기 경계]({{< relref "/rendering/painter.md" >}}): 픽셀 및 셀 페인터 | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/painter) |
-| [`toolkit`](https://github.com/go-widgets/toolkit) | v0.360.0 | [위젯 세트]({{< relref "/rendering/toolkit.md" >}}), 테마, 레이아웃, 텍스트 | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/toolkit) |
+| [`toolkit`](https://github.com/go-widgets/toolkit) | v0.361.0 | [위젯 세트]({{< relref "/rendering/toolkit.md" >}}), 테마, 레이아웃, 텍스트 | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/toolkit) |
 | [`skin`](https://github.com/go-widgets/skin) | v0.3.0 | [데이터로 기술한 위젯]({{< relref "/rendering/skin.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/skin) |
 | [`isoicons`](https://github.com/go-widgets/isoicons) | v0.4.0 | 툴킷의 아이소메트릭 다이어그램용 아이소메트릭 아이콘 팩(클라우드 네이티브, AWS) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/isoicons) |
 | [`mvvm`](https://github.com/go-widgets/mvvm) | v0.15.0 | [옵저버블, 커맨드, 바인더, 실행 취소]({{< relref "/state/mvvm.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvm) |

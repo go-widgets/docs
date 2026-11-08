@@ -28,7 +28,7 @@ v0.329.0 では、公開されているウィジェット型が **160 種類**�
 | フィードバック | `ProgressBar`, `ProgressCircle`, `LevelBar`, `Spinner`, `Tooltip`, `Notification`, `Toast`, `Banner`, `Alert`, `Badge`, `Skeleton` |
 | データ | `Table`（セル編集、列の固定、グループ行、集計、行エキスパンダー）, `TreeTable`, `PropertyGrid`, `Kanban`, `Gantt`, `Agenda`（週、月、四半期、年。複数のカレンダー） |
 | チャート | `LineChart`, `BarChart`, `PieChart`, `AreaChart`, `ScatterChart`, `RadarChart`, `Gauge`, `Sparkline` |
-| 複合 | `FileChooser`, `ColorChooser`, `ColorPicker`, `FontChooser`, `Calendar`, `DatePicker`, `DateRangePicker`, `TimePicker`, `MarkdownView`, `MarkdownEditor`, `TerminalView` |
+| 複合 | `FileChooser`, `FileTree`, `ColorChooser`, `ColorPicker`, `FontChooser`, `Calendar`, `DatePicker`, `DateRangePicker`, `TimePicker`, `MarkdownView`, `MarkdownEditor`, `TerminalView` |
 | シェル | クライアントサイドの装飾を持つ `Window`, `HeaderBar`, `Toolbar`, `Ribbon`, `Statusbar`, `StatusIcon`, `StatusArea`, `Wallpaper`, `Thumbnail` |
 
 そのすべてを実際に動かして見られます：[ギャラリー](https://go-widgets.github.io/gallery/)。

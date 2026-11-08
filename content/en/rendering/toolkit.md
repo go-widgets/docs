@@ -29,7 +29,7 @@ the figures repeated.
 | Feedback | `ProgressBar`, `ProgressCircle`, `LevelBar`, `Spinner`, `Tooltip`, `Notification`, `Toast`, `Banner`, `Alert`, `Badge`, `Skeleton` |
 | Data | `Table` (cell editing, frozen columns, group rows, aggregates, row expanders), `TreeTable`, `PropertyGrid`, `Kanban`, `Gantt`, `Agenda` (week, month, quarter, year; several calendars) |
 | Charts | `LineChart`, `BarChart`, `PieChart`, `AreaChart`, `ScatterChart`, `RadarChart`, `Gauge`, `Sparkline` |
-| Composite | `FileChooser`, `ColorChooser`, `ColorPicker`, `FontChooser`, `Calendar`, `DatePicker`, `DateRangePicker`, `TimePicker`, `MarkdownView`, `MarkdownEditor`, `TerminalView` |
+| Composite | `FileChooser`, `FileTree`, `ColorChooser`, `ColorPicker`, `FontChooser`, `Calendar`, `DatePicker`, `DateRangePicker`, `TimePicker`, `MarkdownView`, `MarkdownEditor`, `TerminalView` |
 | Shell | `Window` with client-side decorations, `HeaderBar`, `Toolbar`, `Ribbon`, `Statusbar`, `StatusIcon`, `StatusArea`, `Wallpaper`, `Thumbnail` |
 
 Every one of them, live: the [gallery](https://go-widgets.github.io/gallery/).
@@ -238,3 +238,41 @@ top inset, the lines, the bottom padding, and the horizontal bar when a line
 overflows. It changes on edits, undo, a new font or a new width, so a host
 subscribes once and sizes the surface from the callback, as a notebook does
 for each code cell.
+
+### A file tree over a versioned working tree
+
+`FileTree` is an Explorer over a flat list of paths: folders first, rename in
+place with F2, new file and new folder, Delete after a confirmation, a row
+dragged onto a folder to move it, files dropped from outside, a context menu,
+the WAI-ARIA treeview keys and type-ahead. It never changes its own entries —
+every verb becomes a `FileRequest` handed to `OnRequest`, and the host applies
+it and sets `Entries`, so the store stays the one source of truth.
+
+Since v0.361.0, each `FileEntry` also carries a `Status`:
+
+| `FileStatus` | mark |
+|---|---|
+| `FileUnchanged` (the zero value) | none |
+| `FileModified` | `M` |
+| `FileAdded` | `A` |
+| `FileDeleted` | `D` |
+| `FileUntracked` | `?` |
+| `FileConflicted` | `!` |
+
+It is deliberately **not** "git status". Those six states are the vocabulary
+git, Mercurial, Subversion, Jujutsu and Fossil all share, so the tree knows
+which mark to draw and the host knows why; nothing here understands a commit.
+The marks are the ones `git status --short`, `hg status` and `svn status` use,
+and they are drawn inboard of the size, so `ShowSizes` does not move them.
+
+The meaning is carried by the **glyph**, not the colour: each status offers two
+candidate inks and the first that clears 4.5:1 against the row wins, otherwise
+the row's own ink is used — so a mark is never unreadable, and a reader who
+cannot distinguish colours loses nothing. The selected entry's state is also
+spoken through `A11y`, as `"main.tex, modified"`, because a glyph in a colour
+is unavailable to a screen reader.
+
+A folder's status is not derived from its children: "a folder holding a
+modified file" is a policy rather than a fact, and git says nothing about
+folders at all. An explicit `Dir` entry carries its own status — a submodule, a
+directory a merge left conflicted — while an implied parent has none.
