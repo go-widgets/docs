@@ -27,7 +27,19 @@ data-copied-label="Copied!"
 &lt;/div&gt;
 &lt;p&gt;The scene implements &lt;code&gt;App&lt;/code&gt;: &lt;code&gt;Size&lt;/code&gt;, &lt;code&gt;Draw(buf []byte)&lt;/code&gt;, and one method per
 kind of event, each reporting whether anything changed so an unchanged frame
-is not repainted. It may also implement &lt;code&gt;Ticker&lt;/code&gt;, &lt;code&gt;Animator&lt;/code&gt;, &lt;code&gt;Resizer&lt;/code&gt; or&lt;code&gt;Scroller&lt;/code&gt;.&lt;/p&gt;
+is not repainted. It may also implement &lt;code&gt;Ticker&lt;/code&gt;, &lt;code&gt;Animator&lt;/code&gt;, &lt;code&gt;Resizer&lt;/code&gt;,&lt;code&gt;Scroller&lt;/code&gt; or &lt;code&gt;ScrollConsumer&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 data-hextra-search-id="several-canvases-on-one-page"&gt;Several canvases on one page&lt;span class="hx:absolute hx:-mt-20" id="several-canvases-on-one-page"&gt;&lt;/span&gt;
+&lt;a href="#several-canvases-on-one-page" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;&lt;code&gt;Run&lt;/code&gt; never returns and serves one canvas. &lt;code&gt;webcanvas.Mount(canvas, scene)&lt;/code&gt;
+puts a scene on any &lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; element, returns a &lt;code&gt;*Surface&lt;/code&gt; at once, and can
+be called as often as the page needs (an editor in each cell of a notebook,say). &lt;code&gt;Run&lt;/code&gt; is &lt;code&gt;Mount&lt;/code&gt;, then &lt;code&gt;Focus&lt;/code&gt;, then a park.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Keys&lt;/strong&gt; go to the surface that has focus and to no other. The canvas gets&lt;code&gt;tabindex=&amp;quot;0&amp;quot;&lt;/code&gt; unless the page set one, so a click or Tab focuses it, and&lt;code&gt;Surface.Focus()&lt;/code&gt; does the same from code. (Before webcanvas v0.10.0 the key
+listeners were on &lt;code&gt;window&lt;/code&gt;, and every canvas received every key.)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;The wheel&lt;/strong&gt; goes to the surface under the pointer. A scene that implements&lt;code&gt;ScrollConsumer&lt;/code&gt;, &lt;code&gt;Scroll(x, y, dx, dy int) (repaint, consumed bool)&lt;/code&gt;,returns &lt;code&gt;consumed == false&lt;/code&gt; when it did not use the event, and then the page
+scrolls under the canvas. A &lt;code&gt;Scroller&lt;/code&gt; always takes the wheel, as before.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;Surface.Close()&lt;/code&gt;&lt;/strong&gt; removes every listener, timer and animation frame the
+surface installed.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;The &lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;gallery&lt;/a&gt; and&lt;a href="https://go-widgets.github.io/docs/0.2/getting-started/"&gt;&lt;code&gt;app-template&lt;/code&gt;&lt;/a&gt; run this way.&lt;/p&gt;
 &lt;p&gt;Or let &lt;code&gt;window&lt;/code&gt; choose. Since window v0.87.0,&lt;a href="https://go-widgets.github.io/docs/0.2/surfaces/native-window/#how-open-chooses"&gt;&lt;code&gt;window.Open&lt;/code&gt;&lt;/a&gt;
 built for &lt;code&gt;js/wasm&lt;/code&gt; on an ordinary page returns a back-end that draws into the
