@@ -29,7 +29,7 @@ die Zahlen zu wiederholen.
 | Rückmeldung | `ProgressBar`, `ProgressCircle`, `LevelBar`, `Spinner`, `Tooltip`, `Notification`, `Toast`, `Banner`, `Alert`, `Badge`, `Skeleton` |
 | Daten | `Table` (Zellbearbeitung, fixierte Spalten, Gruppenzeilen, Aggregate, aufklappbare Zeilen), `TreeTable`, `PropertyGrid`, `Kanban`, `Gantt`, `Agenda` (Woche, Monat, Quartal, Jahr; mehrere Kalender) |
 | Diagramme | `LineChart`, `BarChart`, `PieChart`, `AreaChart`, `ScatterChart`, `RadarChart`, `Gauge`, `Sparkline` |
-| Zusammengesetzt | `FileChooser`, `ColorChooser`, `ColorPicker`, `FontChooser`, `Calendar`, `DatePicker`, `DateRangePicker`, `TimePicker`, `MarkdownView`, `MarkdownEditor`, `TerminalView` |
+| Zusammengesetzt | `FileChooser`, `FileTree`, `ColorChooser`, `ColorPicker`, `FontChooser`, `Calendar`, `DatePicker`, `DateRangePicker`, `TimePicker`, `MarkdownView`, `MarkdownEditor`, `TerminalView` |
 | Shell | `Window` mit clientseitigen Dekorationen, `HeaderBar`, `Toolbar`, `Ribbon`, `Statusbar`, `StatusIcon`, `StatusArea`, `Wallpaper`, `Thumbnail` |
 
 Jedes davon, live: die [Galerie](https://go-widgets.github.io/gallery/).
