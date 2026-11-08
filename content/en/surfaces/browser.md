@@ -28,8 +28,26 @@ func main() { webcanvas.Run("screen", myScene()) }
 
 The scene implements `App`: `Size`, `Draw(buf []byte)`, and one method per
 kind of event, each reporting whether anything changed so an unchanged frame
-is not repainted. It may also implement `Ticker`, `Animator`, `Resizer` or
-`Scroller`.
+is not repainted. It may also implement `Ticker`, `Animator`, `Resizer`,
+`Scroller` or `ScrollConsumer`.
+
+### Several canvases on one page
+
+`Run` never returns and serves one canvas. `webcanvas.Mount(canvas, scene)`
+puts a scene on any `<canvas>` element, returns a `*Surface` at once, and can
+be called as often as the page needs (an editor in each cell of a notebook,
+say). `Run` is `Mount`, then `Focus`, then a park.
+
+- **Keys** go to the surface that has focus and to no other. The canvas gets
+  `tabindex="0"` unless the page set one, so a click or Tab focuses it, and
+  `Surface.Focus()` does the same from code. (Before webcanvas v0.10.0 the key
+  listeners were on `window`, and every canvas received every key.)
+- **The wheel** goes to the surface under the pointer. A scene that implements
+  `ScrollConsumer`, `Scroll(x, y, dx, dy int) (repaint, consumed bool)`,
+  returns `consumed == false` when it did not use the event, and then the page
+  scrolls under the canvas. A `Scroller` always takes the wheel, as before.
+- **`Surface.Close()`** removes every listener, timer and animation frame the
+  surface installed.
 
 The [gallery](https://go-widgets.github.io/gallery/) and
 [`app-template`]({{< relref "/getting-started.md" >}}) run this way.
