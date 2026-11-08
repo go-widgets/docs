@@ -227,3 +227,14 @@ optional interface `A11yIdentified` to supply its own ID, and `TextView`,
 `AddressBar` and `RichEditor`. Migrate with one rename: `ed.Focused()` becomes
 `ed.HasFocus()`. Each of the three now implements `Focusable`, so Tab reaches
 the editors; `CodeEditor` inherits this.
+
+### Sizing an editor to its content
+
+Since v0.360.0, a `TextView` or `CodeEditor` with `NoVerticalScroll` set lays
+out every line and never scrolls vertically; long lines still scroll
+horizontally, and the caret, selection and input methods work as before.
+`PreferredHeight()` is an Observable of the height that shows every line: the
+top inset, the lines, the bottom padding, and the horizontal bar when a line
+overflows. It changes on edits, undo, a new font or a new width, so a host
+subscribes once and sizes the surface from the callback, as a notebook does
+for each code cell.
