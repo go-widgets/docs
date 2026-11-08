@@ -52,6 +52,53 @@ say). `Run` is `Mount`, then `Focus`, then a park.
 The [gallery](https://go-widgets.github.io/gallery/) and
 [`app-template`]({{< relref "/getting-started.md" >}}) run this way.
 
+### Accessibility: the mirror
+
+To a screen reader a `<canvas>` is one opaque image. A scene that also
+implements `webcanvas.A11yAware`, `A11yNodes() []webcanvas.A11yNode`, gets an
+**accessibility mirror** (webcanvas v0.11.0): a DOM subtree beside the canvas
+that states in ARIA what the scene paints. A scene that does not implement it
+is unchanged.
+
+```go
+func (s *scene) A11yNodes() []webcanvas.A11yNode {
+	return []webcanvas.A11yNode{
+		{Key: "Button#0", Role: "button", Name: "Save", X: 10, Y: 20, W: 80, H: 30},
+		{Key: "@status", Role: "status", Name: s.message, X: 10, Y: 60, W: 200, H: 16},
+	}
+}
+```
+
+- **Nodes** are listed in reading order, in surface pixels, with a `Key` that
+  stays the same for the same widget from frame to frame (the toolkit's
+  `A11yNode.Key`). The mirror diffs by `Key`, so an unchanged widget keeps the
+  same DOM element and a screen reader's cursor is not reset on every frame.
+- **Roles** include button (a native `<button>`), checkbox, switch and radio,
+  slider, progressbar, meter and spinbutton, text, textbox, status, alert and
+  log. Any other WAI-ARIA role name is passed through.
+- **Hidden from the eye, not from assistive technology.** The mirror is clipped
+  (`clip-path: inset(50%)`), never `display: none`, `visibility: hidden` or
+  `aria-hidden`, which would remove it from the accessibility tree. It ignores
+  the pointer, so the mouse still reaches the canvas.
+- **Focus and keys.** The element of the focused widget holds DOM focus, and
+  keys are heard there.
+- **Activation.** A click on a mirror element, which is what a screen reader's
+  "activate" sends, is replayed as a press and release at the widget's centre.
+- **Announcements.** Text that appears or changes in a `status` or `log` node is
+  announced from one persistent polite live region, and `alert` text from an
+  assertive one.
+- **Cost.** A changed tree reaches the DOM at most every 200 ms, and a change
+  held back is applied later, never lost. An unchanged tree costs a signature.
+  In headless Chrome, 2,000 nodes take about 70 ms to build and about 6 ms to
+  update when one node changes (indicative, measured on a busy machine).
+- **Untrusted text.** Names and values are set only as text and attribute
+  values, never as markup, so a notebook from anyone cannot inject HTML through
+  a widget name.
+
+`Surface.Refresh()` draws a frame and updates the mirror, for a host that
+changed the scene from outside. A text field is exposed as `role=textbox` with
+its text for now; an editing element for a focused field is planned.
+
 Or let `window` choose. Since window v0.87.0,
 [`window.Open`]({{< relref "/surfaces/native-window.md#how-open-chooses" >}})
 built for `js/wasm` on an ordinary page returns a back-end that draws into the
