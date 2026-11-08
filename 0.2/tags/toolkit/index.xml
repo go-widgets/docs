@@ -296,4 +296,18 @@ read it back.&lt;/p&gt;
 &lt;a href="#accessibility" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;A toolkit that paints its own pixels gives a screen reader nothing to read
 unless it says what it drew. Widgets implement &lt;code&gt;Accessible&lt;/code&gt; — a role, a name,a value — and &lt;code&gt;CollectA11y&lt;/code&gt; gathers them for the host to publish: AT-SPI on
 Linux through &lt;a href="https://go-widgets.github.io/docs/0.2/surfaces/native-window/"&gt;&lt;code&gt;window&lt;/code&gt;&lt;/a&gt;, and a
-virtual view hierarchy on &lt;a href="https://go-widgets.github.io/docs/0.2/surfaces/android/#accessibility"&gt;Android&lt;/a&gt;.&lt;/p&gt;</description></item></channel></rss>
+virtual view hierarchy on &lt;a href="https://go-widgets.github.io/docs/0.2/surfaces/android/#accessibility"&gt;Android&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Since v0.359.0, &lt;code&gt;A11yInfo&lt;/code&gt; also carries &lt;code&gt;Focused&lt;/code&gt;, &lt;code&gt;Disabled&lt;/code&gt;, &lt;code&gt;ReadOnly&lt;/code&gt; and&lt;code&gt;Multiline&lt;/code&gt;. Each &lt;code&gt;A11yNode.Key&lt;/code&gt; is a stable path of &lt;code&gt;@&amp;lt;A11yID&amp;gt;&lt;/code&gt; or&lt;code&gt;&amp;lt;Type&amp;gt;#&amp;lt;n&amp;gt;&lt;/code&gt; segments, with &lt;code&gt;~2&lt;/code&gt; appended on a duplicate ID, so a host can
+recognise a node from one frame to the next. A widget may implement the new
+optional interface &lt;code&gt;A11yIdentified&lt;/code&gt; to supply its own ID, and &lt;code&gt;TextView&lt;/code&gt;,&lt;code&gt;CodeEditor&lt;/code&gt; and &lt;code&gt;Entry&lt;/code&gt; have an &lt;code&gt;AccessibleName&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 data-hextra-search-id="focus"&gt;Focus&lt;span class="hx:absolute hx:-mt-20" id="focus"&gt;&lt;/span&gt;
+&lt;a href="#focus" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;⛔ Breaking in v0.357.0: &lt;code&gt;Focused()&lt;/code&gt; is now &lt;code&gt;HasFocus()&lt;/code&gt; on &lt;code&gt;TextView&lt;/code&gt;,&lt;code&gt;AddressBar&lt;/code&gt; and &lt;code&gt;RichEditor&lt;/code&gt;. Migrate with one rename: &lt;code&gt;ed.Focused()&lt;/code&gt; becomes&lt;code&gt;ed.HasFocus()&lt;/code&gt;. Each of the three now implements &lt;code&gt;Focusable&lt;/code&gt;, so Tab reaches
+the editors; &lt;code&gt;CodeEditor&lt;/code&gt; inherits this.&lt;/p&gt;
+&lt;h3 data-hextra-search-id="sizing-an-editor-to-its-content"&gt;Sizing an editor to its content&lt;span class="hx:absolute hx:-mt-20" id="sizing-an-editor-to-its-content"&gt;&lt;/span&gt;
+&lt;a href="#sizing-an-editor-to-its-content" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Since v0.360.0, a &lt;code&gt;TextView&lt;/code&gt; or &lt;code&gt;CodeEditor&lt;/code&gt; with &lt;code&gt;NoVerticalScroll&lt;/code&gt; set lays
+out every line and never scrolls vertically; long lines still scroll
+horizontally, and the caret, selection and input methods work as before.&lt;code&gt;PreferredHeight()&lt;/code&gt; is an Observable of the height that shows every line: the
+top inset, the lines, the bottom padding, and the horizontal bar when a line
+overflows. It changes on edits, undo, a new font or a new width, so a host
+subscribes once and sizes the surface from the callback, as a notebook does
+for each code cell.&lt;/p&gt;</description></item></channel></rss>
