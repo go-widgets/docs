@@ -300,6 +300,53 @@ scrolls under the canvas. A &lt;code&gt;Scroller&lt;/code&gt; always takes the w
 surface installed.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;The &lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;gallery&lt;/a&gt; and&lt;a href="https://go-widgets.github.io/docs/0.2/getting-started/"&gt;&lt;code&gt;app-template&lt;/code&gt;&lt;/a&gt; run this way.&lt;/p&gt;
+&lt;h3 data-hextra-search-id="accessibility-the-mirror"&gt;Accessibility: the mirror&lt;span class="hx:absolute hx:-mt-20" id="accessibility-the-mirror"&gt;&lt;/span&gt;
+&lt;a href="#accessibility-the-mirror" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;To a screen reader a &lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; is one opaque image. A scene that also
+implements &lt;code&gt;webcanvas.A11yAware&lt;/code&gt;, &lt;code&gt;A11yNodes() []webcanvas.A11yNode&lt;/code&gt;, gets an&lt;strong&gt;accessibility mirror&lt;/strong&gt; (webcanvas v0.11.0): a DOM subtree beside the canvas
+that states in ARIA what the scene paints. A scene that does not implement it
+is unchanged.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nx"&gt;scene&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;A11yNodes&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt;&lt;span class="nx"&gt;webcanvas&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;A11yNode&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt;&lt;span class="nx"&gt;webcanvas&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;A11yNode&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;Key&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Button#0&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Role&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;button&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Save&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;X&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Y&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;W&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;80&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;H&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;30&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;Key&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;@status&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Role&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;status&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;message&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;X&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Y&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;60&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;W&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;200&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;H&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copy code"
+aria-label="Copy code"
+data-copied-label="Copied!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Nodes&lt;/strong&gt; are listed in reading order, in surface pixels, with a &lt;code&gt;Key&lt;/code&gt; that
+stays the same for the same widget from frame to frame (the toolkit&amp;rsquo;s&lt;code&gt;A11yNode.Key&lt;/code&gt;). The mirror diffs by &lt;code&gt;Key&lt;/code&gt;, so an unchanged widget keeps the
+same DOM element and a screen reader&amp;rsquo;s cursor is not reset on every frame.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Roles&lt;/strong&gt; include button (a native &lt;code&gt;&amp;lt;button&amp;gt;&lt;/code&gt;), checkbox, switch and radio,slider, progressbar, meter and spinbutton, text, textbox, status, alert and
+log. Any other WAI-ARIA role name is passed through.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Hidden from the eye, not from assistive technology.&lt;/strong&gt; The mirror is clipped(&lt;code&gt;clip-path: inset(50%)&lt;/code&gt;), never &lt;code&gt;display: none&lt;/code&gt;, &lt;code&gt;visibility: hidden&lt;/code&gt; or&lt;code&gt;aria-hidden&lt;/code&gt;, which would remove it from the accessibility tree. It ignores
+the pointer, so the mouse still reaches the canvas.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Focus and keys.&lt;/strong&gt; The element of the focused widget holds DOM focus, and
+keys are heard there.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Activation.&lt;/strong&gt; A click on a mirror element, which is what a screen reader&amp;rsquo;s&amp;ldquo;activate&amp;rdquo; sends, is replayed as a press and release at the widget&amp;rsquo;s centre.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Announcements.&lt;/strong&gt; Text that appears or changes in a &lt;code&gt;status&lt;/code&gt; or &lt;code&gt;log&lt;/code&gt; node is
+announced from one persistent polite live region, and &lt;code&gt;alert&lt;/code&gt; text from an
+assertive one.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Cost.&lt;/strong&gt; A changed tree reaches the DOM at most every 200 ms, and a change
+held back is applied later, never lost. An unchanged tree costs a signature.In headless Chrome, 2,000 nodes take about 70 ms to build and about 6 ms to
+update when one node changes (indicative, measured on a busy machine).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Untrusted text.&lt;/strong&gt; Names and values are set only as text and attribute
+values, never as markup, so a notebook from anyone cannot inject HTML through
+a widget name.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;Surface.Refresh()&lt;/code&gt; draws a frame and updates the mirror, for a host that
+changed the scene from outside. A text field is exposed as &lt;code&gt;role=textbox&lt;/code&gt; with
+its text for now; an editing element for a focused field is planned.&lt;/p&gt;
 &lt;p&gt;Or let &lt;code&gt;window&lt;/code&gt; choose. Since window v0.87.0,&lt;a href="https://go-widgets.github.io/docs/0.2/surfaces/native-window/#how-open-chooses"&gt;&lt;code&gt;window.Open&lt;/code&gt;&lt;/a&gt;
 built for &lt;code&gt;js/wasm&lt;/code&gt; on an ordinary page returns a back-end that draws into the
 page&amp;rsquo;s &lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; (&lt;code&gt;Config.Canvas&lt;/code&gt;, default &lt;code&gt;&amp;quot;screen&amp;quot;&lt;/code&gt;) through &lt;code&gt;webcanvas&lt;/code&gt;. An
