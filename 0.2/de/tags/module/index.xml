@@ -20,7 +20,7 @@ Schreibens – maßgeblich ist die Tag-Liste des jeweiligen Repositorys.&lt;/p&g
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;a href="https://github.com/go-widgets/toolkit" target="_blank" rel="noopener"&gt;&lt;code&gt;toolkit&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
-&lt;td&gt;v0.361.0&lt;/td&gt;
+&lt;td&gt;v0.362.1&lt;/td&gt;
 &lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/de/rendering/toolkit/"&gt;der Widget-Satz&lt;/a&gt;, Themes, Layouts, Text&lt;/td&gt;
 &lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/toolkit" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
 &lt;/tr&gt;
@@ -29,6 +29,18 @@ Schreibens – maßgeblich ist die Tag-Liste des jeweiligen Repositorys.&lt;/p&g
 &lt;td&gt;v0.3.0&lt;/td&gt;
 &lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/de/rendering/skin/"&gt;Widgets als Daten beschrieben&lt;/a&gt;&lt;/td&gt;
 &lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/skin" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://github.com/go-widgets/gpupainter" target="_blank" rel="noopener"&gt;&lt;code&gt;gpupainter&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;v0.4.0&lt;/td&gt;
+&lt;td&gt;ein &lt;code&gt;painter.Painter&lt;/code&gt;, der ein Bild für die GPU aufzeichnet (go-gfx/gpu2d): &lt;a href="https://go-widgets.github.io/docs/0.2/de/surfaces/browser/"&gt;Metal oder WebGPU&lt;/a&gt;, bytegleich mit dem CPU-Painter&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/gpupainter" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://github.com/go-widgets/shellterm" target="_blank" rel="noopener"&gt;&lt;code&gt;shellterm&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;v0.1.0&lt;/td&gt;
+&lt;td&gt;ein zeilenorientiertes Terminal: das &lt;code&gt;Terminal&lt;/code&gt; des Toolkits und ein Zeileneditor vor einer Shell, die Sie mitbringen&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/shellterm" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;a href="https://github.com/go-widgets/isoicons" target="_blank" rel="noopener"&gt;&lt;code&gt;isoicons&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
@@ -47,6 +59,12 @@ Schreibens – maßgeblich ist die Tag-Liste des jeweiligen Repositorys.&lt;/p&g
 &lt;td&gt;v0.15.0&lt;/td&gt;
 &lt;td&gt;&lt;a href="https://go-widgets.github.io/docs/0.2/de/state/mvvm/#mvvmtk-one-call-per-widget"&gt;Binder mit einem Aufruf für Toolkit-Widgets&lt;/a&gt;&lt;/td&gt;
 &lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/mvvmtk" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://github.com/go-widgets/lineedit" target="_blank" rel="noopener"&gt;&lt;code&gt;lineedit&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;v0.1.1&lt;/td&gt;
+&lt;td&gt;ein Zeileneditor als reines Modell: Verlauf, Rückwärtssuche, Tab-Vervollständigung; nur die Standardbibliothek&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/lineedit" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;a href="https://github.com/go-widgets/data" target="_blank" rel="noopener"&gt;&lt;code&gt;data&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
@@ -133,8 +151,8 @@ Schreibens – maßgeblich ist die Tag-Liste des jeweiligen Repositorys.&lt;/p&g
 &lt;li&gt;&lt;code&gt;CGO_ENABLED=0&lt;/code&gt;: kein cgo und kein Aufruf eines Kommandozeilenwerkzeugs anstelle
 einer Bibliothek.&lt;/li&gt;
 &lt;li&gt;Cross-kompiliert für amd64, arm64, riscv64, loong64, ppc64le und s390x – letzteres
-Big-Endian, was jede Wire-Kodierung ehrlich hält – und, wo es zutrifft,&lt;code&gt;js/wasm&lt;/code&gt;. Alle siebzehn Bibliotheken und Werkzeuge tun das seit dem 2026-10-10;die übrigen zwei sind Browser-Anwendungen (&lt;a href="https://go-widgets.github.io/docs/0.2/de/status/#what-ci-does-not-cover-yet"&gt;Stand&lt;/a&gt;).&lt;/li&gt;
-&lt;li&gt;Eine Schranke für die Anweisungsabdeckung in der CI: 100 %, bei allen neunzehn. Wo eine
+Big-Endian, was jede Wire-Kodierung ehrlich hält – und, wo es zutrifft,&lt;code&gt;js/wasm&lt;/code&gt;. Alle zwanzig Bibliotheken und Werkzeuge tun das seit dem 2026-10-10;die übrigen zwei sind Browser-Anwendungen (&lt;a href="https://go-widgets.github.io/docs/0.2/de/status/#what-ci-does-not-cover-yet"&gt;Stand&lt;/a&gt;).&lt;/li&gt;
+&lt;li&gt;Eine Schranke für die Anweisungsabdeckung in der CI: 100 %, bei allen zweiundzwanzig. Wo eine
 Datei nicht in einem Test laufen kann (eine Browser-Schleife, eine native Run-Loop), sagt das Modul,welche Datei ausgenommen ist und warum. Die Ausnahmen stehen unter &lt;a href="https://go-widgets.github.io/docs/0.2/de/status/"&gt;Stand&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;BSD-3-Clause.&lt;/li&gt;
 &lt;/ul&gt;</description></item></channel></rss>

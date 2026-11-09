@@ -104,7 +104,7 @@
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;これで、17 個のライブラリとツールすべてが 64 ビット Linux の 6 つのアーキテクチャにクロスビルドされ、19 個すべてが 100% のステートメントカバレッジでゲートされています。&lt;code&gt;app-template&lt;/code&gt; と &lt;code&gt;gallery&lt;/code&gt; はブラウザアプリケーションで、唯一のターゲットである &lt;code&gt;js/wasm&lt;/code&gt; 向けにビルドされます。&lt;/p&gt;
+&lt;p&gt;これで当時、17 個のライブラリとツールすべてが 64 ビット Linux の 6 つのアーキテクチャにクロスビルドされ、19 個すべてが 100% のステートメントカバレッジでゲートされました。その後追加された 3 つ（&lt;code&gt;gpupainter&lt;/code&gt;、&lt;code&gt;lineedit&lt;/code&gt;、&lt;code&gt;shellterm&lt;/code&gt;、2026-11-09）も同じで、&lt;code&gt;cross&lt;/code&gt; ジョブがテストを含めて各アーキテクチャを検査します。現在は 20 個のライブラリとツール、22 個のモジュールです。&lt;code&gt;app-template&lt;/code&gt; と &lt;code&gt;gallery&lt;/code&gt; はブラウザアプリケーションで、唯一のターゲットである &lt;code&gt;js/wasm&lt;/code&gt; 向けにビルドされます。&lt;/p&gt;
 &lt;h2 data-hextra-search-id="security"&gt;セキュリティ&lt;span class="hx:absolute hx:-mt-20" id="security"&gt;&lt;/span&gt;
 &lt;a href="#security" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;2026-10-10 に &lt;code&gt;govulncheck&lt;/code&gt;（シンボルレベル: モジュールから到達可能なコードのみ）で計測しました。&lt;/p&gt;
 &lt;ul&gt;
