@@ -68,7 +68,7 @@ n'importe quelle machine vers chacune d'elles.
 | [Android]({{< relref "/surfaces/android.md" >}}) | un vrai APK peint par un processus sans CGO |
 | [Instantanés]({{< relref "/surfaces/snapshots.md" >}}) | un widget sous forme de SVG ou de PNG |
 | [Règles imposées par la CI]({{< relref "/guard-rails/_index.md" >}}) | `mvvmlint` et `bricolint` |
-| [Modules]({{< relref "/modules.md" >}}) | les dix-neuf, avec leurs sources et leurs références |
+| [Modules]({{< relref "/modules.md" >}}) | les vingt-deux, avec leurs sources et leurs références |
 | [État]({{< relref "/status.md" >}}) | ce qui est vérifié, où, et ce qui n'est pas fait |
 
 ## Licence {#licence}

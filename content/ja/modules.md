@@ -1,7 +1,7 @@
 ---
 title: "モジュール"
 weight: 50
-description: "go-widgets の 19 個のモジュールについて、それぞれの用途と、ソースおよび API リファレンスの場所を示します。"
+description: "go-widgets の 22 個のモジュールについて、それぞれの用途と、ソースおよび API リファレンスの場所を示します。"
 tags: [modules]
 ---
 
@@ -10,11 +10,14 @@ API リファレンスは [pkg.go.dev](https://pkg.go.dev/) がソースから�
 | モジュール | タグ | 概要 | リファレンス |
 |---|---|---|---|
 | [`painter`](https://github.com/go-widgets/painter) | v0.17.0 | [描画の継ぎ目]({{< relref "/rendering/painter.md" >}}): ピクセルペインタとセルペインタ | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/painter) |
-| [`toolkit`](https://github.com/go-widgets/toolkit) | v0.361.0 | [ウィジェットセット]({{< relref "/rendering/toolkit.md" >}})、テーマ、レイアウト、テキスト | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/toolkit) |
+| [`toolkit`](https://github.com/go-widgets/toolkit) | v0.362.1 | [ウィジェットセット]({{< relref "/rendering/toolkit.md" >}})、テーマ、レイアウト、テキスト | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/toolkit) |
 | [`skin`](https://github.com/go-widgets/skin) | v0.3.0 | [データとして記述されたウィジェット]({{< relref "/rendering/skin.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/skin) |
+| [`gpupainter`](https://github.com/go-widgets/gpupainter) | v0.4.0 | GPU 向けにフレームを記録する `painter.Painter`（go-gfx/gpu2d）。[Metal または WebGPU]({{< relref "/surfaces/browser.md" >}}) で描画し、CPU ペインタとバイト単位で同一 | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/gpupainter) |
+| [`shellterm`](https://github.com/go-widgets/shellterm) | v0.1.0 | 行指向のターミナル。ツールキットの `Terminal` と行エディタを、利用者が用意するシェルの前に置きます | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/shellterm) |
 | [`isoicons`](https://github.com/go-widgets/isoicons) | v0.4.0 | ツールキットのアイソメトリック図のための、アイソメトリックアイコンパック（クラウドネイティブ、AWS） | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/isoicons) |
 | [`mvvm`](https://github.com/go-widgets/mvvm) | v0.15.0 | [オブザーバブル、コマンド、バインダ、undo]({{< relref "/state/mvvm.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvm) |
 | [`mvvmtk`](https://github.com/go-widgets/mvvmtk) | v0.15.0 | [ツールキットのウィジェット向けの 1 呼び出しバインダ]({{< relref "/state/mvvm.md#mvvmtk-one-call-per-widget" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvmtk) |
+| [`lineedit`](https://github.com/go-widgets/lineedit) | v0.1.1 | 純粋なモデルとしての行エディタ。履歴、逆方向検索、Tab 補完。標準ライブラリのみ | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/lineedit) |
 | [`data`](https://github.com/go-widgets/data) | v0.4.0 | [型付きレコード、クエリ、ローカルまたはリモートのストア]({{< relref "/state/data.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/data) |
 | [`window`](https://github.com/go-widgets/window) | v0.90.0 | 8 つのバックエンドに対応した[ネイティブウィンドウ]({{< relref "/surfaces/native-window.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/window) |
 | [`application`](https://github.com/go-widgets/application) | v0.8.1 | ウィンドウの上に載る[アプリケーションのライフサイクル]({{< relref "/surfaces/application.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/application) |
@@ -32,6 +35,6 @@ API リファレンスは [pkg.go.dev](https://pkg.go.dev/) がソースから�
 ## すべてのモジュールが守る条件 {#what-every-module-is-held-to}
 
 - `CGO_ENABLED=0`: cgo は使わず、ライブラリの代わりにコマンドラインツールを呼び出すこともしません。
-- amd64、arm64、riscv64、loong64、ppc64le、s390x にクロスコンパイルします。最後のものはビッグエンディアンで、あらゆるワイヤエンコーディングの正しさを保つ助けになります。該当する場合は `js/wasm` にも対応します。17 個のライブラリとツールすべてが 2026-10-10 以降これを満たしています。残りの 2 つはブラウザアプリケーションです（[状況]({{< relref "/status.md#what-ci-does-not-cover-yet" >}})）。
-- CI でのステートメントカバレッジのゲート: 19 個すべてで 100% です。テストで実行できないファイル（ブラウザのループ、ネイティブの実行ループ）がある場合、モジュール側でどのファイルを除外しているか、およびその理由を明記しています。例外については [状況]({{< relref "/status.md" >}}) を参照してください。
+- amd64、arm64、riscv64、loong64、ppc64le、s390x にクロスコンパイルします。最後のものはビッグエンディアンで、あらゆるワイヤエンコーディングの正しさを保つ助けになります。該当する場合は `js/wasm` にも対応します。20 個のライブラリとツールすべてが 2026-10-10 以降これを満たしています。残りの 2 つはブラウザアプリケーションです（[状況]({{< relref "/status.md#what-ci-does-not-cover-yet" >}})）。
+- CI でのステートメントカバレッジのゲート: 22 個すべてで 100% です。テストで実行できないファイル（ブラウザのループ、ネイティブの実行ループ）がある場合、モジュール側でどのファイルを除外しているか、およびその理由を明記しています。例外については [状況]({{< relref "/status.md" >}}) を参照してください。
 - BSD-3-Clause。

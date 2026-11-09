@@ -58,9 +58,11 @@ tags: [status]
 | `mvvmlint` | 크로스 빌드 없음 | Linux는 여섯 가지 전부, macOS와 Windows |
 | `bricolint` | 다섯 개를 빌드하는 "6 arches" 단계 | loong64 추가 |
 
-그 결과 열일곱 개의 라이브러리와 도구가 이제 모두 여섯 가지 64비트 Linux
+그 결과 당시 열일곱 개의 라이브러리와 도구가 모두 여섯 가지 64비트 Linux
 아키텍처용으로 크로스 빌드되고, 열아홉 개 전부가 100% 구문 커버리지 게이트를
-통과합니다. `app-template`과 `gallery`는 브라우저 애플리케이션이며 유일한 대상인
+통과했습니다. 이후 추가된 세 개(`gpupainter`, `lineedit`, `shellterm`,
+2026-11-09)도 마찬가지로 `cross` 작업이 테스트를 포함해 각 아키텍처를 검사합니다.
+현재는 스무 개의 라이브러리와 도구, 스물두 개의 모듈입니다. `app-template`과 `gallery`는 브라우저 애플리케이션이며 유일한 대상인
 `js/wasm`용으로 빌드됩니다.
 
 ## 보안 {#security}
