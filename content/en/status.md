@@ -60,8 +60,11 @@ On 2026-10-10 the five gaps this page listed were closed:
 | `mvvmlint` | no cross-build | Linux on all six, macOS and Windows |
 | `bricolint` | a "6 arches" step that built five | loong64 added |
 
-So all seventeen libraries and tools now cross-build for the six 64-bit
-Linux architectures, and all nineteen gate at 100% statement coverage.
+So all seventeen libraries and tools then cross-built for the six 64-bit
+Linux architectures, and all nineteen gated at 100% statement coverage. The
+three added since (`gpupainter`, `lineedit`, `shellterm`, 2026-11-09) do the
+same: a `cross` job vets each architecture, tests included, so it is twenty
+libraries and tools and twenty-two modules today.
 `app-template` and `gallery` are browser applications and build for `js/wasm`,
 which is their only target.
 

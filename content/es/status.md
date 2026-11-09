@@ -62,9 +62,12 @@ El 2026-10-10 se cerraron las cinco carencias que esta página enumeraba:
 | `mvvmlint` | sin compilación cruzada | Linux en las seis, macOS y Windows |
 | `bricolint` | un paso «6 arches» que compilaba cinco | loong64 añadida |
 
-Así, las diecisiete bibliotecas y herramientas se compilan ya de forma cruzada
-para las seis arquitecturas Linux de 64 bits, y los diecinueve módulos tienen
-una barrera del 100 % de cobertura de sentencias.
+Así, las diecisiete bibliotecas y herramientas se compilaban entonces de forma cruzada
+para las seis arquitecturas Linux de 64 bits, y los diecinueve módulos tenían
+una barrera del 100 % de cobertura de sentencias. Los tres añadidos desde entonces
+(`gpupainter`, `lineedit`, `shellterm`, 2026-11-09) hacen lo mismo: un job `cross`
+comprueba cada arquitectura, pruebas incluidas. Hoy son veinte bibliotecas y
+herramientas y veintidós módulos.
 `app-template` y `gallery` son aplicaciones de navegador y se compilan para
 `js/wasm`, que es su único destino.
 

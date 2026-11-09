@@ -1,7 +1,7 @@
 ---
 title: "Modules"
 weight: 50
-description: "Les dix-neuf modules de go-widgets, le rôle de chacun, et où se trouvent sa source et sa référence d'API."
+description: "Les vingt-deux modules de go-widgets, le rôle de chacun, et où se trouvent sa source et sa référence d'API."
 tags: [modules]
 ---
 
@@ -13,11 +13,14 @@ rédaction — la liste des étiquettes du dépôt lui-même fait foi.
 | Module | Étiquette | Ce que c'est | Référence |
 |---|---|---|---|
 | [`painter`](https://github.com/go-widgets/painter) | v0.17.0 | [la jonction de dessin]({{< relref "/rendering/painter.md" >}}) : painters en pixels et en cellules | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/painter) |
-| [`toolkit`](https://github.com/go-widgets/toolkit) | v0.361.0 | [le jeu de widgets]({{< relref "/rendering/toolkit.md" >}}), thèmes, mises en page, texte | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/toolkit) |
+| [`toolkit`](https://github.com/go-widgets/toolkit) | v0.362.1 | [le jeu de widgets]({{< relref "/rendering/toolkit.md" >}}), thèmes, mises en page, texte | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/toolkit) |
 | [`skin`](https://github.com/go-widgets/skin) | v0.3.0 | [des widgets décrits par des données]({{< relref "/rendering/skin.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/skin) |
+| [`gpupainter`](https://github.com/go-widgets/gpupainter) | v0.4.0 | un `painter.Painter` qui enregistre une image pour le GPU (go-gfx/gpu2d) : [Metal ou WebGPU]({{< relref "/surfaces/browser.md" >}}), identique à l'octet près au painter CPU | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/gpupainter) |
+| [`shellterm`](https://github.com/go-widgets/shellterm) | v0.1.0 | un terminal orienté lignes : le `Terminal` de la boîte à outils et un éditeur de ligne devant un shell que vous fournissez | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/shellterm) |
 | [`isoicons`](https://github.com/go-widgets/isoicons) | v0.4.0 | jeux d'icônes isométriques (cloud-native, AWS) pour les diagrammes isométriques de la boîte à outils | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/isoicons) |
 | [`mvvm`](https://github.com/go-widgets/mvvm) | v0.15.0 | [observables, commandes, binders, annulation]({{< relref "/state/mvvm.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvm) |
 | [`mvvmtk`](https://github.com/go-widgets/mvvmtk) | v0.15.0 | [des binders en un appel pour les widgets de la boîte à outils]({{< relref "/state/mvvm.md#mvvmtk-one-call-per-widget" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvmtk) |
+| [`lineedit`](https://github.com/go-widgets/lineedit) | v0.1.1 | un éditeur de ligne en pur modèle : historique, recherche inversée, complétion par Tab ; bibliothèque standard seule | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/lineedit) |
 | [`data`](https://github.com/go-widgets/data) | v0.4.0 | [enregistrements typés, requêtes, stockage local ou distant]({{< relref "/state/data.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/data) |
 | [`window`](https://github.com/go-widgets/window) | v0.90.0 | [une fenêtre native]({{< relref "/surfaces/native-window.md" >}}) sur huit back-ends | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/window) |
 | [`application`](https://github.com/go-widgets/application) | v0.8.1 | [le cycle de vie de l'application]({{< relref "/surfaces/application.md" >}}) au-dessus d'une fenêtre | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/application) |
@@ -38,9 +41,9 @@ rédaction — la liste des étiquettes du dépôt lui-même fait foi.
   d'une bibliothèque.
 - Compilé de manière croisée pour amd64, arm64, riscv64, loong64, ppc64le et s390x — ce dernier
   en gros-boutiste, ce qui garde chaque encodage binaire honnête — et, quand cela
-  s'applique, `js/wasm`. Les dix-sept bibliothèques et outils le font tous depuis le 2026-10-10 ;
+  s'applique, `js/wasm`. Les vingt bibliothèques et outils le font tous depuis le 2026-10-10 ;
   les deux autres sont des applications de navigateur ([État]({{< relref "/status.md#what-ci-does-not-cover-yet" >}})).
-- Une barrière de couverture des instructions dans la CI : 100 %, dans les dix-neuf. Quand un
+- Une barrière de couverture des instructions dans la CI : 100 %, dans les vingt-deux. Quand un
   fichier ne peut pas s'exécuter dans un test (une boucle de navigateur, une boucle d'exécution native), le module
   indique quel fichier est laissé de côté et pourquoi. Voir [État]({{< relref "/status.md" >}})
   pour les exceptions.

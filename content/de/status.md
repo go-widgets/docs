@@ -60,9 +60,12 @@ Am 2026-10-10 wurden die fünf Lücken geschlossen, die diese Seite aufführte:
 | `mvvmlint` | kein Cross-Build | Linux auf allen sechs, macOS und Windows |
 | `bricolint` | ein Schritt „6 arches", der fünf baute | loong64 hinzugefügt |
 
-Damit bauen nun alle siebzehn Bibliotheken und Werkzeuge per Cross-Build für die
-sechs 64-Bit-Linux-Architekturen, und alle neunzehn haben eine Schranke bei 100 %
-Anweisungsabdeckung.
+Damit bauten damals alle siebzehn Bibliotheken und Werkzeuge per Cross-Build für die
+sechs 64-Bit-Linux-Architekturen, und alle neunzehn hatten eine Schranke bei 100 %
+Anweisungsabdeckung. Die drei seither hinzugekommenen (`gpupainter`, `lineedit`,
+`shellterm`, 2026-11-09) tun dasselbe: ein `cross`-Job prüft jede Architektur,
+Tests eingeschlossen. Heute sind es zwanzig Bibliotheken und Werkzeuge und
+zweiundzwanzig Module.
 `app-template` und `gallery` sind Browser-Anwendungen und bauen für `js/wasm`,
 ihr einziges Ziel.
 
