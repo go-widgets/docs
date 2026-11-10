@@ -114,9 +114,7 @@ links without cgo.&lt;/li&gt;
 &lt;/table&gt;
 &lt;p&gt;So all seventeen libraries and tools then cross-built for the six 64-bit
 Linux architectures, and all nineteen gated at 100% statement coverage. The
-three added since (&lt;code&gt;gpupainter&lt;/code&gt;, &lt;code&gt;lineedit&lt;/code&gt;, &lt;code&gt;shellterm&lt;/code&gt;, 2026-11-09) do the
-same: a &lt;code&gt;cross&lt;/code&gt; job vets each architecture, tests included, so it is twenty
-libraries and tools and twenty-two modules today.&lt;code&gt;app-template&lt;/code&gt; and &lt;code&gt;gallery&lt;/code&gt; are browser applications and build for &lt;code&gt;js/wasm&lt;/code&gt;,which is their only target.&lt;/p&gt;
+four added since (&lt;code&gt;gpupainter&lt;/code&gt;, &lt;code&gt;lineedit&lt;/code&gt;, &lt;code&gt;shellterm&lt;/code&gt;, 2026-11-09, and &lt;code&gt;vcs&lt;/code&gt;,2026-11-10) do the same: a &lt;code&gt;cross&lt;/code&gt; job vets each architecture, tests included,so it is twenty-one libraries and tools and twenty-three modules today.&lt;code&gt;app-template&lt;/code&gt; and &lt;code&gt;gallery&lt;/code&gt; are browser applications and build for &lt;code&gt;js/wasm&lt;/code&gt;,which is their only target.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="security"&gt;Security&lt;span class="hx:absolute hx:-mt-20" id="security"&gt;&lt;/span&gt;
 &lt;a href="#security" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Measured with &lt;code&gt;govulncheck&lt;/code&gt; (symbol level: only code the module can reach) on
 2026-10-10:&lt;/p&gt;

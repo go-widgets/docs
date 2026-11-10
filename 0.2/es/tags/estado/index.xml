@@ -115,9 +115,9 @@ enlaza sin cgo.&lt;/li&gt;
 &lt;/table&gt;
 &lt;p&gt;Así, las diecisiete bibliotecas y herramientas se compilaban entonces de forma cruzada
 para las seis arquitecturas Linux de 64 bits, y los diecinueve módulos tenían
-una barrera del 100 % de cobertura de sentencias. Los tres añadidos desde entonces(&lt;code&gt;gpupainter&lt;/code&gt;, &lt;code&gt;lineedit&lt;/code&gt;, &lt;code&gt;shellterm&lt;/code&gt;, 2026-11-09) hacen lo mismo: un job &lt;code&gt;cross&lt;/code&gt;
-comprueba cada arquitectura, pruebas incluidas. Hoy son veinte bibliotecas y
-herramientas y veintidós módulos.&lt;code&gt;app-template&lt;/code&gt; y &lt;code&gt;gallery&lt;/code&gt; son aplicaciones de navegador y se compilan para&lt;code&gt;js/wasm&lt;/code&gt;, que es su único destino.&lt;/p&gt;
+una barrera del 100 % de cobertura de sentencias. Los cuatro añadidos desde entonces(&lt;code&gt;gpupainter&lt;/code&gt;, &lt;code&gt;lineedit&lt;/code&gt;, &lt;code&gt;shellterm&lt;/code&gt;, 2026-11-09, y &lt;code&gt;vcs&lt;/code&gt;, 2026-11-10) hacen lo mismo: un job &lt;code&gt;cross&lt;/code&gt;
+comprueba cada arquitectura, pruebas incluidas. Hoy son veintiuna bibliotecas y
+herramientas y veintitrés módulos.&lt;code&gt;app-template&lt;/code&gt; y &lt;code&gt;gallery&lt;/code&gt; son aplicaciones de navegador y se compilan para&lt;code&gt;js/wasm&lt;/code&gt;, que es su único destino.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="security"&gt;Seguridad&lt;span class="hx:absolute hx:-mt-20" id="security"&gt;&lt;/span&gt;
 &lt;a href="#security" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Medido con &lt;code&gt;govulncheck&lt;/code&gt; (a nivel de símbolo: solo el código que el módulo
 puede alcanzar) el 2026-10-10:&lt;/p&gt;

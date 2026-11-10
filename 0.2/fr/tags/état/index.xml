@@ -360,8 +360,8 @@ sait lier sans cgo.&lt;/li&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;Les dix-sept bibliothèques et outils faisaient donc tous alors une compilation croisée pour les six
-architectures Linux 64 bits, et les dix-neuf avaient tous une barrière à 100 % de couverture des instructions.Les trois ajoutés depuis (&lt;code&gt;gpupainter&lt;/code&gt;, &lt;code&gt;lineedit&lt;/code&gt;, &lt;code&gt;shellterm&lt;/code&gt;, 2026-11-09) font de même : un job&lt;code&gt;cross&lt;/code&gt; vérifie chaque architecture, tests compris. Cela fait aujourd&amp;rsquo;hui vingt bibliothèques et outils et
-vingt-deux modules.&lt;code&gt;app-template&lt;/code&gt; et &lt;code&gt;gallery&lt;/code&gt; sont des applications de navigateur et se compilent pour &lt;code&gt;js/wasm&lt;/code&gt;,qui est leur seule cible.&lt;/p&gt;
+architectures Linux 64 bits, et les dix-neuf avaient tous une barrière à 100 % de couverture des instructions.Les quatre ajoutés depuis (&lt;code&gt;gpupainter&lt;/code&gt;, &lt;code&gt;lineedit&lt;/code&gt;, &lt;code&gt;shellterm&lt;/code&gt;, 2026-11-09, et &lt;code&gt;vcs&lt;/code&gt;, 2026-11-10) font de même : un job&lt;code&gt;cross&lt;/code&gt; vérifie chaque architecture, tests compris. Cela fait aujourd&amp;rsquo;hui vingt et une bibliothèques et outils et
+vingt-trois modules.&lt;code&gt;app-template&lt;/code&gt; et &lt;code&gt;gallery&lt;/code&gt; sont des applications de navigateur et se compilent pour &lt;code&gt;js/wasm&lt;/code&gt;,qui est leur seule cible.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="security"&gt;Sécurité&lt;span class="hx:absolute hx:-mt-20" id="security"&gt;&lt;/span&gt;
 &lt;a href="#security" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Mesuré avec &lt;code&gt;govulncheck&lt;/code&gt; (au niveau des symboles : seul le code que le module peut atteindre) le
 2026-10-10 :&lt;/p&gt;
