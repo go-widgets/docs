@@ -159,6 +159,51 @@ toolkit.UseOpenTypeText() // Atkinson Hyperlegible, bundled; js/wasm-safe
 피어의 삽입은 그 *주위*가 삭제되어 살아남습니다. 위치는 추측이지만, 조금 전까지
 누군가의 화면에 있던 문자는 추측이 아닙니다.
 
+### 버전 관리되는 작업 트리 위의 FileTree {#filetree-vcs}
+
+v0.363.0부터 `FileTree.SetRepository(vcs.Repository)`가 [`vcs`](https://github.com/go-widgets/vcs) 저장소에서 `M`, `A`, `D`, `?`, `!` 표시를 채웁니다. 호스트가 각 `Status`를 직접 설정할 필요가 없습니다. 툴킷은 `vcs`(표준 라이브러리만 사용)만 import하고 드라이버는 절대 import하지 않으며, 드라이버는 호스트가 등록합니다. git 드라이버는 별도 모듈인 `vcs/git`(go-git 사용, `git` 바이너리는 실행하지 않음)이고, `vcs.Detect(dir)`는 가장 가까운 저장소까지 상위 디렉터리를 거슬러 올라갑니다.
+
+```go
+import (
+    "context"
+
+    "github.com/go-widgets/toolkit"
+    "github.com/go-widgets/vcs"
+    _ "github.com/go-widgets/vcs/git" // registers the "git" driver
+)
+
+// newTree shows dir's files with their git state. post hands a closure to the
+// host's UI goroutine.
+func newTree(dir string, entries []toolkit.FileEntry, post func(func())) (*toolkit.FileTree, error) {
+    repo, err := vcs.Detect(dir) // walks up to the nearest repository
+    if err != nil {
+        return nil, err // vcs.ErrNoRepository when there is none
+    }
+    tree := toolkit.NewFileTree(entries)
+    tree.PostUI = post // Status runs off the UI goroutine
+    tree.SetRepository(repo)
+    tree.StatusError().Subscribe(func(err error) { /* show it */ })
+    return tree, nil
+}
+
+// After a change the tree was not told of, say a save:
+func saved(tree *toolkit.FileTree) { tree.RefreshStatusAsync() }
+
+// A refresh you can wait for, on a worker or in a test:
+func wait(tree *toolkit.FileTree) error { return tree.RefreshStatus(context.Background()) }
+```
+
+저장소 상태가 표시가 되는 방식:
+
+- `Modified`, `Added`, `Deleted`, `Untracked`, `Conflicted`는 이름이 같은 `FileStatus`에 대응합니다. `Renamed`는 새 경로의 `FileAdded`가 됩니다. `Ignored`는 표시가 없습니다(`FileIgnored`는 아무것도 그리지 않기 때문입니다).
+- **폴더는 그 아래 무언가에 표시가 있으면 `FileModified`, 그 아래 무언가가 충돌 상태이면 `FileConflicted`입니다**(충돌이 우선). 앞 문단이 추측하기를 거부한 바로 그 정책이며, 저장소를 연결하는 것이 그 정책을 받아들이는 것입니다. 저장소가 직접 보고하는 폴더(서브모듈)는 그 아래에 충돌이 없는 한 자기 상태를 유지합니다. 호스트가 항목에 설정한 `Status`는 저장소의 것보다 우선합니다.
+- 삭제된 파일은 호스트가 여전히 목록에 넣을 때만 표시됩니다. 트리는 행을 만들어 내지 않습니다.
+- `Marks()`는 폴더를 포함한 모든 표시의 `Observable`로, 범례나 "변경 3개" 배지에 쓸 수 있습니다. `StatusError()`는 마지막 갱신의 오류이며, 이때는 이전 표시가 유지됩니다.
+
+트리는 생성, 이름 변경, 삭제, 이동, 가져오기를 스스로 적용하지 않습니다. 호스트가 적용하고 `Entries`를 설정하면 그 `Set`이 표시를 갱신합니다. `RefreshStatus(ctx)`는 지금 묻고, 표시가 적용되면 돌아옵니다.
+
+**`PostUI`가 필요한 이유**(v0.364.0). `Repository.Status`는 큰 저장소에서 몇 초가 걸릴 수 있고(go-git은 상태 전체를 메모리에 만들며 컨텍스트를 받지 않습니다), UI goroutine에서 실행하면 안 됩니다. 브라우저에서는 페이지의 이벤트 루프를 막게 됩니다. `PostUI`를 설정하면 트리가 시작하는 모든 갱신(`SetRepository`, `Entries` 변경, `RefreshStatusAsync`)이 별도 goroutine에서 `Status`를 실행하고, 결과를 **호스트가 UI goroutine에서 실행하는** 클로저로 돌려줍니다. `collabui.CollabText`와 같은 약속입니다. 더 새로운 갱신은 진행 중인 것을 취소하고 늦게 도착한 응답은 아무 효과가 없습니다. `PostUI`가 없으면 모두 동기이며, 테스트나 작은 트리에는 알맞습니다.
+
 ## 바이너리 크기: 프로그램은 사용하는 것만 링크합니다 {#binary-size}
 
 툴킷은 하나의 큰 패키지이지만 링커에게는 문제가 되지 않습니다. Go의 데드 코드 제거는

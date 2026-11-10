@@ -276,3 +276,74 @@ A folder's status is not derived from its children: "a folder holding a
 modified file" is a policy rather than a fact, and git says nothing about
 folders at all. An explicit `Dir` entry carries its own status — a submodule, a
 directory a merge left conflicted — while an implied parent has none.
+
+#### Filling the marks from a repository
+
+Since v0.363.0, `SetRepository(vcs.Repository)` fills the marks from a
+[`vcs`](https://github.com/go-widgets/vcs) repository, so a host does not set
+each `Status` by hand. The toolkit imports only `vcs` (standard library only),
+never a driver: the host registers one. The git driver is the separate module
+`vcs/git` (go-git, never the `git` binary); `vcs.Detect(dir)` walks up to the
+nearest repository once a driver is imported.
+
+```go
+import (
+    "context"
+
+    "github.com/go-widgets/toolkit"
+    "github.com/go-widgets/vcs"
+    _ "github.com/go-widgets/vcs/git" // registers the "git" driver
+)
+
+// newTree shows dir's files with their git state. post hands a closure to the
+// host's UI goroutine.
+func newTree(dir string, entries []toolkit.FileEntry, post func(func())) (*toolkit.FileTree, error) {
+    repo, err := vcs.Detect(dir) // walks up to the nearest repository
+    if err != nil {
+        return nil, err // vcs.ErrNoRepository when there is none
+    }
+    tree := toolkit.NewFileTree(entries)
+    tree.PostUI = post // Status runs off the UI goroutine
+    tree.SetRepository(repo)
+    tree.StatusError().Subscribe(func(err error) { /* show it */ })
+    return tree, nil
+}
+
+// After a change the tree was not told of, say a save:
+func saved(tree *toolkit.FileTree) { tree.RefreshStatusAsync() }
+
+// A refresh you can wait for, on a worker or in a test:
+func wait(tree *toolkit.FileTree) error { return tree.RefreshStatus(context.Background()) }
+```
+
+How the repository's states become marks:
+
+- `Modified`, `Added`, `Deleted`, `Untracked` and `Conflicted` map to the
+  `FileStatus` of the same name. `Renamed` is `FileAdded` at the new path.
+  `Ignored` has no mark, because `FileIgnored` would draw as nothing.
+- **A folder is `FileModified` when anything under it has a mark, and
+  `FileConflicted` when anything under it is conflicted** (conflicts win). This
+  is the policy the paragraph above declines to guess; attaching a repository is
+  the opt-in. A folder the repository reports itself (a submodule) keeps its
+  state, unless a conflict lies beneath it. A `Status` a host set on an entry
+  wins over the repository's.
+- A deleted file is marked only if the host still lists it: the tree invents no
+  rows.
+- `Marks()` is an `Observable` of every mark, folders included, for a legend or a
+  "3 changes" badge; `StatusError()` is the last refresh's error. A failed
+  refresh keeps the previous marks.
+
+The tree never applies a create, rename, delete, move or import: the host does,
+and sets `Entries`, and that `Set` refreshes the marks. `RefreshStatus(ctx)`
+asks now and returns when the marks are applied.
+
+**Why `PostUI`** (v0.364.0)**.** `Repository.Status` can take seconds on a large repository
+(go-git builds the whole status in memory and takes no context), so it must not
+run on the UI goroutine, and in a browser it would block the page's event loop.
+Set `PostUI` and every refresh the tree starts (`SetRepository`, a change of
+`Entries`, `RefreshStatusAsync`) runs `Status` on a goroutine of its own and
+hands the result back as a closure that **the host runs on its UI goroutine** —
+the same contract as `collabui.CollabText`. A newer refresh cancels the one in
+flight and makes its late answer a no-op, so a slow answer never overwrites a
+newer one. Without `PostUI` every refresh is synchronous, which is right for a
+test or a small tree.
