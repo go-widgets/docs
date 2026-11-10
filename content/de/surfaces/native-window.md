@@ -72,7 +72,27 @@ Unter macOS zeichnet `Config{GPU: true}` die Frames auf der GPU.
   960 × 640 und 0,99 ms statt 5,96 ms bei 1920 × 1200 (Apple M4 Max).
 - **Rückfall:** Ein Fenster mit transluzentem Material bleibt auf dem CPU-Pfad,
   ebenso ein Rechner, auf dem Metal nicht startet. Beides ist kein Fehler.
-  Andere Back-ends ignorieren die Option.
+  Unter Linux siehe unten; die anderen Back-ends ignorieren die Option.
+
+Unter Linux (X11 und Wayland) zeichnet `Config{GPU: true}` Frames mit Vulkan.
+- **Wie:** dieselbe Aufzeichnung, gezeichnet vom Vulkan-Renderer von
+  go-gfx/gpu2d. Seine Pixel werden in den Framebuffer des Fensters kopiert, der
+  wie immer dargestellt wird: MIT-SHM (oder `PutImage`) unter X11, `wl_shm`
+  unter Wayland. Der Frame durchläuft die CPU einmal; per dma-buf wird noch
+  nichts mit dem Display-Server geteilt.
+- **Genauigkeit:** auf Software-Vulkan (lavapipe) sind die Pixel Byte für Byte
+  die des CPU-Pfads, live auf beiden Protokollen belegt: das vom X-Server
+  zurückgelesene Fenster und der vom Fenster übergebene `wl_shm`-Puffer sind
+  gleich denen des CPU-Pfads. Eine Hardware-GPU wurde noch nicht gemessen.
+- **Rückfall:** ist Vulkan nicht verfügbar oder wird ein Frame abgelehnt (für
+  das Gerät zu groß, Gerät verloren), zeichnet das Fenster auf der CPU und läuft
+  weiter. `GPUError()` am Back-end nennt den Grund, und jeder spätere Frame ist
+  ein CPU-Frame.
+- **Kosten (nur Software):** lavapipe ist ein CPU-Rasterizer, daher kostet der
+  GPU-Pfad etwa das Zehnfache der CPU-Zeit des CPU-Pfads: 25,8 ms statt 2,48 ms
+  pro Frame bei 960 × 640 und 89,7 ms statt 8,46 ms bei 1920 × 1200 (X11,
+  lavapipe auf 16 Threads in einem arm64-Container auf einem Apple M4 Max). Ob es
+  sich auf einer echten GPU lohnt, ist noch nicht gemessen.
 
 ## HiDPI {#hidpi}
 

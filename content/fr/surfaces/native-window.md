@@ -72,7 +72,27 @@ Sous macOS, `Config{GPU: true}` dessine les images sur le GPU.
   en 960 × 640, et 0,99 ms au lieu de 5,96 ms en 1920 × 1200 (Apple M4 Max).
 - **Repli :** une fenêtre avec un matériau translucide reste sur le chemin CPU,
   de même qu'une machine où Metal ne démarre pas. Ni l'un ni l'autre n'est une
-  erreur. Les autres back-ends ignorent l'option.
+  erreur. Sous Linux, voir ci-dessous ; les autres back-ends ignorent l'option.
+
+Sous Linux (X11 et Wayland), `Config{GPU: true}` dessine les images avec Vulkan.
+- **Comment :** le même enregistrement, dessiné par le moteur Vulkan de
+  go-gfx/gpu2d. Ses pixels sont copiés dans le framebuffer de la fenêtre, qui est
+  présenté comme toujours : MIT-SHM (ou `PutImage`) sous X11, `wl_shm` sous
+  Wayland. L'image traverse le CPU une fois ; rien n'est encore partagé avec le
+  serveur d'affichage par dma-buf.
+- **Exactitude :** sur Vulkan logiciel (lavapipe), les pixels sont ceux du chemin
+  CPU, octet pour octet, prouvé en direct sur les deux protocoles : la fenêtre
+  relue depuis le serveur X, et le tampon `wl_shm` validé par la fenêtre, sont
+  égaux à ceux du chemin CPU. Aucun GPU matériel n'a encore été mesuré.
+- **Repli :** quand Vulkan est indisponible, ou qu'une image est refusée (trop
+  grande pour le périphérique, périphérique perdu), la fenêtre dessine sur le CPU
+  et continue. `GPUError()` sur le back-end en donne la raison, et toute image
+  suivante est une image CPU.
+- **Coût (logiciel seulement) :** lavapipe est un rastériseur CPU, donc le chemin
+  GPU coûte environ dix fois le temps CPU du chemin CPU : 25,8 ms au lieu de
+  2,48 ms par image en 960 × 640, et 89,7 ms au lieu de 8,46 ms en 1920 × 1200
+  (X11, lavapipe sur 16 threads dans un conteneur arm64 sur un Apple M4 Max). Ce
+  que cela donne sur un vrai GPU n'est pas encore mesuré.
 
 ## HiDPI {#hidpi}
 

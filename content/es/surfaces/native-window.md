@@ -77,7 +77,27 @@ En macOS, `Config{GPU: true}` dibuja los fotogramas en la GPU.
   (Apple M4 Max).
 - **Alternativa:** una ventana con un material translúcido se queda en el
   camino de CPU, igual que una máquina donde Metal no arranca. Ninguno de los
-  dos casos es un error. Los demás back-ends ignoran la opción.
+  dos casos es un error. En Linux, véase más abajo; los demás back-ends ignoran la opción.
+
+En Linux (X11 y Wayland), `Config{GPU: true}` dibuja los fotogramas con Vulkan.
+- **Cómo:** el mismo registro, dibujado por el renderizador Vulkan de
+  go-gfx/gpu2d. Sus píxeles se copian en el framebuffer de la ventana, que se
+  presenta como siempre: MIT-SHM (o `PutImage`) en X11, `wl_shm` en Wayland. El
+  fotograma pasa una vez por la CPU; todavía no se comparte nada con el servidor
+  de pantalla mediante dma-buf.
+- **Exactitud:** en Vulkan por software (lavapipe) los píxeles son los del camino
+  de CPU, byte a byte, demostrado en vivo en ambos protocolos: la ventana leída
+  de vuelta del servidor X y el búfer `wl_shm` que la ventana confirmó son
+  iguales a los del camino de CPU. Aún no se ha medido ninguna GPU de hardware.
+- **Alternativa:** cuando Vulkan no está disponible, o se rechaza un fotograma
+  (demasiado grande para el dispositivo, dispositivo perdido), la ventana dibuja
+  en la CPU y sigue funcionando. `GPUError()` en el back-end dice el motivo, y
+  todo fotograma posterior es un fotograma de CPU.
+- **Coste (solo software):** lavapipe es un rasterizador de CPU, así que el camino
+  de GPU cuesta unas diez veces el tiempo de CPU del camino de CPU: 25,8 ms en
+  lugar de 2,48 ms por fotograma a 960 × 640, y 89,7 ms en lugar de 8,46 ms a
+  1920 × 1200 (X11, lavapipe con 16 hilos en un contenedor arm64 sobre un Apple
+  M4 Max). Si compensa en una GPU real aún no está medido.
 
 ## HiDPI {#hidpi}
 

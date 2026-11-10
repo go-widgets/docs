@@ -72,7 +72,25 @@ On macOS, `Config{GPU: true}` draws frames on the GPU.
   960 × 640, and 0.99 ms instead of 5.96 ms at 1920 × 1200 (Apple M4 Max).
 - **Fallbacks:** a window with a translucent material stays on the CPU path,
   and so does a machine where Metal will not start. Neither is an error.
-  Other back-ends ignore the option.
+  On Linux, see below; the other back-ends ignore the option.
+
+On Linux (X11 and Wayland), `Config{GPU: true}` draws frames with Vulkan.
+- **How:** the same recording, drawn by go-gfx/gpu2d's Vulkan renderer. Its
+  pixels are copied into the window's framebuffer, which is presented as ever:
+  MIT-SHM (or `PutImage`) on X11, `wl_shm` on Wayland. The frame crosses the CPU
+  once; nothing is shared with the display server by dma-buf yet.
+- **Exactness:** on software Vulkan (lavapipe) the pixels are the CPU path's,
+  byte for byte, proven live on both protocols: the window read back from the X
+  server, and the `wl_shm` buffer the window committed, equal the CPU path's.
+  No hardware GPU has been measured yet.
+- **Fallback:** where Vulkan is unavailable, or a frame is refused (too large
+  for the device, device lost), the window draws on the CPU and keeps running.
+  `GPUError()` on the back-end says why, and every later frame is a CPU frame.
+- **Cost (software only):** lavapipe is a CPU rasterizer, so the GPU path costs
+  about ten times the CPU time of the CPU path: 25.8 ms instead of 2.48 ms per
+  frame at 960 × 640, and 89.7 ms instead of 8.46 ms at 1920 × 1200 (X11,
+  lavapipe on 16 threads in an arm64 container on an Apple M4 Max). Whether it
+  pays on a real GPU is not measured yet.
 
 ## HiDPI
 
