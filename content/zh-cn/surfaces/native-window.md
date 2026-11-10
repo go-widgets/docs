@@ -60,7 +60,20 @@ return w.Run(root) // root is any toolkit.Widget
 - **开销：** 每帧占用的处理器时间在 960 × 640 下从 1.58 ms 降到 0.59 ms，在
   1920 × 1200 下从 5.96 ms 降到 0.99 ms（Apple M4 Max）。
 - **回退：** 带半透明材质的窗口仍走 CPU 路径，Metal 无法启动的机器也一样，二者都不算
-  错误。其他后端忽略此选项。
+  错误。Linux 见下文；其他后端忽略此选项。
+
+在 Linux（X11 和 Wayland）上，`Config{GPU: true}` 使用 Vulkan 绘制帧。
+- **方式：** 同样的记录，由 go-gfx/gpu2d 的 Vulkan 渲染器绘制。它的像素被复制到窗口的帧缓冲区，
+  并照旧呈现：X11 上用 MIT-SHM（或 `PutImage`），Wayland 上用 `wl_shm`。帧会经过 CPU 一次，
+  目前还没有通过 dma-buf 与显示服务器共享。
+- **精确性：** 在软件 Vulkan（lavapipe）上，像素与 CPU 路径逐字节相同，并已在两种协议上实机证明：
+  从 X 服务器读回的窗口，以及窗口提交的 `wl_shm` 缓冲区，都与 CPU 路径的一致。
+  尚未在硬件 GPU 上测量。
+- **回退：** 当 Vulkan 不可用，或某一帧被拒绝（对设备来说太大、设备丢失）时，窗口改用 CPU 绘制并继续运行。
+  原因由后端的 `GPUError()` 给出，此后的每一帧都是 CPU 帧。
+- **开销（仅软件）：** lavapipe 是 CPU 光栅器，所以 GPU 路径占用的 CPU 时间约为 CPU 路径的十倍：
+  每帧在 960 × 640 下为 25.8 ms 而不是 2.48 ms，在 1920 × 1200 下为 89.7 ms 而不是 8.46 ms
+  （X11，Apple M4 Max 上 arm64 容器中 16 线程的 lavapipe）。在真实 GPU 上是否划算尚未测量。
 
 ## HiDPI {#hidpi}
 
