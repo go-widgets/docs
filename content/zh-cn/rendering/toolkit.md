@@ -137,6 +137,51 @@ CRDT，这层绑定不往里添加任何合并逻辑。而一次编辑被应用�
 内容之中。删除取走这个人能看见的字符，不取走看不见的：落在删除范围内部的对端插入会被
 *绕开*删除而存活下来。位置是一种猜测；而片刻之前还在某个人屏幕上的字符不是。
 
+### 受版本控制的工作树上的 FileTree {#filetree-vcs}
+
+自 v0.363.0 起，`FileTree.SetRepository(vcs.Repository)` 会从 [`vcs`](https://github.com/go-widgets/vcs) 仓库填充 `M`、`A`、`D`、`?`、`!` 标记，宿主不必再逐个手动设置 `Status`。工具包只导入 `vcs`（只用标准库），从不导入驱动：驱动由宿主注册。git 驱动是单独的模块 `vcs/git`（基于 go-git，从不调用 `git` 可执行文件），`vcs.Detect(dir)` 会向上查找最近的仓库。
+
+```go
+import (
+    "context"
+
+    "github.com/go-widgets/toolkit"
+    "github.com/go-widgets/vcs"
+    _ "github.com/go-widgets/vcs/git" // registers the "git" driver
+)
+
+// newTree shows dir's files with their git state. post hands a closure to the
+// host's UI goroutine.
+func newTree(dir string, entries []toolkit.FileEntry, post func(func())) (*toolkit.FileTree, error) {
+    repo, err := vcs.Detect(dir) // walks up to the nearest repository
+    if err != nil {
+        return nil, err // vcs.ErrNoRepository when there is none
+    }
+    tree := toolkit.NewFileTree(entries)
+    tree.PostUI = post // Status runs off the UI goroutine
+    tree.SetRepository(repo)
+    tree.StatusError().Subscribe(func(err error) { /* show it */ })
+    return tree, nil
+}
+
+// After a change the tree was not told of, say a save:
+func saved(tree *toolkit.FileTree) { tree.RefreshStatusAsync() }
+
+// A refresh you can wait for, on a worker or in a test:
+func wait(tree *toolkit.FileTree) error { return tree.RefreshStatus(context.Background()) }
+```
+
+仓库状态如何变成标记：
+
+- `Modified`、`Added`、`Deleted`、`Untracked` 和 `Conflicted` 对应同名的 `FileStatus`。`Renamed` 在新路径上成为 `FileAdded`。`Ignored` 没有标记（`FileIgnored` 不会绘制任何东西）。
+- **只要文件夹下有任何条目带标记，它就是 `FileModified`；只要其下有任何条目处于冲突，它就是 `FileConflicted`**（冲突优先）。这正是上一段拒绝猜测的策略，接入仓库即表示接受。仓库自己报告的文件夹（子模块）保持其状态，除非其下有冲突。宿主在条目上设置的 `Status` 优先于仓库的。
+- 已删除的文件只有在宿主仍列出它时才会被标记：树不会凭空创建行。
+- `Marks()` 是所有标记（含文件夹）的 `Observable`，可用于图例或“3 处更改”徽标；`StatusError()` 是最近一次刷新的错误，此时保留之前的标记。
+
+树从不自行执行新建、重命名、删除、移动或导入：由宿主执行并设置 `Entries`，这次 `Set` 会刷新标记。`RefreshStatus(ctx)` 立即查询，并在标记应用后返回。
+
+**为什么需要 `PostUI`**（v0.364.0）。在大型仓库上，`Repository.Status` 可能耗时数秒（go-git 在内存中构建完整状态，且不接受 context），所以它不能在界面 goroutine 上运行；在浏览器中它会阻塞页面的事件循环。设置 `PostUI` 后，树发起的每次刷新（`SetRepository`、`Entries` 的变化、`RefreshStatusAsync`）都会在自己的 goroutine 上运行 `Status`，并把结果作为一个闭包交回，**由宿主在界面 goroutine 上执行**，约定与 `collabui.CollabText` 相同。更新的刷新会取消进行中的那次，使其迟到的答复不起作用。没有 `PostUI` 时一切同步，适合测试或小型的树。
+
 ## 二进制体积：程序只链接它用到的部分 {#binary-size}
 
 工具包是一个很大的包，这对链接器来说没有问题：Go 的死代码消除只保留从 `main.main` **以及每个被导入包的初始化任务**

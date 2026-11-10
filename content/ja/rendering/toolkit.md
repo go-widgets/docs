@@ -147,6 +147,51 @@ Gibbs（SIGMOD '89）の包含変換であり、Jupiter（Nichols ほか、UIST 
 あるピアの挿入はその*まわり*が削除され、生き残ります。位置は推測ですが、ついさっき
 誰かの画面にあった文字は推測ではありません。
 
+### バージョン管理された作業ツリー上の FileTree {#filetree-vcs}
+
+v0.363.0 以降、`FileTree.SetRepository(vcs.Repository)` は [`vcs`](https://github.com/go-widgets/vcs) のリポジトリから `M`、`A`、`D`、`?`、`!` のマークを埋めます。ホストが各 `Status` を手で設定する必要はありません。ツールキットが import するのは `vcs`（標準ライブラリのみ）だけで、ドライバは決して import しません。ドライバはホストが登録します。git ドライバは別モジュールの `vcs/git`（go-git を使い、`git` バイナリは呼びません）で、`vcs.Detect(dir)` は最も近いリポジトリまで親ディレクトリをたどります。
+
+```go
+import (
+    "context"
+
+    "github.com/go-widgets/toolkit"
+    "github.com/go-widgets/vcs"
+    _ "github.com/go-widgets/vcs/git" // registers the "git" driver
+)
+
+// newTree shows dir's files with their git state. post hands a closure to the
+// host's UI goroutine.
+func newTree(dir string, entries []toolkit.FileEntry, post func(func())) (*toolkit.FileTree, error) {
+    repo, err := vcs.Detect(dir) // walks up to the nearest repository
+    if err != nil {
+        return nil, err // vcs.ErrNoRepository when there is none
+    }
+    tree := toolkit.NewFileTree(entries)
+    tree.PostUI = post // Status runs off the UI goroutine
+    tree.SetRepository(repo)
+    tree.StatusError().Subscribe(func(err error) { /* show it */ })
+    return tree, nil
+}
+
+// After a change the tree was not told of, say a save:
+func saved(tree *toolkit.FileTree) { tree.RefreshStatusAsync() }
+
+// A refresh you can wait for, on a worker or in a test:
+func wait(tree *toolkit.FileTree) error { return tree.RefreshStatus(context.Background()) }
+```
+
+リポジトリの状態からマークへの対応:
+
+- `Modified`、`Added`、`Deleted`、`Untracked`、`Conflicted` は同名の `FileStatus` に対応します。`Renamed` は新しいパスの `FileAdded` になります。`Ignored` にマークはありません（`FileIgnored` は何も描画しないため）。
+- **フォルダは、配下のどれかにマークがあれば `FileModified`、配下のどれかが競合していれば `FileConflicted` です**（競合が優先）。直前の段落が推測を避けているのがこの方針で、リポジトリを接続することがその承諾にあたります。リポジトリ自身が報告するフォルダ（サブモジュール）は、配下に競合がない限りその状態を保ちます。ホストがエントリに設定した `Status` は、リポジトリのものより優先されます。
+- 削除されたファイルは、ホストがまだ一覧に含めている場合にだけマークされます。ツリーが行を作り出すことはありません。
+- `Marks()` はフォルダを含むすべてのマークの `Observable` で、凡例や「3 件の変更」バッジに使えます。`StatusError()` は直近の更新のエラーで、その場合は以前のマークが保たれます。
+
+ツリーは作成、名前変更、削除、移動、インポートを自分では適用しません。ホストが適用して `Entries` を設定し、その `Set` がマークを更新します。`RefreshStatus(ctx)` はその場で問い合わせ、マークが適用されてから戻ります。
+
+**`PostUI` が必要な理由**（v0.364.0）。`Repository.Status` は大きなリポジトリでは数秒かかることがあり（go-git は状態全体をメモリに構築し、コンテキストを受け取りません）、UI の goroutine で実行してはなりません。ブラウザではページのイベントループを止めてしまいます。`PostUI` を設定すると、ツリーが開始するすべての更新（`SetRepository`、`Entries` の変更、`RefreshStatusAsync`）は専用の goroutine で `Status` を実行し、結果を **ホストが UI の goroutine で実行する** クロージャとして返します。`collabui.CollabText` と同じ約束です。新しい更新は進行中のものをキャンセルし、遅れて届いた応答は何も起こしません。`PostUI` がなければすべて同期で、テストや小さなツリーには適しています。
+
 ## バイナリサイズ：プログラムは使うものだけをリンクする {#binary-size}
 
 ツールキットは 1 つの大きなパッケージですが、リンカにとっては問題ありません。Go のデッドコード除去は、

@@ -171,6 +171,78 @@ l'insertion d'un pair à l'intérieur de la plage supprimée est supprimée *aut
 et survit. Le placement est une estimation ; un caractère qui était sur l'écran
 de quelqu'un il y a un instant n'en est pas une.
 
+### FileTree sur une arborescence versionnée {#filetree-vcs}
+
+Depuis v0.363.0, `FileTree.SetRepository(vcs.Repository)` remplit les marques
+`M`, `A`, `D`, `?` et `!` à partir d'un dépôt [`vcs`](https://github.com/go-widgets/vcs) :
+l'hôte n'a plus à fixer chaque `Status` à la main. Le toolkit n'importe que `vcs`
+(bibliothèque standard seule), jamais un pilote : c'est l'hôte qui en enregistre un.
+Le pilote git est le module séparé `vcs/git` (go-git, jamais le binaire `git`) ;
+`vcs.Detect(dir)` remonte jusqu'au dépôt le plus proche.
+
+```go
+import (
+    "context"
+
+    "github.com/go-widgets/toolkit"
+    "github.com/go-widgets/vcs"
+    _ "github.com/go-widgets/vcs/git" // registers the "git" driver
+)
+
+// newTree shows dir's files with their git state. post hands a closure to the
+// host's UI goroutine.
+func newTree(dir string, entries []toolkit.FileEntry, post func(func())) (*toolkit.FileTree, error) {
+    repo, err := vcs.Detect(dir) // walks up to the nearest repository
+    if err != nil {
+        return nil, err // vcs.ErrNoRepository when there is none
+    }
+    tree := toolkit.NewFileTree(entries)
+    tree.PostUI = post // Status runs off the UI goroutine
+    tree.SetRepository(repo)
+    tree.StatusError().Subscribe(func(err error) { /* show it */ })
+    return tree, nil
+}
+
+// After a change the tree was not told of, say a save:
+func saved(tree *toolkit.FileTree) { tree.RefreshStatusAsync() }
+
+// A refresh you can wait for, on a worker or in a test:
+func wait(tree *toolkit.FileTree) error { return tree.RefreshStatus(context.Background()) }
+```
+
+Des états du dépôt aux marques :
+
+- `Modified`, `Added`, `Deleted`, `Untracked` et `Conflicted` correspondent au
+  `FileStatus` du même nom. `Renamed` devient `FileAdded` au nouveau chemin.
+  `Ignored` n'a pas de marque : `FileIgnored` ne dessinerait rien.
+- **Un dossier est `FileModified` dès que quelque chose dessous porte une marque, et
+  `FileConflicted` dès que quelque chose dessous est en conflit** (le conflit
+  l'emporte). C'est la politique que le paragraphe précédent refuse de deviner ;
+  attacher un dépôt vaut adhésion. Un dossier que le dépôt signale lui-même (un
+  sous-module) garde son état, sauf conflit en dessous. Un `Status` fixé par l'hôte
+  sur une entrée l'emporte sur celui du dépôt.
+- Un fichier supprimé n'est marqué que si l'hôte le liste encore : l'arbre
+  n'invente aucune ligne.
+- `Marks()` est un `Observable` de toutes les marques, dossiers compris, pour une
+  légende ou un badge « 3 modifications » ; `StatusError()` est l'erreur du dernier
+  rafraîchissement, qui conserve alors les marques précédentes.
+
+L'arbre n'applique jamais une création, un renommage, une suppression, un
+déplacement ou un import : l'hôte le fait et fixe `Entries`, et ce `Set`
+rafraîchit les marques. `RefreshStatus(ctx)` interroge maintenant et rend la main
+quand les marques sont appliquées.
+
+**Pourquoi `PostUI`** (v0.364.0). `Repository.Status` peut durer des secondes sur
+un grand dépôt (go-git construit tout l'état en mémoire et ne prend aucun
+contexte) : il ne doit pas s'exécuter sur la goroutine d'interface, et dans un
+navigateur il bloquerait la boucle d'événements de la page. Avec `PostUI`, chaque
+rafraîchissement lancé par l'arbre (`SetRepository`, un changement de `Entries`,
+`RefreshStatusAsync`) exécute `Status` sur une goroutine à part et rend le résultat
+sous forme de fermeture **que l'hôte exécute sur sa goroutine d'interface**, comme
+`collabui.CollabText`. Un rafraîchissement plus récent annule celui en cours et
+rend sa réponse tardive sans effet. Sans `PostUI`, tout est synchrone, ce qui
+convient à un test ou à un petit arbre.
+
 ## Taille du binaire : un programme lie ce qu'il utilise {#binary-size}
 
 La boîte à outils est un grand paquet, et l'éditeur de liens s'en accommode :

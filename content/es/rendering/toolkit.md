@@ -170,6 +170,78 @@ la persona podía ver y no los que no podía: la inserción de un par dentro del
 rango borrado se borra *alrededor* y sobrevive. La colocación es una conjetura;
 un carácter que hace un instante estaba en la pantalla de alguien no lo es.
 
+### FileTree sobre un árbol de trabajo versionado {#filetree-vcs}
+
+Desde v0.363.0, `FileTree.SetRepository(vcs.Repository)` rellena las marcas `M`,
+`A`, `D`, `?` y `!` desde un repositorio de [`vcs`](https://github.com/go-widgets/vcs):
+el anfitrión ya no fija cada `Status` a mano. El toolkit importa solo `vcs`
+(solo la biblioteca estándar), nunca un controlador: el anfitrión registra uno.
+El controlador de git es el módulo aparte `vcs/git` (go-git, nunca el binario
+`git`); `vcs.Detect(dir)` sube hasta el repositorio más cercano.
+
+```go
+import (
+    "context"
+
+    "github.com/go-widgets/toolkit"
+    "github.com/go-widgets/vcs"
+    _ "github.com/go-widgets/vcs/git" // registers the "git" driver
+)
+
+// newTree shows dir's files with their git state. post hands a closure to the
+// host's UI goroutine.
+func newTree(dir string, entries []toolkit.FileEntry, post func(func())) (*toolkit.FileTree, error) {
+    repo, err := vcs.Detect(dir) // walks up to the nearest repository
+    if err != nil {
+        return nil, err // vcs.ErrNoRepository when there is none
+    }
+    tree := toolkit.NewFileTree(entries)
+    tree.PostUI = post // Status runs off the UI goroutine
+    tree.SetRepository(repo)
+    tree.StatusError().Subscribe(func(err error) { /* show it */ })
+    return tree, nil
+}
+
+// After a change the tree was not told of, say a save:
+func saved(tree *toolkit.FileTree) { tree.RefreshStatusAsync() }
+
+// A refresh you can wait for, on a worker or in a test:
+func wait(tree *toolkit.FileTree) error { return tree.RefreshStatus(context.Background()) }
+```
+
+De los estados del repositorio a las marcas:
+
+- `Modified`, `Added`, `Deleted`, `Untracked` y `Conflicted` se corresponden con
+  el `FileStatus` del mismo nombre. `Renamed` pasa a `FileAdded` en la nueva ruta.
+  `Ignored` no tiene marca: `FileIgnored` no dibujaría nada.
+- **Una carpeta es `FileModified` cuando algo debajo tiene marca, y
+  `FileConflicted` cuando algo debajo está en conflicto** (el conflicto gana).
+  Es la política que el párrafo anterior se niega a adivinar; adjuntar un
+  repositorio es aceptarla. Una carpeta que el propio repositorio informa (un
+  submódulo) conserva su estado, salvo que haya un conflicto debajo. Un `Status`
+  fijado por el anfitrión en una entrada gana al del repositorio.
+- Un archivo borrado solo se marca si el anfitrión aún lo lista: el árbol no
+  inventa filas.
+- `Marks()` es un `Observable` de todas las marcas, carpetas incluidas, para una
+  leyenda o una insignia de «3 cambios»; `StatusError()` es el error de la última
+  actualización, que conserva entonces las marcas anteriores.
+
+El árbol nunca aplica una creación, un cambio de nombre, un borrado, un traslado
+o una importación: lo hace el anfitrión y fija `Entries`, y ese `Set` actualiza
+las marcas. `RefreshStatus(ctx)` pregunta ahora y vuelve cuando las marcas están
+aplicadas.
+
+**Por qué `PostUI`** (v0.364.0). `Repository.Status` puede tardar segundos en un
+repositorio grande (go-git construye todo el estado en memoria y no admite
+contexto), así que no debe ejecutarse en la goroutine de la interfaz; en un
+navegador bloquearía el bucle de eventos de la página. Con `PostUI`, cada
+actualización que inicia el árbol (`SetRepository`, un cambio de `Entries`,
+`RefreshStatusAsync`) ejecuta `Status` en una goroutine propia y devuelve el
+resultado como un cierre **que el anfitrión ejecuta en su goroutine de interfaz**,
+igual que `collabui.CollabText`. Una actualización más nueva cancela la que está
+en curso y deja sin efecto su respuesta tardía. Sin `PostUI` todo es síncrono, lo
+cual vale para una prueba o un árbol pequeño.
+
 ## Tamaño del binario: un programa enlaza lo que usa {#binary-size}
 
 El toolkit es un paquete grande, y para el enlazador eso no es un problema: la
