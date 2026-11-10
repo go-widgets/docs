@@ -223,7 +223,27 @@ CPU.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Coût :&lt;/strong&gt; une image entière coûte au processeur 0,59 ms au lieu de 1,58 ms
 en 960 × 640, et 0,99 ms au lieu de 5,96 ms en 1920 × 1200 (Apple M4 Max).&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Repli :&lt;/strong&gt; une fenêtre avec un matériau translucide reste sur le chemin CPU,de même qu&amp;rsquo;une machine où Metal ne démarre pas. Ni l&amp;rsquo;un ni l&amp;rsquo;autre n&amp;rsquo;est une
-erreur. Les autres back-ends ignorent l&amp;rsquo;option.&lt;/li&gt;
+erreur. Sous Linux, voir ci-dessous ; les autres back-ends ignorent l&amp;rsquo;option.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Sous Linux (X11 et Wayland), &lt;code&gt;Config{GPU: true}&lt;/code&gt; dessine les images avec Vulkan.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Comment :&lt;/strong&gt; le même enregistrement, dessiné par le moteur Vulkan de
+go-gfx/gpu2d. Ses pixels sont copiés dans le framebuffer de la fenêtre, qui est
+présenté comme toujours : MIT-SHM (ou &lt;code&gt;PutImage&lt;/code&gt;) sous X11, &lt;code&gt;wl_shm&lt;/code&gt; sous
+Wayland. L&amp;rsquo;image traverse le CPU une fois ; rien n&amp;rsquo;est encore partagé avec le
+serveur d&amp;rsquo;affichage par dma-buf.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Exactitude :&lt;/strong&gt; sur Vulkan logiciel (lavapipe), les pixels sont ceux du chemin
+CPU, octet pour octet, prouvé en direct sur les deux protocoles : la fenêtre
+relue depuis le serveur X, et le tampon &lt;code&gt;wl_shm&lt;/code&gt; validé par la fenêtre, sont
+égaux à ceux du chemin CPU. Aucun GPU matériel n&amp;rsquo;a encore été mesuré.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Repli :&lt;/strong&gt; quand Vulkan est indisponible, ou qu&amp;rsquo;une image est refusée (trop
+grande pour le périphérique, périphérique perdu), la fenêtre dessine sur le CPU
+et continue. &lt;code&gt;GPUError()&lt;/code&gt; sur le back-end en donne la raison, et toute image
+suivante est une image CPU.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Coût (logiciel seulement) :&lt;/strong&gt; lavapipe est un rastériseur CPU, donc le chemin
+GPU coûte environ dix fois le temps CPU du chemin CPU : 25,8 ms au lieu de
+2,48 ms par image en 960 × 640, et 89,7 ms au lieu de 8,46 ms en 1920 × 1200(X11, lavapipe sur 16 threads dans un conteneur arm64 sur un Apple M4 Max). Ce
+que cela donne sur un vrai GPU n&amp;rsquo;est pas encore mesuré.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 data-hextra-search-id="hidpi"&gt;HiDPI&lt;span class="hx:absolute hx:-mt-20" id="hidpi"&gt;&lt;/span&gt;
 &lt;a href="#hidpi" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Par défaut, un pixel du framebuffer correspond à un point logique : l&amp;rsquo;interface est mise en page

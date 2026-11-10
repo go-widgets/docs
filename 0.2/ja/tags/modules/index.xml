@@ -78,7 +78,7 @@
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;a href="https://github.com/go-widgets/window" target="_blank" rel="noopener"&gt;&lt;code&gt;window&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
-&lt;td&gt;v0.90.0&lt;/td&gt;
+&lt;td&gt;v0.91.0&lt;/td&gt;
 &lt;td&gt;8 つのバックエンドに対応した&lt;a href="https://go-widgets.github.io/docs/0.2/ja/surfaces/native-window/"&gt;ネイティブウィンドウ&lt;/a&gt;&lt;/td&gt;
 &lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/window" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
 &lt;/tr&gt;

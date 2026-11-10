@@ -219,7 +219,27 @@ Metal-Renderer zeichnet den Frame und stellt ihn in einem &lt;code&gt;CAMetalLay
 &lt;li&gt;&lt;strong&gt;Genauigkeit:&lt;/strong&gt; Die Pixel sind Byte für Byte die des CPU-Pfads.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Kosten:&lt;/strong&gt; Ein ganzer Frame kostet den Prozessor 0,59 ms statt 1,58 ms bei
 960 × 640 und 0,99 ms statt 5,96 ms bei 1920 × 1200 (Apple M4 Max).&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Rückfall:&lt;/strong&gt; Ein Fenster mit transluzentem Material bleibt auf dem CPU-Pfad,ebenso ein Rechner, auf dem Metal nicht startet. Beides ist kein Fehler.Andere Back-ends ignorieren die Option.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Rückfall:&lt;/strong&gt; Ein Fenster mit transluzentem Material bleibt auf dem CPU-Pfad,ebenso ein Rechner, auf dem Metal nicht startet. Beides ist kein Fehler.Unter Linux siehe unten; die anderen Back-ends ignorieren die Option.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Unter Linux (X11 und Wayland) zeichnet &lt;code&gt;Config{GPU: true}&lt;/code&gt; Frames mit Vulkan.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Wie:&lt;/strong&gt; dieselbe Aufzeichnung, gezeichnet vom Vulkan-Renderer von
+go-gfx/gpu2d. Seine Pixel werden in den Framebuffer des Fensters kopiert, der
+wie immer dargestellt wird: MIT-SHM (oder &lt;code&gt;PutImage&lt;/code&gt;) unter X11, &lt;code&gt;wl_shm&lt;/code&gt;
+unter Wayland. Der Frame durchläuft die CPU einmal; per dma-buf wird noch
+nichts mit dem Display-Server geteilt.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Genauigkeit:&lt;/strong&gt; auf Software-Vulkan (lavapipe) sind die Pixel Byte für Byte
+die des CPU-Pfads, live auf beiden Protokollen belegt: das vom X-Server
+zurückgelesene Fenster und der vom Fenster übergebene &lt;code&gt;wl_shm&lt;/code&gt;-Puffer sind
+gleich denen des CPU-Pfads. Eine Hardware-GPU wurde noch nicht gemessen.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Rückfall:&lt;/strong&gt; ist Vulkan nicht verfügbar oder wird ein Frame abgelehnt (für
+das Gerät zu groß, Gerät verloren), zeichnet das Fenster auf der CPU und läuft
+weiter. &lt;code&gt;GPUError()&lt;/code&gt; am Back-end nennt den Grund, und jeder spätere Frame ist
+ein CPU-Frame.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Kosten (nur Software):&lt;/strong&gt; lavapipe ist ein CPU-Rasterizer, daher kostet der
+GPU-Pfad etwa das Zehnfache der CPU-Zeit des CPU-Pfads: 25,8 ms statt 2,48 ms
+pro Frame bei 960 × 640 und 89,7 ms statt 8,46 ms bei 1920 × 1200 (X11,lavapipe auf 16 Threads in einem arm64-Container auf einem Apple M4 Max). Ob es
+sich auf einer echten GPU lohnt, ist noch nicht gemessen.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 data-hextra-search-id="hidpi"&gt;HiDPI&lt;span class="hx:absolute hx:-mt-20" id="hidpi"&gt;&lt;/span&gt;
 &lt;a href="#hidpi" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Standard ist ein Framebuffer-Pixel pro logischem Punkt: Die UI wird in einer

@@ -92,7 +92,14 @@ data-copied-label="コピーしました！"
 を通じて &lt;a href="https://github.com/go-gfx/gpu2d" target="_blank" rel="noopener"&gt;go-gfx/gpu2d&lt;/a&gt; のリストに記録されます。その Metal レンダラーがフレームを描画し、&lt;code&gt;CAMetalLayer&lt;/code&gt; に表示します。フレームがCPU に戻ることはありません。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;正確さ:&lt;/strong&gt; ピクセルは CPU パスとバイト単位で同一です。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;コスト:&lt;/strong&gt; 1 フレームあたりのプロセッサ時間は、960 × 640 で 1.58 ms から0.59 ms に、1920 × 1200 で 5.96 ms から 0.99 ms になります(Apple M4 Max)。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;フォールバック:&lt;/strong&gt; 半透明マテリアルを持つウィンドウは CPU パスのままです。Metal が起動しないマシンでも同様で、どちらもエラーではありません。ほかのバックエンドはこのオプションを無視します。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;フォールバック:&lt;/strong&gt; 半透明マテリアルを持つウィンドウは CPU パスのままです。Metal が起動しないマシンでも同様で、どちらもエラーではありません。Linux については下を参照してください。ほかのバックエンドはこのオプションを無視します。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Linux(X11 と Wayland)では、&lt;code&gt;Config{GPU: true}&lt;/code&gt; でフレームを Vulkan で描画します。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;仕組み:&lt;/strong&gt; 同じ記録を go-gfx/gpu2d の Vulkan レンダラーが描画します。そのピクセルはウィンドウのフレームバッファにコピーされ、これまでどおり表示されます(X11 ではMIT-SHM または &lt;code&gt;PutImage&lt;/code&gt;、Wayland では &lt;code&gt;wl_shm&lt;/code&gt;)。フレームは CPU を一度通ります。dma-buf によるディスプレイサーバーとの共有はまだありません。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;正確さ:&lt;/strong&gt; ソフトウェア Vulkan(lavapipe)では、ピクセルは CPU パスとバイト単位で同一です。両方のプロトコルで実機上で確認済みで、X サーバーから読み戻したウィンドウと、ウィンドウがコミットした &lt;code&gt;wl_shm&lt;/code&gt; バッファは、CPU パスのものと一致します。ハードウェア GPU ではまだ測定していません。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;フォールバック:&lt;/strong&gt; Vulkan が使えない場合、またはフレームが拒否された場合(デバイスに対して大きすぎる、デバイスの喪失)、ウィンドウは CPU で描画して動作を続けます。理由はバックエンドの &lt;code&gt;GPUError()&lt;/code&gt; で分かり、以後のフレームはすべて CPU フレームです。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;コスト(ソフトウェアのみ):&lt;/strong&gt; lavapipe は CPU ラスタライザーなので、GPU パスの CPU 時間はCPU パスの約 10 倍です。1 フレームあたり、960 × 640 で 2.48 ms に対して 25.8 ms、1920 × 1200 で 8.46 ms に対して 89.7 ms です(X11、Apple M4 Max 上の arm64 コンテナで16 スレッドの lavapipe)。実際の GPU で得になるかはまだ測定していません。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 data-hextra-search-id="hidpi"&gt;HiDPI&lt;span class="hx:absolute hx:-mt-20" id="hidpi"&gt;&lt;/span&gt;
 &lt;a href="#hidpi" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;デフォルトでは、論理ポイント 1 つにつきフレームバッファのピクセルは 1 つです。UI は読みやすいサイズでレイアウトされ描画され、コンポジターがそれをアップサンプリングします。Windows では、ウィンドウがモニターごとの DPI 認識を宣言し、OS が論理フレームを物理的なクライアント領域に合わせて拡大縮小します。&lt;code&gt;RenderScale&lt;/code&gt; は、パネルの実際の解像度でのフレームバッファを要求しますが、これが正しいのは、デバイスピクセルでレイアウトするルートの場合だけです。&lt;/p&gt;
