@@ -1,7 +1,7 @@
 ---
 title: "Module"
 weight: 50
-description: "Die zweiundzwanzig Module von go-widgets, wofür jedes da ist und wo seine Quellen und seine API-Referenz liegen."
+description: "Die dreiundzwanzig Module von go-widgets, wofür jedes da ist und wo seine Quellen und seine API-Referenz liegen."
 tags: [module]
 ---
 
@@ -13,7 +13,7 @@ Schreibens – maßgeblich ist die Tag-Liste des jeweiligen Repositorys.
 | Modul | Tag | Was es ist | Referenz |
 |---|---|---|---|
 | [`painter`](https://github.com/go-widgets/painter) | v0.17.0 | [die Zeichenschnittstelle]({{< relref "/rendering/painter.md" >}}): Pixel- und Zellen-Painter | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/painter) |
-| [`toolkit`](https://github.com/go-widgets/toolkit) | v0.362.1 | [der Widget-Satz]({{< relref "/rendering/toolkit.md" >}}), Themes, Layouts, Text | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/toolkit) |
+| [`toolkit`](https://github.com/go-widgets/toolkit) | v0.364.0 | [der Widget-Satz]({{< relref "/rendering/toolkit.md" >}}), Themes, Layouts, Text | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/toolkit) |
 | [`skin`](https://github.com/go-widgets/skin) | v0.3.0 | [Widgets als Daten beschrieben]({{< relref "/rendering/skin.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/skin) |
 | [`gpupainter`](https://github.com/go-widgets/gpupainter) | v0.4.0 | ein `painter.Painter`, der ein Bild für die GPU aufzeichnet (go-gfx/gpu2d): [Metal oder WebGPU]({{< relref "/surfaces/browser.md" >}}), bytegleich mit dem CPU-Painter | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/gpupainter) |
 | [`shellterm`](https://github.com/go-widgets/shellterm) | v0.1.0 | ein zeilenorientiertes Terminal: das `Terminal` des Toolkits und ein Zeileneditor vor einer Shell, die Sie mitbringen | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/shellterm) |
@@ -21,6 +21,7 @@ Schreibens – maßgeblich ist die Tag-Liste des jeweiligen Repositorys.
 | [`mvvm`](https://github.com/go-widgets/mvvm) | v0.15.0 | [Observables, Commands, Binder, Rückgängig]({{< relref "/state/mvvm.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvm) |
 | [`mvvmtk`](https://github.com/go-widgets/mvvmtk) | v0.15.0 | [Binder mit einem Aufruf für Toolkit-Widgets]({{< relref "/state/mvvm.md#mvvmtk-one-call-per-widget" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvmtk) |
 | [`lineedit`](https://github.com/go-widgets/lineedit) | v0.1.1 | ein Zeileneditor als reines Modell: Verlauf, Rückwärtssuche, Tab-Vervollständigung; nur die Standardbibliothek | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/lineedit) |
+| [`vcs`](https://github.com/go-widgets/vcs) | v0.1.0 | welchen Zustand jede Datei eines Arbeitsverzeichnisses hat, und eine Registry für Treiber; nur die Standardbibliothek. Der Git-Treiber ist das verschachtelte Modul `vcs/git` (`git/v0.1.0`) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/vcs) |
 | [`data`](https://github.com/go-widgets/data) | v0.4.0 | [typisierte Datensätze, Abfragen, ein lokaler oder entfernter Speicher]({{< relref "/state/data.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/data) |
 | [`window`](https://github.com/go-widgets/window) | v0.90.0 | [ein natives Fenster]({{< relref "/surfaces/native-window.md" >}}) auf acht Back-Ends | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/window) |
 | [`application`](https://github.com/go-widgets/application) | v0.8.1 | [der Anwendungslebenszyklus]({{< relref "/surfaces/application.md" >}}) oberhalb eines Fensters | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/application) |
@@ -41,9 +42,9 @@ Schreibens – maßgeblich ist die Tag-Liste des jeweiligen Repositorys.
   einer Bibliothek.
 - Cross-kompiliert für amd64, arm64, riscv64, loong64, ppc64le und s390x – letzteres
   Big-Endian, was jede Wire-Kodierung ehrlich hält – und, wo es zutrifft,
-  `js/wasm`. Alle zwanzig Bibliotheken und Werkzeuge tun das seit dem 2026-10-10;
+  `js/wasm`. Alle einundzwanzig Bibliotheken und Werkzeuge tun das, jedes seit seiner Aufnahme oder seit dem 2026-10-10, je nachdem, was später liegt;
   die übrigen zwei sind Browser-Anwendungen ([Stand]({{< relref "/status.md#what-ci-does-not-cover-yet" >}})).
-- Eine Schranke für die Anweisungsabdeckung in der CI: 100 %, bei allen zweiundzwanzig. Wo eine
+- Eine Schranke für die Anweisungsabdeckung in der CI: 100 %, bei allen dreiundzwanzig. Wo eine
   Datei nicht in einem Test laufen kann (eine Browser-Schleife, eine native Run-Loop), sagt das Modul,
   welche Datei ausgenommen ist und warum. Die Ausnahmen stehen unter [Stand]({{< relref "/status.md" >}}).
 - BSD-3-Clause.

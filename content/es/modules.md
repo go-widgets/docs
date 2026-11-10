@@ -1,7 +1,7 @@
 ---
 title: "Módulos"
 weight: 50
-description: "Los veintidós módulos de go-widgets, para qué sirve cada uno y dónde están su código fuente y su referencia de API."
+description: "Los veintitrés módulos de go-widgets, para qué sirve cada uno y dónde están su código fuente y su referencia de API."
 tags: [módulos]
 ---
 
@@ -13,7 +13,7 @@ de escribir; la autoridad es la lista de etiquetas del propio repositorio.
 | Módulo | Etiqueta | Qué es | Referencia |
 |---|---|---|---|
 | [`painter`](https://github.com/go-widgets/painter) | v0.17.0 | [la costura de dibujo]({{< relref "/rendering/painter.md" >}}): painters de píxeles y de celdas | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/painter) |
-| [`toolkit`](https://github.com/go-widgets/toolkit) | v0.362.1 | [el conjunto de widgets]({{< relref "/rendering/toolkit.md" >}}), temas, layouts, texto | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/toolkit) |
+| [`toolkit`](https://github.com/go-widgets/toolkit) | v0.364.0 | [el conjunto de widgets]({{< relref "/rendering/toolkit.md" >}}), temas, layouts, texto | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/toolkit) |
 | [`skin`](https://github.com/go-widgets/skin) | v0.3.0 | [widgets descritos como datos]({{< relref "/rendering/skin.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/skin) |
 | [`gpupainter`](https://github.com/go-widgets/gpupainter) | v0.4.0 | un `painter.Painter` que graba un fotograma para la GPU (go-gfx/gpu2d): [Metal o WebGPU]({{< relref "/surfaces/browser.md" >}}), idéntico byte a byte al painter de CPU | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/gpupainter) |
 | [`shellterm`](https://github.com/go-widgets/shellterm) | v0.1.0 | una terminal orientada a líneas: el `Terminal` del toolkit y un editor de línea delante de un shell que usted aporta | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/shellterm) |
@@ -21,6 +21,7 @@ de escribir; la autoridad es la lista de etiquetas del propio repositorio.
 | [`mvvm`](https://github.com/go-widgets/mvvm) | v0.15.0 | [observables, comandos, binders, deshacer]({{< relref "/state/mvvm.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvm) |
 | [`mvvmtk`](https://github.com/go-widgets/mvvmtk) | v0.15.0 | [binders de una sola llamada para los widgets del toolkit]({{< relref "/state/mvvm.md#mvvmtk-one-call-per-widget" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvmtk) |
 | [`lineedit`](https://github.com/go-widgets/lineedit) | v0.1.1 | un editor de línea como modelo puro: historial, búsqueda inversa, completado con Tab; solo la biblioteca estándar | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/lineedit) |
+| [`vcs`](https://github.com/go-widgets/vcs) | v0.1.0 | en qué estado está cada archivo de un árbol de trabajo, y un registro de controladores; solo la biblioteca estándar. El controlador de git es el módulo anidado `vcs/git` (`git/v0.1.0`) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/vcs) |
 | [`data`](https://github.com/go-widgets/data) | v0.4.0 | [registros tipados, consultas, un almacén local o remoto]({{< relref "/state/data.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/data) |
 | [`window`](https://github.com/go-widgets/window) | v0.90.0 | [una ventana nativa]({{< relref "/surfaces/native-window.md" >}}) sobre ocho backends | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/window) |
 | [`application`](https://github.com/go-widgets/application) | v0.8.1 | [el ciclo de vida de la aplicación]({{< relref "/surfaces/application.md" >}}) por encima de una ventana | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/application) |
@@ -41,9 +42,9 @@ de escribir; la autoridad es la lista de etiquetas del propio repositorio.
   comandos en lugar de una biblioteca.
 - Compilación cruzada para amd64, arm64, riscv64, loong64, ppc64le y s390x
   —esta última big-endian, lo que mantiene honesta cada codificación binaria— y,
-  cuando procede, `js/wasm`. Las veinte bibliotecas y herramientas lo hacen
-  desde el 2026-10-10; los otros dos son aplicaciones de navegador ([Estado]({{< relref "/status.md#what-ci-does-not-cover-yet" >}})).
-- Una barrera de cobertura de sentencias en la CI: 100 %, en los veintidós.
+  cuando procede, `js/wasm`. Las veintiuna bibliotecas y herramientas lo hacen,
+  cada una desde que se añadió o desde el 2026-10-10, lo que sea más reciente; los otros dos son aplicaciones de navegador ([Estado]({{< relref "/status.md#what-ci-does-not-cover-yet" >}})).
+- Una barrera de cobertura de sentencias en la CI: 100 %, en los veintitrés.
   Cuando un archivo no puede ejecutarse en una prueba (un bucle de
   navegador, un bucle de ejecución nativo), el módulo indica qué archivo queda
   fuera y por qué. Consulte [Estado]({{< relref "/status.md" >}}) para las

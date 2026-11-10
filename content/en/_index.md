@@ -68,7 +68,7 @@ any of them.
 | [Android]({{< relref "/surfaces/android.md" >}}) | a real APK painted by a CGO-free process |
 | [Snapshots]({{< relref "/surfaces/snapshots.md" >}}) | a widget as an SVG or a PNG |
 | [Rules CI enforces]({{< relref "/guard-rails/_index.md" >}}) | `mvvmlint` and `bricolint` |
-| [Modules]({{< relref "/modules.md" >}}) | all twenty-two, with their sources and references |
+| [Modules]({{< relref "/modules.md" >}}) | all twenty-three, with their sources and references |
 | [Status]({{< relref "/status.md" >}}) | what is verified where, and what is not done |
 
 ## Licence

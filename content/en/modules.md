@@ -1,7 +1,7 @@
 ---
 title: "Modules"
 weight: 50
-description: "The twenty-two modules of go-widgets, what each one is for, and where its source and API reference live."
+description: "The twenty-three modules of go-widgets, what each one is for, and where its source and API reference live."
 tags: [modules]
 ---
 
@@ -13,7 +13,7 @@ writing — the repository's own tag list is the authority.
 | Module | Tag | What it is | Reference |
 |---|---|---|---|
 | [`painter`](https://github.com/go-widgets/painter) | v0.17.0 | [the drawing seam]({{< relref "/rendering/painter.md" >}}): pixel and cell painters | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/painter) |
-| [`toolkit`](https://github.com/go-widgets/toolkit) | v0.362.1 | [the widget set]({{< relref "/rendering/toolkit.md" >}}), themes, layouts, text | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/toolkit) |
+| [`toolkit`](https://github.com/go-widgets/toolkit) | v0.364.0 | [the widget set]({{< relref "/rendering/toolkit.md" >}}), themes, layouts, text | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/toolkit) |
 | [`skin`](https://github.com/go-widgets/skin) | v0.3.0 | [widgets described as data]({{< relref "/rendering/skin.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/skin) |
 | [`gpupainter`](https://github.com/go-widgets/gpupainter) | v0.4.0 | a `painter.Painter` that records a frame for the GPU (go-gfx/gpu2d): [Metal or WebGPU]({{< relref "/surfaces/browser.md" >}}), byte-identical to the CPU painter | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/gpupainter) |
 | [`shellterm`](https://github.com/go-widgets/shellterm) | v0.1.0 | a line-oriented terminal: the toolkit's `Terminal` and a line editor in front of a shell you supply | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/shellterm) |
@@ -21,6 +21,7 @@ writing — the repository's own tag list is the authority.
 | [`mvvm`](https://github.com/go-widgets/mvvm) | v0.15.0 | [observables, commands, binders, undo]({{< relref "/state/mvvm.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvm) |
 | [`mvvmtk`](https://github.com/go-widgets/mvvmtk) | v0.15.0 | [one-call binders for toolkit widgets]({{< relref "/state/mvvm.md#mvvmtk-one-call-per-widget" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvmtk) |
 | [`lineedit`](https://github.com/go-widgets/lineedit) | v0.1.1 | a line editor as a pure model: history, reverse search, Tab completion; standard library only | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/lineedit) |
+| [`vcs`](https://github.com/go-widgets/vcs) | v0.1.0 | what state each file of a working tree is in, and a registry of drivers; standard library only. The git driver is the nested module `vcs/git` (`git/v0.1.0`) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/vcs) |
 | [`data`](https://github.com/go-widgets/data) | v0.4.0 | [typed records, queries, a local or remote store]({{< relref "/state/data.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/data) |
 | [`window`](https://github.com/go-widgets/window) | v0.90.0 | [a native window]({{< relref "/surfaces/native-window.md" >}}) on eight back-ends | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/window) |
 | [`application`](https://github.com/go-widgets/application) | v0.8.1 | [the application lifecycle]({{< relref "/surfaces/application.md" >}}) above a window | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/application) |
@@ -41,9 +42,9 @@ writing — the repository's own tag list is the authority.
   of a library.
 - Cross-compiled for amd64, arm64, riscv64, loong64, ppc64le and s390x — the
   last big-endian, which keeps every wire encoding honest — and, where it
-  applies, `js/wasm`. All twenty libraries and tools do since 2026-10-10;
+  applies, `js/wasm`. All twenty-one libraries and tools do, each since it was added or since 2026-10-10, whichever is later;
   the other two are browser applications ([Status]({{< relref "/status.md#what-ci-does-not-cover-yet" >}})).
-- A statement-coverage gate in CI: 100%, in all twenty-two. Where a
+- A statement-coverage gate in CI: 100%, in all twenty-three. Where a
   file cannot run in a test (a browser loop, a native run loop), the module
   says which file is left out and why. See [Status]({{< relref "/status.md" >}})
   for the exceptions.

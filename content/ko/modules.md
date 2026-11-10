@@ -1,7 +1,7 @@
 ---
 title: "모듈"
 weight: 50
-description: "go-widgets의 스물두 개 모듈, 각 모듈의 용도, 그리고 소스와 API 참조 문서의 위치."
+description: "go-widgets의 스물세 개 모듈, 각 모듈의 용도, 그리고 소스와 API 참조 문서의 위치."
 tags: [modules]
 ---
 
@@ -12,7 +12,7 @@ API 참조 문서는 릴리스된 태그를 따라가는 [pkg.go.dev](https://pk
 | 모듈 | 태그 | 설명 | 참조 문서 |
 |---|---|---|---|
 | [`painter`](https://github.com/go-widgets/painter) | v0.17.0 | [그리기 경계]({{< relref "/rendering/painter.md" >}}): 픽셀 및 셀 페인터 | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/painter) |
-| [`toolkit`](https://github.com/go-widgets/toolkit) | v0.362.1 | [위젯 세트]({{< relref "/rendering/toolkit.md" >}}), 테마, 레이아웃, 텍스트 | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/toolkit) |
+| [`toolkit`](https://github.com/go-widgets/toolkit) | v0.364.0 | [위젯 세트]({{< relref "/rendering/toolkit.md" >}}), 테마, 레이아웃, 텍스트 | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/toolkit) |
 | [`skin`](https://github.com/go-widgets/skin) | v0.3.0 | [데이터로 기술한 위젯]({{< relref "/rendering/skin.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/skin) |
 | [`gpupainter`](https://github.com/go-widgets/gpupainter) | v0.4.0 | GPU용으로 프레임을 기록하는 `painter.Painter`(go-gfx/gpu2d): [Metal 또는 WebGPU]({{< relref "/surfaces/browser.md" >}}), CPU 페인터와 바이트 단위로 동일 | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/gpupainter) |
 | [`shellterm`](https://github.com/go-widgets/shellterm) | v0.1.0 | 줄 단위 터미널: 툴킷의 `Terminal`과 줄 편집기를 사용자가 제공하는 셸 앞에 둡니다 | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/shellterm) |
@@ -20,6 +20,7 @@ API 참조 문서는 릴리스된 태그를 따라가는 [pkg.go.dev](https://pk
 | [`mvvm`](https://github.com/go-widgets/mvvm) | v0.15.0 | [옵저버블, 커맨드, 바인더, 실행 취소]({{< relref "/state/mvvm.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvm) |
 | [`mvvmtk`](https://github.com/go-widgets/mvvmtk) | v0.15.0 | [툴킷 위젯을 위한 단일 호출 바인더]({{< relref "/state/mvvm.md#mvvmtk-one-call-per-widget" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvmtk) |
 | [`lineedit`](https://github.com/go-widgets/lineedit) | v0.1.1 | 순수 모델로서의 줄 편집기: 기록, 역방향 검색, Tab 자동 완성; 표준 라이브러리만 사용 | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/lineedit) |
+| [`vcs`](https://github.com/go-widgets/vcs) | v0.1.0 | 작업 트리의 각 파일이 어떤 상태인지와 드라이버 레지스트리; 표준 라이브러리만 사용. git 드라이버는 중첩 모듈 `vcs/git`(`git/v0.1.0`) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/vcs) |
 | [`data`](https://github.com/go-widgets/data) | v0.4.0 | [타입이 있는 레코드, 쿼리, 로컬 또는 원격 저장소]({{< relref "/state/data.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/data) |
 | [`window`](https://github.com/go-widgets/window) | v0.90.0 | 여덟 가지 백엔드를 지원하는 [네이티브 창]({{< relref "/surfaces/native-window.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/window) |
 | [`application`](https://github.com/go-widgets/application) | v0.8.1 | 창 위에 놓이는 [애플리케이션 수명 주기]({{< relref "/surfaces/application.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/application) |
@@ -40,10 +41,10 @@ API 참조 문서는 릴리스된 태그를 따라가는 [pkg.go.dev](https://pk
   않습니다.
 - amd64, arm64, riscv64, loong64, ppc64le, s390x용으로 크로스 컴파일합니다.
   s390x는 마지막 빅엔디언 대상으로, 모든 와이어 인코딩을 엄밀하게 유지해 줍니다.
-  해당되는 경우 `js/wasm`용으로도 컴파일합니다. 스무 개의 라이브러리와 도구는
-  2026-10-10부터 모두 그렇게 하고 있으며, 나머지 둘은 브라우저
+  해당되는 경우 `js/wasm`용으로도 컴파일합니다. 스물한 개의 라이브러리와 도구는
+  추가된 때부터, 또는 2026-10-10부터 중 더 늦은 시점부터 모두 그렇게 하고 있으며, 나머지 둘은 브라우저
   애플리케이션입니다([상태]({{< relref "/status.md#what-ci-does-not-cover-yet" >}})).
-- CI의 구문 커버리지 게이트: 스물두 개 모두 100%입니다. 테스트에서 실행할 수 없는
+- CI의 구문 커버리지 게이트: 스물세 개 모두 100%입니다. 테스트에서 실행할 수 없는
   파일(브라우저 루프, 네이티브 실행 루프)이 있으면 모듈이 어느 파일이 제외되었는지와
   그 이유를 밝힙니다. 예외는 [상태]({{< relref "/status.md" >}})를 참조하십시오.
 - BSD-3-Clause.
