@@ -52,7 +52,7 @@ return w.Run(box) // an X11 or Wayland window, an NSWindow, a Win32 window
 | [Android]({{< relref "/surfaces/android.md" >}}) | 由无 CGO 进程绘制的真实 APK |
 | [快照]({{< relref "/surfaces/snapshots.md" >}}) | 把控件输出为 SVG 或 PNG |
 | [CI 强制执行的规则]({{< relref "/guard-rails/_index.md" >}}) | `mvvmlint` 和 `bricolint` |
-| [模块]({{< relref "/modules.md" >}}) | 全部二十二个模块，附源码和参考文档 |
+| [模块]({{< relref "/modules.md" >}}) | 全部二十三个模块，附源码和参考文档 |
 | [状态]({{< relref "/status.md" >}}) | 哪些已在哪里验证过，哪些尚未完成 |
 
 ## 许可证 {#licence}
