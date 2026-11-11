@@ -359,13 +359,23 @@ values, never as markup, so a notebook from anyone cannot inject HTML through
 a widget name.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;code&gt;Surface.Refresh()&lt;/code&gt; draws a frame and updates the mirror, for a host that
-changed the scene from outside. A text field is exposed as &lt;code&gt;role=textbox&lt;/code&gt; with
-its text for now; an editing element for a focused field is planned.&lt;/p&gt;
+changed the scene from outside.&lt;/p&gt;
+&lt;p&gt;A scene that also implements &lt;code&gt;webcanvas.TextInputHost&lt;/code&gt;,&lt;code&gt;TextInputFor(key string) textinput.Client&lt;/code&gt;, gives a text widget a &lt;strong&gt;text
+layer&lt;/strong&gt;: its &lt;code&gt;textbox&lt;/code&gt; is then one element that holds the text, so the browser&amp;rsquo;s
+find, selection and assistive technology see it, and that takes the keys and
+IME input for the widget.&lt;/p&gt;
+&lt;h3 data-hextra-search-id="from-a-toolkit-tree"&gt;From a toolkit tree&lt;span class="hx:absolute hx:-mt-20" id="from-a-toolkit-tree"&gt;&lt;/span&gt;
+&lt;a href="#from-a-toolkit-tree" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;You do not have to convert the toolkit&amp;rsquo;s accessibility tree yourself.&lt;code&gt;github.com/go-widgets/window/webmirror&lt;/code&gt; does it once: &lt;code&gt;webmirror.Host&lt;/code&gt; implements&lt;code&gt;A11yAware&lt;/code&gt; and &lt;code&gt;TextInputHost&lt;/code&gt; over one or several widget trees (give each tree
+its own &lt;code&gt;Prefix&lt;/code&gt; so keys cannot collide), and &lt;code&gt;webmirror.Convert&lt;/code&gt; is the single
+node conversion. A &lt;code&gt;TextView&lt;/code&gt; or &lt;code&gt;CodeEditor&lt;/code&gt; gets its text layer through its&lt;code&gt;textinput.Client&lt;/code&gt;. A nameless field is still published, as on the native
+bridges. The browser-tab back-end below and the&lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;gallery&lt;/a&gt; both use it, so both are
+readable by a screen reader.&lt;/p&gt;
 &lt;p&gt;Or let &lt;code&gt;window&lt;/code&gt; choose. Since window v0.87.0,&lt;a href="https://go-widgets.github.io/docs/0.2/surfaces/native-window/#how-open-chooses"&gt;&lt;code&gt;window.Open&lt;/code&gt;&lt;/a&gt;
 built for &lt;code&gt;js/wasm&lt;/code&gt; on an ordinary page returns a back-end that draws into the
 page&amp;rsquo;s &lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; (&lt;code&gt;Config.Canvas&lt;/code&gt;, default &lt;code&gt;&amp;quot;screen&amp;quot;&lt;/code&gt;) through &lt;code&gt;webcanvas&lt;/code&gt;. An
 application written against &lt;code&gt;window&lt;/code&gt; then runs unchanged as a native window, in
-a browser tab, and in wasmdesk.&lt;/p&gt;
+a browser tab, and in wasmdesk. From window v0.93.0 the tab publishes the
+accessibility mirror and text layer from the widget tree, with no extra code.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="on-the-gpu"&gt;On the GPU&lt;span class="hx:absolute hx:-mt-20" id="on-the-gpu"&gt;&lt;/span&gt;
 &lt;a href="#on-the-gpu" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;webcanvas.RunWith(id, app, presenter)&lt;/code&gt; takes a &lt;code&gt;Presenter&lt;/code&gt;, and the package&lt;code&gt;webcanvas/gpu&lt;/code&gt; provides one that draws frames with WebGPU.&lt;/p&gt;
 &lt;ul&gt;
