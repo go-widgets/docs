@@ -163,8 +163,8 @@ Schreibens – maßgeblich ist die Tag-Liste des jeweiligen Repositorys.&lt;/p&g
 &lt;li&gt;&lt;code&gt;CGO_ENABLED=0&lt;/code&gt;: kein cgo und kein Aufruf eines Kommandozeilenwerkzeugs anstelle
 einer Bibliothek.&lt;/li&gt;
 &lt;li&gt;Cross-kompiliert für amd64, arm64, riscv64, loong64, ppc64le und s390x – letzteres
-Big-Endian, was jede Wire-Kodierung ehrlich hält – und, wo es zutrifft,&lt;code&gt;js/wasm&lt;/code&gt;. Alle einundzwanzig Bibliotheken und Werkzeuge tun das, jedes seit seiner Aufnahme oder seit dem 2026-10-10, je nachdem, was später liegt;die übrigen zwei sind Browser-Anwendungen (&lt;a href="https://go-widgets.github.io/docs/0.2/de/status/#what-ci-does-not-cover-yet"&gt;Stand&lt;/a&gt;).&lt;/li&gt;
-&lt;li&gt;Eine Schranke für die Anweisungsabdeckung in der CI: 100 %, bei allen dreiundzwanzig. Wo eine
+Big-Endian, was jede Wire-Kodierung ehrlich hält – und, wo es zutrifft,&lt;code&gt;js/wasm&lt;/code&gt;. Alle zweiundzwanzig Bibliotheken und Werkzeuge tun das, jedes seit seiner Aufnahme oder seit dem 2026-10-10, je nachdem, was später liegt;die übrigen zwei sind Browser-Anwendungen (&lt;a href="https://go-widgets.github.io/docs/0.2/de/status/#what-ci-does-not-cover-yet"&gt;Stand&lt;/a&gt;).&lt;/li&gt;
+&lt;li&gt;Eine Schranke für die Anweisungsabdeckung in der CI: 100 %, bei allen vierundzwanzig. Wo eine
 Datei nicht in einem Test laufen kann (eine Browser-Schleife, eine native Run-Loop), sagt das Modul,welche Datei ausgenommen ist und warum. Die Ausnahmen stehen unter &lt;a href="https://go-widgets.github.io/docs/0.2/de/status/"&gt;Stand&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;BSD-3-Clause.&lt;/li&gt;
 &lt;/ul&gt;</description></item></channel></rss>

@@ -113,8 +113,8 @@ ohne cgo linkt.&lt;/li&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;Damit bauten damals alle siebzehn Bibliotheken und Werkzeuge per Cross-Build für die
-sechs 64-Bit-Linux-Architekturen, und alle neunzehn hatten eine Schranke bei 100 %Anweisungsabdeckung. Die vier seither hinzugekommenen (&lt;code&gt;gpupainter&lt;/code&gt;, &lt;code&gt;lineedit&lt;/code&gt;,&lt;code&gt;shellterm&lt;/code&gt;, 2026-11-09, und &lt;code&gt;vcs&lt;/code&gt;, 2026-11-10) tun dasselbe: ein &lt;code&gt;cross&lt;/code&gt;-Job prüft jede Architektur,Tests eingeschlossen. Heute sind es einundzwanzig Bibliotheken und Werkzeuge und
-dreiundzwanzig Module.&lt;code&gt;app-template&lt;/code&gt; und &lt;code&gt;gallery&lt;/code&gt; sind Browser-Anwendungen und bauen für &lt;code&gt;js/wasm&lt;/code&gt;,ihr einziges Ziel.&lt;/p&gt;
+sechs 64-Bit-Linux-Architekturen, und alle neunzehn hatten eine Schranke bei 100 %Anweisungsabdeckung. Die fünf seither hinzugekommenen (&lt;code&gt;gpupainter&lt;/code&gt;, &lt;code&gt;lineedit&lt;/code&gt;,&lt;code&gt;shellterm&lt;/code&gt;, 2026-11-09, &lt;code&gt;vcs&lt;/code&gt;, 2026-11-10, und &lt;code&gt;vt&lt;/code&gt;, 2026-11-11) tun dasselbe: ein &lt;code&gt;cross&lt;/code&gt;-Job prüft jede Architektur,Tests eingeschlossen. Heute sind es zweiundzwanzig Bibliotheken und Werkzeuge und
+vierundzwanzig Module.&lt;code&gt;app-template&lt;/code&gt; und &lt;code&gt;gallery&lt;/code&gt; sind Browser-Anwendungen und bauen für &lt;code&gt;js/wasm&lt;/code&gt;,ihr einziges Ziel.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="security"&gt;Sicherheit&lt;span class="hx:absolute hx:-mt-20" id="security"&gt;&lt;/span&gt;
 &lt;a href="#security" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Gemessen mit &lt;code&gt;govulncheck&lt;/code&gt; (auf Symbolebene: nur Code, den das Modul erreichen kann)am 2026-10-10:&lt;/p&gt;
 &lt;ul&gt;

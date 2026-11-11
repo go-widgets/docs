@@ -164,8 +164,8 @@ writing — the repository&amp;rsquo;s own tag list is the authority.&lt;/p&gt;
 of a library.&lt;/li&gt;
 &lt;li&gt;Cross-compiled for amd64, arm64, riscv64, loong64, ppc64le and s390x — the
 last big-endian, which keeps every wire encoding honest — and, where it
-applies, &lt;code&gt;js/wasm&lt;/code&gt;. All twenty-one libraries and tools do, each since it was added or since 2026-10-10, whichever is later;the other two are browser applications (&lt;a href="https://go-widgets.github.io/docs/0.2/status/#what-ci-does-not-cover-yet"&gt;Status&lt;/a&gt;).&lt;/li&gt;
-&lt;li&gt;A statement-coverage gate in CI: 100%, in all twenty-three. Where a
+applies, &lt;code&gt;js/wasm&lt;/code&gt;. All twenty-two libraries and tools do, each since it was added or since 2026-10-10, whichever is later;the other two are browser applications (&lt;a href="https://go-widgets.github.io/docs/0.2/status/#what-ci-does-not-cover-yet"&gt;Status&lt;/a&gt;).&lt;/li&gt;
+&lt;li&gt;A statement-coverage gate in CI: 100%, in all twenty-four. Where a
 file cannot run in a test (a browser loop, a native run loop), the module
 says which file is left out and why. See &lt;a href="https://go-widgets.github.io/docs/0.2/status/"&gt;Status&lt;/a&gt;
 for the exceptions.&lt;/li&gt;

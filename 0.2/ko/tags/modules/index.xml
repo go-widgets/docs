@@ -161,10 +161,10 @@
 &lt;a href="#what-every-module-is-held-to" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;code&gt;CGO_ENABLED=0&lt;/code&gt;: cgo를 쓰지 않으며, 라이브러리 대신 명령줄 도구를 호출하지도
 않습니다.&lt;/li&gt;
-&lt;li&gt;amd64, arm64, riscv64, loong64, ppc64le, s390x용으로 크로스 컴파일합니다.s390x는 마지막 빅엔디언 대상으로, 모든 와이어 인코딩을 엄밀하게 유지해 줍니다.해당되는 경우 &lt;code&gt;js/wasm&lt;/code&gt;용으로도 컴파일합니다. 스물한 개의 라이브러리와 도구는
+&lt;li&gt;amd64, arm64, riscv64, loong64, ppc64le, s390x용으로 크로스 컴파일합니다.s390x는 마지막 빅엔디언 대상으로, 모든 와이어 인코딩을 엄밀하게 유지해 줍니다.해당되는 경우 &lt;code&gt;js/wasm&lt;/code&gt;용으로도 컴파일합니다. 스물두 개의 라이브러리와 도구는
 추가된 때부터, 또는 2026-10-10부터 중 더 늦은 시점부터 모두 그렇게 하고 있으며, 나머지 둘은 브라우저
 애플리케이션입니다(&lt;a href="https://go-widgets.github.io/docs/0.2/ko/status/#what-ci-does-not-cover-yet"&gt;상태&lt;/a&gt;).&lt;/li&gt;
-&lt;li&gt;CI의 구문 커버리지 게이트: 스물세 개 모두 100%입니다. 테스트에서 실행할 수 없는
+&lt;li&gt;CI의 구문 커버리지 게이트: 스물네 개 모두 100%입니다. 테스트에서 실행할 수 없는
 파일(브라우저 루프, 네이티브 실행 루프)이 있으면 모듈이 어느 파일이 제외되었는지와
 그 이유를 밝힙니다. 예외는 &lt;a href="https://go-widgets.github.io/docs/0.2/ko/status/"&gt;상태&lt;/a&gt;를 참조하십시오.&lt;/li&gt;
 &lt;li&gt;BSD-3-Clause.&lt;/li&gt;

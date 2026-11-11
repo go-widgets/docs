@@ -114,7 +114,7 @@
 &lt;/table&gt;
 &lt;p&gt;그 결과 당시 열일곱 개의 라이브러리와 도구가 모두 여섯 가지 64비트 Linux
 아키텍처용으로 크로스 빌드되고, 열아홉 개 전부가 100% 구문 커버리지 게이트를
-통과했습니다. 이후 추가된 네 개(&lt;code&gt;gpupainter&lt;/code&gt;, &lt;code&gt;lineedit&lt;/code&gt;, &lt;code&gt;shellterm&lt;/code&gt;,2026-11-09, 그리고 &lt;code&gt;vcs&lt;/code&gt;, 2026-11-10)도 마찬가지로 &lt;code&gt;cross&lt;/code&gt; 작업이 테스트를 포함해 각 아키텍처를 검사합니다.현재는 스물한 개의 라이브러리와 도구, 스물세 개의 모듈입니다. &lt;code&gt;app-template&lt;/code&gt;과 &lt;code&gt;gallery&lt;/code&gt;는 브라우저 애플리케이션이며 유일한 대상인&lt;code&gt;js/wasm&lt;/code&gt;용으로 빌드됩니다.&lt;/p&gt;
+통과했습니다. 이후 추가된 다섯 개(&lt;code&gt;gpupainter&lt;/code&gt;, &lt;code&gt;lineedit&lt;/code&gt;, &lt;code&gt;shellterm&lt;/code&gt;,2026-11-09, &lt;code&gt;vcs&lt;/code&gt;, 2026-11-10, 그리고 &lt;code&gt;vt&lt;/code&gt;, 2026-11-11)도 마찬가지로 &lt;code&gt;cross&lt;/code&gt; 작업이 테스트를 포함해 각 아키텍처를 검사합니다.현재는 스물두 개의 라이브러리와 도구, 스물네 개의 모듈입니다. &lt;code&gt;app-template&lt;/code&gt;과 &lt;code&gt;gallery&lt;/code&gt;는 브라우저 애플리케이션이며 유일한 대상인&lt;code&gt;js/wasm&lt;/code&gt;용으로 빌드됩니다.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="security"&gt;보안&lt;span class="hx:absolute hx:-mt-20" id="security"&gt;&lt;/span&gt;
 &lt;a href="#security" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;2026-10-10에 &lt;code&gt;govulncheck&lt;/code&gt;(심볼 수준: 모듈이 도달할 수 있는 코드만 대상)로
 측정했습니다.&lt;/p&gt;

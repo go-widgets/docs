@@ -159,7 +159,7 @@
 &lt;h2 data-hextra-search-id="what-every-module-is-held-to"&gt;すべてのモジュールが守る条件&lt;span class="hx:absolute hx:-mt-20" id="what-every-module-is-held-to"&gt;&lt;/span&gt;
 &lt;a href="#what-every-module-is-held-to" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;code&gt;CGO_ENABLED=0&lt;/code&gt;: cgo は使わず、ライブラリの代わりにコマンドラインツールを呼び出すこともしません。&lt;/li&gt;
-&lt;li&gt;amd64、arm64、riscv64、loong64、ppc64le、s390x にクロスコンパイルします。最後のものはビッグエンディアンで、あらゆるワイヤエンコーディングの正しさを保つ助けになります。該当する場合は &lt;code&gt;js/wasm&lt;/code&gt; にも対応します。21 個のライブラリとツールすべてが、追加された日か 2026-10-10 のいずれか遅い方以降これを満たしています。残りの 2 つはブラウザアプリケーションです（&lt;a href="https://go-widgets.github.io/docs/0.2/ja/status/#what-ci-does-not-cover-yet"&gt;状況&lt;/a&gt;）。&lt;/li&gt;
-&lt;li&gt;CI でのステートメントカバレッジのゲート: 23 個すべてで 100% です。テストで実行できないファイル（ブラウザのループ、ネイティブの実行ループ）がある場合、モジュール側でどのファイルを除外しているか、およびその理由を明記しています。例外については &lt;a href="https://go-widgets.github.io/docs/0.2/ja/status/"&gt;状況&lt;/a&gt; を参照してください。&lt;/li&gt;
+&lt;li&gt;amd64、arm64、riscv64、loong64、ppc64le、s390x にクロスコンパイルします。最後のものはビッグエンディアンで、あらゆるワイヤエンコーディングの正しさを保つ助けになります。該当する場合は &lt;code&gt;js/wasm&lt;/code&gt; にも対応します。22 個のライブラリとツールすべてが、追加された日か 2026-10-10 のいずれか遅い方以降これを満たしています。残りの 2 つはブラウザアプリケーションです（&lt;a href="https://go-widgets.github.io/docs/0.2/ja/status/#what-ci-does-not-cover-yet"&gt;状況&lt;/a&gt;）。&lt;/li&gt;
+&lt;li&gt;CI でのステートメントカバレッジのゲート: 24 個すべてで 100% です。テストで実行できないファイル（ブラウザのループ、ネイティブの実行ループ）がある場合、モジュール側でどのファイルを除外しているか、およびその理由を明記しています。例外については &lt;a href="https://go-widgets.github.io/docs/0.2/ja/status/"&gt;状況&lt;/a&gt; を参照してください。&lt;/li&gt;
 &lt;li&gt;BSD-3-Clause。&lt;/li&gt;
 &lt;/ul&gt;</description></item></channel></rss>

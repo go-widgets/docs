@@ -104,7 +104,7 @@
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;因此，当时全部十七个库和工具都交叉构建到六种 64 位 Linux 架构，全部十九个模块都以 100% 语句覆盖率为门禁。此后新增的四个模块（&lt;code&gt;gpupainter&lt;/code&gt;、&lt;code&gt;lineedit&lt;/code&gt;、&lt;code&gt;shellterm&lt;/code&gt;，2026-11-09，以及 &lt;code&gt;vcs&lt;/code&gt;，2026-11-10）也一样：&lt;code&gt;cross&lt;/code&gt; 作业逐个架构检查，包括测试。如今共有二十一个库和工具、二十三个模块。&lt;code&gt;app-template&lt;/code&gt; 和 &lt;code&gt;gallery&lt;/code&gt; 是浏览器应用，构建到 &lt;code&gt;js/wasm&lt;/code&gt;，这是它们唯一的目标。&lt;/p&gt;
+&lt;p&gt;因此，当时全部十七个库和工具都交叉构建到六种 64 位 Linux 架构，全部十九个模块都以 100% 语句覆盖率为门禁。此后新增的五个模块（&lt;code&gt;gpupainter&lt;/code&gt;、&lt;code&gt;lineedit&lt;/code&gt;、&lt;code&gt;shellterm&lt;/code&gt;，2026-11-09，&lt;code&gt;vcs&lt;/code&gt;，2026-11-10，以及 &lt;code&gt;vt&lt;/code&gt;，2026-11-11）也一样：&lt;code&gt;cross&lt;/code&gt; 作业逐个架构检查，包括测试。如今共有二十二个库和工具、二十四个模块。&lt;code&gt;app-template&lt;/code&gt; 和 &lt;code&gt;gallery&lt;/code&gt; 是浏览器应用，构建到 &lt;code&gt;js/wasm&lt;/code&gt;，这是它们唯一的目标。&lt;/p&gt;
 &lt;h2 data-hextra-search-id="security"&gt;安全&lt;span class="hx:absolute hx:-mt-20" id="security"&gt;&lt;/span&gt;
 &lt;a href="#security" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;于 2026-10-10 使用 &lt;code&gt;govulncheck&lt;/code&gt;（符号级别：只统计模块可达的代码）测量：&lt;/p&gt;
 &lt;ul&gt;
