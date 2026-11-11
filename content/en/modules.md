@@ -1,7 +1,7 @@
 ---
 title: "Modules"
 weight: 50
-description: "The twenty-three modules of go-widgets, what each one is for, and where its source and API reference live."
+description: "The twenty-four modules of go-widgets, what each one is for, and where its source and API reference live."
 tags: [modules]
 ---
 
@@ -43,9 +43,9 @@ writing — the repository's own tag list is the authority.
   of a library.
 - Cross-compiled for amd64, arm64, riscv64, loong64, ppc64le and s390x — the
   last big-endian, which keeps every wire encoding honest — and, where it
-  applies, `js/wasm`. All twenty-one libraries and tools do, each since it was added or since 2026-10-10, whichever is later;
+  applies, `js/wasm`. All twenty-two libraries and tools do, each since it was added or since 2026-10-10, whichever is later;
   the other two are browser applications ([Status]({{< relref "/status.md#what-ci-does-not-cover-yet" >}})).
-- A statement-coverage gate in CI: 100%, in all twenty-three. Where a
+- A statement-coverage gate in CI: 100%, in all twenty-four. Where a
   file cannot run in a test (a browser loop, a native run loop), the module
   says which file is left out and why. See [Status]({{< relref "/status.md" >}})
   for the exceptions.

@@ -68,7 +68,7 @@ compila de forma cruzada desde cualquier máquina hacia cualquiera de ellas.
 | [Android]({{< relref "/surfaces/android.md" >}}) | un APK real pintado por un proceso sin CGO |
 | [Instantáneas]({{< relref "/surfaces/snapshots.md" >}}) | un widget como SVG o PNG |
 | [Reglas que impone la CI]({{< relref "/guard-rails/_index.md" >}}) | `mvvmlint` y `bricolint` |
-| [Módulos]({{< relref "/modules.md" >}}) | los veintitrés, con sus fuentes y referencias |
+| [Módulos]({{< relref "/modules.md" >}}) | los veinticuatro, con sus fuentes y referencias |
 | [Estado]({{< relref "/status.md" >}}) | qué está verificado y dónde, y qué no está hecho |
 
 ## Licencia {#licence}

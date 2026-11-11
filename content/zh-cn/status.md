@@ -50,7 +50,7 @@ tags: [status]
 | `mvvmlint` | 没有交叉构建 | Linux 覆盖全部六种架构，另有 macOS 和 Windows |
 | `bricolint` | 一个“6 种架构”的步骤实际只构建五种 | 加入 loong64 |
 
-因此，当时全部十七个库和工具都交叉构建到六种 64 位 Linux 架构，全部十九个模块都以 100% 语句覆盖率为门禁。此后新增的四个模块（`gpupainter`、`lineedit`、`shellterm`，2026-11-09，以及 `vcs`，2026-11-10）也一样：`cross` 作业逐个架构检查，包括测试。如今共有二十一个库和工具、二十三个模块。`app-template` 和 `gallery` 是浏览器应用，构建到 `js/wasm`，这是它们唯一的目标。
+因此，当时全部十七个库和工具都交叉构建到六种 64 位 Linux 架构，全部十九个模块都以 100% 语句覆盖率为门禁。此后新增的五个模块（`gpupainter`、`lineedit`、`shellterm`，2026-11-09，`vcs`，2026-11-10，以及 `vt`，2026-11-11）也一样：`cross` 作业逐个架构检查，包括测试。如今共有二十二个库和工具、二十四个模块。`app-template` 和 `gallery` 是浏览器应用，构建到 `js/wasm`，这是它们唯一的目标。
 
 ## 安全 {#security}
 

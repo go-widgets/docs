@@ -56,7 +56,7 @@ return w.Run(box) // an X11 or Wayland window, an NSWindow, a Win32 window
 | [Android]({{< relref "/surfaces/android.md" >}}) | CGO を使わないプロセスが描画する本物の APK |
 | [スナップショット]({{< relref "/surfaces/snapshots.md" >}}) | ウィジェットを SVG または PNG として出力 |
 | [CI が強制するルール]({{< relref "/guard-rails/_index.md" >}}) | `mvvmlint` と `bricolint` |
-| [モジュール]({{< relref "/modules.md" >}}) | 23 個すべてについて、ソースとリファレンス |
+| [モジュール]({{< relref "/modules.md" >}}) | 24 個すべてについて、ソースとリファレンス |
 | [状況]({{< relref "/status.md" >}}) | どこで何が検証済みで、何が未完了か |
 
 ## ライセンス {#licence}

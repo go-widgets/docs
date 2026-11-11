@@ -68,7 +68,7 @@ Plattformen cross-kompilieren lässt.
 | [Android]({{< relref "/surfaces/android.md" >}}) | eine echte APK, gezeichnet von einem CGO-freien Prozess |
 | [Snapshots]({{< relref "/surfaces/snapshots.md" >}}) | ein Widget als SVG oder PNG |
 | [Regeln, die die CI durchsetzt]({{< relref "/guard-rails/_index.md" >}}) | `mvvmlint` und `bricolint` |
-| [Module]({{< relref "/modules.md" >}}) | alle dreiundzwanzig, mit ihren Quellen und Referenzen |
+| [Module]({{< relref "/modules.md" >}}) | alle vierundzwanzig, mit ihren Quellen und Referenzen |
 | [Stand]({{< relref "/status.md" >}}) | was wo geprüft ist und was noch fehlt |
 
 ## Lizenz {#licence}
