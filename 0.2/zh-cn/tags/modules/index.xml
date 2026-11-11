@@ -65,6 +65,12 @@
 &lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/lineedit" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
+&lt;td&gt;&lt;a href="https://github.com/go-widgets/vt" target="_blank" rel="noopener"&gt;&lt;code&gt;vt&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;v0.1.0&lt;/td&gt;
+&lt;td&gt;纯模型的终端模拟器：ECMA-48 与 xterm 子集，输入字节、输出单元格；不回应任何内容；只用标准库&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/vt" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
 &lt;td&gt;&lt;a href="https://github.com/go-widgets/vcs" target="_blank" rel="noopener"&gt;&lt;code&gt;vcs&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
 &lt;td&gt;v0.1.0&lt;/td&gt;
 &lt;td&gt;工作树中每个文件处于什么状态，以及驱动注册表；只用标准库。git 驱动是嵌套模块 &lt;code&gt;vcs/git&lt;/code&gt;（&lt;code&gt;git/v0.1.0&lt;/code&gt;）&lt;/td&gt;

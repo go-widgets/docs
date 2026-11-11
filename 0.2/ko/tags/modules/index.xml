@@ -66,6 +66,12 @@
 &lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/lineedit" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
+&lt;td&gt;&lt;a href="https://github.com/go-widgets/vt" target="_blank" rel="noopener"&gt;&lt;code&gt;vt&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;v0.1.0&lt;/td&gt;
+&lt;td&gt;순수 모델로서의 터미널 에뮬레이터: ECMA-48 과 xterm 하위 집합, 바이트를 입력받아 셀을 출력; 아무것도 응답하지 않음; 표준 라이브러리만 사용&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/vt" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
 &lt;td&gt;&lt;a href="https://github.com/go-widgets/vcs" target="_blank" rel="noopener"&gt;&lt;code&gt;vcs&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
 &lt;td&gt;v0.1.0&lt;/td&gt;
 &lt;td&gt;작업 트리의 각 파일이 어떤 상태인지와 드라이버 레지스트리; 표준 라이브러리만 사용. git 드라이버는 중첩 모듈 &lt;code&gt;vcs/git&lt;/code&gt;(&lt;code&gt;git/v0.1.0&lt;/code&gt;)&lt;/td&gt;

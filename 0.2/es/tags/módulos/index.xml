@@ -67,6 +67,12 @@ de escribir; la autoridad es la lista de etiquetas del propio repositorio.&lt;/p
 &lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/lineedit" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
+&lt;td&gt;&lt;a href="https://github.com/go-widgets/vt" target="_blank" rel="noopener"&gt;&lt;code&gt;vt&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;v0.1.0&lt;/td&gt;
+&lt;td&gt;un emulador de terminal como modelo puro: ECMA-48 y el subconjunto de xterm, bytes de entrada, celdas de salida; no responde a nada; solo la biblioteca estándar&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/vt" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
 &lt;td&gt;&lt;a href="https://github.com/go-widgets/vcs" target="_blank" rel="noopener"&gt;&lt;code&gt;vcs&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
 &lt;td&gt;v0.1.0&lt;/td&gt;
 &lt;td&gt;en qué estado está cada archivo de un árbol de trabajo, y un registro de controladores; solo la biblioteca estándar. El controlador de git es el módulo anidado &lt;code&gt;vcs/git&lt;/code&gt; (&lt;code&gt;git/v0.1.0&lt;/code&gt;)&lt;/td&gt;

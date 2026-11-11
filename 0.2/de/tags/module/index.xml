@@ -67,6 +67,12 @@ Schreibens – maßgeblich ist die Tag-Liste des jeweiligen Repositorys.&lt;/p&g
 &lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/lineedit" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
+&lt;td&gt;&lt;a href="https://github.com/go-widgets/vt" target="_blank" rel="noopener"&gt;&lt;code&gt;vt&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;v0.1.0&lt;/td&gt;
+&lt;td&gt;ein Terminalemulator als reines Modell: ECMA-48 und die xterm-Teilmenge, Bytes hinein, Zellen heraus; antwortet auf nichts; nur die Standardbibliothek&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/vt" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
 &lt;td&gt;&lt;a href="https://github.com/go-widgets/vcs" target="_blank" rel="noopener"&gt;&lt;code&gt;vcs&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
 &lt;td&gt;v0.1.0&lt;/td&gt;
 &lt;td&gt;welchen Zustand jede Datei eines Arbeitsverzeichnisses hat, und eine Registry für Treiber; nur die Standardbibliothek. Der Git-Treiber ist das verschachtelte Modul &lt;code&gt;vcs/git&lt;/code&gt; (&lt;code&gt;git/v0.1.0&lt;/code&gt;)&lt;/td&gt;
