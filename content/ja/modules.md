@@ -18,6 +18,7 @@ API リファレンスは [pkg.go.dev](https://pkg.go.dev/) がソースから�
 | [`mvvm`](https://github.com/go-widgets/mvvm) | v0.15.0 | [オブザーバブル、コマンド、バインダ、undo]({{< relref "/state/mvvm.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvm) |
 | [`mvvmtk`](https://github.com/go-widgets/mvvmtk) | v0.15.0 | [ツールキットのウィジェット向けの 1 呼び出しバインダ]({{< relref "/state/mvvm.md#mvvmtk-one-call-per-widget" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvmtk) |
 | [`lineedit`](https://github.com/go-widgets/lineedit) | v0.1.1 | 純粋なモデルとしての行エディタ。履歴、逆方向検索、Tab 補完。標準ライブラリのみ | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/lineedit) |
+| [`vt`](https://github.com/go-widgets/vt) | v0.1.0 | 純粋なモデルとしての端末エミュレータ。ECMA-48 と xterm のサブセット、バイト列を入力しセルを出力。何も応答しない。標準ライブラリのみ | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/vt) |
 | [`vcs`](https://github.com/go-widgets/vcs) | v0.1.0 | 作業ツリーの各ファイルがどの状態にあるかと、ドライバのレジストリ。標準ライブラリのみ。git ドライバはネストされたモジュール `vcs/git`（`git/v0.1.0`） | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/vcs) |
 | [`data`](https://github.com/go-widgets/data) | v0.4.0 | [型付きレコード、クエリ、ローカルまたはリモートのストア]({{< relref "/state/data.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/data) |
 | [`window`](https://github.com/go-widgets/window) | v0.91.0 | 8 つのバックエンドに対応した[ネイティブウィンドウ]({{< relref "/surfaces/native-window.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/window) |

@@ -20,6 +20,7 @@ API 참조 문서는 릴리스된 태그를 따라가는 [pkg.go.dev](https://pk
 | [`mvvm`](https://github.com/go-widgets/mvvm) | v0.15.0 | [옵저버블, 커맨드, 바인더, 실행 취소]({{< relref "/state/mvvm.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvm) |
 | [`mvvmtk`](https://github.com/go-widgets/mvvmtk) | v0.15.0 | [툴킷 위젯을 위한 단일 호출 바인더]({{< relref "/state/mvvm.md#mvvmtk-one-call-per-widget" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvmtk) |
 | [`lineedit`](https://github.com/go-widgets/lineedit) | v0.1.1 | 순수 모델로서의 줄 편집기: 기록, 역방향 검색, Tab 자동 완성; 표준 라이브러리만 사용 | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/lineedit) |
+| [`vt`](https://github.com/go-widgets/vt) | v0.1.0 | 순수 모델로서의 터미널 에뮬레이터: ECMA-48 과 xterm 하위 집합, 바이트를 입력받아 셀을 출력; 아무것도 응답하지 않음; 표준 라이브러리만 사용 | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/vt) |
 | [`vcs`](https://github.com/go-widgets/vcs) | v0.1.0 | 작업 트리의 각 파일이 어떤 상태인지와 드라이버 레지스트리; 표준 라이브러리만 사용. git 드라이버는 중첩 모듈 `vcs/git`(`git/v0.1.0`) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/vcs) |
 | [`data`](https://github.com/go-widgets/data) | v0.4.0 | [타입이 있는 레코드, 쿼리, 로컬 또는 원격 저장소]({{< relref "/state/data.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/data) |
 | [`window`](https://github.com/go-widgets/window) | v0.91.0 | 여덟 가지 백엔드를 지원하는 [네이티브 창]({{< relref "/surfaces/native-window.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/window) |
