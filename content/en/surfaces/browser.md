@@ -96,15 +96,33 @@ func (s *scene) A11yNodes() []webcanvas.A11yNode {
   a widget name.
 
 `Surface.Refresh()` draws a frame and updates the mirror, for a host that
-changed the scene from outside. A text field is exposed as `role=textbox` with
-its text for now; an editing element for a focused field is planned.
+changed the scene from outside.
+
+A scene that also implements `webcanvas.TextInputHost`,
+`TextInputFor(key string) textinput.Client`, gives a text widget a **text
+layer**: its `textbox` is then one element that holds the text, so the browser's
+find, selection and assistive technology see it, and that takes the keys and
+IME input for the widget.
+
+### From a toolkit tree
+
+You do not have to convert the toolkit's accessibility tree yourself.
+`github.com/go-widgets/window/webmirror` does it once: `webmirror.Host` implements
+`A11yAware` and `TextInputHost` over one or several widget trees (give each tree
+its own `Prefix` so keys cannot collide), and `webmirror.Convert` is the single
+node conversion. A `TextView` or `CodeEditor` gets its text layer through its
+`textinput.Client`. A nameless field is still published, as on the native
+bridges. The browser-tab back-end below and the
+[gallery](https://go-widgets.github.io/gallery/) both use it, so both are
+readable by a screen reader.
 
 Or let `window` choose. Since window v0.87.0,
 [`window.Open`]({{< relref "/surfaces/native-window.md#how-open-chooses" >}})
 built for `js/wasm` on an ordinary page returns a back-end that draws into the
 page's `<canvas>` (`Config.Canvas`, default `"screen"`) through `webcanvas`. An
 application written against `window` then runs unchanged as a native window, in
-a browser tab, and in wasmdesk.
+a browser tab, and in wasmdesk. From window v0.93.0 the tab publishes the
+accessibility mirror and text layer from the widget tree, with no extra code.
 
 ## On the GPU
 
