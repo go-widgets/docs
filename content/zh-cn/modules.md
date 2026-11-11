@@ -1,7 +1,7 @@
 ---
 title: "模块"
 weight: 50
-description: "go-widgets 的二十三个模块，各自的用途，以及源码和 API 参考文档所在的位置。"
+description: "go-widgets 的二十四个模块，各自的用途，以及源码和 API 参考文档所在的位置。"
 tags: [modules]
 ---
 
@@ -37,6 +37,6 @@ API 参考文档由 [pkg.go.dev](https://pkg.go.dev/) 根据源码生成，并�
 ## 每个模块都必须遵守的约束 {#what-every-module-is-held-to}
 
 - `CGO_ENABLED=0`：不使用 cgo，也不通过调用命令行工具来代替库。
-- 交叉编译到 amd64、arm64、riscv64、loong64、ppc64le 和 s390x——最后一个是大端架构，可确保所有线上编码都经得起检验——并在适用时编译到 `js/wasm`。全部二十一个库和工具都做到了，各自自加入之日或自 2026-10-10 起，以较晚者为准；另外两个是浏览器应用（[状态]({{< relref "/status.md#what-ci-does-not-cover-yet" >}})）。
-- CI 中的语句覆盖率门禁：二十三个模块全部为 100%。若某个文件无法在测试中运行（浏览器循环、原生运行循环），该模块会说明排除了哪个文件以及原因。例外情况见[状态]({{< relref "/status.md" >}})。
+- 交叉编译到 amd64、arm64、riscv64、loong64、ppc64le 和 s390x——最后一个是大端架构，可确保所有线上编码都经得起检验——并在适用时编译到 `js/wasm`。全部二十二个库和工具都做到了，各自自加入之日或自 2026-10-10 起，以较晚者为准；另外两个是浏览器应用（[状态]({{< relref "/status.md#what-ci-does-not-cover-yet" >}})）。
+- CI 中的语句覆盖率门禁：二十四个模块全部为 100%。若某个文件无法在测试中运行（浏览器循环、原生运行循环），该模块会说明排除了哪个文件以及原因。例外情况见[状态]({{< relref "/status.md" >}})。
 - BSD-3-Clause。

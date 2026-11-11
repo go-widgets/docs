@@ -1,7 +1,7 @@
 ---
 title: "Module"
 weight: 50
-description: "Die dreiundzwanzig Module von go-widgets, wofür jedes da ist und wo seine Quellen und seine API-Referenz liegen."
+description: "Die vierundzwanzig Module von go-widgets, wofür jedes da ist und wo seine Quellen und seine API-Referenz liegen."
 tags: [module]
 ---
 
@@ -43,9 +43,9 @@ Schreibens – maßgeblich ist die Tag-Liste des jeweiligen Repositorys.
   einer Bibliothek.
 - Cross-kompiliert für amd64, arm64, riscv64, loong64, ppc64le und s390x – letzteres
   Big-Endian, was jede Wire-Kodierung ehrlich hält – und, wo es zutrifft,
-  `js/wasm`. Alle einundzwanzig Bibliotheken und Werkzeuge tun das, jedes seit seiner Aufnahme oder seit dem 2026-10-10, je nachdem, was später liegt;
+  `js/wasm`. Alle zweiundzwanzig Bibliotheken und Werkzeuge tun das, jedes seit seiner Aufnahme oder seit dem 2026-10-10, je nachdem, was später liegt;
   die übrigen zwei sind Browser-Anwendungen ([Stand]({{< relref "/status.md#what-ci-does-not-cover-yet" >}})).
-- Eine Schranke für die Anweisungsabdeckung in der CI: 100 %, bei allen dreiundzwanzig. Wo eine
+- Eine Schranke für die Anweisungsabdeckung in der CI: 100 %, bei allen vierundzwanzig. Wo eine
   Datei nicht in einem Test laufen kann (eine Browser-Schleife, eine native Run-Loop), sagt das Modul,
   welche Datei ausgenommen ist und warum. Die Ausnahmen stehen unter [Stand]({{< relref "/status.md" >}}).
 - BSD-3-Clause.

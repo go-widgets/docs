@@ -62,9 +62,9 @@ Le 2026-10-10, les cinq manques que cette page listait ont été comblés :
 
 Les dix-sept bibliothèques et outils faisaient donc tous alors une compilation croisée pour les six
 architectures Linux 64 bits, et les dix-neuf avaient tous une barrière à 100 % de couverture des instructions.
-Les quatre ajoutés depuis (`gpupainter`, `lineedit`, `shellterm`, 2026-11-09, et `vcs`, 2026-11-10) font de même : un job
-`cross` vérifie chaque architecture, tests compris. Cela fait aujourd'hui vingt et une bibliothèques et outils et
-vingt-trois modules.
+Les cinq ajoutés depuis (`gpupainter`, `lineedit`, `shellterm`, 2026-11-09, `vcs`, 2026-11-10, et `vt`, 2026-11-11) font de même : un job
+`cross` vérifie chaque architecture, tests compris. Cela fait aujourd'hui vingt-deux bibliothèques et outils et
+vingt-quatre modules.
 `app-template` et `gallery` sont des applications de navigateur et se compilent pour `js/wasm`,
 qui est leur seule cible.
 

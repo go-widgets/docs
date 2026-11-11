@@ -62,9 +62,9 @@ On 2026-10-10 the five gaps this page listed were closed:
 
 So all seventeen libraries and tools then cross-built for the six 64-bit
 Linux architectures, and all nineteen gated at 100% statement coverage. The
-four added since (`gpupainter`, `lineedit`, `shellterm`, 2026-11-09, and `vcs`,
-2026-11-10) do the same: a `cross` job vets each architecture, tests included,
-so it is twenty-one libraries and tools and twenty-three modules today.
+five added since (`gpupainter`, `lineedit`, `shellterm`, 2026-11-09, `vcs`,
+2026-11-10, and `vt`, 2026-11-11) do the same: a `cross` job vets each architecture, tests included,
+so it is twenty-two libraries and tools and twenty-four modules today.
 `app-template` and `gallery` are browser applications and build for `js/wasm`,
 which is their only target.
 

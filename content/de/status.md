@@ -62,10 +62,10 @@ Am 2026-10-10 wurden die fünf Lücken geschlossen, die diese Seite aufführte:
 
 Damit bauten damals alle siebzehn Bibliotheken und Werkzeuge per Cross-Build für die
 sechs 64-Bit-Linux-Architekturen, und alle neunzehn hatten eine Schranke bei 100 %
-Anweisungsabdeckung. Die vier seither hinzugekommenen (`gpupainter`, `lineedit`,
-`shellterm`, 2026-11-09, und `vcs`, 2026-11-10) tun dasselbe: ein `cross`-Job prüft jede Architektur,
-Tests eingeschlossen. Heute sind es einundzwanzig Bibliotheken und Werkzeuge und
-dreiundzwanzig Module.
+Anweisungsabdeckung. Die fünf seither hinzugekommenen (`gpupainter`, `lineedit`,
+`shellterm`, 2026-11-09, `vcs`, 2026-11-10, und `vt`, 2026-11-11) tun dasselbe: ein `cross`-Job prüft jede Architektur,
+Tests eingeschlossen. Heute sind es zweiundzwanzig Bibliotheken und Werkzeuge und
+vierundzwanzig Module.
 `app-template` und `gallery` sind Browser-Anwendungen und bauen für `js/wasm`,
 ihr einziges Ziel.
 

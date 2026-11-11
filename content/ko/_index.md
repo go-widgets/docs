@@ -64,7 +64,7 @@ return w.Run(box) // an X11 or Wayland window, an NSWindow, a Win32 window
 | [Android]({{< relref "/surfaces/android.md" >}}) | CGO 없는 프로세스가 그리는 실제 APK |
 | [스냅숏]({{< relref "/surfaces/snapshots.md" >}}) | 위젯을 SVG 또는 PNG로 |
 | [CI가 강제하는 규칙]({{< relref "/guard-rails/_index.md" >}}) | `mvvmlint`와 `bricolint` |
-| [모듈]({{< relref "/modules.md" >}}) | 스물세 개 전체, 소스와 참조 문서 포함 |
+| [모듈]({{< relref "/modules.md" >}}) | 스물네 개 전체, 소스와 참조 문서 포함 |
 | [상태]({{< relref "/status.md" >}}) | 어디서 무엇이 검증되었고, 무엇이 아직 안 되었는지 |
 
 ## 라이선스 {#licence}

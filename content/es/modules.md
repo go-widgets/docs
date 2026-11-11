@@ -1,7 +1,7 @@
 ---
 title: "Módulos"
 weight: 50
-description: "Los veintitrés módulos de go-widgets, para qué sirve cada uno y dónde están su código fuente y su referencia de API."
+description: "Los veinticuatro módulos de go-widgets, para qué sirve cada uno y dónde están su código fuente y su referencia de API."
 tags: [módulos]
 ---
 
@@ -43,9 +43,9 @@ de escribir; la autoridad es la lista de etiquetas del propio repositorio.
   comandos en lugar de una biblioteca.
 - Compilación cruzada para amd64, arm64, riscv64, loong64, ppc64le y s390x
   —esta última big-endian, lo que mantiene honesta cada codificación binaria— y,
-  cuando procede, `js/wasm`. Las veintiuna bibliotecas y herramientas lo hacen,
+  cuando procede, `js/wasm`. Las veintidós bibliotecas y herramientas lo hacen,
   cada una desde que se añadió o desde el 2026-10-10, lo que sea más reciente; los otros dos son aplicaciones de navegador ([Estado]({{< relref "/status.md#what-ci-does-not-cover-yet" >}})).
-- Una barrera de cobertura de sentencias en la CI: 100 %, en los veintitrés.
+- Una barrera de cobertura de sentencias en la CI: 100 %, en los veinticuatro.
   Cuando un archivo no puede ejecutarse en una prueba (un bucle de
   navegador, un bucle de ejecución nativo), el módulo indica qué archivo queda
   fuera y por qué. Consulte [Estado]({{< relref "/status.md" >}}) para las

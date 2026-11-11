@@ -1,7 +1,7 @@
 ---
 title: "Modules"
 weight: 50
-description: "Les vingt-trois modules de go-widgets, le rôle de chacun, et où se trouvent sa source et sa référence d'API."
+description: "Les vingt-quatre modules de go-widgets, le rôle de chacun, et où se trouvent sa source et sa référence d'API."
 tags: [modules]
 ---
 
@@ -43,9 +43,9 @@ rédaction — la liste des étiquettes du dépôt lui-même fait foi.
   d'une bibliothèque.
 - Compilé de manière croisée pour amd64, arm64, riscv64, loong64, ppc64le et s390x — ce dernier
   en gros-boutiste, ce qui garde chaque encodage binaire honnête — et, quand cela
-  s'applique, `js/wasm`. Les vingt et une bibliothèques et outils le font tous, chacun depuis son ajout ou depuis le 2026-10-10, selon la date la plus récente ;
+  s'applique, `js/wasm`. Les vingt-deux bibliothèques et outils le font tous, chacun depuis son ajout ou depuis le 2026-10-10, selon la date la plus récente ;
   les deux autres sont des applications de navigateur ([État]({{< relref "/status.md#what-ci-does-not-cover-yet" >}})).
-- Une barrière de couverture des instructions dans la CI : 100 %, dans les vingt-trois. Quand un
+- Une barrière de couverture des instructions dans la CI : 100 %, dans les vingt-quatre. Quand un
   fichier ne peut pas s'exécuter dans un test (une boucle de navigateur, une boucle d'exécution native), le module
   indique quel fichier est laissé de côté et pourquoi. Voir [État]({{< relref "/status.md" >}})
   pour les exceptions.
