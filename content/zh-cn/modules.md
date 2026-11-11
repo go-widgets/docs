@@ -18,6 +18,7 @@ API 参考文档由 [pkg.go.dev](https://pkg.go.dev/) 根据源码生成，并�
 | [`mvvm`](https://github.com/go-widgets/mvvm) | v0.15.0 | [可观察对象、命令、绑定器、撤销]({{< relref "/state/mvvm.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvm) |
 | [`mvvmtk`](https://github.com/go-widgets/mvvmtk) | v0.15.0 | [面向工具包控件的一行式绑定器]({{< relref "/state/mvvm.md#mvvmtk-one-call-per-widget" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvmtk) |
 | [`lineedit`](https://github.com/go-widgets/lineedit) | v0.1.1 | 纯模型的行编辑器：历史记录、反向搜索、Tab 补全；只用标准库 | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/lineedit) |
+| [`vt`](https://github.com/go-widgets/vt) | v0.1.0 | 纯模型的终端模拟器：ECMA-48 与 xterm 子集，输入字节、输出单元格；不回应任何内容；只用标准库 | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/vt) |
 | [`vcs`](https://github.com/go-widgets/vcs) | v0.1.0 | 工作树中每个文件处于什么状态，以及驱动注册表；只用标准库。git 驱动是嵌套模块 `vcs/git`（`git/v0.1.0`） | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/vcs) |
 | [`data`](https://github.com/go-widgets/data) | v0.4.0 | [带类型的记录、查询、本地或远程存储]({{< relref "/state/data.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/data) |
 | [`window`](https://github.com/go-widgets/window) | v0.91.0 | 基于八种后端的[原生窗口]({{< relref "/surfaces/native-window.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/window) |
