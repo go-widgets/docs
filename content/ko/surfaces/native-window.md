@@ -79,7 +79,7 @@ Linux(X11과 Wayland)에서는 `Config{GPU: true}`로 프레임을 Vulkan으로 
   같으며, 두 프로토콜 모두에서 실제로 증명했습니다. X 서버에서 다시 읽은 창과
   창이 커밋한 `wl_shm` 버퍼가 CPU 경로의 것과 같습니다. go-gfx/gpu2d는 자체
   Vulkan 렌더러를 하드웨어 GPU(AMD Radeon PRO W7700, RADV)에서 측정했으며,
-  1080p에서 `Draw`는 CPU `Rasterize`보다 52배 빠릅니다. 프레임버퍼로의 복사를
+  1080p에서 `Draw`는 단일 코어 CPU `Rasterize`보다 52배 빠릅니다. 프레임버퍼로의 복사를
   포함한 창 자체는 하드웨어에서 측정하지 않았습니다.
 - **대체:** Vulkan을 쓸 수 없거나 프레임이 거부되면(장치에 비해 너무 큼, 장치
   손실) 창은 CPU로 그리며 계속 동작합니다. 이유는 백엔드의 `GPUError()`가
