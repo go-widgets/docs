@@ -210,7 +210,7 @@ data-copied-label="已复制！"
 &lt;p&gt;在 Linux（X11 和 Wayland）上，&lt;code&gt;Config{GPU: true}&lt;/code&gt; 使用 Vulkan 绘制帧。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;方式：&lt;/strong&gt; 同样的记录，由 go-gfx/gpu2d 的 Vulkan 渲染器绘制。它的像素被复制到窗口的帧缓冲区，并照旧呈现：X11 上用 MIT-SHM（或 &lt;code&gt;PutImage&lt;/code&gt;），Wayland 上用 &lt;code&gt;wl_shm&lt;/code&gt;。帧会经过 CPU 一次，目前还没有通过 dma-buf 与显示服务器共享。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;精确性：&lt;/strong&gt; 在软件 Vulkan（lavapipe）上，像素与 CPU 路径逐字节相同，并已在两种协议上实机证明：从 X 服务器读回的窗口，以及窗口提交的 &lt;code&gt;wl_shm&lt;/code&gt; 缓冲区，都与 CPU 路径的一致。go-gfx/gpu2d 已在硬件 GPU（AMD Radeon PRO W7700，RADV）上测量其 Vulkan 渲染器：在 1080p 下 &lt;code&gt;Draw&lt;/code&gt; 比 CPU 的 &lt;code&gt;Rasterize&lt;/code&gt; 快 52 倍；窗口本身（包括复制到帧缓冲区）尚未在硬件上测量。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;精确性：&lt;/strong&gt; 在软件 Vulkan（lavapipe）上，像素与 CPU 路径逐字节相同，并已在两种协议上实机证明：从 X 服务器读回的窗口，以及窗口提交的 &lt;code&gt;wl_shm&lt;/code&gt; 缓冲区，都与 CPU 路径的一致。go-gfx/gpu2d 已在硬件 GPU（AMD Radeon PRO W7700，RADV）上测量其 Vulkan 渲染器：在 1080p 下 &lt;code&gt;Draw&lt;/code&gt; 比单核 CPU 的 &lt;code&gt;Rasterize&lt;/code&gt; 快 52 倍；窗口本身（包括复制到帧缓冲区）尚未在硬件上测量。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;回退：&lt;/strong&gt; 当 Vulkan 不可用，或某一帧被拒绝（对设备来说太大、设备丢失）时，窗口改用 CPU 绘制并继续运行。原因由后端的 &lt;code&gt;GPUError()&lt;/code&gt; 给出，此后的每一帧都是 CPU 帧。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;开销（仅软件）：&lt;/strong&gt; lavapipe 是 CPU 光栅器，所以 GPU 路径占用的 CPU 时间约为 CPU 路径的十倍：每帧在 960 × 640 下为 25.8 ms 而不是 2.48 ms，在 1920 × 1200 下为 89.7 ms 而不是 8.46 ms（X11，Apple M4 Max 上 arm64 容器中 16 线程的 lavapipe）。在真实 GPU 上是否划算尚未测量。&lt;/li&gt;
 &lt;/ul&gt;

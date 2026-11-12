@@ -236,7 +236,7 @@ serveur d&amp;rsquo;affichage par dma-buf.&lt;/li&gt;
 CPU, octet pour octet, prouvé en direct sur les deux protocoles : la fenêtre
 relue depuis le serveur X, et le tampon &lt;code&gt;wl_shm&lt;/code&gt; validé par la fenêtre, sont
 égaux à ceux du chemin CPU. go-gfx/gpu2d a mesuré son moteur Vulkan sur un GPU
-matériel (AMD Radeon PRO W7700, RADV) : &lt;code&gt;Draw&lt;/code&gt; est 52 fois plus rapide que le&lt;code&gt;Rasterize&lt;/code&gt; CPU en 1080p ; la fenêtre elle-même, avec sa copie dans le
+matériel (AMD Radeon PRO W7700, RADV) : &lt;code&gt;Draw&lt;/code&gt; est 52 fois plus rapide que le&lt;code&gt;Rasterize&lt;/code&gt; CPU sur un seul cœur en 1080p ; la fenêtre elle-même, avec sa copie dans le
 framebuffer, n&amp;rsquo;a pas été mesurée sur du matériel.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Repli :&lt;/strong&gt; quand Vulkan est indisponible, ou qu&amp;rsquo;une image est refusée (trop
 grande pour le périphérique, périphérique perdu), la fenêtre dessine sur le CPU

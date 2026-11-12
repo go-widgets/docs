@@ -112,7 +112,7 @@ pixels are copied into the window&amp;rsquo;s framebuffer, which is presented as
 once; nothing is shared with the display server by dma-buf yet.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Exactness:&lt;/strong&gt; on software Vulkan (lavapipe) the pixels are the CPU path&amp;rsquo;s,byte for byte, proven live on both protocols: the window read back from the X
 server, and the &lt;code&gt;wl_shm&lt;/code&gt; buffer the window committed, equal the CPU path&amp;rsquo;s.go-gfx/gpu2d measured its Vulkan renderer on a hardware GPU (AMD Radeon PRO
-W7700, RADV): &lt;code&gt;Draw&lt;/code&gt; is 52 times faster than the CPU &lt;code&gt;Rasterize&lt;/code&gt; at 1080p; the
+W7700, RADV): &lt;code&gt;Draw&lt;/code&gt; is 52 times faster than the CPU &lt;code&gt;Rasterize&lt;/code&gt; on one core at 1080p; the
 window itself, with its copy into the framebuffer, has not been measured on
 hardware.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Fallback:&lt;/strong&gt; where Vulkan is unavailable, or a frame is refused (too large
