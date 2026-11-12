@@ -85,7 +85,7 @@ Unter Linux (X11 und Wayland) zeichnet `Config{GPU: true}` Frames mit Vulkan.
   zurückgelesene Fenster und der vom Fenster übergebene `wl_shm`-Puffer sind
   gleich denen des CPU-Pfads. go-gfx/gpu2d hat seinen Vulkan-Renderer auf einer
   Hardware-GPU gemessen (AMD Radeon PRO W7700, RADV): `Draw` ist bei 1080p
-  52-mal schneller als das CPU-`Rasterize`; das Fenster selbst, mit seiner Kopie
+  52-mal schneller als das CPU-`Rasterize` auf einem Kern; das Fenster selbst, mit seiner Kopie
   in den Framebuffer, wurde auf Hardware nicht gemessen.
 - **Rückfall:** ist Vulkan nicht verfügbar oder wird ein Frame abgelehnt (für
   das Gerät zu groß, Gerät verloren), zeichnet das Fenster auf der CPU und läuft

@@ -90,7 +90,7 @@ En Linux (X11 y Wayland), `Config{GPU: true}` dibuja los fotogramas con Vulkan.
   de vuelta del servidor X y el búfer `wl_shm` que la ventana confirmó son
   iguales a los del camino de CPU. go-gfx/gpu2d midió su renderizador Vulkan en
   una GPU de hardware (AMD Radeon PRO W7700, RADV): `Draw` es 52 veces más
-  rápido que el `Rasterize` de CPU a 1080p; la ventana en sí, con su copia al
+  rápido que el `Rasterize` de CPU en un solo núcleo a 1080p; la ventana en sí, con su copia al
   framebuffer, no se ha medido en hardware.
 - **Alternativa:** cuando Vulkan no está disponible, o se rechaza un fotograma
   (demasiado grande para el dispositivo, dispositivo perdido), la ventana dibuja
