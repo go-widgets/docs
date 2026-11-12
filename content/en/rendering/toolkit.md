@@ -347,3 +347,14 @@ the same contract as `collabui.CollabText`. A newer refresh cancels the one in
 flight and makes its late answer a no-op, so a slow answer never overwrites a
 newer one. Without `PostUI` every refresh is synchronous, which is right for a
 test or a small tree.
+
+**In the browser (js/wasm, v0.374.1).** `RefreshStatus` always returns
+`ErrSyncStatusBlocks` and never calls `Repository.Status` on the UI goroutine;
+`SetRepository` and a change of `Entries` without `PostUI` publish the same error
+on `StatusError()`. In js/wasm the tree never calls `Status` on the UI goroutine,
+only from a background goroutine (set `PostUI` and use `RefreshStatusAsync`). A
+`Status` that waits for a worker's reply would deadlock the single thread if
+called on the UI goroutine, and the tree cannot tell such a `Status` from one that
+only reads a snapshot, so it refuses both. A `Status` used in the browser must
+therefore be safe to call from another goroutine: a round trip, or a
+mutex-guarded or immutable snapshot. Native builds are unchanged.
