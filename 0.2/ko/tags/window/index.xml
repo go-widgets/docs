@@ -237,8 +237,9 @@ DLL을 &lt;code&gt;syscall.NewLazyDLL&lt;/code&gt;과 &lt;code&gt;syscall.NewCal
 공유하는 것은 아직 없습니다.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;정확성:&lt;/strong&gt; 소프트웨어 Vulkan(lavapipe)에서 픽셀은 CPU 경로와 바이트 단위로
 같으며, 두 프로토콜 모두에서 실제로 증명했습니다. X 서버에서 다시 읽은 창과
-창이 커밋한 &lt;code&gt;wl_shm&lt;/code&gt; 버퍼가 CPU 경로의 것과 같습니다. 하드웨어 GPU는 아직
-측정하지 않았습니다.&lt;/li&gt;
+창이 커밋한 &lt;code&gt;wl_shm&lt;/code&gt; 버퍼가 CPU 경로의 것과 같습니다. go-gfx/gpu2d는 자체
+Vulkan 렌더러를 하드웨어 GPU(AMD Radeon PRO W7700, RADV)에서 측정했으며,1080p에서 &lt;code&gt;Draw&lt;/code&gt;는 CPU &lt;code&gt;Rasterize&lt;/code&gt;보다 52배 빠릅니다. 프레임버퍼로의 복사를
+포함한 창 자체는 하드웨어에서 측정하지 않았습니다.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;대체:&lt;/strong&gt; Vulkan을 쓸 수 없거나 프레임이 거부되면(장치에 비해 너무 큼, 장치
 손실) 창은 CPU로 그리며 계속 동작합니다. 이유는 백엔드의 &lt;code&gt;GPUError()&lt;/code&gt;가
 알려 주고, 이후의 모든 프레임은 CPU 프레임입니다.&lt;/li&gt;

@@ -230,7 +230,10 @@ the CPU.&lt;/li&gt;
 pixels are copied into the window&amp;rsquo;s framebuffer, which is presented as ever:MIT-SHM (or &lt;code&gt;PutImage&lt;/code&gt;) on X11, &lt;code&gt;wl_shm&lt;/code&gt; on Wayland. The frame crosses the CPU
 once; nothing is shared with the display server by dma-buf yet.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Exactness:&lt;/strong&gt; on software Vulkan (lavapipe) the pixels are the CPU path&amp;rsquo;s,byte for byte, proven live on both protocols: the window read back from the X
-server, and the &lt;code&gt;wl_shm&lt;/code&gt; buffer the window committed, equal the CPU path&amp;rsquo;s.No hardware GPU has been measured yet.&lt;/li&gt;
+server, and the &lt;code&gt;wl_shm&lt;/code&gt; buffer the window committed, equal the CPU path&amp;rsquo;s.go-gfx/gpu2d measured its Vulkan renderer on a hardware GPU (AMD Radeon PRO
+W7700, RADV): &lt;code&gt;Draw&lt;/code&gt; is 52 times faster than the CPU &lt;code&gt;Rasterize&lt;/code&gt; at 1080p; the
+window itself, with its copy into the framebuffer, has not been measured on
+hardware.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Fallback:&lt;/strong&gt; where Vulkan is unavailable, or a frame is refused (too large
 for the device, device lost), the window draws on the CPU and keeps running.&lt;code&gt;GPUError()&lt;/code&gt; on the back-end says why, and every later frame is a CPU frame.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Cost (software only):&lt;/strong&gt; lavapipe is a CPU rasterizer, so the GPU path costs

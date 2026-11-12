@@ -124,7 +124,10 @@ de pantalla mediante dma-buf.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Exactitud:&lt;/strong&gt; en Vulkan por software (lavapipe) los píxeles son los del camino
 de CPU, byte a byte, demostrado en vivo en ambos protocolos: la ventana leída
 de vuelta del servidor X y el búfer &lt;code&gt;wl_shm&lt;/code&gt; que la ventana confirmó son
-iguales a los del camino de CPU. Aún no se ha medido ninguna GPU de hardware.&lt;/li&gt;
+iguales a los del camino de CPU. go-gfx/gpu2d midió su renderizador Vulkan en
+una GPU de hardware (AMD Radeon PRO W7700, RADV): &lt;code&gt;Draw&lt;/code&gt; es 52 veces más
+rápido que el &lt;code&gt;Rasterize&lt;/code&gt; de CPU a 1080p; la ventana en sí, con su copia al
+framebuffer, no se ha medido en hardware.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Alternativa:&lt;/strong&gt; cuando Vulkan no está disponible, o se rechaza un fotograma(demasiado grande para el dispositivo, dispositivo perdido), la ventana dibuja
 en la CPU y sigue funcionando. &lt;code&gt;GPUError()&lt;/code&gt; en el back-end dice el motivo, y
 todo fotograma posterior es un fotograma de CPU.&lt;/li&gt;
