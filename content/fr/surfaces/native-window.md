@@ -83,7 +83,10 @@ Sous Linux (X11 et Wayland), `Config{GPU: true}` dessine les images avec Vulkan.
 - **Exactitude :** sur Vulkan logiciel (lavapipe), les pixels sont ceux du chemin
   CPU, octet pour octet, prouvé en direct sur les deux protocoles : la fenêtre
   relue depuis le serveur X, et le tampon `wl_shm` validé par la fenêtre, sont
-  égaux à ceux du chemin CPU. Aucun GPU matériel n'a encore été mesuré.
+  égaux à ceux du chemin CPU. go-gfx/gpu2d a mesuré son moteur Vulkan sur un GPU
+  matériel (AMD Radeon PRO W7700, RADV) : `Draw` est 52 fois plus rapide que le
+  `Rasterize` CPU en 1080p ; la fenêtre elle-même, avec sa copie dans le
+  framebuffer, n'a pas été mesurée sur du matériel.
 - **Repli :** quand Vulkan est indisponible, ou qu'une image est refusée (trop
   grande pour le périphérique, périphérique perdu), la fenêtre dessine sur le CPU
   et continue. `GPUError()` sur le back-end en donne la raison, et toute image

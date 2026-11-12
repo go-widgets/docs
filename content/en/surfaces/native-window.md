@@ -82,7 +82,10 @@ On Linux (X11 and Wayland), `Config{GPU: true}` draws frames with Vulkan.
 - **Exactness:** on software Vulkan (lavapipe) the pixels are the CPU path's,
   byte for byte, proven live on both protocols: the window read back from the X
   server, and the `wl_shm` buffer the window committed, equal the CPU path's.
-  No hardware GPU has been measured yet.
+  go-gfx/gpu2d measured its Vulkan renderer on a hardware GPU (AMD Radeon PRO
+  W7700, RADV): `Draw` is 52 times faster than the CPU `Rasterize` at 1080p; the
+  window itself, with its copy into the framebuffer, has not been measured on
+  hardware.
 - **Fallback:** where Vulkan is unavailable, or a frame is refused (too large
   for the device, device lost), the window draws on the CPU and keeps running.
   `GPUError()` on the back-end says why, and every later frame is a CPU frame.

@@ -68,7 +68,9 @@ return w.Run(root) // root is any toolkit.Widget
   目前还没有通过 dma-buf 与显示服务器共享。
 - **精确性：** 在软件 Vulkan（lavapipe）上，像素与 CPU 路径逐字节相同，并已在两种协议上实机证明：
   从 X 服务器读回的窗口，以及窗口提交的 `wl_shm` 缓冲区，都与 CPU 路径的一致。
-  尚未在硬件 GPU 上测量。
+  go-gfx/gpu2d 已在硬件 GPU（AMD Radeon PRO W7700，RADV）上测量其 Vulkan 渲染器：
+  在 1080p 下 `Draw` 比 CPU 的 `Rasterize` 快 52 倍；窗口本身（包括复制到帧缓冲区）
+  尚未在硬件上测量。
 - **回退：** 当 Vulkan 不可用，或某一帧被拒绝（对设备来说太大、设备丢失）时，窗口改用 CPU 绘制并继续运行。
   原因由后端的 `GPUError()` 给出，此后的每一帧都是 CPU 帧。
 - **开销（仅软件）：** lavapipe 是 CPU 光栅器，所以 GPU 路径占用的 CPU 时间约为 CPU 路径的十倍：
