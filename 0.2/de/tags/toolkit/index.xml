@@ -314,6 +314,16 @@ Aktualisierung (&lt;code&gt;SetRepository&lt;/code&gt;, eine Änderung von &lt;c
 Ergebnis als Closure zurück, &lt;strong&gt;die der Host auf seiner UI-Goroutine ausführt&lt;/strong&gt;,wie bei &lt;code&gt;collabui.CollabText&lt;/code&gt;. Eine neuere Aktualisierung bricht die laufende ab
 und macht ihre verspätete Antwort wirkungslos. Ohne &lt;code&gt;PostUI&lt;/code&gt; ist alles
 synchron, was für einen Test oder einen kleinen Baum richtig ist.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Im Browser (js/wasm, v0.374.1).&lt;/strong&gt; &lt;code&gt;RefreshStatus&lt;/code&gt; gibt immer&lt;code&gt;ErrSyncStatusBlocks&lt;/code&gt; zurück und ruft &lt;code&gt;Repository.Status&lt;/code&gt; nie auf der UI-Goroutine
+auf; &lt;code&gt;SetRepository&lt;/code&gt; und eine Änderung von &lt;code&gt;Entries&lt;/code&gt; ohne &lt;code&gt;PostUI&lt;/code&gt; veröffentlichen
+denselben Fehler über &lt;code&gt;StatusError()&lt;/code&gt;. In js/wasm ruft der Baum &lt;code&gt;Status&lt;/code&gt; nie auf
+der UI-Goroutine auf, sondern nur aus einer Hintergrund-Goroutine (&lt;code&gt;PostUI&lt;/code&gt; setzen
+und &lt;code&gt;RefreshStatusAsync&lt;/code&gt; verwenden). Ein &lt;code&gt;Status&lt;/code&gt;, das auf die Antwort eines
+Workers wartet, würde den einzigen Thread verklemmen (Deadlock), wenn es auf der
+UI-Goroutine aufgerufen würde, und der Baum kann ein solches &lt;code&gt;Status&lt;/code&gt; nicht von einem
+unterscheiden, das nur einen Snapshot liest, also verweigert er beide. Ein im
+Browser verwendetes &lt;code&gt;Status&lt;/code&gt; muss deshalb aus einer anderen Goroutine sicher
+aufrufbar sein: ein Round-Trip oder ein durch einen Mutex geschützter bzw.unveränderlicher Snapshot. Native Builds bleiben unverändert.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="binary-size"&gt;Binärgröße: ein Programm linkt, was es benutzt&lt;span class="hx:absolute hx:-mt-20" id="binary-size"&gt;&lt;/span&gt;
 &lt;a href="#binary-size" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Das Toolkit ist ein großes Paket, und für den Linker ist das in Ordnung: Die
 Dead-Code-Eliminierung von Go behält nur, was von &lt;code&gt;main.main&lt;/code&gt; &lt;strong&gt;und von den

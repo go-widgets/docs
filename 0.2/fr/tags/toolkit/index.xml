@@ -315,6 +315,14 @@ rafraîchissement lancé par l&amp;rsquo;arbre (&lt;code&gt;SetRepository&lt;/co
 sous forme de fermeture &lt;strong&gt;que l&amp;rsquo;hôte exécute sur sa goroutine d&amp;rsquo;interface&lt;/strong&gt;, comme&lt;code&gt;collabui.CollabText&lt;/code&gt;. Un rafraîchissement plus récent annule celui en cours et
 rend sa réponse tardive sans effet. Sans &lt;code&gt;PostUI&lt;/code&gt;, tout est synchrone, ce qui
 convient à un test ou à un petit arbre.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Dans le navigateur (js/wasm, v0.374.1).&lt;/strong&gt; &lt;code&gt;RefreshStatus&lt;/code&gt; renvoie toujours&lt;code&gt;ErrSyncStatusBlocks&lt;/code&gt; et n&amp;rsquo;appelle jamais &lt;code&gt;Repository.Status&lt;/code&gt; sur la goroutine
+d&amp;rsquo;interface ; &lt;code&gt;SetRepository&lt;/code&gt; et un changement de &lt;code&gt;Entries&lt;/code&gt; sans &lt;code&gt;PostUI&lt;/code&gt;
+publient la même erreur sur &lt;code&gt;StatusError()&lt;/code&gt;. En js/wasm, l&amp;rsquo;arbre n&amp;rsquo;appelle jamais&lt;code&gt;Status&lt;/code&gt; sur la goroutine d&amp;rsquo;interface, seulement depuis une goroutine d&amp;rsquo;arrière-plan(définissez &lt;code&gt;PostUI&lt;/code&gt; et utilisez &lt;code&gt;RefreshStatusAsync&lt;/code&gt;). Un &lt;code&gt;Status&lt;/code&gt; qui attend la
+réponse d&amp;rsquo;un worker provoquerait un interblocage (deadlock) de l&amp;rsquo;unique thread
+s&amp;rsquo;il était appelé sur la goroutine d&amp;rsquo;interface, et l&amp;rsquo;arbre ne sait pas distinguer un tel &lt;code&gt;Status&lt;/code&gt; d&amp;rsquo;un &lt;code&gt;Status&lt;/code&gt; qui
+ne fait que lire un instantané : il refuse donc les deux. Un &lt;code&gt;Status&lt;/code&gt; utilisé dans
+le navigateur doit par conséquent pouvoir être appelé sans risque depuis une autre
+goroutine : un aller-retour, ou un instantané protégé par un mutex ou immuable.Les compilations natives ne changent pas.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="binary-size"&gt;Taille du binaire : un programme lie ce qu&amp;rsquo;il utilise&lt;span class="hx:absolute hx:-mt-20" id="binary-size"&gt;&lt;/span&gt;
 &lt;a href="#binary-size" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;La boîte à outils est un grand paquet, et l&amp;rsquo;éditeur de liens s&amp;rsquo;en accommode :l&amp;rsquo;élimination de code mort de Go ne garde que ce qui est atteignable depuis&lt;code&gt;main.main&lt;/code&gt; &lt;strong&gt;et depuis les tâches d&amp;rsquo;initialisation de chaque paquet importé&lt;/strong&gt;.Les widgets qu&amp;rsquo;un programme ne touche jamais sont retirés. Ce qui n&amp;rsquo;est pas
 retiré, c&amp;rsquo;est tout ce qu&amp;rsquo;atteint un initialiseur de niveau paquet ou le &lt;code&gt;init&lt;/code&gt;

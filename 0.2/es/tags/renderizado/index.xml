@@ -441,6 +441,17 @@ actualización que inicia el árbol (&lt;code&gt;SetRepository&lt;/code&gt;, un 
 resultado como un cierre &lt;strong&gt;que el anfitrión ejecuta en su goroutine de interfaz&lt;/strong&gt;,igual que &lt;code&gt;collabui.CollabText&lt;/code&gt;. Una actualización más nueva cancela la que está
 en curso y deja sin efecto su respuesta tardía. Sin &lt;code&gt;PostUI&lt;/code&gt; todo es síncrono, lo
 cual vale para una prueba o un árbol pequeño.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;En el navegador (js/wasm, v0.374.1).&lt;/strong&gt; &lt;code&gt;RefreshStatus&lt;/code&gt; siempre devuelve&lt;code&gt;ErrSyncStatusBlocks&lt;/code&gt; y nunca llama a &lt;code&gt;Repository.Status&lt;/code&gt; en la goroutine de la
+interfaz; &lt;code&gt;SetRepository&lt;/code&gt; y un cambio de &lt;code&gt;Entries&lt;/code&gt; sin &lt;code&gt;PostUI&lt;/code&gt; publican el mismo
+error en &lt;code&gt;StatusError()&lt;/code&gt;. En js/wasm el árbol nunca llama a &lt;code&gt;Status&lt;/code&gt; en la
+goroutine de la interfaz, solo desde una goroutine en segundo plano (configure&lt;code&gt;PostUI&lt;/code&gt; y use &lt;code&gt;RefreshStatusAsync&lt;/code&gt;). Un &lt;code&gt;Status&lt;/code&gt; que espera la respuesta de un
+worker provocaría un interbloqueo (deadlock) del único hilo si se llamara en la
+goroutine de la interfaz, y el
+árbol no puede distinguir un &lt;code&gt;Status&lt;/code&gt; así de uno que solo lee una instantánea, de
+modo que rechaza ambos. Por tanto, un &lt;code&gt;Status&lt;/code&gt; usado en el navegador debe poder
+llamarse con seguridad desde otra goroutine: un viaje de ida y vuelta, o una
+instantánea protegida por un mutex o inmutable. Las compilaciones nativas no
+cambian.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="binary-size"&gt;Tamaño del binario: un programa enlaza lo que usa&lt;span class="hx:absolute hx:-mt-20" id="binary-size"&gt;&lt;/span&gt;
 &lt;a href="#binary-size" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;El toolkit es un paquete grande, y para el enlazador eso no es un problema: la
 eliminación de código muerto de Go solo conserva lo alcanzable desde&lt;code&gt;main.main&lt;/code&gt; &lt;strong&gt;y desde las tareas de inicialización de cada paquete
