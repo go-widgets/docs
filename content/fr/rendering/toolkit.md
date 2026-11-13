@@ -243,6 +243,19 @@ sous forme de fermeture **que l'hôte exécute sur sa goroutine d'interface**, c
 rend sa réponse tardive sans effet. Sans `PostUI`, tout est synchrone, ce qui
 convient à un test ou à un petit arbre.
 
+**Dans le navigateur (js/wasm, v0.374.1).** `RefreshStatus` renvoie toujours
+`ErrSyncStatusBlocks` et n'appelle jamais `Repository.Status` sur la goroutine
+d'interface ; `SetRepository` et un changement de `Entries` sans `PostUI`
+publient la même erreur sur `StatusError()`. En js/wasm, l'arbre n'appelle jamais
+`Status` sur la goroutine d'interface, seulement depuis une goroutine d'arrière-plan
+(définissez `PostUI` et utilisez `RefreshStatusAsync`). Un `Status` qui attend la
+réponse d'un worker provoquerait un interblocage (deadlock) de l'unique thread
+s'il était appelé sur la goroutine d'interface, et l'arbre ne sait pas distinguer un tel `Status` d'un `Status` qui
+ne fait que lire un instantané : il refuse donc les deux. Un `Status` utilisé dans
+le navigateur doit par conséquent pouvoir être appelé sans risque depuis une autre
+goroutine : un aller-retour, ou un instantané protégé par un mutex ou immuable.
+Les compilations natives ne changent pas.
+
 ## Taille du binaire : un programme lie ce qu'il utilise {#binary-size}
 
 La boîte à outils est un grand paquet, et l'éditeur de liens s'en accommode :

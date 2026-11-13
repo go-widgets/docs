@@ -192,6 +192,8 @@ func wait(tree *toolkit.FileTree) error { return tree.RefreshStatus(context.Back
 
 **`PostUI` が必要な理由**（v0.364.0）。`Repository.Status` は大きなリポジトリでは数秒かかることがあり（go-git は状態全体をメモリに構築し、コンテキストを受け取りません）、UI の goroutine で実行してはなりません。ブラウザではページのイベントループを止めてしまいます。`PostUI` を設定すると、ツリーが開始するすべての更新（`SetRepository`、`Entries` の変更、`RefreshStatusAsync`）は専用の goroutine で `Status` を実行し、結果を **ホストが UI の goroutine で実行する** クロージャとして返します。`collabui.CollabText` と同じ約束です。新しい更新は進行中のものをキャンセルし、遅れて届いた応答は何も起こしません。`PostUI` がなければすべて同期で、テストや小さなツリーには適しています。
 
+**ブラウザでは（js/wasm、v0.374.1）。** `RefreshStatus` は常に `ErrSyncStatusBlocks` を返し、UI の goroutine で `Repository.Status` を呼び出すことはありません。`PostUI` なしの `SetRepository` や `Entries` の変更も、同じエラーを `StatusError()` に公開します。js/wasm ではツリーは UI の goroutine で `Status` を呼ばず、バックグラウンドの goroutine からのみ呼びます（`PostUI` を設定し、`RefreshStatusAsync` を使ってください）。ワーカーの応答を待つ `Status` を UI の goroutine で呼ぶと唯一のスレッドがデッドロックしますが、ツリーはそのような `Status` とスナップショットを読むだけの `Status` を区別できないため、どちらも拒否します。したがってブラウザで使う `Status` は、別の goroutine から呼んでも安全でなければなりません。往復通信か、ミューテックスで保護された、または不変のスナップショットです。ネイティブビルドは変わりません。
+
 ## バイナリサイズ：プログラムは使うものだけをリンクする {#binary-size}
 
 ツールキットは 1 つの大きなパッケージですが、リンカにとっては問題ありません。Go のデッドコード除去は、
