@@ -249,8 +249,8 @@ d'interface ; `SetRepository` et un changement de `Entries` sans `PostUI`
 publient la même erreur sur `StatusError()`. En js/wasm, l'arbre n'appelle jamais
 `Status` sur la goroutine d'interface, seulement depuis une goroutine d'arrière-plan
 (définissez `PostUI` et utilisez `RefreshStatusAsync`). Un `Status` qui attend la
-réponse d'un worker bloquerait l'unique thread s'il était appelé sur la goroutine
-d'interface, et l'arbre ne sait pas distinguer un tel `Status` d'un `Status` qui
+réponse d'un worker provoquerait un interblocage (deadlock) de l'unique thread
+s'il était appelé sur la goroutine d'interface, et l'arbre ne sait pas distinguer un tel `Status` d'un `Status` qui
 ne fait que lire un instantané : il refuse donc les deux. Un `Status` utilisé dans
 le navigateur doit par conséquent pouvoir être appelé sans risque depuis une autre
 goroutine : un aller-retour, ou un instantané protégé par un mutex ou immuable.
