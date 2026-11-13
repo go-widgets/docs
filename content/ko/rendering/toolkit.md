@@ -204,6 +204,8 @@ func wait(tree *toolkit.FileTree) error { return tree.RefreshStatus(context.Back
 
 **`PostUI`가 필요한 이유**(v0.364.0). `Repository.Status`는 큰 저장소에서 몇 초가 걸릴 수 있고(go-git은 상태 전체를 메모리에 만들며 컨텍스트를 받지 않습니다), UI goroutine에서 실행하면 안 됩니다. 브라우저에서는 페이지의 이벤트 루프를 막게 됩니다. `PostUI`를 설정하면 트리가 시작하는 모든 갱신(`SetRepository`, `Entries` 변경, `RefreshStatusAsync`)이 별도 goroutine에서 `Status`를 실행하고, 결과를 **호스트가 UI goroutine에서 실행하는** 클로저로 돌려줍니다. `collabui.CollabText`와 같은 약속입니다. 더 새로운 갱신은 진행 중인 것을 취소하고 늦게 도착한 응답은 아무 효과가 없습니다. `PostUI`가 없으면 모두 동기이며, 테스트나 작은 트리에는 알맞습니다.
 
+**브라우저에서(js/wasm, v0.374.1).** `RefreshStatus`는 항상 `ErrSyncStatusBlocks`를 반환하며 UI goroutine에서 `Repository.Status`를 호출하지 않습니다. `PostUI` 없이 `SetRepository`를 호출하거나 `Entries`를 바꾸면 같은 오류가 `StatusError()`로 게시됩니다. js/wasm에서 트리는 UI goroutine에서 `Status`를 절대 호출하지 않고, 백그라운드 goroutine에서만 호출합니다(`PostUI`를 설정하고 `RefreshStatusAsync`를 사용하세요). 워커의 응답을 기다리는 `Status`를 UI goroutine에서 호출하면 하나뿐인 스레드가 교착 상태에 빠지는데, 트리는 그런 `Status`와 스냅샷만 읽는 `Status`를 구별할 수 없으므로 둘 다 거부합니다. 따라서 브라우저에서 쓰는 `Status`는 다른 goroutine에서 호출해도 안전해야 합니다. 왕복 통신이거나, 뮤텍스로 보호되거나 불변인 스냅샷이어야 합니다. 네이티브 빌드는 달라지지 않습니다.
+
 ## 바이너리 크기: 프로그램은 사용하는 것만 링크합니다 {#binary-size}
 
 툴킷은 하나의 큰 패키지이지만 링커에게는 문제가 되지 않습니다. Go의 데드 코드 제거는

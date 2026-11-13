@@ -182,6 +182,8 @@ func wait(tree *toolkit.FileTree) error { return tree.RefreshStatus(context.Back
 
 **为什么需要 `PostUI`**（v0.364.0）。在大型仓库上，`Repository.Status` 可能耗时数秒（go-git 在内存中构建完整状态，且不接受 context），所以它不能在界面 goroutine 上运行；在浏览器中它会阻塞页面的事件循环。设置 `PostUI` 后，树发起的每次刷新（`SetRepository`、`Entries` 的变化、`RefreshStatusAsync`）都会在自己的 goroutine 上运行 `Status`，并把结果作为一个闭包交回，**由宿主在界面 goroutine 上执行**，约定与 `collabui.CollabText` 相同。更新的刷新会取消进行中的那次，使其迟到的答复不起作用。没有 `PostUI` 时一切同步，适合测试或小型的树。
 
+**在浏览器中（js/wasm，v0.374.1）。** `RefreshStatus` 始终返回 `ErrSyncStatusBlocks`，且从不在界面 goroutine 上调用 `Repository.Status`；没有 `PostUI` 时，`SetRepository` 和 `Entries` 的变化会在 `StatusError()` 上发布同样的错误。在 js/wasm 中，树从不在界面 goroutine 上调用 `Status`，只会从后台 goroutine 调用（设置 `PostUI` 并使用 `RefreshStatusAsync`）。等待 worker 答复的 `Status` 若在界面 goroutine 上调用，会使唯一的线程死锁，而树无法区分这样的 `Status` 与只读取快照的 `Status`，因此两者都拒绝。所以在浏览器中使用的 `Status` 必须能从另一个 goroutine 安全调用：一次往返通信，或由互斥锁保护的、或不可变的快照。原生构建不受影响。
+
 ## 二进制体积：程序只链接它用到的部分 {#binary-size}
 
 工具包是一个很大的包，这对链接器来说没有问题：Go 的死代码消除只保留从 `main.main` **以及每个被导入包的初始化任务**

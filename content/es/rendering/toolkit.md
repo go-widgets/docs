@@ -242,6 +242,19 @@ igual que `collabui.CollabText`. Una actualización más nueva cancela la que es
 en curso y deja sin efecto su respuesta tardía. Sin `PostUI` todo es síncrono, lo
 cual vale para una prueba o un árbol pequeño.
 
+**En el navegador (js/wasm, v0.374.1).** `RefreshStatus` siempre devuelve
+`ErrSyncStatusBlocks` y nunca llama a `Repository.Status` en la goroutine de la
+interfaz; `SetRepository` y un cambio de `Entries` sin `PostUI` publican el mismo
+error en `StatusError()`. En js/wasm el árbol nunca llama a `Status` en la
+goroutine de la interfaz, solo desde una goroutine en segundo plano (configure
+`PostUI` y use `RefreshStatusAsync`). Un `Status` que espera la respuesta de un
+worker bloquearía el único hilo si se llamara en la goroutine de la interfaz, y el
+árbol no puede distinguir un `Status` así de uno que solo lee una instantánea, de
+modo que rechaza ambos. Por tanto, un `Status` usado en el navegador debe poder
+llamarse con seguridad desde otra goroutine: un viaje de ida y vuelta, o una
+instantánea protegida por un mutex o inmutable. Las compilaciones nativas no
+cambian.
+
 ## Tamaño del binario: un programa enlaza lo que usa {#binary-size}
 
 El toolkit es un paquete grande, y para el enlazador eso no es un problema: la
