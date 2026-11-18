@@ -40,6 +40,27 @@ func main() { webcanvas.Run("screen", myScene()) }
 백엔드를 반환합니다. 그러면 `window`에 맞춰 작성된 애플리케이션이 네이티브 창으로도,
 브라우저 탭에서도, wasmdesk에서도 그대로 실행됩니다.
 
+## 바뀐 부분만 다시 그리기 {#repainting-only-what-changed}
+
+아무 도움이 없으면 모든 프레임이 장면 전체의 `Draw`, 프레임버퍼 전체의 브라우저 복사, 캔버스 전체의
+`putImageData`가 됩니다. 커서가 깜박였을 뿐이거나 `Layer`에 있는 게스트의 이미지만 새로워도 마찬가지입니다.
+무엇이 바뀌었는지 아는 장면은 `DrawDamaged(buf []byte) []Rect`(`webcanvas.DamageDrawer`, webcanvas v0.15.0)를
+구현하고, 호스트는 그 사각형만 복사해 그립니다.
+
+- **계약**은 [`window`]({{< relref "/surfaces/native-window.md" >}})의 `DamageRenderer`가 데스크톱 호스트에
+  주는 것을 브라우저의 용어로 옮긴 것입니다. 장면은 바뀐 부분을 프레임 사이에 유지되는 프레임버퍼에 다시 그리고,
+  다시 그린 사각형을 반환합니다(`webcanvas.Rect`는 `toolkit.Rect`입니다). 결과가 **비어 있으면** 아무것도 바뀌지
+  않았으며 아무것도 그리지 않습니다. 첫 프레임과 크기 조정 뒤에는 여전히 `Draw`가 실행됩니다.
+- **레이어**는 매 프레임 다시 그려지지만 장면을 다시 그리지는 않습니다. 이동하거나 줄어들거나 사라진 레이어의
+  이전 사각형은 장면 버퍼에서 복원됩니다. `Alpha < 1`인 레이어나 `Opaque`로 표시되지 않은 레이어 아래에서는 매
+  프레임 장면이 복원됩니다. `Opaque: true`는 모든 픽셀이 불투명함을 약속하며, 정지한 게스트 이미지가 아무것도
+  그리지 않게 해 줍니다.
+- **사용하지 않아도** 달라지는 것은 없습니다. `DrawDamaged`가 없는 장면은 예전처럼 전체가 그려지고 놓입니다.
+  `webcanvas/gpu` 프레젠터는 매 프레임 GPU에서 다시 그리며 아직 이를 사용하지 않습니다
+  ([webcanvas#37](https://github.com/go-widgets/webcanvas/issues/37)).
+- **측정**: node의 `GOOS=js`, 1280×800, 가짜 2D 컨텍스트에서 120×40 위젯 하나를 바꾸는 프레임은 2.89 ms 대신
+  0.031 ms, 변경 없이 불투명 레이어 하나가 있는 프레임은 2.90 ms 대신 0.021 ms입니다.
+
 ## GPU에서 그리기 {#on-the-gpu}
 
 `webcanvas.RunWith(id, app, presenter)`는 `Presenter`를 받고, `webcanvas/gpu`
