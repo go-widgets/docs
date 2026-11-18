@@ -124,6 +124,34 @@ application written against `window` then runs unchanged as a native window, in
 a browser tab, and in wasmdesk. From window v0.93.0 the tab publishes the
 accessibility mirror and text layer from the widget tree, with no extra code.
 
+## Repainting only what changed
+
+Without help, every frame is `Draw` of the whole scene, a copy of the whole
+framebuffer into the browser and a `putImageData` of the whole canvas, even when
+one caret blinked or only a guest's frame in a `Layer` is new. A scene that
+knows what it changed implements `DrawDamaged(buf []byte) []Rect`
+(`webcanvas.DamageDrawer`, webcanvas v0.15.0), and the host copies and puts only
+those rectangles.
+
+- **The contract** is the one [`window`'s `DamageRenderer`]({{< relref "/surfaces/native-window.md" >}})
+  gives a desktop host, in the browser's terms: the scene repaints what changed
+  into a framebuffer that persists between frames and returns the rectangles it
+  repainted (`webcanvas.Rect` is `toolkit.Rect`). An **empty** result means
+  nothing changed and nothing is put. `Draw` still runs for the first frame and
+  after every resize.
+- **Layers** are drawn again every frame, but cost no scene repaint. A layer
+  that moved, shrank or went has its old rectangle put back from the scene
+  buffer; a layer with `Alpha < 1`, or not marked `Opaque`, has the scene put
+  back under it every frame. `Opaque: true` promises every pixel is opaque, and
+  is what lets a still guest frame put nothing.
+- **Not using it** changes nothing: a scene without `DrawDamaged` is drawn and
+  put whole, as before. The `webcanvas/gpu` presenter redraws on the GPU every
+  frame and does not use it yet
+  ([webcanvas#37](https://github.com/go-widgets/webcanvas/issues/37)).
+- **Measured** under `GOOS=js` in node at 1280×800, with a fake 2D context: a
+  frame that changes one 120×40 widget costs 0.031 ms instead of 2.89 ms, and a
+  frame with no damage and one opaque layer 0.021 ms instead of 2.90 ms.
+
 ## On the GPU
 
 `webcanvas.RunWith(id, app, presenter)` takes a `Presenter`, and the package
