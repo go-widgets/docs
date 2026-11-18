@@ -30,6 +30,21 @@ data-copied-label="복사됨!"
 &lt;p&gt;&lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;갤러리&lt;/a&gt;와&lt;a href="https://go-widgets.github.io/docs/0.2/ko/getting-started/"&gt;&lt;code&gt;app-template&lt;/code&gt;&lt;/a&gt;은 이 방식으로 실행됩니다.&lt;/p&gt;
 &lt;p&gt;아니면 &lt;code&gt;window&lt;/code&gt;가 선택하게 할 수도 있습니다. window v0.87.0부터 일반 페이지에서&lt;code&gt;js/wasm&lt;/code&gt;용으로 빌드된&lt;a href="https://go-widgets.github.io/docs/0.2/ko/surfaces/native-window/#how-open-chooses"&gt;&lt;code&gt;window.Open&lt;/code&gt;&lt;/a&gt;은&lt;code&gt;webcanvas&lt;/code&gt;를 통해 페이지의 &lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt;(&lt;code&gt;Config.Canvas&lt;/code&gt;, 기본값 &lt;code&gt;&amp;quot;screen&amp;quot;&lt;/code&gt;)에 그리는
 백엔드를 반환합니다. 그러면 &lt;code&gt;window&lt;/code&gt;에 맞춰 작성된 애플리케이션이 네이티브 창으로도,브라우저 탭에서도, wasmdesk에서도 그대로 실행됩니다.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="repainting-only-what-changed"&gt;바뀐 부분만 다시 그리기&lt;span class="hx:absolute hx:-mt-20" id="repainting-only-what-changed"&gt;&lt;/span&gt;
+&lt;a href="#repainting-only-what-changed" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;아무 도움이 없으면 모든 프레임이 장면 전체의 &lt;code&gt;Draw&lt;/code&gt;, 프레임버퍼 전체의 브라우저 복사, 캔버스 전체의&lt;code&gt;putImageData&lt;/code&gt;가 됩니다. 커서가 깜박였을 뿐이거나 &lt;code&gt;Layer&lt;/code&gt;에 있는 게스트의 이미지만 새로워도 마찬가지입니다.무엇이 바뀌었는지 아는 장면은 &lt;code&gt;DrawDamaged(buf []byte) []Rect&lt;/code&gt;(&lt;code&gt;webcanvas.DamageDrawer&lt;/code&gt;, webcanvas v0.15.0)를
+구현하고, 호스트는 그 사각형만 복사해 그립니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;계약&lt;/strong&gt;은 &lt;a href="https://go-widgets.github.io/docs/0.2/ko/surfaces/native-window/"&gt;&lt;code&gt;window&lt;/code&gt;&lt;/a&gt;의 &lt;code&gt;DamageRenderer&lt;/code&gt;가 데스크톱 호스트에
+주는 것을 브라우저의 용어로 옮긴 것입니다. 장면은 바뀐 부분을 프레임 사이에 유지되는 프레임버퍼에 다시 그리고,다시 그린 사각형을 반환합니다(&lt;code&gt;webcanvas.Rect&lt;/code&gt;는 &lt;code&gt;toolkit.Rect&lt;/code&gt;입니다). 결과가 &lt;strong&gt;비어 있으면&lt;/strong&gt; 아무것도 바뀌지
+않았으며 아무것도 그리지 않습니다. 첫 프레임과 크기 조정 뒤에는 여전히 &lt;code&gt;Draw&lt;/code&gt;가 실행됩니다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;레이어&lt;/strong&gt;는 매 프레임 다시 그려지지만 장면을 다시 그리지는 않습니다. 이동하거나 줄어들거나 사라진 레이어의
+이전 사각형은 장면 버퍼에서 복원됩니다. &lt;code&gt;Alpha &amp;lt; 1&lt;/code&gt;인 레이어나 &lt;code&gt;Opaque&lt;/code&gt;로 표시되지 않은 레이어 아래에서는 매
+프레임 장면이 복원됩니다. &lt;code&gt;Opaque: true&lt;/code&gt;는 모든 픽셀이 불투명함을 약속하며, 정지한 게스트 이미지가 아무것도
+그리지 않게 해 줍니다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;사용하지 않아도&lt;/strong&gt; 달라지는 것은 없습니다. &lt;code&gt;DrawDamaged&lt;/code&gt;가 없는 장면은 예전처럼 전체가 그려지고 놓입니다.&lt;code&gt;webcanvas/gpu&lt;/code&gt; 프레젠터는 매 프레임 GPU에서 다시 그리며 아직 이를 사용하지 않습니다(&lt;a href="https://github.com/go-widgets/webcanvas/issues/37" target="_blank" rel="noopener"&gt;webcanvas#37&lt;/a&gt;).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;측정&lt;/strong&gt;: node의 &lt;code&gt;GOOS=js&lt;/code&gt;, 1280×800, 가짜 2D 컨텍스트에서 120×40 위젯 하나를 바꾸는 프레임은 2.89 ms 대신
+0.031 ms, 변경 없이 불투명 레이어 하나가 있는 프레임은 2.90 ms 대신 0.021 ms입니다.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 data-hextra-search-id="on-the-gpu"&gt;GPU에서 그리기&lt;span class="hx:absolute hx:-mt-20" id="on-the-gpu"&gt;&lt;/span&gt;
 &lt;a href="#on-the-gpu" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;webcanvas.RunWith(id, app, presenter)&lt;/code&gt;는 &lt;code&gt;Presenter&lt;/code&gt;를 받고, &lt;code&gt;webcanvas/gpu&lt;/code&gt;
 패키지가 WebGPU로 프레임을 그리는 Presenter를 제공합니다.&lt;/p&gt;

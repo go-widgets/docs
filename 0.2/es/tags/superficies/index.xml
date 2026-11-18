@@ -333,6 +333,31 @@ compilado para &lt;code&gt;js/wasm&lt;/code&gt; en una página corriente devuelv
 en el &lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; de la página (&lt;code&gt;Config.Canvas&lt;/code&gt;, por defecto &lt;code&gt;&amp;quot;screen&amp;quot;&lt;/code&gt;) a través
 de &lt;code&gt;webcanvas&lt;/code&gt;. Una aplicación escrita contra &lt;code&gt;window&lt;/code&gt; se ejecuta entonces sin
 cambios como ventana nativa, en una pestaña del navegador y en wasmdesk.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="repainting-only-what-changed"&gt;Repintar solo lo que cambió&lt;span class="hx:absolute hx:-mt-20" id="repainting-only-what-changed"&gt;&lt;/span&gt;
+&lt;a href="#repainting-only-what-changed" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Sin ayuda, cada fotograma es un &lt;code&gt;Draw&lt;/code&gt; de toda la escena, una copia de todo el
+framebuffer al navegador y un &lt;code&gt;putImageData&lt;/code&gt; de todo el canvas, aunque solo haya
+parpadeado un cursor o solo sea nueva la imagen de un invitado en un &lt;code&gt;Layer&lt;/code&gt;. Una
+escena que sabe qué cambió implementa &lt;code&gt;DrawDamaged(buf []byte) []Rect&lt;/code&gt;
+(&lt;code&gt;webcanvas.DamageDrawer&lt;/code&gt;, webcanvas v0.15.0), y el anfitrión copia y pone solo
+esos rectángulos.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;El contrato&lt;/strong&gt; es el que el &lt;code&gt;DamageRenderer&lt;/code&gt; de &lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/native-window/"&gt;&lt;code&gt;window&lt;/code&gt;&lt;/a&gt;
+da a un anfitrión de escritorio, en términos del navegador: la escena repinta
+lo que cambió en un framebuffer que persiste entre fotogramas y devuelve los
+rectángulos repintados (&lt;code&gt;webcanvas.Rect&lt;/code&gt; es &lt;code&gt;toolkit.Rect&lt;/code&gt;). Un resultado&lt;strong&gt;vacío&lt;/strong&gt; significa que nada cambió y nada se pone. &lt;code&gt;Draw&lt;/code&gt; sigue ejecutándose
+en el primer fotograma y tras cada cambio de tamaño.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Las capas&lt;/strong&gt; se dibujan de nuevo en cada fotograma, sin repintar la escena. Si
+una capa se movió, se redujo o desapareció, su rectángulo anterior se restaura
+desde el búfer de la escena; bajo una capa con &lt;code&gt;Alpha &amp;lt; 1&lt;/code&gt;, o no marcada como&lt;code&gt;Opaque&lt;/code&gt;, la escena se restaura en cada fotograma. &lt;code&gt;Opaque: true&lt;/code&gt; promete que
+todos los píxeles son opacos, y permite que una imagen de invitado quieta no
+ponga nada.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;No usarlo&lt;/strong&gt; no cambia nada: una escena sin &lt;code&gt;DrawDamaged&lt;/code&gt; se dibuja y se pone
+entera, como antes. El presentador &lt;code&gt;webcanvas/gpu&lt;/code&gt; redibuja en la GPU en cada
+fotograma y aún no lo usa(&lt;a href="https://github.com/go-widgets/webcanvas/issues/37" target="_blank" rel="noopener"&gt;webcanvas#37&lt;/a&gt;).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Medido&lt;/strong&gt; con &lt;code&gt;GOOS=js&lt;/code&gt; en node, a 1280×800, con un contexto 2D falso: un
+fotograma que cambia un widget de 120×40 cuesta 0,031 ms en lugar de 2,89 ms, y
+uno sin daño con una capa opaca 0,021 ms en lugar de 2,90 ms.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 data-hextra-search-id="on-the-gpu"&gt;En la GPU&lt;span class="hx:absolute hx:-mt-20" id="on-the-gpu"&gt;&lt;/span&gt;
 &lt;a href="#on-the-gpu" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;webcanvas.RunWith(id, app, presenter)&lt;/code&gt; recibe un &lt;code&gt;Presenter&lt;/code&gt;, y el paquete&lt;code&gt;webcanvas/gpu&lt;/code&gt; aporta uno que dibuja los fotogramas con WebGPU.&lt;/p&gt;
 &lt;ul&gt;

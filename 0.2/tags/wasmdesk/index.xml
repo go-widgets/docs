@@ -103,6 +103,32 @@ page&amp;rsquo;s &lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; (&lt;code&gt;Co
 application written against &lt;code&gt;window&lt;/code&gt; then runs unchanged as a native window, in
 a browser tab, and in wasmdesk. From window v0.93.0 the tab publishes the
 accessibility mirror and text layer from the widget tree, with no extra code.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="repainting-only-what-changed"&gt;Repainting only what changed&lt;span class="hx:absolute hx:-mt-20" id="repainting-only-what-changed"&gt;&lt;/span&gt;
+&lt;a href="#repainting-only-what-changed" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Without help, every frame is &lt;code&gt;Draw&lt;/code&gt; of the whole scene, a copy of the whole
+framebuffer into the browser and a &lt;code&gt;putImageData&lt;/code&gt; of the whole canvas, even when
+one caret blinked or only a guest&amp;rsquo;s frame in a &lt;code&gt;Layer&lt;/code&gt; is new. A scene that
+knows what it changed implements &lt;code&gt;DrawDamaged(buf []byte) []Rect&lt;/code&gt;
+(&lt;code&gt;webcanvas.DamageDrawer&lt;/code&gt;, webcanvas v0.15.0), and the host copies and puts only
+those rectangles.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;The contract&lt;/strong&gt; is the one &lt;a href="https://go-widgets.github.io/docs/0.2/surfaces/native-window/"&gt;&lt;code&gt;window&lt;/code&gt;&amp;rsquo;s &lt;code&gt;DamageRenderer&lt;/code&gt;&lt;/a&gt;
+gives a desktop host, in the browser&amp;rsquo;s terms: the scene repaints what changed
+into a framebuffer that persists between frames and returns the rectangles it
+repainted (&lt;code&gt;webcanvas.Rect&lt;/code&gt; is &lt;code&gt;toolkit.Rect&lt;/code&gt;). An &lt;strong&gt;empty&lt;/strong&gt; result means
+nothing changed and nothing is put. &lt;code&gt;Draw&lt;/code&gt; still runs for the first frame and
+after every resize.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Layers&lt;/strong&gt; are drawn again every frame, but cost no scene repaint. A layer
+that moved, shrank or went has its old rectangle put back from the scene
+buffer; a layer with &lt;code&gt;Alpha &amp;lt; 1&lt;/code&gt;, or not marked &lt;code&gt;Opaque&lt;/code&gt;, has the scene put
+back under it every frame. &lt;code&gt;Opaque: true&lt;/code&gt; promises every pixel is opaque, and
+is what lets a still guest frame put nothing.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Not using it&lt;/strong&gt; changes nothing: a scene without &lt;code&gt;DrawDamaged&lt;/code&gt; is drawn and
+put whole, as before. The &lt;code&gt;webcanvas/gpu&lt;/code&gt; presenter redraws on the GPU every
+frame and does not use it yet(&lt;a href="https://github.com/go-widgets/webcanvas/issues/37" target="_blank" rel="noopener"&gt;webcanvas#37&lt;/a&gt;).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Measured&lt;/strong&gt; under &lt;code&gt;GOOS=js&lt;/code&gt; in node at 1280×800, with a fake 2D context: a
+frame that changes one 120×40 widget costs 0.031 ms instead of 2.89 ms, and a
+frame with no damage and one opaque layer 0.021 ms instead of 2.90 ms.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 data-hextra-search-id="on-the-gpu"&gt;On the GPU&lt;span class="hx:absolute hx:-mt-20" id="on-the-gpu"&gt;&lt;/span&gt;
 &lt;a href="#on-the-gpu" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;webcanvas.RunWith(id, app, presenter)&lt;/code&gt; takes a &lt;code&gt;Presenter&lt;/code&gt;, and the package&lt;code&gt;webcanvas/gpu&lt;/code&gt; provides one that draws frames with WebGPU.&lt;/p&gt;
 &lt;ul&gt;

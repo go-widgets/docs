@@ -28,6 +28,28 @@ Ereignisart, die jeweils meldet, ob sich etwas geändert hat, damit ein unverän
 nicht neu gezeichnet wird. Sie kann außerdem &lt;code&gt;Ticker&lt;/code&gt;, &lt;code&gt;Animator&lt;/code&gt;, &lt;code&gt;Resizer&lt;/code&gt; oder&lt;code&gt;Scroller&lt;/code&gt; implementieren.&lt;/p&gt;
 &lt;p&gt;Die &lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;Galerie&lt;/a&gt; und&lt;a href="https://go-widgets.github.io/docs/0.2/de/getting-started/"&gt;&lt;code&gt;app-template&lt;/code&gt;&lt;/a&gt; laufen auf diese Weise.&lt;/p&gt;
 &lt;p&gt;Oder man lässt &lt;code&gt;window&lt;/code&gt; wählen. Seit window v0.87.0 gibt&lt;a href="https://go-widgets.github.io/docs/0.2/de/surfaces/native-window/#how-open-chooses"&gt;&lt;code&gt;window.Open&lt;/code&gt;&lt;/a&gt;,für &lt;code&gt;js/wasm&lt;/code&gt; gebaut, auf einer gewöhnlichen Seite ein Back-End zurück, das über&lt;code&gt;webcanvas&lt;/code&gt; in das &lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; der Seite zeichnet (&lt;code&gt;Config.Canvas&lt;/code&gt;, Standard &lt;code&gt;&amp;quot;screen&amp;quot;&lt;/code&gt;).Eine gegen &lt;code&gt;window&lt;/code&gt; geschriebene Anwendung läuft dann unverändert als natives Fenster,in einem Browser-Tab und in wasmdesk.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="repainting-only-what-changed"&gt;Nur neu zeichnen, was sich geändert hat&lt;span class="hx:absolute hx:-mt-20" id="repainting-only-what-changed"&gt;&lt;/span&gt;
+&lt;a href="#repainting-only-what-changed" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Ohne Hilfe ist jedes Bild ein &lt;code&gt;Draw&lt;/code&gt; der ganzen Szene, eine Kopie des ganzen
+Framebuffers in den Browser und ein &lt;code&gt;putImageData&lt;/code&gt; des ganzen Canvas, selbst wenn
+nur ein Cursor geblinkt hat oder nur das Bild eines Gasts in einem &lt;code&gt;Layer&lt;/code&gt; neu
+ist. Eine Szene, die weiß, was sie geändert hat, implementiert&lt;code&gt;DrawDamaged(buf []byte) []Rect&lt;/code&gt; (&lt;code&gt;webcanvas.DamageDrawer&lt;/code&gt;, webcanvas v0.15.0),und der Host kopiert und setzt nur diese Rechtecke.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Der Vertrag&lt;/strong&gt; ist der, den der &lt;code&gt;DamageRenderer&lt;/code&gt; von &lt;a href="https://go-widgets.github.io/docs/0.2/de/surfaces/native-window/"&gt;&lt;code&gt;window&lt;/code&gt;&lt;/a&gt;
+einem Desktop-Host gibt, in Browser-Begriffen: Die Szene zeichnet das
+Geänderte in einen Framebuffer, der zwischen den Bildern bestehen bleibt, und
+gibt die neu gezeichneten Rechtecke zurück (&lt;code&gt;webcanvas.Rect&lt;/code&gt; ist&lt;code&gt;toolkit.Rect&lt;/code&gt;). Ein &lt;strong&gt;leeres&lt;/strong&gt; Ergebnis heißt: nichts hat sich geändert, nichts
+wird gesetzt. &lt;code&gt;Draw&lt;/code&gt; läuft weiterhin für das erste Bild und nach jeder
+Größenänderung.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Layer&lt;/strong&gt; werden in jedem Bild neu gezeichnet, ohne die Szene neu zu zeichnen.Bei einem verschobenen, verkleinerten oder verschwundenen Layer wird das alte
+Rechteck aus dem Szenenpuffer wiederhergestellt; unter einem Layer mit&lt;code&gt;Alpha &amp;lt; 1&lt;/code&gt; oder ohne &lt;code&gt;Opaque&lt;/code&gt; wird die Szene in jedem Bild wiederhergestellt.&lt;code&gt;Opaque: true&lt;/code&gt; verspricht, dass alle Pixel deckend sind, sodass ein ruhendes
+Gastbild nichts setzt.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ohne&lt;/strong&gt; &lt;code&gt;DrawDamaged&lt;/code&gt; ändert sich nichts: Die Szene wird wie bisher ganz
+gezeichnet und gesetzt. Der Presenter &lt;code&gt;webcanvas/gpu&lt;/code&gt; zeichnet in jedem Bild neu
+auf der GPU und nutzt es noch nicht(&lt;a href="https://github.com/go-widgets/webcanvas/issues/37" target="_blank" rel="noopener"&gt;webcanvas#37&lt;/a&gt;).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Gemessen&lt;/strong&gt; unter &lt;code&gt;GOOS=js&lt;/code&gt; in node, 1280×800, mit einem Fake-2D-Kontext: Ein
+Bild, das ein 120×40-Widget ändert, kostet 0,031 ms statt 2,89 ms, ein Bild
+ohne Änderung mit einem deckenden Layer 0,021 ms statt 2,90 ms.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 data-hextra-search-id="on-the-gpu"&gt;Auf der GPU&lt;span class="hx:absolute hx:-mt-20" id="on-the-gpu"&gt;&lt;/span&gt;
 &lt;a href="#on-the-gpu" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;webcanvas.RunWith(id, app, presenter)&lt;/code&gt; nimmt einen &lt;code&gt;Presenter&lt;/code&gt; entgegen, und
 das Paket &lt;code&gt;webcanvas/gpu&lt;/code&gt; liefert einen, der Bilder mit WebGPU zeichnet.&lt;/p&gt;

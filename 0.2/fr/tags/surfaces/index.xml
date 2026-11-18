@@ -314,6 +314,31 @@ ne soit pas repeinte. Elle peut aussi implémenter &lt;code&gt;Ticker&lt;/code&g
 compilé pour &lt;code&gt;js/wasm&lt;/code&gt; sur une page ordinaire renvoie un back-end qui dessine dans le&lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; de la page (&lt;code&gt;Config.Canvas&lt;/code&gt;, par défaut &lt;code&gt;&amp;quot;screen&amp;quot;&lt;/code&gt;) via &lt;code&gt;webcanvas&lt;/code&gt;. Une
 application écrite pour &lt;code&gt;window&lt;/code&gt; fonctionne alors sans modification comme fenêtre native, dans
 un onglet de navigateur et dans wasmdesk.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="repainting-only-what-changed"&gt;Ne repeindre que ce qui a changé&lt;span class="hx:absolute hx:-mt-20" id="repainting-only-what-changed"&gt;&lt;/span&gt;
+&lt;a href="#repainting-only-what-changed" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Sans aide, chaque image est un &lt;code&gt;Draw&lt;/code&gt; de toute la scène, une copie de tout le
+framebuffer vers le navigateur et un &lt;code&gt;putImageData&lt;/code&gt; de tout le canvas, même quand
+seul un curseur a clignoté ou qu&amp;rsquo;une image d&amp;rsquo;invité dans un &lt;code&gt;Layer&lt;/code&gt; est nouvelle.Une scène qui sait ce qu&amp;rsquo;elle a modifié implémente &lt;code&gt;DrawDamaged(buf []byte) []Rect&lt;/code&gt;
+(&lt;code&gt;webcanvas.DamageDrawer&lt;/code&gt;, webcanvas v0.15.0), et l&amp;rsquo;hôte ne copie et ne dépose
+que ces rectangles.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Le contrat&lt;/strong&gt; est celui que le &lt;code&gt;DamageRenderer&lt;/code&gt; de &lt;a href="https://go-widgets.github.io/docs/0.2/fr/surfaces/native-window/"&gt;&lt;code&gt;window&lt;/code&gt;&lt;/a&gt;
+donne à un hôte de bureau, en termes de navigateur : la scène repeint ce qui a
+changé dans un framebuffer qui persiste d&amp;rsquo;une image à l&amp;rsquo;autre et renvoie les
+rectangles repeints (&lt;code&gt;webcanvas.Rect&lt;/code&gt; est &lt;code&gt;toolkit.Rect&lt;/code&gt;). Un résultat &lt;strong&gt;vide&lt;/strong&gt;
+signifie que rien n&amp;rsquo;a changé et que rien n&amp;rsquo;est déposé. &lt;code&gt;Draw&lt;/code&gt; s&amp;rsquo;exécute encore
+pour la première image et après chaque redimensionnement.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Les calques&lt;/strong&gt; sont redessinés à chaque image, sans repeindre la scène. Pour un
+calque déplacé, réduit ou disparu, l&amp;rsquo;ancien rectangle est restauré depuis le
+tampon de la scène ; sous un calque avec &lt;code&gt;Alpha &amp;lt; 1&lt;/code&gt;, ou non marqué &lt;code&gt;Opaque&lt;/code&gt;, la
+scène est restaurée à chaque image. &lt;code&gt;Opaque: true&lt;/code&gt; promet que tous les pixels
+sont opaques, ce qui permet à une image d&amp;rsquo;invité immobile de ne rien déposer.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ne pas l&amp;rsquo;utiliser&lt;/strong&gt; ne change rien : une scène sans &lt;code&gt;DrawDamaged&lt;/code&gt; est dessinée
+et déposée en entier, comme avant. Le présentateur &lt;code&gt;webcanvas/gpu&lt;/code&gt; redessine sur
+le GPU à chaque image et ne l&amp;rsquo;utilise pas encore(&lt;a href="https://github.com/go-widgets/webcanvas/issues/37" target="_blank" rel="noopener"&gt;webcanvas#37&lt;/a&gt;).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Mesuré&lt;/strong&gt; sous &lt;code&gt;GOOS=js&lt;/code&gt; dans node, en 1280×800, avec un faux contexte 2D : une
+image qui modifie un widget de 120×40 coûte 0,031 ms au lieu de 2,89 ms, et une
+image sans dégât avec un calque opaque 0,021 ms au lieu de 2,90 ms.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 data-hextra-search-id="on-the-gpu"&gt;Sur le GPU&lt;span class="hx:absolute hx:-mt-20" id="on-the-gpu"&gt;&lt;/span&gt;
 &lt;a href="#on-the-gpu" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;webcanvas.RunWith(id, app, presenter)&lt;/code&gt; prend un &lt;code&gt;Presenter&lt;/code&gt;, et le paquet&lt;code&gt;webcanvas/gpu&lt;/code&gt; en fournit un qui dessine les images avec WebGPU.&lt;/p&gt;
 &lt;ul&gt;
