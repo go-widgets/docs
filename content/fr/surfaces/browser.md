@@ -41,6 +41,34 @@ compilé pour `js/wasm` sur une page ordinaire renvoie un back-end qui dessine d
 application écrite pour `window` fonctionne alors sans modification comme fenêtre native, dans
 un onglet de navigateur et dans wasmdesk.
 
+## Ne repeindre que ce qui a changé {#repainting-only-what-changed}
+
+Sans aide, chaque image est un `Draw` de toute la scène, une copie de tout le
+framebuffer vers le navigateur et un `putImageData` de tout le canvas, même quand
+seul un curseur a clignoté ou qu'une image d'invité dans un `Layer` est nouvelle.
+Une scène qui sait ce qu'elle a modifié implémente `DrawDamaged(buf []byte) []Rect`
+(`webcanvas.DamageDrawer`, webcanvas v0.15.0), et l'hôte ne copie et ne dépose
+que ces rectangles.
+
+- **Le contrat** est celui que le `DamageRenderer` de [`window`]({{< relref "/surfaces/native-window.md" >}})
+  donne à un hôte de bureau, en termes de navigateur : la scène repeint ce qui a
+  changé dans un framebuffer qui persiste d'une image à l'autre et renvoie les
+  rectangles repeints (`webcanvas.Rect` est `toolkit.Rect`). Un résultat **vide**
+  signifie que rien n'a changé et que rien n'est déposé. `Draw` s'exécute encore
+  pour la première image et après chaque redimensionnement.
+- **Les calques** sont redessinés à chaque image, sans repeindre la scène. Pour un
+  calque déplacé, réduit ou disparu, l'ancien rectangle est restauré depuis le
+  tampon de la scène ; sous un calque avec `Alpha < 1`, ou non marqué `Opaque`, la
+  scène est restaurée à chaque image. `Opaque: true` promet que tous les pixels
+  sont opaques, ce qui permet à une image d'invité immobile de ne rien déposer.
+- **Ne pas l'utiliser** ne change rien : une scène sans `DrawDamaged` est dessinée
+  et déposée en entier, comme avant. Le présentateur `webcanvas/gpu` redessine sur
+  le GPU à chaque image et ne l'utilise pas encore
+  ([webcanvas#37](https://github.com/go-widgets/webcanvas/issues/37)).
+- **Mesuré** sous `GOOS=js` dans node, en 1280×800, avec un faux contexte 2D : une
+  image qui modifie un widget de 120×40 coûte 0,031 ms au lieu de 2,89 ms, et une
+  image sans dégât avec un calque opaque 0,021 ms au lieu de 2,90 ms.
+
 ## Sur le GPU {#on-the-gpu}
 
 `webcanvas.RunWith(id, app, presenter)` prend un `Presenter`, et le paquet

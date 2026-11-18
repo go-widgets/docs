@@ -42,6 +42,35 @@ en el `<canvas>` de la página (`Config.Canvas`, por defecto `"screen"`) a trav�
 de `webcanvas`. Una aplicación escrita contra `window` se ejecuta entonces sin
 cambios como ventana nativa, en una pestaña del navegador y en wasmdesk.
 
+## Repintar solo lo que cambió {#repainting-only-what-changed}
+
+Sin ayuda, cada fotograma es un `Draw` de toda la escena, una copia de todo el
+framebuffer al navegador y un `putImageData` de todo el canvas, aunque solo haya
+parpadeado un cursor o solo sea nueva la imagen de un invitado en un `Layer`. Una
+escena que sabe qué cambió implementa `DrawDamaged(buf []byte) []Rect`
+(`webcanvas.DamageDrawer`, webcanvas v0.15.0), y el anfitrión copia y pone solo
+esos rectángulos.
+
+- **El contrato** es el que el `DamageRenderer` de [`window`]({{< relref "/surfaces/native-window.md" >}})
+  da a un anfitrión de escritorio, en términos del navegador: la escena repinta
+  lo que cambió en un framebuffer que persiste entre fotogramas y devuelve los
+  rectángulos repintados (`webcanvas.Rect` es `toolkit.Rect`). Un resultado
+  **vacío** significa que nada cambió y nada se pone. `Draw` sigue ejecutándose
+  en el primer fotograma y tras cada cambio de tamaño.
+- **Las capas** se dibujan de nuevo en cada fotograma, sin repintar la escena. Si
+  una capa se movió, se redujo o desapareció, su rectángulo anterior se restaura
+  desde el búfer de la escena; bajo una capa con `Alpha < 1`, o no marcada como
+  `Opaque`, la escena se restaura en cada fotograma. `Opaque: true` promete que
+  todos los píxeles son opacos, y permite que una imagen de invitado quieta no
+  ponga nada.
+- **No usarlo** no cambia nada: una escena sin `DrawDamaged` se dibuja y se pone
+  entera, como antes. El presentador `webcanvas/gpu` redibuja en la GPU en cada
+  fotograma y aún no lo usa
+  ([webcanvas#37](https://github.com/go-widgets/webcanvas/issues/37)).
+- **Medido** con `GOOS=js` en node, a 1280×800, con un contexto 2D falso: un
+  fotograma que cambia un widget de 120×40 cuesta 0,031 ms en lugar de 2,89 ms, y
+  uno sin daño con una capa opaca 0,021 ms en lugar de 2,90 ms.
+
 ## En la GPU {#on-the-gpu}
 
 `webcanvas.RunWith(id, app, presenter)` recibe un `Presenter`, y el paquete

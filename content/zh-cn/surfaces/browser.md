@@ -36,6 +36,25 @@ func main() { webcanvas.Run("screen", myScene()) }
 会返回一个后端，它通过 `webcanvas` 绘制到页面的 `<canvas>`（`Config.Canvas`，默认为 `"screen"`）。
 这样，针对 `window` 编写的应用无需改动就能作为原生窗口、在浏览器标签页中以及在 wasmdesk 中运行。
 
+## 只重绘变化的部分 {#repainting-only-what-changed}
+
+如果不加处理，每一帧都是整个场景的 `Draw`、整个帧缓冲向浏览器的复制，以及整个 canvas 的 `putImageData`，
+即使只是光标闪烁了一下，或只是 `Layer` 中客户机的图像更新了。知道自己改变了什么的场景实现
+`DrawDamaged(buf []byte) []Rect`（`webcanvas.DamageDrawer`，webcanvas v0.15.0），宿主就只复制并放置这些矩形。
+
+- **约定**与 [`window`]({{< relref "/surfaces/native-window.md" >}}) 的 `DamageRenderer` 给桌面宿主的约定相同，
+  只是换成浏览器的说法：场景把变化的部分重绘到帧与帧之间保持不变的帧缓冲中，并返回重绘的矩形
+  （`webcanvas.Rect` 就是 `toolkit.Rect`）。结果为**空**表示没有任何变化，也不放置任何内容。第一帧以及每次调整大小后，
+  仍会执行 `Draw`。
+- **图层**每一帧都会重新绘制，但不需要重绘场景。图层移动、缩小或消失时，它原来的矩形会从场景缓冲中恢复；
+  在 `Alpha < 1` 或未标记 `Opaque` 的图层之下，每一帧都会恢复场景。`Opaque: true` 承诺所有像素都不透明，
+  这样静止的客户机画面就不会放置任何内容。
+- **不使用它**则一切照旧：没有 `DrawDamaged` 的场景像以前一样被整体绘制并放置。`webcanvas/gpu` 呈现器每帧都在
+  GPU 上重新绘制，目前尚未使用它
+  （[webcanvas#37](https://github.com/go-widgets/webcanvas/issues/37)）。
+- **测量**：在 node 中以 `GOOS=js`、1280×800 和一个伪造的 2D 上下文测得，改变一个 120×40 部件的帧耗时 0.031 ms，
+  而不是 2.89 ms；没有变化且带一个不透明图层的帧耗时 0.021 ms，而不是 2.90 ms。
+
 ## 在 GPU 上绘制 {#on-the-gpu}
 
 `webcanvas.RunWith(id, app, presenter)` 接收一个 `Presenter`,`webcanvas/gpu`

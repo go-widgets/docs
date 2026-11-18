@@ -41,6 +41,36 @@ für `js/wasm` gebaut, auf einer gewöhnlichen Seite ein Back-End zurück, das �
 Eine gegen `window` geschriebene Anwendung läuft dann unverändert als natives Fenster,
 in einem Browser-Tab und in wasmdesk.
 
+## Nur neu zeichnen, was sich geändert hat {#repainting-only-what-changed}
+
+Ohne Hilfe ist jedes Bild ein `Draw` der ganzen Szene, eine Kopie des ganzen
+Framebuffers in den Browser und ein `putImageData` des ganzen Canvas, selbst wenn
+nur ein Cursor geblinkt hat oder nur das Bild eines Gasts in einem `Layer` neu
+ist. Eine Szene, die weiß, was sie geändert hat, implementiert
+`DrawDamaged(buf []byte) []Rect` (`webcanvas.DamageDrawer`, webcanvas v0.15.0),
+und der Host kopiert und setzt nur diese Rechtecke.
+
+- **Der Vertrag** ist der, den der `DamageRenderer` von [`window`]({{< relref "/surfaces/native-window.md" >}})
+  einem Desktop-Host gibt, in Browser-Begriffen: Die Szene zeichnet das
+  Geänderte in einen Framebuffer, der zwischen den Bildern bestehen bleibt, und
+  gibt die neu gezeichneten Rechtecke zurück (`webcanvas.Rect` ist
+  `toolkit.Rect`). Ein **leeres** Ergebnis heißt: nichts hat sich geändert, nichts
+  wird gesetzt. `Draw` läuft weiterhin für das erste Bild und nach jeder
+  Größenänderung.
+- **Layer** werden in jedem Bild neu gezeichnet, ohne die Szene neu zu zeichnen.
+  Bei einem verschobenen, verkleinerten oder verschwundenen Layer wird das alte
+  Rechteck aus dem Szenenpuffer wiederhergestellt; unter einem Layer mit
+  `Alpha < 1` oder ohne `Opaque` wird die Szene in jedem Bild wiederhergestellt.
+  `Opaque: true` verspricht, dass alle Pixel deckend sind, sodass ein ruhendes
+  Gastbild nichts setzt.
+- **Ohne** `DrawDamaged` ändert sich nichts: Die Szene wird wie bisher ganz
+  gezeichnet und gesetzt. Der Presenter `webcanvas/gpu` zeichnet in jedem Bild neu
+  auf der GPU und nutzt es noch nicht
+  ([webcanvas#37](https://github.com/go-widgets/webcanvas/issues/37)).
+- **Gemessen** unter `GOOS=js` in node, 1280×800, mit einem Fake-2D-Kontext: Ein
+  Bild, das ein 120×40-Widget ändert, kostet 0,031 ms statt 2,89 ms, ein Bild
+  ohne Änderung mit einem deckenden Layer 0,021 ms statt 2,90 ms.
+
 ## Auf der GPU {#on-the-gpu}
 
 `webcanvas.RunWith(id, app, presenter)` nimmt einen `Presenter` entgegen, und
