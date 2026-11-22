@@ -30,7 +30,7 @@ data-copied-label="已复制！"
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;约定&lt;/strong&gt;与 &lt;a href="https://go-widgets.github.io/docs/0.2/zh-cn/surfaces/native-window/"&gt;&lt;code&gt;window&lt;/code&gt;&lt;/a&gt; 的 &lt;code&gt;DamageRenderer&lt;/code&gt; 给桌面宿主的约定相同，只是换成浏览器的说法：场景把变化的部分重绘到帧与帧之间保持不变的帧缓冲中，并返回重绘的矩形（&lt;code&gt;webcanvas.Rect&lt;/code&gt; 就是 &lt;code&gt;toolkit.Rect&lt;/code&gt;）。结果为&lt;strong&gt;空&lt;/strong&gt;表示没有任何变化，也不放置任何内容。第一帧以及每次调整大小后，仍会执行 &lt;code&gt;Draw&lt;/code&gt;。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;图层&lt;/strong&gt;每一帧都会重新绘制，但不需要重绘场景。图层移动、缩小或消失时，它原来的矩形会从场景缓冲中恢复；在 &lt;code&gt;Alpha &amp;lt; 1&lt;/code&gt; 或未标记 &lt;code&gt;Opaque&lt;/code&gt; 的图层之下，每一帧都会恢复场景。&lt;code&gt;Opaque: true&lt;/code&gt; 承诺所有像素都不透明，这样静止的客户机画面就不会放置任何内容。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;不使用它&lt;/strong&gt;则一切照旧：没有 &lt;code&gt;DrawDamaged&lt;/code&gt; 的场景像以前一样被整体绘制并放置。&lt;code&gt;webcanvas/gpu&lt;/code&gt; 呈现器每帧都在GPU 上重新绘制，目前尚未使用它（&lt;a href="https://github.com/go-widgets/webcanvas/issues/37" target="_blank" rel="noopener"&gt;webcanvas#37&lt;/a&gt;）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;不使用它&lt;/strong&gt;则一切照旧：没有 &lt;code&gt;DrawDamaged&lt;/code&gt; 的场景像以前一样被整体绘制并放置。&lt;code&gt;webcanvas/gpu&lt;/code&gt; 呈现器有它自己的版本，见下文。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;测量&lt;/strong&gt;：在 node 中以 &lt;code&gt;GOOS=js&lt;/code&gt;、1280×800 和一个伪造的 2D 上下文测得，改变一个 120×40 部件的帧耗时 0.031 ms，而不是 2.89 ms；没有变化且带一个不透明图层的帧耗时 0.021 ms，而不是 2.90 ms。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 data-hextra-search-id="on-the-gpu"&gt;在 GPU 上绘制&lt;span class="hx:absolute hx:-mt-20" id="on-the-gpu"&gt;&lt;/span&gt;
@@ -40,6 +40,8 @@ data-copied-label="已复制！"
 &lt;li&gt;&lt;strong&gt;方式:&lt;/strong&gt; 同时实现了 &lt;code&gt;Paint(painter.Painter)&lt;/code&gt; 的 App,经&lt;a href="https://github.com/go-widgets/gpupainter" target="_blank" rel="noopener"&gt;gpupainter&lt;/a&gt; 记录为&lt;a href="https://github.com/go-gfx/gpu2d" target="_blank" rel="noopener"&gt;go-gfx/gpu2d&lt;/a&gt; 列表。它的 WebGPU 渲染器绘制该帧,并在 GPU 上把帧复制到画布纹理中。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;为何用 Presenter:&lt;/strong&gt; 一个画布终生只能取一种上下文,因此由 Presenter 在第一帧之前一次性决定。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;精确性:&lt;/strong&gt; 像素与 &lt;code&gt;Draw&lt;/code&gt; 的 CPU 帧逐字节相同(有测试保证)。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;损坏区域:&lt;/strong&gt; 同时实现了 &lt;code&gt;PaintDamaged(painter.Painter) []Rect&lt;/code&gt; 的 App(&lt;code&gt;gpu.DamagePainted&lt;/code&gt;,webcanvas v0.16.0 和 v0.17.0),像 toolkit 的 &lt;code&gt;RenderDamaged&lt;/code&gt; 一样,只把变化的部分绘制到 painter 中,并限制在它返回的矩形内。结果为&lt;strong&gt;空&lt;/strong&gt;时,该帧既不记录也不呈现:静止的帧不会向 GPU 发送命令缓冲区(之前 2 个,之后 0 个,在 Chrome 中计数,0 次分配)。有损坏区域的帧按 &lt;code&gt;PaintDamaged&lt;/code&gt; 绘制的内容记录,因此场景必须重绘损坏区域之下的底色:1,200 个单元格中有一个受损时,交给渲染器的列表从 2,401 个实例降为 2 个。第一帧、调整大小,以及没有 &lt;code&gt;PaintDamaged&lt;/code&gt; 的 App 都会被完整记录。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;画布纹理不会保留:&lt;/strong&gt; 每次呈现之后,WebGPU 规范会给 &lt;code&gt;getCurrentTexture()&lt;/code&gt; 一个透明黑色纹理(Chrome 也一样),因此渲染器自己的目标保留该帧的其余部分,每个呈现的帧仍会把全部内容在 GPU 上复制到画布。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;回退:&lt;/strong&gt; 没有 WebGPU 的浏览器,或没有 &lt;code&gt;Paint&lt;/code&gt; 的 App,仍使用 2D 画布。两种情况都不算错误。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;Web 画廊&lt;/a&gt;就是这样绘制的。&lt;/p&gt;

@@ -54,8 +54,7 @@ desde el búfer de la escena; bajo una capa con &lt;code&gt;Alpha &amp;lt; 1&lt;
 todos los píxeles son opacos, y permite que una imagen de invitado quieta no
 ponga nada.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;No usarlo&lt;/strong&gt; no cambia nada: una escena sin &lt;code&gt;DrawDamaged&lt;/code&gt; se dibuja y se pone
-entera, como antes. El presentador &lt;code&gt;webcanvas/gpu&lt;/code&gt; redibuja en la GPU en cada
-fotograma y aún no lo usa(&lt;a href="https://github.com/go-widgets/webcanvas/issues/37" target="_blank" rel="noopener"&gt;webcanvas#37&lt;/a&gt;).&lt;/li&gt;
+entera, como antes. El presentador &lt;code&gt;webcanvas/gpu&lt;/code&gt; tiene su propia versión,más abajo.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Medido&lt;/strong&gt; con &lt;code&gt;GOOS=js&lt;/code&gt; en node, a 1280×800, con un contexto 2D falso: un
 fotograma que cambia un widget de 120×40 cuesta 0,031 ms en lugar de 2,89 ms, y
 uno sin daño con una capa opaca 0,021 ms en lugar de 2,90 ms.&lt;/li&gt;
@@ -71,6 +70,19 @@ dibuja el fotograma, que se copia en la textura del canvas dentro de la GPU.&lt;
 vida, así que el presentador decide una vez, antes del primer fotograma.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Exactitud:&lt;/strong&gt; los píxeles son los del fotograma de CPU de &lt;code&gt;Draw&lt;/code&gt;, byte a
 byte (lo garantiza una prueba).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Daño:&lt;/strong&gt; una App que implementa también &lt;code&gt;PaintDamaged(painter.Painter) []Rect&lt;/code&gt;
+(&lt;code&gt;gpu.DamagePainted&lt;/code&gt;, webcanvas v0.16.0 y v0.17.0) pinta en el painter solo lo
+que cambió, limitado a los rectángulos que devuelve, como el &lt;code&gt;RenderDamaged&lt;/code&gt;
+de toolkit. Un resultado &lt;strong&gt;vacío&lt;/strong&gt; significa que el fotograma ni se graba ni
+se presenta: un fotograma quieto no envía ningún búfer de comandos a la GPU(2 antes, 0 después, contados en Chrome, 0 asignaciones). Un fotograma con
+daño se graba tal como lo pintó &lt;code&gt;PaintDamaged&lt;/code&gt;, así que la escena debe
+repintar el fondo bajo el daño: con una celda dañada de 1.200, la lista
+entregada al renderizador pasa de 2.401 instancias a 2. El primer fotograma,un cambio de tamaño y una App sin &lt;code&gt;PaintDamaged&lt;/code&gt; se graban enteros.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;La textura del canvas no persiste:&lt;/strong&gt; tras cada presentación, la
+especificación WebGPU da a &lt;code&gt;getCurrentTexture()&lt;/code&gt; una textura negra
+transparente (Chrome hace lo mismo), así que el destino propio del
+renderizador conserva el resto del fotograma y cada fotograma presentado aún
+copia todo al canvas, dentro de la GPU.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Alternativas:&lt;/strong&gt; un navegador sin WebGPU, o una App sin &lt;code&gt;Paint&lt;/code&gt;, se queda en
 el canvas 2D. Ninguno de los dos casos es un error.&lt;/li&gt;
 &lt;/ul&gt;

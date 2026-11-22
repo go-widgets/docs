@@ -333,8 +333,8 @@ tampon de la scène ; sous un calque avec &lt;code&gt;Alpha &amp;lt; 1&lt;/code&
 scène est restaurée à chaque image. &lt;code&gt;Opaque: true&lt;/code&gt; promet que tous les pixels
 sont opaques, ce qui permet à une image d&amp;rsquo;invité immobile de ne rien déposer.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Ne pas l&amp;rsquo;utiliser&lt;/strong&gt; ne change rien : une scène sans &lt;code&gt;DrawDamaged&lt;/code&gt; est dessinée
-et déposée en entier, comme avant. Le présentateur &lt;code&gt;webcanvas/gpu&lt;/code&gt; redessine sur
-le GPU à chaque image et ne l&amp;rsquo;utilise pas encore(&lt;a href="https://github.com/go-widgets/webcanvas/issues/37" target="_blank" rel="noopener"&gt;webcanvas#37&lt;/a&gt;).&lt;/li&gt;
+et déposée en entier, comme avant. Le présentateur &lt;code&gt;webcanvas/gpu&lt;/code&gt; en a sa
+propre version, plus bas.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Mesuré&lt;/strong&gt; sous &lt;code&gt;GOOS=js&lt;/code&gt; dans node, en 1280×800, avec un faux contexte 2D : une
 image qui modifie un widget de 120×40 coûte 0,031 ms au lieu de 2,89 ms, et une
 image sans dégât avec un calque opaque 0,021 ms au lieu de 2,90 ms.&lt;/li&gt;
@@ -351,6 +351,21 @@ pour toute sa vie ; le presenter décide donc une fois, avant la première
 image.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Exactitude :&lt;/strong&gt; les pixels sont ceux de l&amp;rsquo;image CPU de &lt;code&gt;Draw&lt;/code&gt;, octet pour
 octet (un test le garantit).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Dégâts :&lt;/strong&gt; une App qui implémente aussi &lt;code&gt;PaintDamaged(painter.Painter) []Rect&lt;/code&gt;
+(&lt;code&gt;gpu.DamagePainted&lt;/code&gt;, webcanvas v0.16.0 et v0.17.0) ne peint dans le painter
+que ce qui a changé, borné aux rectangles qu&amp;rsquo;elle renvoie, comme le&lt;code&gt;RenderDamaged&lt;/code&gt; de toolkit. Un résultat &lt;strong&gt;vide&lt;/strong&gt; veut dire que l&amp;rsquo;image n&amp;rsquo;est ni
+enregistrée ni présentée : une image immobile n&amp;rsquo;envoie aucun tampon de
+commandes au GPU (2 avant, 0 après, comptés dans Chrome, 0 allocation). Une
+image avec dégâts est enregistrée telle que &lt;code&gt;PaintDamaged&lt;/code&gt; l&amp;rsquo;a peinte, donc la
+scène doit repeindre le fond sous les dégâts : avec une cellule endommagée sur
+1 200, la liste remise au moteur passe de 2 401 instances à 2. La première
+image, un redimensionnement et une App sans &lt;code&gt;PaintDamaged&lt;/code&gt; sont enregistrés en
+entier.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;La texture du canvas ne persiste pas :&lt;/strong&gt; après chaque présentation, la
+spécification WebGPU donne à &lt;code&gt;getCurrentTexture()&lt;/code&gt; une texture noire
+transparente (Chrome fait de même), si bien que la cible propre du moteur
+garde le reste de l&amp;rsquo;image et que chaque image présentée en copie encore la
+totalité vers le canvas, sur le GPU.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Repli :&lt;/strong&gt; un navigateur sans WebGPU, ou une App sans &lt;code&gt;Paint&lt;/code&gt;, reste sur le
 canvas 2D. Ce n&amp;rsquo;est une erreur ni dans un cas ni dans l&amp;rsquo;autre.&lt;/li&gt;
 &lt;/ul&gt;

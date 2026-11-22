@@ -41,7 +41,7 @@ data-copied-label="복사됨!"
 이전 사각형은 장면 버퍼에서 복원됩니다. &lt;code&gt;Alpha &amp;lt; 1&lt;/code&gt;인 레이어나 &lt;code&gt;Opaque&lt;/code&gt;로 표시되지 않은 레이어 아래에서는 매
 프레임 장면이 복원됩니다. &lt;code&gt;Opaque: true&lt;/code&gt;는 모든 픽셀이 불투명함을 약속하며, 정지한 게스트 이미지가 아무것도
 그리지 않게 해 줍니다.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;사용하지 않아도&lt;/strong&gt; 달라지는 것은 없습니다. &lt;code&gt;DrawDamaged&lt;/code&gt;가 없는 장면은 예전처럼 전체가 그려지고 놓입니다.&lt;code&gt;webcanvas/gpu&lt;/code&gt; 프레젠터는 매 프레임 GPU에서 다시 그리며 아직 이를 사용하지 않습니다(&lt;a href="https://github.com/go-widgets/webcanvas/issues/37" target="_blank" rel="noopener"&gt;webcanvas#37&lt;/a&gt;).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;사용하지 않아도&lt;/strong&gt; 달라지는 것은 없습니다. &lt;code&gt;DrawDamaged&lt;/code&gt;가 없는 장면은 예전처럼 전체가 그려지고 놓입니다.&lt;code&gt;webcanvas/gpu&lt;/code&gt; 프레젠터에는 자체 버전이 있습니다(아래 참조).&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;측정&lt;/strong&gt;: node의 &lt;code&gt;GOOS=js&lt;/code&gt;, 1280×800, 가짜 2D 컨텍스트에서 120×40 위젯 하나를 바꾸는 프레임은 2.89 ms 대신
 0.031 ms, 변경 없이 불투명 레이어 하나가 있는 프레임은 2.90 ms 대신 0.021 ms입니다.&lt;/li&gt;
 &lt;/ul&gt;
@@ -52,6 +52,13 @@ data-copied-label="복사됨!"
 &lt;li&gt;&lt;strong&gt;방식:&lt;/strong&gt; &lt;code&gt;Paint(painter.Painter)&lt;/code&gt;도 구현한 App은&lt;a href="https://github.com/go-widgets/gpupainter" target="_blank" rel="noopener"&gt;gpupainter&lt;/a&gt;를 거쳐&lt;a href="https://github.com/go-gfx/gpu2d" target="_blank" rel="noopener"&gt;go-gfx/gpu2d&lt;/a&gt; 목록으로 기록됩니다.WebGPU 렌더러가 프레임을 그리고, 그 프레임은 GPU 안에서 캔버스 텍스처로 복사됩니다.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Presenter인 이유:&lt;/strong&gt; 캔버스는 평생 한 종류의 컨텍스트만 가질 수 있으므로,Presenter가 첫 프레임 전에 한 번 결정합니다.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;정확성:&lt;/strong&gt; 픽셀은 &lt;code&gt;Draw&lt;/code&gt;의 CPU 프레임과 바이트 단위로 같습니다(테스트로 보장).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;손상:&lt;/strong&gt; &lt;code&gt;PaintDamaged(painter.Painter) []Rect&lt;/code&gt;도 구현한 App(&lt;code&gt;gpu.DamagePainted&lt;/code&gt;, webcanvas v0.16.0 및 v0.17.0)은 toolkit의 &lt;code&gt;RenderDamaged&lt;/code&gt;처럼
+바뀐 부분만, 반환하는 사각형 안으로 한정해 painter에 그립니다. 결과가 &lt;strong&gt;비어 있으면&lt;/strong&gt;
+그 프레임은 기록도 표시도 되지 않습니다. 정지한 프레임은 GPU에 명령 버퍼를 보내지 않습니다(이전 2, 이후 0, Chrome에서 측정, 할당 0). 손상이 있는 프레임은 &lt;code&gt;PaintDamaged&lt;/code&gt;가 그린 그대로
+기록되므로, 장면은 손상 아래의 바탕을 다시 그려야 합니다. 1,200개 셀 중 한 셀이 손상되면
+렌더러에 넘기는 목록은 2,401개 인스턴스에서 2개로 줄어듭니다. 첫 프레임, 크기 조정,&lt;code&gt;PaintDamaged&lt;/code&gt;가 없는 App은 전체가 기록됩니다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;캔버스 텍스처는 유지되지 않습니다:&lt;/strong&gt; 표시할 때마다 WebGPU 사양은 &lt;code&gt;getCurrentTexture()&lt;/code&gt;에
+투명한 검정 텍스처를 줍니다(Chrome도 같음). 그래서 렌더러 자체의 대상이 프레임의 나머지를 유지하고,표시되는 각 프레임은 여전히 전체를 GPU 안에서 캔버스로 복사합니다.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;대체 동작:&lt;/strong&gt; WebGPU가 없는 브라우저나 &lt;code&gt;Paint&lt;/code&gt;가 없는 App은 2D 캔버스에 머뭅니다.어느 쪽도 오류가 아닙니다.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a href="https://go-widgets.github.io/gallery/" target="_blank" rel="noopener"&gt;웹 갤러리&lt;/a&gt;가 이 방식으로 그립니다.&lt;/p&gt;

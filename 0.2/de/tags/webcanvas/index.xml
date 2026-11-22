@@ -44,8 +44,8 @@ Größenänderung.&lt;/li&gt;
 Rechteck aus dem Szenenpuffer wiederhergestellt; unter einem Layer mit&lt;code&gt;Alpha &amp;lt; 1&lt;/code&gt; oder ohne &lt;code&gt;Opaque&lt;/code&gt; wird die Szene in jedem Bild wiederhergestellt.&lt;code&gt;Opaque: true&lt;/code&gt; verspricht, dass alle Pixel deckend sind, sodass ein ruhendes
 Gastbild nichts setzt.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Ohne&lt;/strong&gt; &lt;code&gt;DrawDamaged&lt;/code&gt; ändert sich nichts: Die Szene wird wie bisher ganz
-gezeichnet und gesetzt. Der Presenter &lt;code&gt;webcanvas/gpu&lt;/code&gt; zeichnet in jedem Bild neu
-auf der GPU und nutzt es noch nicht(&lt;a href="https://github.com/go-widgets/webcanvas/issues/37" target="_blank" rel="noopener"&gt;webcanvas#37&lt;/a&gt;).&lt;/li&gt;
+gezeichnet und gesetzt. Der Presenter &lt;code&gt;webcanvas/gpu&lt;/code&gt; hat dafür eine eigene
+Version, weiter unten.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Gemessen&lt;/strong&gt; unter &lt;code&gt;GOOS=js&lt;/code&gt; in node, 1280×800, mit einem Fake-2D-Kontext: Ein
 Bild, das ein 120×40-Widget ändert, kostet 0,031 ms statt 2,89 ms, ein Bild
 ohne Änderung mit einem deckenden Layer 0,021 ms statt 2,90 ms.&lt;/li&gt;
@@ -60,6 +60,20 @@ kopiert wird.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Warum ein Presenter:&lt;/strong&gt; Ein Canvas nimmt ein Leben lang nur eine
 Kontextart an; der Presenter entscheidet deshalb einmal, vor dem ersten Bild.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Exaktheit:&lt;/strong&gt; Die Pixel sind die des CPU-Bildes von &lt;code&gt;Draw&lt;/code&gt;, Byte für Byte(ein Test sichert das).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Schaden:&lt;/strong&gt; Eine App, die auch &lt;code&gt;PaintDamaged(painter.Painter) []Rect&lt;/code&gt;
+implementiert (&lt;code&gt;gpu.DamagePainted&lt;/code&gt;, webcanvas v0.16.0 und v0.17.0), malt in den
+Painter nur, was sich geändert hat, begrenzt auf die zurückgegebenen
+Rechtecke, wie &lt;code&gt;RenderDamaged&lt;/code&gt; des Toolkits. Ein &lt;strong&gt;leeres&lt;/strong&gt; Ergebnis heißt: Das
+Bild wird weder aufgezeichnet noch präsentiert, ein ruhendes Bild sendet also
+keinen Command Buffer an die GPU (2 vorher, 0 nachher, in Chrome gezählt, 0
+Allokationen). Ein Bild mit Schaden wird so aufgezeichnet, wie &lt;code&gt;PaintDamaged&lt;/code&gt;
+es gemalt hat; die Szene muss daher den Untergrund unter dem Schaden neu
+malen: Bei einer beschädigten Zelle von 1.200 sinkt die an den Renderer
+gegebene Liste von 2.401 Instanzen auf 2. Das erste Bild, eine Größenänderung
+und eine App ohne &lt;code&gt;PaintDamaged&lt;/code&gt; werden ganz aufgezeichnet.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Die Canvas-Textur bleibt nicht erhalten:&lt;/strong&gt; Nach jeder Präsentation gibt die
+WebGPU-Spezifikation &lt;code&gt;getCurrentTexture()&lt;/code&gt; eine transparent schwarze Textur(Chrome ebenso), sodass das eigene Ziel des Renderers den Rest des Bildes
+behält und jedes präsentierte Bild weiterhin ganz in das Canvas kopiert wird,auf der GPU.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Rückfälle:&lt;/strong&gt; Ein Browser ohne WebGPU oder eine App ohne &lt;code&gt;Paint&lt;/code&gt; bleibt beim
 2D-Canvas. Beides ist kein Fehler.&lt;/li&gt;
 &lt;/ul&gt;
