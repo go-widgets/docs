@@ -47,8 +47,12 @@ return w.Run(root) // root is any toolkit.Widget
 ## 只绘制变化的部分 {#only-what-changed}
 
 实现了 `DamageRenderer` 的根（如 `toolkit/scene.HostRoot`）会报告它重绘的矩形，
-除 GTK4 之外的每个后端都只呈现这些矩形：X11 通过 MIT-SHM 的 `ShmPutImage`，Wayland 通过 `wl_shm` 的 damage，
+每个后端都只呈现这些矩形：X11 通过 MIT-SHM 的 `ShmPutImage`，Wayland 通过 `wl_shm` 的 damage，GTK4 通过部分纹理更新，
 以及 Cocoa、Win32、Android、wasmbox 和浏览器标签页。第一帧、窗口缩放和 X11 的 `Expose` 仍然呈现整个绘制表面。
+
+在 GTK4 上这需要 libgtk-4 4.16 或更新版本：帧成为带有 `set_update_texture` 和 `set_update_region` 的
+`GdkMemoryTextureBuilder` 纹理，因此 GTK 只重新渲染并上传受损区域。较旧的运行时保留完整上传，在运行时选择。
+帧在 CPU 一侧仍会被完整复制。
 
 ## 在 GPU 上绘制 {#on-the-gpu}
 

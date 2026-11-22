@@ -54,10 +54,17 @@ on every operating system. The thin platform glue is proven live: see
 ## Only what changed
 
 A root that implements `DamageRenderer` (as `toolkit/scene.HostRoot` does)
-reports the rectangles it repainted, and every back-end but GTK4 presents only
-those: X11 through MIT-SHM `ShmPutImage`, Wayland through `wl_shm` damage,
-Cocoa, Win32, Android, wasmbox and the browser tab. The first frame, a
-resize and an X11 `Expose` still present the whole surface.
+reports the rectangles it repainted, and every back-end presents only those:
+X11 through MIT-SHM `ShmPutImage`, Wayland through `wl_shm` damage, GTK4
+through a partial texture update, Cocoa, Win32, Android, wasmbox and the browser
+tab. The first frame, a resize and an X11 `Expose` still present the whole
+surface.
+
+On GTK4 this needs libgtk-4 4.16 or newer: the frame becomes a
+`GdkMemoryTextureBuilder` texture with `set_update_texture` and
+`set_update_region`, so GTK re-renders and re-uploads only the damaged region.
+An older runtime keeps the whole upload, chosen at run time. The frame is still
+copied whole on the CPU side.
 
 ## On the GPU
 

@@ -54,10 +54,16 @@ sur chaque système d'exploitation. La fine couche de liaison avec la plateforme
 ## Seulement ce qui a changé {#only-what-changed}
 
 Une racine qui implémente `DamageRenderer` (comme le fait `toolkit/scene.HostRoot`)
-signale les rectangles qu'elle a repeints, et chaque back-end sauf GTK4 ne présente que
+signale les rectangles qu'elle a repeints, et chaque back-end ne présente que
 ceux-là : X11 via `ShmPutImage` de MIT-SHM, Wayland via les zones endommagées de `wl_shm`,
-Cocoa, Win32, Android, wasmbox et l'onglet de navigateur. La première image, un
-redimensionnement et un `Expose` X11 présentent encore toute la surface.
+GTK4 via une mise à jour partielle de texture, Cocoa, Win32, Android, wasmbox et l'onglet
+de navigateur. La première image, un redimensionnement et un `Expose` X11 présentent
+encore toute la surface.
+
+Sous GTK4, cela demande libgtk-4 4.16 ou plus récent : l'image devient une texture
+`GdkMemoryTextureBuilder` avec `set_update_texture` et `set_update_region`, si bien que GTK
+ne refait le rendu et l'envoi que de la région endommagée. Un runtime plus ancien garde
+l'envoi complet, choisi à l'exécution. L'image est toujours copiée en entier côté processeur.
 
 ## Sur le GPU {#on-the-gpu}
 

@@ -54,10 +54,15 @@ auf jedem Betriebssystem. Die dünne Plattformanbindung ist live nachgewiesen: s
 ## Nur was sich geändert hat {#only-what-changed}
 
 Eine Wurzel, die `DamageRenderer` implementiert (wie `toolkit/scene.HostRoot`),
-meldet die Rechtecke, die sie neu gezeichnet hat, und jedes Back-End außer GTK4 stellt nur
-diese dar: X11 über MIT-SHM `ShmPutImage`, Wayland über `wl_shm`-Damage, Cocoa, Win32,
-Android, wasmbox und der Browser-Tab. Der erste Frame, eine Größenänderung und ein
-X11-`Expose` stellen weiterhin die ganze Oberfläche dar.
+meldet die Rechtecke, die sie neu gezeichnet hat, und jedes Back-End stellt nur
+diese dar: X11 über MIT-SHM `ShmPutImage`, Wayland über `wl_shm`-Damage, GTK4 über ein
+partielles Textur-Update, Cocoa, Win32, Android, wasmbox und der Browser-Tab. Der erste
+Frame, eine Größenänderung und ein X11-`Expose` stellen weiterhin die ganze Oberfläche dar.
+
+Unter GTK4 braucht das libgtk-4 ab 4.16: Der Frame wird zu einer `GdkMemoryTextureBuilder`-Textur
+mit `set_update_texture` und `set_update_region`, sodass GTK nur die beschädigte Region neu
+rendert und hochlädt. Eine ältere Laufzeit behält den vollständigen Upload, zur Laufzeit
+gewählt. Der Frame wird auf der CPU-Seite weiterhin ganz kopiert.
 
 ## Auf der GPU {#on-the-gpu}
 

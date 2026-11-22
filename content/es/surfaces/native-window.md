@@ -57,11 +57,17 @@ unión con la plataforma se demuestra en vivo: consulte
 ## Solo lo que ha cambiado {#only-what-changed}
 
 Una raíz que implementa `DamageRenderer` (como hace `toolkit/scene.HostRoot`)
-informa de los rectángulos que ha repintado, y todos los backends salvo GTK4
+informa de los rectángulos que ha repintado, y todos los backends
 presentan solo esos: X11 mediante `ShmPutImage` de MIT-SHM, Wayland mediante
-el daño de `wl_shm`, Cocoa, Win32, Android, wasmbox y la pestaña del navegador.
+el daño de `wl_shm`, GTK4 mediante una actualización parcial de textura, Cocoa, Win32,
+Android, wasmbox y la pestaña del navegador.
 El primer fotograma, un cambio de tamaño y un `Expose` de X11 siguen
 presentando toda la superficie.
+
+En GTK4 esto requiere libgtk-4 4.16 o posterior: el fotograma se convierte en una textura
+`GdkMemoryTextureBuilder` con `set_update_texture` y `set_update_region`, de modo que GTK
+solo vuelve a renderizar y subir la región dañada. Un runtime más antiguo conserva la subida
+completa, elegida en tiempo de ejecución. El fotograma se sigue copiando entero en la CPU.
 
 ## En la GPU {#on-the-gpu}
 
