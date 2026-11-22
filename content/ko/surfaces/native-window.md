@@ -51,10 +51,14 @@ macOS는 purego로 Objective-C 런타임을 통해 접근합니다.
 ## 바뀐 부분만 {#only-what-changed}
 
 (`toolkit/scene.HostRoot`처럼) `DamageRenderer`를 구현하는 루트는 다시 그린
-사각형을 보고하며, GTK4를 제외한 모든 백엔드는 그 사각형만 표시합니다. X11은 MIT-SHM
-`ShmPutImage`로, Wayland는 `wl_shm` 손상 영역으로, 그리고 Cocoa, Win32, Android,
+사각형을 보고하며, 모든 백엔드는 그 사각형만 표시합니다. X11은 MIT-SHM
+`ShmPutImage`로, Wayland는 `wl_shm` 손상 영역으로, GTK4는 부분 텍스처 업데이트로, 그리고 Cocoa, Win32, Android,
 wasmbox, 브라우저 탭이 그렇게 합니다. 첫 프레임, 크기 조정, X11 `Expose`는 여전히
 서피스 전체를 표시합니다.
+
+GTK4에서는 libgtk-4 4.16 이상이 필요합니다. 프레임은 `set_update_texture`와 `set_update_region`을 쓰는
+`GdkMemoryTextureBuilder` 텍스처가 되어, GTK는 손상된 영역만 다시 렌더링하고 업로드합니다.
+더 오래된 런타임은 전체 업로드를 유지하며, 실행 시 선택됩니다. 프레임은 CPU 쪽에서는 여전히 통째로 복사됩니다.
 
 ## GPU에서 그리기 {#on-the-gpu}
 

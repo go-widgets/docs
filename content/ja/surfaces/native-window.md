@@ -48,10 +48,14 @@ Windows は、`syscall.NewLazyDLL` と `syscall.NewCallback` のウィンドウ�
 
 ## 変更された部分だけ {#only-what-changed}
 
-`DamageRenderer` を実装するルート（`toolkit/scene.HostRoot` など）は、再描画した矩形を報告し、GTK4 を除く
+`DamageRenderer` を実装するルート（`toolkit/scene.HostRoot` など）は、再描画した矩形を報告し、
 すべてのバックエンドは、その矩形だけを表示します。X11 は MIT-SHM の `ShmPutImage`、Wayland は `wl_shm` の
-ダメージ、そして Cocoa、Win32、Android、wasmbox、ブラウザのタブが対象です。最初のフレーム、リサイズ、
+ダメージ、GTK4 は部分的なテクスチャ更新、そして Cocoa、Win32、Android、wasmbox、ブラウザのタブが対象です。最初のフレーム、リサイズ、
 X11 の `Expose` では、引き続きサーフェス全体が表示されます。
+
+GTK4 では libgtk-4 4.16 以降が必要です。フレームは `set_update_texture` と `set_update_region` を使う
+`GdkMemoryTextureBuilder` のテクスチャになり、GTK はダメージ領域だけを再レンダリングしてアップロードします。
+それより古いランタイムでは全体のアップロードのままで、実行時に選ばれます。フレームは CPU 側では依然として全体がコピーされます。
 
 ## GPU での描画 {#on-the-gpu}
 
