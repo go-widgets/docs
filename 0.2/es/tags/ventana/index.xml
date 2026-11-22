@@ -220,10 +220,13 @@ purego.&lt;/p&gt;
 códec cubierto al 100 %, en todos los sistemas operativos. La fina capa de
 unión con la plataforma se demuestra en vivo: consulte&lt;a href="https://go-widgets.github.io/docs/0.2/es/status/"&gt;Estado&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="only-what-changed"&gt;Solo lo que ha cambiado&lt;span class="hx:absolute hx:-mt-20" id="only-what-changed"&gt;&lt;/span&gt;
-&lt;a href="#only-what-changed" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Una raíz que implementa &lt;code&gt;DamageRenderer&lt;/code&gt; (como hace &lt;code&gt;toolkit/scene.HostRoot&lt;/code&gt;)informa de los rectángulos que ha repintado, y todos los backends salvo GTK4
+&lt;a href="#only-what-changed" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Una raíz que implementa &lt;code&gt;DamageRenderer&lt;/code&gt; (como hace &lt;code&gt;toolkit/scene.HostRoot&lt;/code&gt;)informa de los rectángulos que ha repintado, y todos los backends
 presentan solo esos: X11 mediante &lt;code&gt;ShmPutImage&lt;/code&gt; de MIT-SHM, Wayland mediante
-el daño de &lt;code&gt;wl_shm&lt;/code&gt;, Cocoa, Win32, Android, wasmbox y la pestaña del navegador.El primer fotograma, un cambio de tamaño y un &lt;code&gt;Expose&lt;/code&gt; de X11 siguen
+el daño de &lt;code&gt;wl_shm&lt;/code&gt;, GTK4 mediante una actualización parcial de textura, Cocoa, Win32,Android, wasmbox y la pestaña del navegador.El primer fotograma, un cambio de tamaño y un &lt;code&gt;Expose&lt;/code&gt; de X11 siguen
 presentando toda la superficie.&lt;/p&gt;
+&lt;p&gt;En GTK4 esto requiere libgtk-4 4.16 o posterior: el fotograma se convierte en una textura&lt;code&gt;GdkMemoryTextureBuilder&lt;/code&gt; con &lt;code&gt;set_update_texture&lt;/code&gt; y &lt;code&gt;set_update_region&lt;/code&gt;, de modo que GTK
+solo vuelve a renderizar y subir la región dañada. Un runtime más antiguo conserva la subida
+completa, elegida en tiempo de ejecución. El fotograma se sigue copiando entero en la CPU.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="on-the-gpu"&gt;En la GPU&lt;span class="hx:absolute hx:-mt-20" id="on-the-gpu"&gt;&lt;/span&gt;
 &lt;a href="#on-the-gpu" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;En macOS, &lt;code&gt;Config{GPU: true}&lt;/code&gt; dibuja los fotogramas en la GPU.&lt;/p&gt;
 &lt;ul&gt;

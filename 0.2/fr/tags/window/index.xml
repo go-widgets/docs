@@ -210,9 +210,13 @@ par le runtime Objective-C avec purego.&lt;/p&gt;
 &lt;p&gt;La partie indépendante de la plateforme de chaque back-end — correspondance des événements, calculs de
 coordonnées, empaquetage des pixels, rectangles endommagés — vit dans un codec couvert à 100 %,sur chaque système d&amp;rsquo;exploitation. La fine couche de liaison avec la plateforme est éprouvée en conditions réelles : voir&lt;a href="https://go-widgets.github.io/docs/0.2/fr/status/"&gt;État&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="only-what-changed"&gt;Seulement ce qui a changé&lt;span class="hx:absolute hx:-mt-20" id="only-what-changed"&gt;&lt;/span&gt;
-&lt;a href="#only-what-changed" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Une racine qui implémente &lt;code&gt;DamageRenderer&lt;/code&gt; (comme le fait &lt;code&gt;toolkit/scene.HostRoot&lt;/code&gt;)signale les rectangles qu&amp;rsquo;elle a repeints, et chaque back-end sauf GTK4 ne présente que
-ceux-là : X11 via &lt;code&gt;ShmPutImage&lt;/code&gt; de MIT-SHM, Wayland via les zones endommagées de &lt;code&gt;wl_shm&lt;/code&gt;,Cocoa, Win32, Android, wasmbox et l&amp;rsquo;onglet de navigateur. La première image, un
-redimensionnement et un &lt;code&gt;Expose&lt;/code&gt; X11 présentent encore toute la surface.&lt;/p&gt;
+&lt;a href="#only-what-changed" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Une racine qui implémente &lt;code&gt;DamageRenderer&lt;/code&gt; (comme le fait &lt;code&gt;toolkit/scene.HostRoot&lt;/code&gt;)signale les rectangles qu&amp;rsquo;elle a repeints, et chaque back-end ne présente que
+ceux-là : X11 via &lt;code&gt;ShmPutImage&lt;/code&gt; de MIT-SHM, Wayland via les zones endommagées de &lt;code&gt;wl_shm&lt;/code&gt;,GTK4 via une mise à jour partielle de texture, Cocoa, Win32, Android, wasmbox et l&amp;rsquo;onglet
+de navigateur. La première image, un redimensionnement et un &lt;code&gt;Expose&lt;/code&gt; X11 présentent
+encore toute la surface.&lt;/p&gt;
+&lt;p&gt;Sous GTK4, cela demande libgtk-4 4.16 ou plus récent : l&amp;rsquo;image devient une texture&lt;code&gt;GdkMemoryTextureBuilder&lt;/code&gt; avec &lt;code&gt;set_update_texture&lt;/code&gt; et &lt;code&gt;set_update_region&lt;/code&gt;, si bien que GTK
+ne refait le rendu et l&amp;rsquo;envoi que de la région endommagée. Un runtime plus ancien garde
+l&amp;rsquo;envoi complet, choisi à l&amp;rsquo;exécution. L&amp;rsquo;image est toujours copiée en entier côté processeur.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="on-the-gpu"&gt;Sur le GPU&lt;span class="hx:absolute hx:-mt-20" id="on-the-gpu"&gt;&lt;/span&gt;
 &lt;a href="#on-the-gpu" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Sous macOS, &lt;code&gt;Config{GPU: true}&lt;/code&gt; dessine les images sur le GPU.&lt;/p&gt;
 &lt;ul&gt;

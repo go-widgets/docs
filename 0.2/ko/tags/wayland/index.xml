@@ -93,8 +93,9 @@ DLL을 &lt;code&gt;syscall.NewLazyDLL&lt;/code&gt;과 &lt;code&gt;syscall.NewCal
 검증됩니다. &lt;a href="https://go-widgets.github.io/docs/0.2/ko/status/"&gt;상태&lt;/a&gt;를 참고하십시오.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="only-what-changed"&gt;바뀐 부분만&lt;span class="hx:absolute hx:-mt-20" id="only-what-changed"&gt;&lt;/span&gt;
 &lt;a href="#only-what-changed" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;(&lt;code&gt;toolkit/scene.HostRoot&lt;/code&gt;처럼) &lt;code&gt;DamageRenderer&lt;/code&gt;를 구현하는 루트는 다시 그린
-사각형을 보고하며, GTK4를 제외한 모든 백엔드는 그 사각형만 표시합니다. X11은 MIT-SHM&lt;code&gt;ShmPutImage&lt;/code&gt;로, Wayland는 &lt;code&gt;wl_shm&lt;/code&gt; 손상 영역으로, 그리고 Cocoa, Win32, Android,wasmbox, 브라우저 탭이 그렇게 합니다. 첫 프레임, 크기 조정, X11 &lt;code&gt;Expose&lt;/code&gt;는 여전히
+사각형을 보고하며, 모든 백엔드는 그 사각형만 표시합니다. X11은 MIT-SHM&lt;code&gt;ShmPutImage&lt;/code&gt;로, Wayland는 &lt;code&gt;wl_shm&lt;/code&gt; 손상 영역으로, GTK4는 부분 텍스처 업데이트로, 그리고 Cocoa, Win32, Android,wasmbox, 브라우저 탭이 그렇게 합니다. 첫 프레임, 크기 조정, X11 &lt;code&gt;Expose&lt;/code&gt;는 여전히
 서피스 전체를 표시합니다.&lt;/p&gt;
+&lt;p&gt;GTK4에서는 libgtk-4 4.16 이상이 필요합니다. 프레임은 &lt;code&gt;set_update_texture&lt;/code&gt;와 &lt;code&gt;set_update_region&lt;/code&gt;을 쓰는&lt;code&gt;GdkMemoryTextureBuilder&lt;/code&gt; 텍스처가 되어, GTK는 손상된 영역만 다시 렌더링하고 업로드합니다.더 오래된 런타임은 전체 업로드를 유지하며, 실행 시 선택됩니다. 프레임은 CPU 쪽에서는 여전히 통째로 복사됩니다.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="on-the-gpu"&gt;GPU에서 그리기&lt;span class="hx:absolute hx:-mt-20" id="on-the-gpu"&gt;&lt;/span&gt;
 &lt;a href="#on-the-gpu" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;macOS에서는 &lt;code&gt;Config{GPU: true}&lt;/code&gt;로 프레임을 GPU에서 그립니다.&lt;/p&gt;
 &lt;ul&gt;
