@@ -56,8 +56,7 @@ func main() { webcanvas.Run("screen", myScene()) }
   프레임 장면이 복원됩니다. `Opaque: true`는 모든 픽셀이 불투명함을 약속하며, 정지한 게스트 이미지가 아무것도
   그리지 않게 해 줍니다.
 - **사용하지 않아도** 달라지는 것은 없습니다. `DrawDamaged`가 없는 장면은 예전처럼 전체가 그려지고 놓입니다.
-  `webcanvas/gpu` 프레젠터는 매 프레임 GPU에서 다시 그리며 아직 이를 사용하지 않습니다
-  ([webcanvas#37](https://github.com/go-widgets/webcanvas/issues/37)).
+  `webcanvas/gpu` 프레젠터에는 자체 버전이 있습니다(아래 참조).
 - **측정**: node의 `GOOS=js`, 1280×800, 가짜 2D 컨텍스트에서 120×40 위젯 하나를 바꾸는 프레임은 2.89 ms 대신
   0.031 ms, 변경 없이 불투명 레이어 하나가 있는 프레임은 2.90 ms 대신 0.021 ms입니다.
 
@@ -72,6 +71,17 @@ func main() { webcanvas.Run("screen", myScene()) }
 - **Presenter인 이유:** 캔버스는 평생 한 종류의 컨텍스트만 가질 수 있으므로,
   Presenter가 첫 프레임 전에 한 번 결정합니다.
 - **정확성:** 픽셀은 `Draw`의 CPU 프레임과 바이트 단위로 같습니다(테스트로 보장).
+- **손상:** `PaintDamaged(painter.Painter) []Rect`도 구현한 App
+  (`gpu.DamagePainted`, webcanvas v0.16.0 및 v0.17.0)은 toolkit의 `RenderDamaged`처럼
+  바뀐 부분만, 반환하는 사각형 안으로 한정해 painter에 그립니다. 결과가 **비어 있으면**
+  그 프레임은 기록도 표시도 되지 않습니다. 정지한 프레임은 GPU에 명령 버퍼를 보내지 않습니다
+  (이전 2, 이후 0, Chrome에서 측정, 할당 0). 손상이 있는 프레임은 `PaintDamaged`가 그린 그대로
+  기록되므로, 장면은 손상 아래의 바탕을 다시 그려야 합니다. 1,200개 셀 중 한 셀이 손상되면
+  렌더러에 넘기는 목록은 2,401개 인스턴스에서 2개로 줄어듭니다. 첫 프레임, 크기 조정,
+  `PaintDamaged`가 없는 App은 전체가 기록됩니다.
+- **캔버스 텍스처는 유지되지 않습니다:** 표시할 때마다 WebGPU 사양은 `getCurrentTexture()`에
+  투명한 검정 텍스처를 줍니다(Chrome도 같음). 그래서 렌더러 자체의 대상이 프레임의 나머지를 유지하고,
+  표시되는 각 프레임은 여전히 전체를 GPU 안에서 캔버스로 복사합니다.
 - **대체 동작:** WebGPU가 없는 브라우저나 `Paint`가 없는 App은 2D 캔버스에 머뭅니다.
   어느 쪽도 오류가 아닙니다.
 

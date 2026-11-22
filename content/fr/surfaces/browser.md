@@ -62,9 +62,8 @@ que ces rectangles.
   scène est restaurée à chaque image. `Opaque: true` promet que tous les pixels
   sont opaques, ce qui permet à une image d'invité immobile de ne rien déposer.
 - **Ne pas l'utiliser** ne change rien : une scène sans `DrawDamaged` est dessinée
-  et déposée en entier, comme avant. Le présentateur `webcanvas/gpu` redessine sur
-  le GPU à chaque image et ne l'utilise pas encore
-  ([webcanvas#37](https://github.com/go-widgets/webcanvas/issues/37)).
+  et déposée en entier, comme avant. Le présentateur `webcanvas/gpu` en a sa
+  propre version, plus bas.
 - **Mesuré** sous `GOOS=js` dans node, en 1280×800, avec un faux contexte 2D : une
   image qui modifie un widget de 120×40 coûte 0,031 ms au lieu de 2,89 ms, et une
   image sans dégât avec un calque opaque 0,021 ms au lieu de 2,90 ms.
@@ -82,6 +81,22 @@ que ces rectangles.
   image.
 - **Exactitude :** les pixels sont ceux de l'image CPU de `Draw`, octet pour
   octet (un test le garantit).
+- **Dégâts :** une App qui implémente aussi `PaintDamaged(painter.Painter) []Rect`
+  (`gpu.DamagePainted`, webcanvas v0.16.0 et v0.17.0) ne peint dans le painter
+  que ce qui a changé, borné aux rectangles qu'elle renvoie, comme le
+  `RenderDamaged` de toolkit. Un résultat **vide** veut dire que l'image n'est ni
+  enregistrée ni présentée : une image immobile n'envoie aucun tampon de
+  commandes au GPU (2 avant, 0 après, comptés dans Chrome, 0 allocation). Une
+  image avec dégâts est enregistrée telle que `PaintDamaged` l'a peinte, donc la
+  scène doit repeindre le fond sous les dégâts : avec une cellule endommagée sur
+  1 200, la liste remise au moteur passe de 2 401 instances à 2. La première
+  image, un redimensionnement et une App sans `PaintDamaged` sont enregistrés en
+  entier.
+- **La texture du canvas ne persiste pas :** après chaque présentation, la
+  spécification WebGPU donne à `getCurrentTexture()` une texture noire
+  transparente (Chrome fait de même), si bien que la cible propre du moteur
+  garde le reste de l'image et que chaque image présentée en copie encore la
+  totalité vers le canvas, sur le GPU.
 - **Repli :** un navigateur sans WebGPU, ou une App sans `Paint`, reste sur le
   canvas 2D. Ce n'est une erreur ni dans un cas ni dans l'autre.
 
