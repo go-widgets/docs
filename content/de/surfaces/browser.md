@@ -64,9 +64,8 @@ und der Host kopiert und setzt nur diese Rechtecke.
   `Opaque: true` verspricht, dass alle Pixel deckend sind, sodass ein ruhendes
   Gastbild nichts setzt.
 - **Ohne** `DrawDamaged` ändert sich nichts: Die Szene wird wie bisher ganz
-  gezeichnet und gesetzt. Der Presenter `webcanvas/gpu` zeichnet in jedem Bild neu
-  auf der GPU und nutzt es noch nicht
-  ([webcanvas#37](https://github.com/go-widgets/webcanvas/issues/37)).
+  gezeichnet und gesetzt. Der Presenter `webcanvas/gpu` hat dafür eine eigene
+  Version, weiter unten.
 - **Gemessen** unter `GOOS=js` in node, 1280×800, mit einem Fake-2D-Kontext: Ein
   Bild, das ein 120×40-Widget ändert, kostet 0,031 ms statt 2,89 ms, ein Bild
   ohne Änderung mit einem deckenden Layer 0,021 ms statt 2,90 ms.
@@ -84,6 +83,22 @@ das Paket `webcanvas/gpu` liefert einen, der Bilder mit WebGPU zeichnet.
   Kontextart an; der Presenter entscheidet deshalb einmal, vor dem ersten Bild.
 - **Exaktheit:** Die Pixel sind die des CPU-Bildes von `Draw`, Byte für Byte
   (ein Test sichert das).
+- **Schaden:** Eine App, die auch `PaintDamaged(painter.Painter) []Rect`
+  implementiert (`gpu.DamagePainted`, webcanvas v0.16.0 und v0.17.0), malt in den
+  Painter nur, was sich geändert hat, begrenzt auf die zurückgegebenen
+  Rechtecke, wie `RenderDamaged` des Toolkits. Ein **leeres** Ergebnis heißt: Das
+  Bild wird weder aufgezeichnet noch präsentiert, ein ruhendes Bild sendet also
+  keinen Command Buffer an die GPU (2 vorher, 0 nachher, in Chrome gezählt, 0
+  Allokationen). Ein Bild mit Schaden wird so aufgezeichnet, wie `PaintDamaged`
+  es gemalt hat; die Szene muss daher den Untergrund unter dem Schaden neu
+  malen: Bei einer beschädigten Zelle von 1.200 sinkt die an den Renderer
+  gegebene Liste von 2.401 Instanzen auf 2. Das erste Bild, eine Größenänderung
+  und eine App ohne `PaintDamaged` werden ganz aufgezeichnet.
+- **Die Canvas-Textur bleibt nicht erhalten:** Nach jeder Präsentation gibt die
+  WebGPU-Spezifikation `getCurrentTexture()` eine transparent schwarze Textur
+  (Chrome ebenso), sodass das eigene Ziel des Renderers den Rest des Bildes
+  behält und jedes präsentierte Bild weiterhin ganz in das Canvas kopiert wird,
+  auf der GPU.
 - **Rückfälle:** Ein Browser ohne WebGPU oder eine App ohne `Paint` bleibt beim
   2D-Canvas. Beides ist kein Fehler.
 

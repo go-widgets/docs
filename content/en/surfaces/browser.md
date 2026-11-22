@@ -145,9 +145,8 @@ those rectangles.
   back under it every frame. `Opaque: true` promises every pixel is opaque, and
   is what lets a still guest frame put nothing.
 - **Not using it** changes nothing: a scene without `DrawDamaged` is drawn and
-  put whole, as before. The `webcanvas/gpu` presenter redraws on the GPU every
-  frame and does not use it yet
-  ([webcanvas#37](https://github.com/go-widgets/webcanvas/issues/37)).
+  put whole, as before. The `webcanvas/gpu` presenter has its own version of
+  it, below.
 - **Measured** under `GOOS=js` in node at 1280×800, with a fake 2D context: a
   frame that changes one 120×40 widget costs 0.031 ms instead of 2.89 ms, and a
   frame with no damage and one opaque layer 0.021 ms instead of 2.90 ms.
@@ -164,6 +163,20 @@ those rectangles.
   presenter decides once, before the first frame.
 - **Exactness:** the pixels are the CPU `Draw` frame's, byte for byte (a test
   holds it).
+- **Damage:** an App that also implements `PaintDamaged(painter.Painter) []Rect`
+  (`gpu.DamagePainted`, webcanvas v0.16.0 and v0.17.0) paints into the painter
+  only what changed, confined to the rectangles it returns, as toolkit's
+  `RenderDamaged` does. An **empty** result means the frame is neither recorded
+  nor presented: an idle frame sends no command buffer to the GPU (2 before, 0
+  after, counted in Chrome, 0 allocations). A frame with damage is recorded as
+  `PaintDamaged` painted it, so the scene must repaint the ground under the
+  damage: with one cell of 1,200 damaged, the list handed to the renderer goes
+  from 2,401 instances to 2. The first frame, a resize and an App without
+  `PaintDamaged` are recorded whole.
+- **The canvas texture does not persist:** after each presentation the WebGPU
+  spec gives `getCurrentTexture()` a transparent black texture (Chrome does the
+  same), so the renderer's own target keeps the rest of the frame and each
+  presented frame still copies all of it to the canvas, on the GPU.
 - **Fallbacks:** a browser without WebGPU, or an App without `Paint`, stays on
   the 2D canvas. Neither is an error.
 

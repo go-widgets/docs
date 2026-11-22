@@ -49,9 +49,7 @@ func main() { webcanvas.Run("screen", myScene()) }
 - **图层**每一帧都会重新绘制，但不需要重绘场景。图层移动、缩小或消失时，它原来的矩形会从场景缓冲中恢复；
   在 `Alpha < 1` 或未标记 `Opaque` 的图层之下，每一帧都会恢复场景。`Opaque: true` 承诺所有像素都不透明，
   这样静止的客户机画面就不会放置任何内容。
-- **不使用它**则一切照旧：没有 `DrawDamaged` 的场景像以前一样被整体绘制并放置。`webcanvas/gpu` 呈现器每帧都在
-  GPU 上重新绘制，目前尚未使用它
-  （[webcanvas#37](https://github.com/go-widgets/webcanvas/issues/37)）。
+- **不使用它**则一切照旧：没有 `DrawDamaged` 的场景像以前一样被整体绘制并放置。`webcanvas/gpu` 呈现器有它自己的版本，见下文。
 - **测量**：在 node 中以 `GOOS=js`、1280×800 和一个伪造的 2D 上下文测得，改变一个 120×40 部件的帧耗时 0.031 ms，
   而不是 2.89 ms；没有变化且带一个不透明图层的帧耗时 0.021 ms，而不是 2.90 ms。
 
@@ -65,6 +63,15 @@ func main() { webcanvas.Run("screen", myScene()) }
   并在 GPU 上把帧复制到画布纹理中。
 - **为何用 Presenter:** 一个画布终生只能取一种上下文,因此由 Presenter 在第一帧之前一次性决定。
 - **精确性:** 像素与 `Draw` 的 CPU 帧逐字节相同(有测试保证)。
+- **损坏区域:** 同时实现了 `PaintDamaged(painter.Painter) []Rect` 的 App
+  (`gpu.DamagePainted`,webcanvas v0.16.0 和 v0.17.0),像 toolkit 的 `RenderDamaged` 一样,
+  只把变化的部分绘制到 painter 中,并限制在它返回的矩形内。结果为**空**时,该帧既不记录也不呈现:
+  静止的帧不会向 GPU 发送命令缓冲区(之前 2 个,之后 0 个,在 Chrome 中计数,0 次分配)。
+  有损坏区域的帧按 `PaintDamaged` 绘制的内容记录,因此场景必须重绘损坏区域之下的底色:
+  1,200 个单元格中有一个受损时,交给渲染器的列表从 2,401 个实例降为 2 个。
+  第一帧、调整大小,以及没有 `PaintDamaged` 的 App 都会被完整记录。
+- **画布纹理不会保留:** 每次呈现之后,WebGPU 规范会给 `getCurrentTexture()` 一个透明黑色纹理
+  (Chrome 也一样),因此渲染器自己的目标保留该帧的其余部分,每个呈现的帧仍会把全部内容在 GPU 上复制到画布。
 - **回退:** 没有 WebGPU 的浏览器,或没有 `Paint` 的 App,仍使用 2D 画布。两种情况都不算错误。
 
 [Web 画廊](https://go-widgets.github.io/gallery/)就是这样绘制的。

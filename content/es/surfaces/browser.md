@@ -64,9 +64,8 @@ esos rectángulos.
   todos los píxeles son opacos, y permite que una imagen de invitado quieta no
   ponga nada.
 - **No usarlo** no cambia nada: una escena sin `DrawDamaged` se dibuja y se pone
-  entera, como antes. El presentador `webcanvas/gpu` redibuja en la GPU en cada
-  fotograma y aún no lo usa
-  ([webcanvas#37](https://github.com/go-widgets/webcanvas/issues/37)).
+  entera, como antes. El presentador `webcanvas/gpu` tiene su propia versión,
+  más abajo.
 - **Medido** con `GOOS=js` en node, a 1280×800, con un contexto 2D falso: un
   fotograma que cambia un widget de 120×40 cuesta 0,031 ms en lugar de 2,89 ms, y
   uno sin daño con una capa opaca 0,021 ms en lugar de 2,90 ms.
@@ -83,6 +82,21 @@ esos rectángulos.
   vida, así que el presentador decide una vez, antes del primer fotograma.
 - **Exactitud:** los píxeles son los del fotograma de CPU de `Draw`, byte a
   byte (lo garantiza una prueba).
+- **Daño:** una App que implementa también `PaintDamaged(painter.Painter) []Rect`
+  (`gpu.DamagePainted`, webcanvas v0.16.0 y v0.17.0) pinta en el painter solo lo
+  que cambió, limitado a los rectángulos que devuelve, como el `RenderDamaged`
+  de toolkit. Un resultado **vacío** significa que el fotograma ni se graba ni
+  se presenta: un fotograma quieto no envía ningún búfer de comandos a la GPU
+  (2 antes, 0 después, contados en Chrome, 0 asignaciones). Un fotograma con
+  daño se graba tal como lo pintó `PaintDamaged`, así que la escena debe
+  repintar el fondo bajo el daño: con una celda dañada de 1.200, la lista
+  entregada al renderizador pasa de 2.401 instancias a 2. El primer fotograma,
+  un cambio de tamaño y una App sin `PaintDamaged` se graban enteros.
+- **La textura del canvas no persiste:** tras cada presentación, la
+  especificación WebGPU da a `getCurrentTexture()` una textura negra
+  transparente (Chrome hace lo mismo), así que el destino propio del
+  renderizador conserva el resto del fotograma y cada fotograma presentado aún
+  copia todo al canvas, dentro de la GPU.
 - **Alternativas:** un navegador sin WebGPU, o una App sin `Paint`, se queda en
   el canvas 2D. Ninguno de los dos casos es un error.
 
