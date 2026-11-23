@@ -89,10 +89,13 @@ das Paket `webcanvas/gpu` liefert einen, der Bilder mit WebGPU zeichnet.
   Rechtecke, wie `RenderDamaged` des Toolkits. Ein **leeres** Ergebnis heißt: Das
   Bild wird weder aufgezeichnet noch präsentiert, ein ruhendes Bild sendet also
   keinen Command Buffer an die GPU (2 vorher, 0 nachher, in Chrome gezählt, 0
-  Allokationen). Ein Bild mit Schaden wird so aufgezeichnet, wie `PaintDamaged`
+  Allokationen), und seine Aufzeichnung kostet im Median 11,4 ns statt 122,9 µs
+  (Apple M4 Max, ein Kern, 5 Runden bei einer Last unter 3, gegenüber dem
+  Aufzeichnen der ganzen Szene). Ein Bild mit Schaden wird so aufgezeichnet, wie `PaintDamaged`
   es gemalt hat; die Szene muss daher den Untergrund unter dem Schaden neu
   malen: Bei einer beschädigten Zelle von 1.200 sinkt die an den Renderer
-  gegebene Liste von 2.401 Instanzen auf 2. Das erste Bild, eine Größenänderung
+  gegebene Liste von 2.401 Instanzen auf 2, und ihre Aufzeichnung kostet im Median 129,9 ns statt 133,2 µs
+  (gleiche Maschine und Runden). Das erste Bild, eine Größenänderung
   und eine App ohne `PaintDamaged` werden ganz aufgezeichnet.
 - **Die Canvas-Textur bleibt nicht erhalten:** Nach jeder Präsentation gibt die
   WebGPU-Spezifikation `getCurrentTexture()` eine transparent schwarze Textur
