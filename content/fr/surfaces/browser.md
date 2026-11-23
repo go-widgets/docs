@@ -86,10 +86,13 @@ que ces rectangles.
   que ce qui a changé, borné aux rectangles qu'elle renvoie, comme le
   `RenderDamaged` de toolkit. Un résultat **vide** veut dire que l'image n'est ni
   enregistrée ni présentée : une image immobile n'envoie aucun tampon de
-  commandes au GPU (2 avant, 0 après, comptés dans Chrome, 0 allocation). Une
+  commandes au GPU (2 avant, 0 après, comptés dans Chrome, 0 allocation) et son enregistrement coûte une
+  médiane de 11,4 ns au lieu de 122,9 µs (Apple M4 Max, un cœur, 5 tours sous une
+  charge inférieure à 3, contre l'enregistrement de toute la scène). Une
   image avec dégâts est enregistrée telle que `PaintDamaged` l'a peinte, donc la
   scène doit repeindre le fond sous les dégâts : avec une cellule endommagée sur
-  1 200, la liste remise au moteur passe de 2 401 instances à 2. La première
+  1 200, la liste remise au moteur passe de 2 401 instances à 2, et son enregistrement coûte une médiane de 129,9 ns au lieu de
+  133,2 µs (même machine et mêmes tours). La première
   image, un redimensionnement et une App sans `PaintDamaged` sont enregistrés en
   entier.
 - **La texture du canvas ne persiste pas :** après chaque présentation, la

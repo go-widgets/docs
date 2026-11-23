@@ -87,10 +87,13 @@ esos rectángulos.
   que cambió, limitado a los rectángulos que devuelve, como el `RenderDamaged`
   de toolkit. Un resultado **vacío** significa que el fotograma ni se graba ni
   se presenta: un fotograma quieto no envía ningún búfer de comandos a la GPU
-  (2 antes, 0 después, contados en Chrome, 0 asignaciones). Un fotograma con
+  (2 antes, 0 después, contados en Chrome, 0 asignaciones) y su grabación cuesta una
+  mediana de 11,4 ns en lugar de 122,9 µs (Apple M4 Max, un núcleo, 5 rondas con
+  carga inferior a 3, frente a grabar la escena entera). Un fotograma con
   daño se graba tal como lo pintó `PaintDamaged`, así que la escena debe
   repintar el fondo bajo el daño: con una celda dañada de 1.200, la lista
-  entregada al renderizador pasa de 2.401 instancias a 2. El primer fotograma,
+  entregada al renderizador pasa de 2.401 instancias a 2, y grabarla cuesta una mediana de 129,9 ns en lugar de
+  133,2 µs (misma máquina y rondas). El primer fotograma,
   un cambio de tamaño y una App sin `PaintDamaged` se graban enteros.
 - **La textura del canvas no persiste:** tras cada presentación, la
   especificación WebGPU da a `getCurrentTexture()` una textura negra

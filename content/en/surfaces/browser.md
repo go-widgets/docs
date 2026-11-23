@@ -168,10 +168,13 @@ those rectangles.
   only what changed, confined to the rectangles it returns, as toolkit's
   `RenderDamaged` does. An **empty** result means the frame is neither recorded
   nor presented: an idle frame sends no command buffer to the GPU (2 before, 0
-  after, counted in Chrome, 0 allocations). A frame with damage is recorded as
+  after, counted in Chrome, 0 allocations) and its recording costs a median
+  11.4 ns instead of 122.9 µs (Apple M4 Max, one core, 5 rounds at load below
+  3, against recording the whole scene). A frame with damage is recorded as
   `PaintDamaged` painted it, so the scene must repaint the ground under the
   damage: with one cell of 1,200 damaged, the list handed to the renderer goes
-  from 2,401 instances to 2. The first frame, a resize and an App without
+  from 2,401 instances to 2, and recording it costs a median 129.9 ns instead
+  of 133.2 µs (same machine and rounds). The first frame, a resize and an App without
   `PaintDamaged` are recorded whole.
 - **The canvas texture does not persist:** after each presentation the WebGPU
   spec gives `getCurrentTexture()` a transparent black texture (Chrome does the
