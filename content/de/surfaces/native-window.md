@@ -62,7 +62,10 @@ Frame, eine Größenänderung und ein X11-`Expose` stellen weiterhin die ganze O
 Unter GTK4 braucht das libgtk-4 ab 4.16: Der Frame wird zu einer `GdkMemoryTextureBuilder`-Textur
 mit `set_update_texture` und `set_update_region`, sodass GTK nur die beschädigte Region neu
 rendert und hochlädt. Eine ältere Laufzeit behält den vollständigen Upload, zur Laufzeit
-gewählt. Der Frame wird auf der CPU-Seite weiterhin ganz kopiert.
+gewählt. Der Framebuffer liegt im GLib-Speicher, den die Textur teilt; ein Present kopiert daher auf der
+CPU-Seite kein Byte (vorher jedes Mal den ganzen Frame, 128000 Bytes bei 200x160). Das GTK4-Fenster
+folgt Größenänderungen: Das Bild füllt das Fenster, der Framebuffer wird neu angelegt, ein ganzer
+Frame in der neuen Größe wird präsentiert, danach geht es mit Schäden weiter.
 
 ## Auf der GPU {#on-the-gpu}
 

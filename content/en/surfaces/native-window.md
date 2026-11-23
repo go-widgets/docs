@@ -63,8 +63,11 @@ surface.
 On GTK4 this needs libgtk-4 4.16 or newer: the frame becomes a
 `GdkMemoryTextureBuilder` texture with `set_update_texture` and
 `set_update_region`, so GTK re-renders and re-uploads only the damaged region.
-An older runtime keeps the whole upload, chosen at run time. The frame is still
-copied whole on the CPU side.
+An older runtime keeps the whole upload, chosen at run time. The framebuffer
+lives in GLib memory that the texture shares, so a present copies no byte on the
+CPU side (it was the whole frame, 128000 bytes for 200x160, every time). The
+GTK4 window follows resizes: the picture fills the window, the framebuffer is
+reallocated, one whole frame is presented at the new size, and damage resumes.
 
 ## On the GPU
 

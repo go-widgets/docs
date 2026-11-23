@@ -52,7 +52,7 @@ return w.Run(root) // root is any toolkit.Widget
 
 在 GTK4 上这需要 libgtk-4 4.16 或更新版本：帧成为带有 `set_update_texture` 和 `set_update_region` 的
 `GdkMemoryTextureBuilder` 纹理，因此 GTK 只重新渲染并上传受损区域。较旧的运行时保留完整上传，在运行时选择。
-帧在 CPU 一侧仍会被完整复制。
+帧缓冲位于纹理共享的 GLib 内存中，因此一次呈现在 CPU 一侧不复制任何字节（以前每次都复制整帧，200x160 时为 128000 字节）。GTK4 窗口会跟随大小调整：图片填满窗口，帧缓冲被重新分配，以新尺寸整帧呈现一次，之后恢复按受损区域呈现。
 
 ## 在 GPU 上绘制 {#on-the-gpu}
 

@@ -63,7 +63,10 @@ encore toute la surface.
 Sous GTK4, cela demande libgtk-4 4.16 ou plus récent : l'image devient une texture
 `GdkMemoryTextureBuilder` avec `set_update_texture` et `set_update_region`, si bien que GTK
 ne refait le rendu et l'envoi que de la région endommagée. Un runtime plus ancien garde
-l'envoi complet, choisi à l'exécution. L'image est toujours copiée en entier côté processeur.
+l'envoi complet, choisi à l'exécution. Le tampon d'image vit dans de la mémoire GLib que la texture partage : une présentation ne copie
+aucun octet côté processeur (auparavant l'image entière, 128000 octets pour 200x160, à chaque fois).
+La fenêtre GTK4 suit les redimensionnements : l'image remplit la fenêtre, le tampon est réalloué,
+une image entière est présentée à la nouvelle taille, puis les dégâts reprennent.
 
 ## Sur le GPU {#on-the-gpu}
 
