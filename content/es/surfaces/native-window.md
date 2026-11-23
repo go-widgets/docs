@@ -67,7 +67,10 @@ presentando toda la superficie.
 En GTK4 esto requiere libgtk-4 4.16 o posterior: el fotograma se convierte en una textura
 `GdkMemoryTextureBuilder` con `set_update_texture` y `set_update_region`, de modo que GTK
 solo vuelve a renderizar y subir la región dañada. Un runtime más antiguo conserva la subida
-completa, elegida en tiempo de ejecución. El fotograma se sigue copiando entero en la CPU.
+completa, elegida en tiempo de ejecución. El framebuffer vive en memoria de GLib que la textura comparte, así que una presentación no copia
+ningún byte en la CPU (antes era el fotograma entero, 128000 bytes en 200x160, cada vez). La ventana
+GTK4 sigue los cambios de tamaño: la imagen llena la ventana, se reasigna el framebuffer, se presenta
+un fotograma entero al nuevo tamaño y el daño se reanuda.
 
 ## En la GPU {#on-the-gpu}
 
