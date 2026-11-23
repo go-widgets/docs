@@ -103,7 +103,10 @@ el daño de &lt;code&gt;wl_shm&lt;/code&gt;, GTK4 mediante una actualización pa
 presentando toda la superficie.&lt;/p&gt;
 &lt;p&gt;En GTK4 esto requiere libgtk-4 4.16 o posterior: el fotograma se convierte en una textura&lt;code&gt;GdkMemoryTextureBuilder&lt;/code&gt; con &lt;code&gt;set_update_texture&lt;/code&gt; y &lt;code&gt;set_update_region&lt;/code&gt;, de modo que GTK
 solo vuelve a renderizar y subir la región dañada. Un runtime más antiguo conserva la subida
-completa, elegida en tiempo de ejecución. El fotograma se sigue copiando entero en la CPU.&lt;/p&gt;
+completa, elegida en tiempo de ejecución. El framebuffer vive en memoria de GLib que la textura comparte, así que una presentación no copia
+ningún byte en la CPU (antes era el fotograma entero, 128000 bytes en 200x160, cada vez). La ventana
+GTK4 sigue los cambios de tamaño: la imagen llena la ventana, se reasigna el framebuffer, se presenta
+un fotograma entero al nuevo tamaño y el daño se reanuda.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="on-the-gpu"&gt;En la GPU&lt;span class="hx:absolute hx:-mt-20" id="on-the-gpu"&gt;&lt;/span&gt;
 &lt;a href="#on-the-gpu" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;En macOS, &lt;code&gt;Config{GPU: true}&lt;/code&gt; dibuja los fotogramas en la GPU.&lt;/p&gt;
 &lt;ul&gt;

@@ -95,8 +95,11 @@ maths, pixel packing, damage rectangles — lives in a codec covered at 100%,on 
 through a partial texture update, Cocoa, Win32, Android, wasmbox and the browser
 tab. The first frame, a resize and an X11 &lt;code&gt;Expose&lt;/code&gt; still present the whole
 surface.&lt;/p&gt;
-&lt;p&gt;On GTK4 this needs libgtk-4 4.16 or newer: the frame becomes a&lt;code&gt;GdkMemoryTextureBuilder&lt;/code&gt; texture with &lt;code&gt;set_update_texture&lt;/code&gt; and&lt;code&gt;set_update_region&lt;/code&gt;, so GTK re-renders and re-uploads only the damaged region.An older runtime keeps the whole upload, chosen at run time. The frame is still
-copied whole on the CPU side.&lt;/p&gt;
+&lt;p&gt;On GTK4 this needs libgtk-4 4.16 or newer: the frame becomes a&lt;code&gt;GdkMemoryTextureBuilder&lt;/code&gt; texture with &lt;code&gt;set_update_texture&lt;/code&gt; and&lt;code&gt;set_update_region&lt;/code&gt;, so GTK re-renders and re-uploads only the damaged region.An older runtime keeps the whole upload, chosen at run time. The framebuffer
+lives in GLib memory that the texture shares, so a present copies no byte on the
+CPU side (it was the whole frame, 128000 bytes for 200x160, every time). The
+GTK4 window follows resizes: the picture fills the window, the framebuffer is
+reallocated, one whole frame is presented at the new size, and damage resumes.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="on-the-gpu"&gt;On the GPU&lt;span class="hx:absolute hx:-mt-20" id="on-the-gpu"&gt;&lt;/span&gt;
 &lt;a href="#on-the-gpu" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;On macOS, &lt;code&gt;Config{GPU: true}&lt;/code&gt; draws frames on the GPU.&lt;/p&gt;
 &lt;ul&gt;

@@ -97,7 +97,8 @@ de navigateur. La première image, un redimensionnement et un &lt;code&gt;Expose
 encore toute la surface.&lt;/p&gt;
 &lt;p&gt;Sous GTK4, cela demande libgtk-4 4.16 ou plus récent : l&amp;rsquo;image devient une texture&lt;code&gt;GdkMemoryTextureBuilder&lt;/code&gt; avec &lt;code&gt;set_update_texture&lt;/code&gt; et &lt;code&gt;set_update_region&lt;/code&gt;, si bien que GTK
 ne refait le rendu et l&amp;rsquo;envoi que de la région endommagée. Un runtime plus ancien garde
-l&amp;rsquo;envoi complet, choisi à l&amp;rsquo;exécution. L&amp;rsquo;image est toujours copiée en entier côté processeur.&lt;/p&gt;
+l&amp;rsquo;envoi complet, choisi à l&amp;rsquo;exécution. Le tampon d&amp;rsquo;image vit dans de la mémoire GLib que la texture partage : une présentation ne copie
+aucun octet côté processeur (auparavant l&amp;rsquo;image entière, 128000 octets pour 200x160, à chaque fois).La fenêtre GTK4 suit les redimensionnements : l&amp;rsquo;image remplit la fenêtre, le tampon est réalloué,une image entière est présentée à la nouvelle taille, puis les dégâts reprennent.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="on-the-gpu"&gt;Sur le GPU&lt;span class="hx:absolute hx:-mt-20" id="on-the-gpu"&gt;&lt;/span&gt;
 &lt;a href="#on-the-gpu" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Sous macOS, &lt;code&gt;Config{GPU: true}&lt;/code&gt; dessine les images sur le GPU.&lt;/p&gt;
 &lt;ul&gt;

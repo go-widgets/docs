@@ -215,7 +215,10 @@ Frame, eine Größenänderung und ein X11-&lt;code&gt;Expose&lt;/code&gt; stelle
 &lt;p&gt;Unter GTK4 braucht das libgtk-4 ab 4.16: Der Frame wird zu einer &lt;code&gt;GdkMemoryTextureBuilder&lt;/code&gt;-Textur
 mit &lt;code&gt;set_update_texture&lt;/code&gt; und &lt;code&gt;set_update_region&lt;/code&gt;, sodass GTK nur die beschädigte Region neu
 rendert und hochlädt. Eine ältere Laufzeit behält den vollständigen Upload, zur Laufzeit
-gewählt. Der Frame wird auf der CPU-Seite weiterhin ganz kopiert.&lt;/p&gt;
+gewählt. Der Framebuffer liegt im GLib-Speicher, den die Textur teilt; ein Present kopiert daher auf der
+CPU-Seite kein Byte (vorher jedes Mal den ganzen Frame, 128000 Bytes bei 200x160). Das GTK4-Fenster
+folgt Größenänderungen: Das Bild füllt das Fenster, der Framebuffer wird neu angelegt, ein ganzer
+Frame in der neuen Größe wird präsentiert, danach geht es mit Schäden weiter.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="on-the-gpu"&gt;Auf der GPU&lt;span class="hx:absolute hx:-mt-20" id="on-the-gpu"&gt;&lt;/span&gt;
 &lt;a href="#on-the-gpu" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Unter macOS zeichnet &lt;code&gt;Config{GPU: true}&lt;/code&gt; die Frames auf der GPU.&lt;/p&gt;
 &lt;ul&gt;
