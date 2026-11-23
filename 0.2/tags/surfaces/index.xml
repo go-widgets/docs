@@ -422,9 +422,12 @@ holds it).&lt;/li&gt;
 (&lt;code&gt;gpu.DamagePainted&lt;/code&gt;, webcanvas v0.16.0 and v0.17.0) paints into the painter
 only what changed, confined to the rectangles it returns, as toolkit&amp;rsquo;s&lt;code&gt;RenderDamaged&lt;/code&gt; does. An &lt;strong&gt;empty&lt;/strong&gt; result means the frame is neither recorded
 nor presented: an idle frame sends no command buffer to the GPU (2 before, 0
-after, counted in Chrome, 0 allocations). A frame with damage is recorded as&lt;code&gt;PaintDamaged&lt;/code&gt; painted it, so the scene must repaint the ground under the
+after, counted in Chrome, 0 allocations) and its recording costs a median
+11.4 ns instead of 122.9 µs (Apple M4 Max, one core, 5 rounds at load below
+3, against recording the whole scene). A frame with damage is recorded as&lt;code&gt;PaintDamaged&lt;/code&gt; painted it, so the scene must repaint the ground under the
 damage: with one cell of 1,200 damaged, the list handed to the renderer goes
-from 2,401 instances to 2. The first frame, a resize and an App without&lt;code&gt;PaintDamaged&lt;/code&gt; are recorded whole.&lt;/li&gt;
+from 2,401 instances to 2, and recording it costs a median 129.9 ns instead
+of 133.2 µs (same machine and rounds). The first frame, a resize and an App without&lt;code&gt;PaintDamaged&lt;/code&gt; are recorded whole.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;The canvas texture does not persist:&lt;/strong&gt; after each presentation the WebGPU
 spec gives &lt;code&gt;getCurrentTexture()&lt;/code&gt; a transparent black texture (Chrome does the
 same), so the renderer&amp;rsquo;s own target keeps the rest of the frame and each

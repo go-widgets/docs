@@ -375,10 +375,13 @@ byte (lo garantiza una prueba).&lt;/li&gt;
 (&lt;code&gt;gpu.DamagePainted&lt;/code&gt;, webcanvas v0.16.0 y v0.17.0) pinta en el painter solo lo
 que cambió, limitado a los rectángulos que devuelve, como el &lt;code&gt;RenderDamaged&lt;/code&gt;
 de toolkit. Un resultado &lt;strong&gt;vacío&lt;/strong&gt; significa que el fotograma ni se graba ni
-se presenta: un fotograma quieto no envía ningún búfer de comandos a la GPU(2 antes, 0 después, contados en Chrome, 0 asignaciones). Un fotograma con
+se presenta: un fotograma quieto no envía ningún búfer de comandos a la GPU(2 antes, 0 después, contados en Chrome, 0 asignaciones) y su grabación cuesta una
+mediana de 11,4 ns en lugar de 122,9 µs (Apple M4 Max, un núcleo, 5 rondas con
+carga inferior a 3, frente a grabar la escena entera). Un fotograma con
 daño se graba tal como lo pintó &lt;code&gt;PaintDamaged&lt;/code&gt;, así que la escena debe
 repintar el fondo bajo el daño: con una celda dañada de 1.200, la lista
-entregada al renderizador pasa de 2.401 instancias a 2. El primer fotograma,un cambio de tamaño y una App sin &lt;code&gt;PaintDamaged&lt;/code&gt; se graban enteros.&lt;/li&gt;
+entregada al renderizador pasa de 2.401 instancias a 2, y grabarla cuesta una mediana de 129,9 ns en lugar de
+133,2 µs (misma máquina y rondas). El primer fotograma,un cambio de tamaño y una App sin &lt;code&gt;PaintDamaged&lt;/code&gt; se graban enteros.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;La textura del canvas no persiste:&lt;/strong&gt; tras cada presentación, la
 especificación WebGPU da a &lt;code&gt;getCurrentTexture()&lt;/code&gt; una textura negra
 transparente (Chrome hace lo mismo), así que el destino propio del

@@ -74,10 +74,13 @@ octet (un test le garantit).&lt;/li&gt;
 (&lt;code&gt;gpu.DamagePainted&lt;/code&gt;, webcanvas v0.16.0 et v0.17.0) ne peint dans le painter
 que ce qui a changé, borné aux rectangles qu&amp;rsquo;elle renvoie, comme le&lt;code&gt;RenderDamaged&lt;/code&gt; de toolkit. Un résultat &lt;strong&gt;vide&lt;/strong&gt; veut dire que l&amp;rsquo;image n&amp;rsquo;est ni
 enregistrée ni présentée : une image immobile n&amp;rsquo;envoie aucun tampon de
-commandes au GPU (2 avant, 0 après, comptés dans Chrome, 0 allocation). Une
+commandes au GPU (2 avant, 0 après, comptés dans Chrome, 0 allocation) et son enregistrement coûte une
+médiane de 11,4 ns au lieu de 122,9 µs (Apple M4 Max, un cœur, 5 tours sous une
+charge inférieure à 3, contre l&amp;rsquo;enregistrement de toute la scène). Une
 image avec dégâts est enregistrée telle que &lt;code&gt;PaintDamaged&lt;/code&gt; l&amp;rsquo;a peinte, donc la
 scène doit repeindre le fond sous les dégâts : avec une cellule endommagée sur
-1 200, la liste remise au moteur passe de 2 401 instances à 2. La première
+1 200, la liste remise au moteur passe de 2 401 instances à 2, et son enregistrement coûte une médiane de 129,9 ns au lieu de
+133,2 µs (même machine et mêmes tours). La première
 image, un redimensionnement et une App sans &lt;code&gt;PaintDamaged&lt;/code&gt; sont enregistrés en
 entier.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;La texture du canvas ne persiste pas :&lt;/strong&gt; après chaque présentation, la
