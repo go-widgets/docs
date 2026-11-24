@@ -125,3 +125,23 @@ Linux(X11과 Wayland)에서는 `Config{GPU: true}`로 프레임을 Vulkan으로 
 
 포커스는 플랫폼이 허용하는 것입니다. 포커스 탈취 방지 아래에서 `Raise`는 창이 주의를
 원한다는 표시만 할 수 있으며, 그 여부를 알 수 없습니다.
+
+## Windows의 네이티브 컨트롤 {#native-controls-on-windows}
+
+`toolkit.NativeControl`은 Win32 창의 실제 자식 창이 됩니다. `Key`마다 하나이며 프레임마다
+조정됩니다. 값은 컨트롤이 마지막으로 보고한 것과 다를 때만 컨트롤에 반영되므로 사용자의
+편집과 충돌하지 않습니다. 텍스트, 버튼, 슬라이더, 진행률, 스테퍼 외에 다섯 가지를 더 호스팅합니다.
+
+| 종류 | 창 클래스 | 값 |
+|---|---|---|
+| `NativeList` | `LISTBOX` | `Number`가 선택된 행이며, 없으면 `-1` |
+| `NativeLink` | `SysLink` | 클릭하거나 Enter를 누르면 `OnActivate`가 호출됨 |
+| `NativeDate` | `SysDateTimePick32` | `Text`는 `YYYY-MM-DD` |
+| `NativeColor` | `GoWidgetsColorWell` | `Text`는 `#RRGGBB`이며, 클릭하면 시스템 색상 대화 상자가 열림 |
+| `NativeSegmented` | `SysTabControl32` | `Text`는 선택된 세그먼트의 제목 |
+
+목록의 행과 세그먼트는 컨트롤을 만들 때 고정됩니다. 바꾸려면 `Key`를 바꾸십시오.
+링크는 스스로 아무것도 열지 않습니다. `OnActivate`를 호출할 뿐이므로 어떤 주소를 따라갈지(http와
+https만)는 계속 `application.OpenURL`이 결정합니다. `SysLink`는 비주얼 스타일이 적용된 공용
+컨트롤에만 있으며 매니페스트가 없는 프로그램은 이를 얻지 못합니다. 창은 자체 매니페스트 아래에서
+링크를 만들고, 그것이 불가능하면 같은 방식으로 활성화되는 평평한 버튼을 표시합니다.

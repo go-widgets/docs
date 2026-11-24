@@ -144,3 +144,27 @@ cerrarla y la traen de vuelta: lo que necesita una
 Conceder el foco corresponde a la plataforma: con la prevención del robo de
 foco, `Raise` puede limitarse a marcar la ventana como necesitada de atención,
 y no puede saberlo.
+
+## Controles nativos en Windows {#native-controls-on-windows}
+
+Un `toolkit.NativeControl` se convierte en una ventana hija real de la ventana
+Win32, una por `Key`, reconciliada en cada fotograma: un valor solo se empuja a un
+control cuando difiere de lo que el control informó por última vez, de modo que las
+ediciones de la persona nunca se combaten. Además de los tipos texto, botón,
+deslizador, progreso e incrementador, se alojan otros cinco:
+
+| Tipo | Clase de ventana | Valor |
+|---|---|---|
+| `NativeList` | `LISTBOX` | `Number` es la fila elegida, `-1` si ninguna |
+| `NativeLink` | `SysLink` | `OnActivate` se llama con un clic o con Intro |
+| `NativeDate` | `SysDateTimePick32` | `Text` es `AAAA-MM-DD` |
+| `NativeColor` | `GoWidgetsColorWell` | `Text` es `#RRGGBB`; un clic abre el diálogo de color del sistema |
+| `NativeSegmented` | `SysTabControl32` | `Text` es el título del segmento elegido |
+
+Las filas de una lista y los segmentos se fijan al crear el control; para cambiarlos,
+cambie la `Key`. Un enlace nunca abre nada por sí mismo: solo llama a `OnActivate`,
+de modo que qué direcciones se siguen (solo http y https) sigue siendo decisión de
+`application.OpenURL`. `SysLink` solo existe en los controles comunes con estilos
+visuales, que un programa sin manifiesto no obtiene; la ventana crea el enlace bajo
+un manifiesto propio y, si no está disponible, muestra un botón plano que se activa
+de la misma manera.

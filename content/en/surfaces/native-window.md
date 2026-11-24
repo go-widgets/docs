@@ -137,3 +137,27 @@ needs.
 
 Focus is the platform's to grant: under focus-stealing prevention, `Raise`
 may only mark the window as wanting attention, and cannot tell.
+
+## Native controls on Windows
+
+A `toolkit.NativeControl` becomes a real child window of the Win32 window, one
+per `Key`, reconciled every frame: a value is pushed into a control only when it
+differs from what the control last reported, so a person's own edits are never
+fought. Besides the text, button, slider, progress and stepper kinds, five more
+are hosted:
+
+| Kind | Window class | Value |
+|---|---|---|
+| `NativeList` | `LISTBOX` | `Number` is the chosen row, `-1` for none |
+| `NativeLink` | `SysLink` | `OnActivate` fires on a click or Return |
+| `NativeDate` | `SysDateTimePick32` | `Text` is `YYYY-MM-DD` |
+| `NativeColor` | `GoWidgetsColorWell` | `Text` is `#RRGGBB`; a click opens the system colour dialog |
+| `NativeSegmented` | `SysTabControl32` | `Text` is the selected segment's title |
+
+The rows of a list and the segments are fixed when the control is created;
+change them by changing the `Key`. A link never opens anything itself: it only
+calls `OnActivate`, so which addresses are followed (http and https only) stays
+the decision of `application.OpenURL`. `SysLink` exists only in the visual-styles
+common controls, which a program without a manifest does not get; the window
+creates the link under a manifest of its own and, should that be unavailable,
+shows a flat push button that activates the same way.

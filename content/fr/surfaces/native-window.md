@@ -137,3 +137,27 @@ la fermer, puis la ramènent — ce dont a besoin une [application de zone de no
 
 Le focus, c'est à la plateforme de l'accorder : avec la prévention du vol de focus, `Raise`
 peut seulement marquer la fenêtre comme demandant l'attention, sans pouvoir le savoir.
+
+## Contrôles natifs sous Windows {#native-controls-on-windows}
+
+Un `toolkit.NativeControl` devient une vraie fenêtre fille de la fenêtre Win32,
+une par `Key`, réconciliée à chaque image : une valeur n'est poussée dans un
+contrôle que si elle diffère de ce qu'il a rapporté en dernier, de sorte que les
+saisies de la personne ne sont jamais combattues. Outre les types texte, bouton,
+curseur, progression et incrémenteur, cinq autres sont hébergés :
+
+| Type | Classe de fenêtre | Valeur |
+|---|---|---|
+| `NativeList` | `LISTBOX` | `Number` est la ligne choisie, `-1` si aucune |
+| `NativeLink` | `SysLink` | `OnActivate` est appelé au clic ou sur Entrée |
+| `NativeDate` | `SysDateTimePick32` | `Text` est `AAAA-MM-JJ` |
+| `NativeColor` | `GoWidgetsColorWell` | `Text` est `#RRGGBB` ; un clic ouvre la boîte de couleur du système |
+| `NativeSegmented` | `SysTabControl32` | `Text` est le titre du segment choisi |
+
+Les lignes d'une liste et les segments sont fixés à la création du contrôle ;
+pour les changer, changez la `Key`. Un lien n'ouvre jamais rien lui-même : il
+appelle seulement `OnActivate`, de sorte que les adresses suivies (http et https
+uniquement) restent la décision de `application.OpenURL`. `SysLink` n'existe que
+dans les contrôles communs à styles visuels, qu'un programme sans manifeste n'obtient
+pas ; la fenêtre crée le lien sous un manifeste à elle et, s'il n'est pas
+disponible, affiche un bouton plat qui s'active de la même façon.
