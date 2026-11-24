@@ -22,6 +22,7 @@ tags: [status]
 | macOS トレイ | 実際の macOS セッション: プログラムの停止でアイコンがメニューバーから消え、起動で戻り、メニューが開く |
 | Linux トレイ | 実際のセッションバスを使う CI: 名前が確保され、メニューが `GetLayout` に応答し、`Quit` で取り下げられる |
 | Windows トレイ | Windows 11 VM 上のアイコンとそのメニュー |
+| 通知と `OpenURL` | macOS: 実際のブラウザタブが開くこと、および実際の通知センターが素の実行ファイルを拒否することを確認。Linux: 実際のセッションバス上の偽のデーモンとポータル。Windows: クロスコンパイルと vet のみ。バンドルされたアプリからの macOS バナーは、まだ実機で確認していません |
 | ターミナルデモ | CI 内の実際の pty: キーのバイト列を送り、描画されたフレームを検証 |
 
 ## コンパイルのみで未実行 {#compiled-not-run}
@@ -58,6 +59,6 @@ tags: [status]
 
 - 19 個のモジュールのうち 15 個が脆弱なコードに到達していました。go1.27.1 の標準ライブラリ（`html/template`、`net/http`、`crypto/tls`、`mime/multipart`。go1.27.2 で修正）と、`golang.org/x/net` v0.58.0（`data` 内の gRPC 経由の `http2`。v0.60.0 で修正）です。
 - 同じ日の夜に修正しました。すべてのモジュールの CI は go1.27.2 でビルドし、すべてのモジュールが `x/net` v0.60.0 を要求しています。多くのモジュールでは間接的な依存で、Renovate が更新しないため、手作業で引き上げました。19 個すべてのモジュールに対する 2 回目の `govulncheck` では、到達可能な脆弱性は見つかっていません。
-- リリース: android v0.16.0、app-template v0.5.0、application v0.8.0、bricolint v0.4.1、data v0.4.0、mvvm v0.15.0、mvvmlint v0.4.1、mvvmtk v0.15.0、painter v0.16.0、skin v0.3.0、svg v0.7.0、tray v0.15.0、webcanvas v0.4.1、window v0.89.0。各バージョンは `gorelease` によって API から導出しました。2026-10-11 には toolkit v0.329.0、tui v0.62.0、desktop v0.20.0、gallery v0.7.0、isoicons v0.4.0 をリリースしました。この 4 つについては、モジュールグラフが公開されたことのないバージョンである `github.com/ajroetker/go-highway/hwy/goat` v0.0.0 に到達するため、`gorelease` がモジュールグラフを読み込めません
+- リリース: android v0.16.0、app-template v0.5.0、application v0.9.0、bricolint v0.4.1、data v0.4.0、mvvm v0.15.0、mvvmlint v0.4.1、mvvmtk v0.15.0、painter v0.16.0、skin v0.3.0、svg v0.7.0、tray v0.16.0、webcanvas v0.4.1、window v0.89.0。各バージョンは `gorelease` によって API から導出しました。2026-10-11 には toolkit v0.329.0、tui v0.62.0、desktop v0.20.0、gallery v0.7.0、isoicons v0.4.0 をリリースしました。この 4 つについては、モジュールグラフが公開されたことのないバージョンである `github.com/ajroetker/go-highway/hwy/goat` v0.0.0 に到達するため、`gorelease` がモジュールグラフを読み込めません
   （[ajroetker/go-highway#73](https://github.com/ajroetker/go-highway/issues/73)）。そこで、同じルールのもと、linux、darwin、windows 上の `apidiff` でバージョンを導出しました。
 - 23 のリポジトリすべてのワークフロー（31 ファイル）を `actionlint` と `wfaudit` で監査しました。特権トリガー、ワークフロー単位の書き込み権限、アップロードされたチェックアウトに残るトークン、シェルステップ内の信頼できない式は、いずれもありません。すべてのワークフローが権限を宣言しているため、リポジトリの既定トークンに依存するものはありません。

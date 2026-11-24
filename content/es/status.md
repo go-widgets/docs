@@ -25,6 +25,7 @@ los que se interrogó a la propia plataforma:
 | Bandeja de macOS | una sesión macOS real: el icono sale de la barra de menús cuando el programa se detiene, vuelve cuando arranca y abre su menú |
 | Bandeja de Linux | CI frente a un bus de sesión real: el nombre se reclama, el menú responde a `GetLayout`, `Quit` lo retira |
 | Bandeja de Windows | el icono y su menú en una VM Windows 11 |
+| Notificaciones y `OpenURL` | macOS: una pestaña real del navegador abierta, y el centro de notificaciones real rechazando un ejecutable suelto. Linux: demonio y portal simulados sobre un bus de sesión real. Windows: solo compilado de forma cruzada y verificado con vet. Un banner de macOS desde una app empaquetada aún no está probado en vivo |
 | Demos de terminal | un pty real en la CI: bytes de teclas enviados, el fotograma renderizado comprobado |
 
 ## Compilado, no ejecutado {#compiled-not-run}
@@ -85,9 +86,9 @@ puede alcanzar) el 2026-10-10:
   indirecta, que Renovate no actualiza, así que se subió a mano. Una segunda
   pasada de `govulncheck` sobre los 19 módulos no encuentra ninguna
   vulnerabilidad alcanzable.
-- Publicados: android v0.16.0, app-template v0.5.0, application v0.8.0,
+- Publicados: android v0.16.0, app-template v0.5.0, application v0.9.0,
   bricolint v0.4.1, data v0.4.0, mvvm v0.15.0, mvvmlint v0.4.1, mvvmtk
-  v0.15.0, painter v0.16.0, skin v0.3.0, svg v0.7.0, tray v0.15.0, webcanvas
+  v0.15.0, painter v0.16.0, skin v0.3.0, svg v0.7.0, tray v0.16.0, webcanvas
   v0.4.1, window v0.89.0, cada versión deducida de su API por `gorelease`.
   El 2026-10-11: toolkit v0.329.0, y tui v0.62.0, desktop v0.20.0, gallery
   v0.7.0 e isoicons v0.4.0. Para esos cuatro, `gorelease` no puede cargar el

@@ -25,6 +25,7 @@ la plateforme elle-même :
 | Zone de notification macOS | une vraie session macOS : l'icône quitte la barre des menus quand le programme s'arrête, revient quand il démarre, et ouvre son menu |
 | Zone de notification Linux | CI face à un vrai bus de session : le nom est réclamé, le menu répond à `GetLayout`, `Quit` le retire |
 | Zone de notification Windows | l'icône et son menu sur une VM Windows 11 |
+| Notifications et `OpenURL` | macOS : un vrai onglet de navigateur ouvert, et le vrai centre de notifications refusant un exécutable nu. Linux : faux démon et portail sur un vrai bus de session. Windows : compilé en croisé et vérifié par vet seulement. Une bannière macOS depuis une application empaquetée n'est pas encore prouvée en direct |
 | Démos en terminal | un vrai pty en CI : octets de touches envoyés, image rendue vérifiée |
 
 ## Compilé, non exécuté {#compiled-not-run}
@@ -82,9 +83,9 @@ Mesuré avec `govulncheck` (au niveau des symboles : seul le code que le module 
   d'entre eux, que Renovate ne met pas à jour : elle a donc été relevée à la
   main. Un second passage de `govulncheck` sur les 19 modules ne trouve aucune
   vulnérabilité atteignable.
-- Publiés : android v0.16.0, app-template v0.5.0, application v0.8.0,
+- Publiés : android v0.16.0, app-template v0.5.0, application v0.9.0,
   bricolint v0.4.1, data v0.4.0, mvvm v0.15.0, mvvmlint v0.4.1, mvvmtk
-  v0.15.0, painter v0.16.0, skin v0.3.0, svg v0.7.0, tray v0.15.0, webcanvas
+  v0.15.0, painter v0.16.0, skin v0.3.0, svg v0.7.0, tray v0.16.0, webcanvas
   v0.4.1, window v0.89.0, chaque version déduite de son API par `gorelease`.
   Le 2026-10-11 : toolkit v0.329.0, puis tui v0.62.0, desktop v0.20.0, gallery
   v0.7.0 et isoicons v0.4.0. Pour ces quatre-là, `gorelease` ne peut pas charger

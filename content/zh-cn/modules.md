@@ -22,8 +22,8 @@ API 参考文档由 [pkg.go.dev](https://pkg.go.dev/) 根据源码生成，并�
 | [`vcs`](https://github.com/go-widgets/vcs) | v0.1.0 | 工作树中每个文件处于什么状态，以及驱动注册表；只用标准库。git 驱动是嵌套模块 `vcs/git`（`git/v0.1.0`） | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/vcs) |
 | [`data`](https://github.com/go-widgets/data) | v0.4.0 | [带类型的记录、查询、本地或远程存储]({{< relref "/state/data.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/data) |
 | [`window`](https://github.com/go-widgets/window) | v0.91.0 | 基于八种后端的[原生窗口]({{< relref "/surfaces/native-window.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/window) |
-| [`application`](https://github.com/go-widgets/application) | v0.8.1 | 位于窗口之上的[应用生命周期]({{< relref "/surfaces/application.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/application) |
-| [`tray`](https://github.com/go-widgets/tray) | v0.15.0 | [托盘图标及其菜单]({{< relref "/surfaces/application.md#the-tray" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/tray) |
+| [`application`](https://github.com/go-widgets/application) | v0.9.0 | 位于窗口之上的[应用生命周期]({{< relref "/surfaces/application.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/application) |
+| [`tray`](https://github.com/go-widgets/tray) | v0.16.0 | [托盘图标及其菜单]({{< relref "/surfaces/application.md#the-tray" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/tray) |
 | [`webcanvas`](https://github.com/go-widgets/webcanvas) | v0.9.0 | [浏览器 `<canvas>` 中的场景]({{< relref "/surfaces/browser.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/webcanvas) |
 | [`tui`](https://github.com/go-widgets/tui) | v0.62.0 | [终端渲染与原生字符单元控件]({{< relref "/surfaces/terminal.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/tui) |
 | [`android`](https://github.com/go-widgets/android) | v0.16.0 | [由无 CGO 进程绘制的 APK]({{< relref "/surfaces/android.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/android) |

@@ -77,3 +77,11 @@ t.Run() // blocks on the platform's loop until Quit
 백엔드가 없는 플랫폼에서 `Run`은 `ErrNoBackend`를 반환합니다. "여기에는 트레이가
 없다"와 조용히 아무것도 하지 않는 트레이를 구분해 주는 것입니다. 테스트나 헤드리스
 서비스는 `WithBackend(tray.NewHeadless())`를 전달합니다.
+
+### 알림
+
+`(*Tray).Notify(tray.Notification{Title, Body, OnClick})`는 네이티브 시스템 알림을 띄웁니다. macOS에서는 UNUserNotificationCenter, Linux에서는 `org.freedesktop.Notifications`, Windows에서는 Shell_NotifyIcon 풍선입니다. 제목은 최대 63룬, 본문은 최대 255룬입니다(`MaxNotificationTitle`, `MaxNotificationBody`). 제목이 비어 있으면 `ErrEmptyTitle`입니다. 오류는 원인을 알려 줍니다. `ErrNoNotifier`(백엔드 없음), `ErrNotRunning`, `ErrNotBundled`(macOS는 앱 번들에만 전달함), `ErrNotAuthorized`(사용자가 거부함). `tray.NewHeadless()`는 보낸 내용을 테스트용으로 `Headless.Notified`에 기록합니다.
+
+## 링크 열기
+
+`application.OpenURL(rawURL)`은 `http` 또는 `https` URL을 사용자의 브라우저에서 엽니다. macOS에서는 NSWorkspace, Windows에서는 ShellExecuteW, Linux에서는 OpenURI 포털 다음 `xdg-open`을 사용합니다. URL에는 호스트가 있어야 하고, 포트가 있다면 1~65535, 전체는 8 KiB 이하여야 합니다. 그 외에는 `ErrURLScheme` 또는 `ErrURLInvalid`로 거부되며, 런처가 없는 플랫폼은 `ErrOpenURLUnsupported`를 반환합니다.

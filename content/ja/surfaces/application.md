@@ -75,3 +75,11 @@ t.Run() // blocks on the platform's loop until Quit
 プラットフォームでは、`Run` は `ErrNoBackend` を返します。これは「ここにはトレイがない」ことと、何もせずに
 黙っているトレイとを区別するためです。テストやヘッドレスのサービスは `WithBackend(tray.NewHeadless())` を
 渡します。
+
+### 通知
+
+`(*Tray).Notify(tray.Notification{Title, Body, OnClick})` はネイティブのシステム通知を出します。macOS では UNUserNotificationCenter、Linux では `org.freedesktop.Notifications`、Windows では Shell_NotifyIcon のバルーンです。タイトルは最大 63 ルーン、本文は最大 255 ルーンです（`MaxNotificationTitle`、`MaxNotificationBody`）。タイトルが空だと `ErrEmptyTitle` になります。エラーは原因を示します。`ErrNoNotifier`（バックエンドなし）、`ErrNotRunning`、`ErrNotBundled`（macOS はアプリバンドルにだけ配信します）、`ErrNotAuthorized`（ユーザーが拒否）。`tray.NewHeadless()` は送られた内容をテスト用に `Headless.Notified` に記録します。
+
+## リンクを開く
+
+`application.OpenURL(rawURL)` は `http` または `https` の URL をユーザーのブラウザで開きます。macOS では NSWorkspace、Windows では ShellExecuteW、Linux では OpenURI ポータルに続いて `xdg-open` を使います。URL にはホストが必要で、ポートがある場合は 1〜65535、全体は 8 KiB 以下でなければなりません。それ以外は `ErrURLScheme` または `ErrURLInvalid` で拒否され、ランチャーのないプラットフォームでは `ErrOpenURLUnsupported` が返ります。

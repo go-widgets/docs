@@ -24,6 +24,7 @@ tags: [status]
 | macOS 트레이 | 실제 macOS 세션: 프로그램이 멈추면 아이콘이 메뉴 막대에서 사라지고, 시작하면 돌아오며, 메뉴가 열림 |
 | Linux 트레이 | 실제 세션 버스를 쓰는 CI: 이름을 획득하고, 메뉴가 `GetLayout`에 응답하며, `Quit`가 이름을 반납함 |
 | Windows 트레이 | Windows 11 VM의 아이콘과 메뉴 |
+| 알림과 `OpenURL` | macOS: 실제 브라우저 탭이 열렸고, 실제 알림 센터가 번들이 아닌 실행 파일을 거부함. Linux: 실제 세션 버스 위의 가짜 데몬과 포털. Windows: 교차 컴파일과 vet만 수행. 번들된 앱의 macOS 배너는 아직 실제로 증명되지 않음 |
 | 터미널 데모 | CI의 실제 pty: 키 바이트를 보내고 렌더링된 프레임을 검증 |
 
 ## 컴파일만 됨, 실행은 안 됨 {#compiled-not-run}
@@ -78,9 +79,9 @@ tags: [status]
   `x/net` v0.60.0을 요구합니다. 대부분의 모듈에서 이는 간접 요구 사항이라 Renovate가
   갱신하지 않으므로 수동으로 올렸습니다. 19개 모듈 전체에 대한 두 번째 `govulncheck`
   검사에서는 도달 가능한 취약점이 나오지 않습니다.
-- 릴리스(release): android v0.16.0, app-template v0.5.0, application v0.8.0,
+- 릴리스(release): android v0.16.0, app-template v0.5.0, application v0.9.0,
   bricolint v0.4.1, data v0.4.0, mvvm v0.15.0, mvvmlint v0.4.1, mvvmtk
-  v0.15.0, painter v0.16.0, skin v0.3.0, svg v0.7.0, tray v0.15.0, webcanvas
+  v0.15.0, painter v0.16.0, skin v0.3.0, svg v0.7.0, tray v0.16.0, webcanvas
   v0.4.1, window v0.89.0이며, 각 버전은 `gorelease`가 API로부터 도출했습니다.
   2026-10-11에는 toolkit v0.329.0, 그리고 tui v0.62.0, desktop v0.20.0, gallery
   v0.7.0, isoicons v0.4.0이 릴리스되었습니다. 이 네 모듈은 모듈 그래프가

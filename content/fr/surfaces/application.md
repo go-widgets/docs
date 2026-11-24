@@ -80,3 +80,11 @@ Les back-ends natifs sont activés par défaut ; il n'y a pas d'étiquette de co
 Sur une plateforme qui n'en a aucun, `Run` renvoie `ErrNoBackend` — toute la différence
 entre « il n'y a pas de zone de notification ici » et une icône qui, en silence, ne fait rien. Un test
 ou un service headless passe `WithBackend(tray.NewHeadless())`.
+
+### Notifications
+
+`(*Tray).Notify(tray.Notification{Title, Body, OnClick})` émet une notification système native : UNUserNotificationCenter sous macOS, `org.freedesktop.Notifications` sous Linux, une bulle Shell_NotifyIcon sous Windows. Le titre fait au plus 63 runes et le corps 255 (`MaxNotificationTitle`, `MaxNotificationBody`) ; un titre vide donne `ErrEmptyTitle`. Les erreurs nomment la cause : `ErrNoNotifier` (aucun back-end), `ErrNotRunning`, `ErrNotBundled` (macOS ne délivre que pour un paquet d'application) et `ErrNotAuthorized` (l'utilisateur a refusé). `tray.NewHeadless()` enregistre ce qui a été envoyé dans `Headless.Notified`, pour les tests.
+
+## Ouvrir un lien
+
+`application.OpenURL(rawURL)` ouvre une URL `http` ou `https` dans le navigateur de l'utilisateur : NSWorkspace sous macOS, ShellExecuteW sous Windows, le portail OpenURI puis `xdg-open` sous Linux. L'URL doit avoir un hôte, un port (s'il y en a un) entre 1 et 65535 et au plus 8 Kio ; tout le reste est refusé avec `ErrURLScheme` ou `ErrURLInvalid`, et une plateforme sans lanceur renvoie `ErrOpenURLUnsupported`.
