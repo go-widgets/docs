@@ -80,3 +80,24 @@ The native back-ends are on by default; there is no build tag to remember.
 On a platform with none, `Run` returns `ErrNoBackend` — the difference
 between "there is no tray here" and a tray that silently does nothing. A test
 or a headless service passes `WithBackend(tray.NewHeadless())`.
+
+### Notifications
+
+`(*Tray).Notify(tray.Notification{Title, Body, OnClick})` raises a native
+system notification: UNUserNotificationCenter on macOS,
+`org.freedesktop.Notifications` on Linux, a Shell_NotifyIcon balloon on
+Windows. The title is at most 63 runes and the body 255
+(`MaxNotificationTitle`, `MaxNotificationBody`); an empty title is
+`ErrEmptyTitle`. The errors name the cause: `ErrNoNotifier` (no back-end),
+`ErrNotRunning`, `ErrNotBundled` (macOS delivers only for an app bundle) and
+`ErrNotAuthorized` (the user refused). `tray.NewHeadless()` records what was
+sent in `Headless.Notified`, for tests.
+
+## Opening a link
+
+`application.OpenURL(rawURL)` opens an `http` or `https` URL in the user's
+browser: NSWorkspace on macOS, ShellExecuteW on Windows, the OpenURI portal
+then `xdg-open` on Linux. The URL needs a host, a port (if any) in 1-65535
+and at most 8 KiB; anything else is refused with `ErrURLScheme` or
+`ErrURLInvalid`, and a platform without a launcher returns
+`ErrOpenURLUnsupported`.
