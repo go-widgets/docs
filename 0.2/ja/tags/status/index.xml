@@ -47,6 +47,10 @@
 &lt;td&gt;Windows 11 VM 上のアイコンとそのメニュー&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
+&lt;td&gt;通知と &lt;code&gt;OpenURL&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;macOS: 実際のブラウザタブが開くこと、および実際の通知センターが素の実行ファイルを拒否することを確認。Linux: 実際のセッションバス上の偽のデーモンとポータル。Windows: クロスコンパイルと vet のみ。バンドルされたアプリからの macOS バナーは、まだ実機で確認していません&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
 &lt;td&gt;ターミナルデモ&lt;/td&gt;
 &lt;td&gt;CI 内の実際の pty: キーのバイト列を送り、描画されたフレームを検証&lt;/td&gt;
 &lt;/tr&gt;
@@ -110,6 +114,6 @@
 &lt;ul&gt;
 &lt;li&gt;19 個のモジュールのうち 15 個が脆弱なコードに到達していました。go1.27.1 の標準ライブラリ（&lt;code&gt;html/template&lt;/code&gt;、&lt;code&gt;net/http&lt;/code&gt;、&lt;code&gt;crypto/tls&lt;/code&gt;、&lt;code&gt;mime/multipart&lt;/code&gt;。go1.27.2 で修正）と、&lt;code&gt;golang.org/x/net&lt;/code&gt; v0.58.0（&lt;code&gt;data&lt;/code&gt; 内の gRPC 経由の &lt;code&gt;http2&lt;/code&gt;。v0.60.0 で修正）です。&lt;/li&gt;
 &lt;li&gt;同じ日の夜に修正しました。すべてのモジュールの CI は go1.27.2 でビルドし、すべてのモジュールが &lt;code&gt;x/net&lt;/code&gt; v0.60.0 を要求しています。多くのモジュールでは間接的な依存で、Renovate が更新しないため、手作業で引き上げました。19 個すべてのモジュールに対する 2 回目の &lt;code&gt;govulncheck&lt;/code&gt; では、到達可能な脆弱性は見つかっていません。&lt;/li&gt;
-&lt;li&gt;リリース: android v0.16.0、app-template v0.5.0、application v0.8.0、bricolint v0.4.1、data v0.4.0、mvvm v0.15.0、mvvmlint v0.4.1、mvvmtk v0.15.0、painter v0.16.0、skin v0.3.0、svg v0.7.0、tray v0.15.0、webcanvas v0.4.1、window v0.89.0。各バージョンは &lt;code&gt;gorelease&lt;/code&gt; によって API から導出しました。2026-10-11 には toolkit v0.329.0、tui v0.62.0、desktop v0.20.0、gallery v0.7.0、isoicons v0.4.0 をリリースしました。この 4 つについては、モジュールグラフが公開されたことのないバージョンである &lt;code&gt;github.com/ajroetker/go-highway/hwy/goat&lt;/code&gt; v0.0.0 に到達するため、&lt;code&gt;gorelease&lt;/code&gt; がモジュールグラフを読み込めません（&lt;a href="https://github.com/ajroetker/go-highway/issues/73" target="_blank" rel="noopener"&gt;ajroetker/go-highway#73&lt;/a&gt;）。そこで、同じルールのもと、linux、darwin、windows 上の &lt;code&gt;apidiff&lt;/code&gt; でバージョンを導出しました。&lt;/li&gt;
+&lt;li&gt;リリース: android v0.16.0、app-template v0.5.0、application v0.9.0、bricolint v0.4.1、data v0.4.0、mvvm v0.15.0、mvvmlint v0.4.1、mvvmtk v0.15.0、painter v0.16.0、skin v0.3.0、svg v0.7.0、tray v0.16.0、webcanvas v0.4.1、window v0.89.0。各バージョンは &lt;code&gt;gorelease&lt;/code&gt; によって API から導出しました。2026-10-11 には toolkit v0.329.0、tui v0.62.0、desktop v0.20.0、gallery v0.7.0、isoicons v0.4.0 をリリースしました。この 4 つについては、モジュールグラフが公開されたことのないバージョンである &lt;code&gt;github.com/ajroetker/go-highway/hwy/goat&lt;/code&gt; v0.0.0 に到達するため、&lt;code&gt;gorelease&lt;/code&gt; がモジュールグラフを読み込めません（&lt;a href="https://github.com/ajroetker/go-highway/issues/73" target="_blank" rel="noopener"&gt;ajroetker/go-highway#73&lt;/a&gt;）。そこで、同じルールのもと、linux、darwin、windows 上の &lt;code&gt;apidiff&lt;/code&gt; でバージョンを導出しました。&lt;/li&gt;
 &lt;li&gt;23 のリポジトリすべてのワークフロー（31 ファイル）を &lt;code&gt;actionlint&lt;/code&gt; と &lt;code&gt;wfaudit&lt;/code&gt; で監査しました。特権トリガー、ワークフロー単位の書き込み権限、アップロードされたチェックアウトに残るトークン、シェルステップ内の信頼できない式は、いずれもありません。すべてのワークフローが権限を宣言しているため、リポジトリの既定トークンに依存するものはありません。&lt;/li&gt;
 &lt;/ul&gt;</description></item></channel></rss>

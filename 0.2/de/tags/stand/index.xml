@@ -49,6 +49,10 @@ die Plattform selbst gefragt wurde:&lt;/p&gt;
 &lt;td&gt;das Symbol und sein Menü auf einer Windows-11-VM&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
+&lt;td&gt;Benachrichtigungen und &lt;code&gt;OpenURL&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;macOS: ein echter Browser-Tab geöffnet, und die echte Mitteilungszentrale, die eine bloße ausführbare Datei ablehnt. Linux: gefälschter Daemon und Portal auf einem echten Session-Bus. Windows: nur cross-kompiliert und geprüft (vet). Ein macOS-Banner einer App im Bundle ist noch nicht live belegt&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
 &lt;td&gt;Terminal-Demos&lt;/td&gt;
 &lt;td&gt;ein echtes pty in der CI: Tasten-Bytes gesendet, der gerenderte Frame geprüft&lt;/td&gt;
 &lt;/tr&gt;
@@ -126,8 +130,8 @@ jedes Modul verlangt &lt;code&gt;x/net&lt;/code&gt; v0.60.0. In den meisten ist 
 Abhängigkeit, die Renovate nicht aktualisiert; sie wurde daher von Hand
 angehoben. Ein zweiter &lt;code&gt;govulncheck&lt;/code&gt;-Lauf über alle 19 Module findet keine
 erreichbare Schwachstelle.&lt;/li&gt;
-&lt;li&gt;Veröffentlicht: android v0.16.0, app-template v0.5.0, application v0.8.0,bricolint v0.4.1, data v0.4.0, mvvm v0.15.0, mvvmlint v0.4.1, mvvmtk
-v0.15.0, painter v0.16.0, skin v0.3.0, svg v0.7.0, tray v0.15.0, webcanvas
+&lt;li&gt;Veröffentlicht: android v0.16.0, app-template v0.5.0, application v0.9.0,bricolint v0.4.1, data v0.4.0, mvvm v0.15.0, mvvmlint v0.4.1, mvvmtk
+v0.15.0, painter v0.16.0, skin v0.3.0, svg v0.7.0, tray v0.16.0, webcanvas
 v0.4.1, window v0.89.0, jede Version von &lt;code&gt;gorelease&lt;/code&gt; aus ihrer API
 abgeleitet. Am 2026-10-11: toolkit v0.329.0, dann tui v0.62.0, desktop
 v0.20.0, gallery v0.7.0 und isoicons v0.4.0. Für diese vier kann &lt;code&gt;gorelease&lt;/code&gt;

@@ -296,6 +296,10 @@ la plateforme elle-même :&lt;/p&gt;
 &lt;td&gt;l&amp;rsquo;icône et son menu sur une VM Windows 11&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
+&lt;td&gt;Notifications et &lt;code&gt;OpenURL&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;macOS : un vrai onglet de navigateur ouvert, et le vrai centre de notifications refusant un exécutable nu. Linux : faux démon et portail sur un vrai bus de session. Windows : compilé en croisé et vérifié par vet seulement. Une bannière macOS depuis une application empaquetée n&amp;rsquo;est pas encore prouvée en direct&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
 &lt;td&gt;Démos en terminal&lt;/td&gt;
 &lt;td&gt;un vrai pty en CI : octets de touches envoyés, image rendue vérifiée&lt;/td&gt;
 &lt;/tr&gt;
@@ -374,8 +378,8 @@ module exige &lt;code&gt;x/net&lt;/code&gt; v0.60.0. C&amp;rsquo;est une dépend
 d&amp;rsquo;entre eux, que Renovate ne met pas à jour : elle a donc été relevée à la
 main. Un second passage de &lt;code&gt;govulncheck&lt;/code&gt; sur les 19 modules ne trouve aucune
 vulnérabilité atteignable.&lt;/li&gt;
-&lt;li&gt;Publiés : android v0.16.0, app-template v0.5.0, application v0.8.0,bricolint v0.4.1, data v0.4.0, mvvm v0.15.0, mvvmlint v0.4.1, mvvmtk
-v0.15.0, painter v0.16.0, skin v0.3.0, svg v0.7.0, tray v0.15.0, webcanvas
+&lt;li&gt;Publiés : android v0.16.0, app-template v0.5.0, application v0.9.0,bricolint v0.4.1, data v0.4.0, mvvm v0.15.0, mvvmlint v0.4.1, mvvmtk
+v0.15.0, painter v0.16.0, skin v0.3.0, svg v0.7.0, tray v0.16.0, webcanvas
 v0.4.1, window v0.89.0, chaque version déduite de son API par &lt;code&gt;gorelease&lt;/code&gt;.Le 2026-10-11 : toolkit v0.329.0, puis tui v0.62.0, desktop v0.20.0, gallery
 v0.7.0 et isoicons v0.4.0. Pour ces quatre-là, &lt;code&gt;gorelease&lt;/code&gt; ne peut pas charger
 le graphe de modules, qui atteint &lt;code&gt;github.com/ajroetker/go-highway/hwy/goat&lt;/code&gt;
