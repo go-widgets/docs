@@ -83,3 +83,11 @@ compilación que recordar. En una plataforma sin ninguno, `Run` devuelve
 `ErrNoBackend`: la diferencia entre «aquí no hay bandeja» y una bandeja que en
 silencio no hace nada. Una prueba o un servicio sin interfaz pasa
 `WithBackend(tray.NewHeadless())`.
+
+### Notificaciones
+
+`(*Tray).Notify(tray.Notification{Title, Body, OnClick})` lanza una notificación nativa del sistema: UNUserNotificationCenter en macOS, `org.freedesktop.Notifications` en Linux, un globo de Shell_NotifyIcon en Windows. El título tiene como máximo 63 runas y el cuerpo 255 (`MaxNotificationTitle`, `MaxNotificationBody`); un título vacío da `ErrEmptyTitle`. Los errores nombran la causa: `ErrNoNotifier` (sin back-end), `ErrNotRunning`, `ErrNotBundled` (macOS solo entrega para un paquete de aplicación) y `ErrNotAuthorized` (el usuario la rechazó). `tray.NewHeadless()` registra lo enviado en `Headless.Notified`, para las pruebas.
+
+## Abrir un enlace
+
+`application.OpenURL(rawURL)` abre una URL `http` o `https` en el navegador del usuario: NSWorkspace en macOS, ShellExecuteW en Windows, el portal OpenURI y luego `xdg-open` en Linux. La URL necesita un host, un puerto (si lo hay) entre 1 y 65535 y como máximo 8 KiB; cualquier otra cosa se rechaza con `ErrURLScheme` o `ErrURLInvalid`, y una plataforma sin lanzador devuelve `ErrOpenURLUnsupported`.

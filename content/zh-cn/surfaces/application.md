@@ -69,3 +69,11 @@ t.Run() // blocks on the platform's loop until Quit
 原生后端默认开启；没有需要记住的构建标签。在没有任何后端的平台上，`Run` 返回 `ErrNoBackend`——
 这就是“这里没有托盘”和“托盘悄悄什么也不做”之间的区别。测试或无界面服务传入
 `WithBackend(tray.NewHeadless())`。
+
+### 通知
+
+`(*Tray).Notify(tray.Notification{Title, Body, OnClick})` 发出一条原生系统通知：macOS 上是 UNUserNotificationCenter，Linux 上是 `org.freedesktop.Notifications`，Windows 上是 Shell_NotifyIcon 气泡。标题最多 63 个 rune，正文最多 255 个（`MaxNotificationTitle`、`MaxNotificationBody`）；标题为空则返回 `ErrEmptyTitle`。这些错误会指明原因：`ErrNoNotifier`（没有后端）、`ErrNotRunning`、`ErrNotBundled`（macOS 只为应用包投递）以及 `ErrNotAuthorized`（用户拒绝）。`tray.NewHeadless()` 会把发出的内容记录在 `Headless.Notified` 中，供测试使用。
+
+## 打开链接
+
+`application.OpenURL(rawURL)` 在用户的浏览器中打开一个 `http` 或 `https` URL：macOS 上用 NSWorkspace，Windows 上用 ShellExecuteW，Linux 上先用 OpenURI 门户，再用 `xdg-open`。URL 需要有主机，端口（如果有）在 1-65535 之间，且不超过 8 KiB；其他情况一律以 `ErrURLScheme` 或 `ErrURLInvalid` 拒绝，没有启动器的平台返回 `ErrOpenURLUnsupported`。

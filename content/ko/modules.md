@@ -24,8 +24,8 @@ API 참조 문서는 릴리스된 태그를 따라가는 [pkg.go.dev](https://pk
 | [`vcs`](https://github.com/go-widgets/vcs) | v0.1.0 | 작업 트리의 각 파일이 어떤 상태인지와 드라이버 레지스트리; 표준 라이브러리만 사용. git 드라이버는 중첩 모듈 `vcs/git`(`git/v0.1.0`) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/vcs) |
 | [`data`](https://github.com/go-widgets/data) | v0.4.0 | [타입이 있는 레코드, 쿼리, 로컬 또는 원격 저장소]({{< relref "/state/data.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/data) |
 | [`window`](https://github.com/go-widgets/window) | v0.91.0 | 여덟 가지 백엔드를 지원하는 [네이티브 창]({{< relref "/surfaces/native-window.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/window) |
-| [`application`](https://github.com/go-widgets/application) | v0.8.1 | 창 위에 놓이는 [애플리케이션 수명 주기]({{< relref "/surfaces/application.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/application) |
-| [`tray`](https://github.com/go-widgets/tray) | v0.15.0 | [트레이 아이콘과 그 메뉴]({{< relref "/surfaces/application.md#the-tray" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/tray) |
+| [`application`](https://github.com/go-widgets/application) | v0.9.0 | 창 위에 놓이는 [애플리케이션 수명 주기]({{< relref "/surfaces/application.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/application) |
+| [`tray`](https://github.com/go-widgets/tray) | v0.16.0 | [트레이 아이콘과 그 메뉴]({{< relref "/surfaces/application.md#the-tray" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/tray) |
 | [`webcanvas`](https://github.com/go-widgets/webcanvas) | v0.9.0 | [브라우저 `<canvas>`에 그리는 장면]({{< relref "/surfaces/browser.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/webcanvas) |
 | [`tui`](https://github.com/go-widgets/tui) | v0.62.0 | [터미널 렌더링과 셀 기반 네이티브 위젯]({{< relref "/surfaces/terminal.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/tui) |
 | [`android`](https://github.com/go-widgets/android) | v0.16.0 | [CGO 없는 프로세스가 그리는 APK]({{< relref "/surfaces/android.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/android) |

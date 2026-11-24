@@ -22,6 +22,7 @@ tags: [status]
 | macOS 托盘 | 一个真实的 macOS 会话：程序停止时图标离开菜单栏，启动时回来，并能打开它的菜单 |
 | Linux 托盘 | CI 中针对真实会话总线：名称被占用，菜单响应 `GetLayout`，`Quit` 撤销该名称 |
 | Windows 托盘 | Windows 11 虚拟机上的图标及其菜单 |
+| 通知与 `OpenURL` | macOS：真实的浏览器标签页被打开，真实的通知中心拒绝了裸可执行文件。Linux：真实会话总线上的模拟守护进程与门户。Windows：仅做了交叉编译和 vet 检查。来自打包应用的 macOS 横幅尚未在真机上证实 |
 | 终端演示 | CI 中的真实 pty：发送按键字节，断言渲染出的画面 |
 
 ## 已编译，未运行 {#compiled-not-run}
@@ -58,5 +59,5 @@ tags: [status]
 
 - 19 个模块中有 15 个可达到存在漏洞的代码：位于 go1.27.1 的标准库中（`html/template`、`net/http`、`crypto/tls`、`mime/multipart`；已在 go1.27.2 中修复），以及 `golang.org/x/net` v0.58.0 中（`http2`，经由 `data` 中的 gRPC；已在 v0.60.0 中修复）。
 - 当晚即已修复。每个模块的 CI 都使用 go1.27.2 构建，每个模块都要求 `x/net` v0.60.0。在大多数模块中它是间接依赖，Renovate 不会更新，因此是手工升级的。对全部 19 个模块再做一轮 `govulncheck`，没有发现可达的漏洞。
-- 已发布：android v0.16.0、app-template v0.5.0、application v0.8.0、bricolint v0.4.1、data v0.4.0、mvvm v0.15.0、mvvmlint v0.4.1、mvvmtk v0.15.0、painter v0.16.0、skin v0.3.0、svg v0.7.0、tray v0.15.0、webcanvas v0.4.1、window v0.89.0，各版本号均由 `gorelease` 根据其 API 推导。2026-10-11：toolkit v0.329.0，以及 tui v0.62.0、desktop v0.20.0、gallery v0.7.0 和 isoicons v0.4.0。对于后四个，`gorelease` 无法加载模块图，因为它会触及 `github.com/ajroetker/go-highway/hwy/goat` v0.0.0，这是一个从未发布过的版本（[ajroetker/go-highway#73](https://github.com/ajroetker/go-highway/issues/73)），所以它们的版本号改为在 linux、darwin 和 windows 上用 `apidiff` 推导，遵循同一规则。
+- 已发布：android v0.16.0、app-template v0.5.0、application v0.9.0、bricolint v0.4.1、data v0.4.0、mvvm v0.15.0、mvvmlint v0.4.1、mvvmtk v0.15.0、painter v0.16.0、skin v0.3.0、svg v0.7.0、tray v0.16.0、webcanvas v0.4.1、window v0.89.0，各版本号均由 `gorelease` 根据其 API 推导。2026-10-11：toolkit v0.329.0，以及 tui v0.62.0、desktop v0.20.0、gallery v0.7.0 和 isoicons v0.4.0。对于后四个，`gorelease` 无法加载模块图，因为它会触及 `github.com/ajroetker/go-highway/hwy/goat` v0.0.0，这是一个从未发布过的版本（[ajroetker/go-highway#73](https://github.com/ajroetker/go-highway/issues/73)），所以它们的版本号改为在 linux、darwin 和 windows 上用 `apidiff` 推导，遵循同一规则。
 - 全部 23 个仓库的工作流（31 个文件）都用 `actionlint` 和 `wfaudit` 审计过：没有特权触发器，工作流级别没有写权限授予，上传的检出内容中没有遗留令牌，shell 步骤中没有不受信任的表达式。每个工作流都声明了自己的权限，因此没有哪个依赖仓库的默认令牌。

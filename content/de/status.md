@@ -25,6 +25,7 @@ die Plattform selbst gefragt wurde:
 | macOS-Tray | eine echte macOS-Sitzung: Das Symbol verlässt die Menüleiste, wenn das Programm endet, kehrt zurück, wenn es startet, und öffnet sein Menü |
 | Linux-Tray | CI gegen einen echten Session-Bus: Der Name wird beansprucht, das Menü beantwortet `GetLayout`, `Quit` zieht es zurück |
 | Windows-Tray | das Symbol und sein Menü auf einer Windows-11-VM |
+| Benachrichtigungen und `OpenURL` | macOS: ein echter Browser-Tab geöffnet, und die echte Mitteilungszentrale, die eine bloße ausführbare Datei ablehnt. Linux: gefälschter Daemon und Portal auf einem echten Session-Bus. Windows: nur cross-kompiliert und geprüft (vet). Ein macOS-Banner einer App im Bundle ist noch nicht live belegt |
 | Terminal-Demos | ein echtes pty in der CI: Tasten-Bytes gesendet, der gerenderte Frame geprüft |
 
 ## Kompiliert, nicht ausgeführt {#compiled-not-run}
@@ -83,9 +84,9 @@ am 2026-10-10:
   Abhängigkeit, die Renovate nicht aktualisiert; sie wurde daher von Hand
   angehoben. Ein zweiter `govulncheck`-Lauf über alle 19 Module findet keine
   erreichbare Schwachstelle.
-- Veröffentlicht: android v0.16.0, app-template v0.5.0, application v0.8.0,
+- Veröffentlicht: android v0.16.0, app-template v0.5.0, application v0.9.0,
   bricolint v0.4.1, data v0.4.0, mvvm v0.15.0, mvvmlint v0.4.1, mvvmtk
-  v0.15.0, painter v0.16.0, skin v0.3.0, svg v0.7.0, tray v0.15.0, webcanvas
+  v0.15.0, painter v0.16.0, skin v0.3.0, svg v0.7.0, tray v0.16.0, webcanvas
   v0.4.1, window v0.89.0, jede Version von `gorelease` aus ihrer API
   abgeleitet. Am 2026-10-11: toolkit v0.329.0, dann tui v0.62.0, desktop
   v0.20.0, gallery v0.7.0 und isoicons v0.4.0. Für diese vier kann `gorelease`
