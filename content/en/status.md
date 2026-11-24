@@ -25,6 +25,7 @@ platform itself was asked:
 | macOS tray | a real macOS session: the icon leaves the menu bar when the program stops, returns when it starts, and opens its menu |
 | Linux tray | CI against a real session bus: the name is claimed, the menu answers `GetLayout`, `Quit` withdraws it |
 | Windows tray | the icon and its menu on a Windows 11 VM |
+| Notifications and `OpenURL` | macOS: a real browser tab opened, and the real notification center refusing a bare executable. Linux: fake daemon and portal on a real session bus. Windows: cross-compiled and vetted only. A macOS banner from a bundled app is not yet proven live |
 | Terminal demos | a real pty in CI: key bytes sent, the rendered frame asserted |
 
 ## Compiled, not run
@@ -81,9 +82,9 @@ Measured with `govulncheck` (symbol level: only code the module can reach) on
   module requires `x/net` v0.60.0. It is an indirect requirement in most of
   them, which Renovate does not update, so it was raised by hand. A second
   `govulncheck` pass over all 19 modules finds no reachable vulnerability.
-- Released: android v0.16.0, app-template v0.5.0, application v0.8.0,
+- Released: android v0.16.0, app-template v0.5.0, application v0.9.0,
   bricolint v0.4.1, data v0.4.0, mvvm v0.15.0, mvvmlint v0.4.1, mvvmtk
-  v0.15.0, painter v0.16.0, skin v0.3.0, svg v0.7.0, tray v0.15.0, webcanvas
+  v0.15.0, painter v0.16.0, skin v0.3.0, svg v0.7.0, tray v0.16.0, webcanvas
   v0.4.1, window v0.89.0, each version derived from its API by `gorelease`.
   On 2026-10-11: toolkit v0.329.0, and tui v0.62.0, desktop v0.20.0, gallery
   v0.7.0 and isoicons v0.4.0. For those four `gorelease` cannot load the module
