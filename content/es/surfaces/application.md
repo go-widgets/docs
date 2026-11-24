@@ -51,6 +51,28 @@ nueva. Para un host que no es una ventana —un shell de escritorio, una pestañ
 del navegador—, `Bind` y `BindScaled` devuelven un `*toolkit.Surface`
 conectado al mismo manejador.
 
+## Accesibilidad de los widgets dibujados {#painted-accessibility}
+
+Un manejador que dibuja sus propios widgets del
+[toolkit]({{< relref "/rendering/toolkit.md#accessibility" >}}) es un único
+rectángulo opaco para la capa de accesibilidad de la plataforma, salvo que
+implemente `Accessible`. `application.A11yElementsOf(root)` construye esa
+descripción a partir del árbol de widgets (rol, etiqueta, valor y límites de
+cada widget, como máximo `MaxA11yElements` = 1000):
+
+```go
+func (v *View) A11yElements() []application.A11yElement {
+	return application.A11yElementsOf(v.root)
+}
+```
+
+En macOS, los botones dibujados aparecen entonces en el árbol AX como
+`AXButton` con su etiqueta, y `AXPress` sobre uno equivale a un clic; los
+controles nativos que el manejador incrusta siguen en el árbol a su lado. Los
+back-ends de Windows (UI Automation) y Linux (AT-SPI) consumen la misma
+descripción. El estado deshabilitado de un elemento aún no se publica, y el
+puente de Windows rechaza los rectángulos de elementos.
+
 ## La bandeja {#the-tray}
 
 Un icono de bandeja es integración con el sistema operativo, no un widget

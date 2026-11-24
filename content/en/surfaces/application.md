@@ -49,6 +49,27 @@ itself.
 window — a desktop shell, a browser tab — `Bind` and `BindScaled` return a
 `*toolkit.Surface` wired to the same handler.
 
+## Accessibility of painted widgets {#painted-accessibility}
+
+A handler that paints its own [toolkit]({{< relref "/rendering/toolkit.md#accessibility" >}})
+widgets is one opaque rectangle to the platform's accessibility layer, unless
+it implements `Accessible`. `application.A11yElementsOf(root)` builds that
+description from the widget tree (role, label, value and bounds of each
+widget, at most `MaxA11yElements` = 1000):
+
+```go
+func (v *View) A11yElements() []application.A11yElement {
+	return application.A11yElementsOf(v.root)
+}
+```
+
+On macOS the painted buttons then appear in the AX tree as `AXButton` with
+their label, and `AXPress` on one is a click on it; the native controls the
+handler embeds stay in the tree beside them. The Windows (UI Automation) and
+Linux (AT-SPI) back-ends consume the same description. An element's disabled
+state is not published yet, and the Windows bridge declines element
+rectangles.
+
 ## The tray
 
 A tray icon is OS integration, not a painted widget, so

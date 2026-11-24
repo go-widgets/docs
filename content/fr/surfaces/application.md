@@ -49,6 +49,28 @@ de zone de notification peut rappeler `Run` pour une nouvelle fenêtre. Pour un 
 fenêtre — un shell de bureau, un onglet de navigateur — `Bind` et `BindScaled` renvoient une
 `*toolkit.Surface` branchée sur le même handler.
 
+## Accessibilité des widgets dessinés {#painted-accessibility}
+
+Un gestionnaire qui dessine ses propres widgets du
+[toolkit]({{< relref "/rendering/toolkit.md#accessibility" >}}) n'est qu'un
+rectangle opaque pour la couche d'accessibilité de la plateforme, sauf s'il
+implémente `Accessible`. `application.A11yElementsOf(root)` construit cette
+description à partir de l'arbre de widgets (rôle, libellé, valeur et bornes de
+chaque widget, au plus `MaxA11yElements` = 1000) :
+
+```go
+func (v *View) A11yElements() []application.A11yElement {
+	return application.A11yElementsOf(v.root)
+}
+```
+
+Sous macOS, les boutons dessinés apparaissent alors dans l'arbre AX comme
+`AXButton` avec leur libellé, et `AXPress` sur l'un d'eux équivaut à un clic ;
+les contrôles natifs que le gestionnaire embarque restent dans l'arbre à leurs
+côtés. Les back-ends Windows (UI Automation) et Linux (AT-SPI) consomment la
+même description. L'état désactivé d'un élément n'est pas encore publié, et le
+pont Windows refuse les rectangles d'éléments.
+
 ## La zone de notification {#the-tray}
 
 Une icône de zone de notification relève de l'intégration au système, pas d'un widget peint ;
