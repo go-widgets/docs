@@ -91,4 +91,14 @@ data-copied-label="Copied!"
 &lt;p&gt;A program already running a window&amp;rsquo;s loop cannot give &lt;code&gt;Run&lt;/code&gt; its main thread:&lt;code&gt;Attach&lt;/code&gt; puts the same icon up and returns, and &lt;code&gt;Quit&lt;/code&gt; takes it down.&lt;/p&gt;
 &lt;p&gt;The native back-ends are on by default; there is no build tag to remember.On a platform with none, &lt;code&gt;Run&lt;/code&gt; returns &lt;code&gt;ErrNoBackend&lt;/code&gt; — the difference
 between &amp;ldquo;there is no tray here&amp;rdquo; and a tray that silently does nothing. A test
-or a headless service passes &lt;code&gt;WithBackend(tray.NewHeadless())&lt;/code&gt;.&lt;/p&gt;</description></item></channel></rss>
+or a headless service passes &lt;code&gt;WithBackend(tray.NewHeadless())&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 data-hextra-search-id="notifications"&gt;Notifications&lt;span class="hx:absolute hx:-mt-20" id="notifications"&gt;&lt;/span&gt;
+&lt;a href="#notifications" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;&lt;code&gt;(*Tray).Notify(tray.Notification{Title, Body, OnClick})&lt;/code&gt; raises a native
+system notification: UNUserNotificationCenter on macOS,&lt;code&gt;org.freedesktop.Notifications&lt;/code&gt; on Linux, a Shell_NotifyIcon balloon on
+Windows. The title is at most 63 runes and the body 255(&lt;code&gt;MaxNotificationTitle&lt;/code&gt;, &lt;code&gt;MaxNotificationBody&lt;/code&gt;); an empty title is&lt;code&gt;ErrEmptyTitle&lt;/code&gt;. The errors name the cause: &lt;code&gt;ErrNoNotifier&lt;/code&gt; (no back-end),&lt;code&gt;ErrNotRunning&lt;/code&gt;, &lt;code&gt;ErrNotBundled&lt;/code&gt; (macOS delivers only for an app bundle) and&lt;code&gt;ErrNotAuthorized&lt;/code&gt; (the user refused). &lt;code&gt;tray.NewHeadless()&lt;/code&gt; records what was
+sent in &lt;code&gt;Headless.Notified&lt;/code&gt;, for tests.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="opening-a-link"&gt;Opening a link&lt;span class="hx:absolute hx:-mt-20" id="opening-a-link"&gt;&lt;/span&gt;
+&lt;a href="#opening-a-link" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;application.OpenURL(rawURL)&lt;/code&gt; opens an &lt;code&gt;http&lt;/code&gt; or &lt;code&gt;https&lt;/code&gt; URL in the user&amp;rsquo;s
+browser: NSWorkspace on macOS, ShellExecuteW on Windows, the OpenURI portal
+then &lt;code&gt;xdg-open&lt;/code&gt; on Linux. The URL needs a host, a port (if any) in 1-65535
+and at most 8 KiB; anything else is refused with &lt;code&gt;ErrURLScheme&lt;/code&gt; or&lt;code&gt;ErrURLInvalid&lt;/code&gt;, and a platform without a launcher returns&lt;code&gt;ErrOpenURLUnsupported&lt;/code&gt;.&lt;/p&gt;</description></item></channel></rss>
