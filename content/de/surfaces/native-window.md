@@ -161,3 +161,41 @@ ruft nur `OnActivate` auf, sodass die Entscheidung, welche Adressen verfolgt wer
 Common Controls mit visuellen Stilen, die ein Programm ohne Manifest nicht erhält;
 das Fenster erzeugt den Link unter einem eigenen Manifest und zeigt, falls das nicht
 möglich ist, eine flache Schaltfläche, die auf dieselbe Weise aktiviert.
+
+## Native Tabellen, Bäume und Reiter
+
+Drei weitere Arten tragen strukturierte Daten. Sie entstehen mit
+`NewNativeTable(columns, rows, selected)`, `NewNativeTree(nodes, selectedPath)`
+und `NewNativeTabs(titles, selected)`; `NativeControl` hat dafür `Columns`,
+`Rows`, `Tree` und `Revision` bekommen, und `Native.SetRows` ersetzt danach die
+Zeilen einer Tabelle.
+
+| Art | Cocoa | GTK4 | Win32 | Auswahl |
+|---|---|---|---|---|
+| `NativeTable` | `NSTableView` | `GtkColumnView` | `SysListView32` (`LVS_REPORT`, `LVS_OWNERDATA`) | `Number` / `OnNumber` ist die Zeile, `-1` für keine |
+| `NativeTree` | `NSOutlineView` | `GtkListView` über einem `GtkTreeListModel` | `SysTreeView32` | `Text` / `OnText` ist ein Pfad wie `2.0.1` |
+| `NativeTabs` | `NSTabView` | `GtkNotebook` | `SysTabControl32` | `Number` / `OnNumber` ist der Reiter, `-1` für keinen |
+
+Sortieren ist nicht implementiert: die Zeilen erscheinen in der gegebenen
+Reihenfolge. Ein Reiter-Steuerelement ist nur die Reiterleiste; den Inhalt unter
+einem Reiter legt das Toolkit wie gewohnt aus. Die gemalten Ersatzdarstellungen
+(`Table`, `TreeView` mit `HideRoot`, `TabBar`) zeichnen dieselben Daten, wo kein
+natives Steuerelement gehostet wird. Die Fenster-Back-Ends, die diese Klassen
+hosten (gehostet von `go-widgets/window`), erscheinen im nächsten Fenster-Release;
+auf der Cocoa-Seite braucht es die neuen Arten `GridView`, `OutlineView` und
+`TabView` aus `go-macos/appkit`.
+
+Die Daten sind begrenzt: höchstens `MaxNativeRows` (100000) Zeilen,
+`MaxNativeColumns` (64) Spalten, `MaxNativeTreeDepth` (32) Ebenen,
+`MaxNativeTreeNodes` (100000) Knoten und `MaxNativeTabs` (64) Reiter; ein
+größerer Wert wird abgelehnt, nicht abgeschnitten.
+
+Der Abgleich betrifft nur Änderungen. Das Bild ist über `Native.Revision()`
+verschlüsselt: solange die Revision gleich bleibt, werden die Zeilen gar nicht
+durchlaufen, und sie gehen nur dann an das Steuerelement, wenn sie sich ändert.
+Unter Cocoa kostet ein Bild mit 10.000 Zeilen 160 us bei unveränderter Revision
+und 687 us, wenn sich die Zeilen ändern (einschließlich des Aufbaus der 10.000
+Zeilen); `SetGrid` selbst braucht 1,3 us, weil die Datenquelle virtuell ist.
+Unter Win32 kostet eine unveränderte Revision 0,26 ns und keine Allokation,
+gegenüber 43,8 us für das Durchlaufen von 10.000 Zeilen (für Cocoa auf einem
+M4 Max gemessen, ein Kern).

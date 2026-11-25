@@ -161,3 +161,40 @@ uniquement) restent la décision de `application.OpenURL`. `SysLink` n'existe qu
 dans les contrôles communs à styles visuels, qu'un programme sans manifeste n'obtient
 pas ; la fenêtre crée le lien sous un manifeste à elle et, s'il n'est pas
 disponible, affiche un bouton plat qui s'active de la même façon.
+
+## Tableaux, arbres et onglets natifs
+
+Trois types de plus portent des données structurées. On les construit avec
+`NewNativeTable(columns, rows, selected)`, `NewNativeTree(nodes, selectedPath)`
+et `NewNativeTabs(titles, selected)` ; `NativeControl` a gagné `Columns`,
+`Rows`, `Tree` et `Revision` pour eux, et `Native.SetRows` remplace ensuite les
+lignes d'un tableau.
+
+| Type | Cocoa | GTK4 | Win32 | Sélection |
+|---|---|---|---|---|
+| `NativeTable` | `NSTableView` | `GtkColumnView` | `SysListView32` (`LVS_REPORT`, `LVS_OWNERDATA`) | `Number` / `OnNumber` est la ligne, `-1` pour aucune |
+| `NativeTree` | `NSOutlineView` | `GtkListView` sur un `GtkTreeListModel` | `SysTreeView32` | `Text` / `OnText` est un chemin comme `2.0.1` |
+| `NativeTabs` | `NSTabView` | `GtkNotebook` | `SysTabControl32` | `Number` / `OnNumber` est l'onglet, `-1` pour aucun |
+
+Le tri n'est pas implémenté : les lignes apparaissent dans l'ordre donné. Un
+contrôle d'onglets n'est que la barre d'onglets ; le contenu sous un onglet est
+disposé par la boîte à outils comme d'habitude. Les repliements peints
+(`Table`, `TreeView` avec `HideRoot`, `TabBar`) dessinent les mêmes données là
+où aucun contrôle natif n'est hébergé. Les moteurs de fenêtre qui hébergent ces
+classes (hébergés par `go-widgets/window`) arrivent dans la prochaine version de
+la fenêtre ; côté Cocoa, il faut les nouveaux types `GridView`, `OutlineView` et
+`TabView` de `go-macos/appkit`.
+
+Les données sont bornées : au plus `MaxNativeRows` (100000) lignes,
+`MaxNativeColumns` (64) colonnes, `MaxNativeTreeDepth` (32) niveaux,
+`MaxNativeTreeNodes` (100000) nœuds et `MaxNativeTabs` (64) onglets ; une valeur
+plus grande est refusée, pas tronquée.
+
+La réconciliation ne traite que les changements. L'image est indexée sur
+`Native.Revision()` : tant que la révision ne change pas, les lignes ne sont
+pas parcourues du tout, et elles ne sont poussées vers le contrôle que lorsqu'elle
+bouge. Sur Cocoa, une image de 10 000 lignes coûte 160 us avec une révision
+inchangée et 687 us quand les lignes changent (construction des 10 000 lignes
+comprise) ; `SetGrid` seul prend 1,3 us, la source de données étant virtuelle.
+Sur Win32, une révision inchangée coûte 0,26 ns et aucune allocation, contre
+43,8 us pour parcourir 10 000 lignes (mesuré sur un M4 Max pour Cocoa, un cœur).

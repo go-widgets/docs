@@ -138,3 +138,33 @@ OS が論理フレームを物理的なクライアント領域に合わせて�
 `application.OpenURL` の判断のままです。`SysLink` はビジュアルスタイル付きのコモンコントロールにしかなく、
 マニフェストのないプログラムでは使えません。ウィンドウは専用のマニフェストの下でリンクを作成し、
 それが利用できない場合は、同じように動作するフラットなボタンを表示します。
+
+## ネイティブのテーブル、ツリー、タブ
+
+構造化データを扱う種類がさらに3つあります。`NewNativeTable(columns, rows, selected)`、
+`NewNativeTree(nodes, selectedPath)`、`NewNativeTabs(titles, selected)` で作成します。
+そのために `NativeControl` に `Columns`、`Rows`、`Tree`、`Revision` が加わり、
+`Native.SetRows` でテーブルの行を後から置き換えられます。
+
+| 種類 | Cocoa | GTK4 | Win32 | 選択 |
+|---|---|---|---|---|
+| `NativeTable` | `NSTableView` | `GtkColumnView` | `SysListView32` (`LVS_REPORT`, `LVS_OWNERDATA`) | `Number` / `OnNumber` が行。なしは `-1` |
+| `NativeTree` | `NSOutlineView` | `GtkTreeListModel` 上の `GtkListView` | `SysTreeView32` | `Text` / `OnText` が `2.0.1` のようなパス |
+| `NativeTabs` | `NSTabView` | `GtkNotebook` | `SysTabControl32` | `Number` / `OnNumber` がタブ。なしは `-1` |
+
+並べ替えは実装されていません。行は与えられた順に表示されます。タブコントロールはタブの帯だけで、
+タブの下の内容はこれまでどおりツールキットが配置します。描画によるフォールバック
+(`Table`、`HideRoot` 付きの `TreeView`、`TabBar`) は、ネイティブコントロールがホストされない場所で
+同じデータを描きます。これらのクラスをホストするウィンドウのバックエンド(`go-widgets/window` がホスト)は
+次のウィンドウのリリースで提供されます。Cocoa 側には `go-macos/appkit` の新しい種類
+`GridView`、`OutlineView`、`TabView` が必要です。
+
+データには上限があります。行は `MaxNativeRows` (100000) まで、列は `MaxNativeColumns` (64) まで、
+ツリーの深さは `MaxNativeTreeDepth` (32)、ノードは `MaxNativeTreeNodes` (100000)、
+タブは `MaxNativeTabs` (64) までです。これを超える値は切り詰められず、拒否されます。
+
+照合は変更分だけを処理します。フレームは `Native.Revision()` をキーとし、リビジョンが同じ間は
+行をまったく走査せず、変わったときだけ行をコントロールへ送ります。Cocoa では 10,000 行のフレームが、
+リビジョン不変で 160 us、行が変わると 687 us (10,000 行の構築を含む) です。データソースが仮想なので
+`SetGrid` 自体は 1.3 us です。Win32 ではリビジョン不変で 0.26 ns、割り当てなし、
+10,000 行の走査は 43.8 us です (Cocoa は M4 Max、1コアで計測)。
