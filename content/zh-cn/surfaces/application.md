@@ -41,6 +41,18 @@ err := application.Run(spec, cfg, handler, func() { log.Println("on screen") })
 对于不是窗口的宿主——桌面外壳、浏览器标签页——`Bind` 和 `BindScaled` 返回一个与同一 handler 相连的
 `*toolkit.Surface`。
 
+## 绘制控件的无障碍 {#painted-accessibility}
+
+自行绘制[工具包]({{< relref "/rendering/toolkit.md#accessibility" >}})控件的处理器，除非实现 `Accessible`，否则在平台的无障碍层看来只是一个不透明的矩形。`application.A11yElementsOf(root)` 根据控件树生成这份描述（每个控件的角色、标签、值和边界，最多 `MaxA11yElements` = 1000 个）：
+
+```go
+func (v *View) A11yElements() []application.A11yElement {
+	return application.A11yElementsOf(v.root)
+}
+```
+
+在 macOS 上，绘制出的按钮随后会以带标签的 `AXButton` 出现在 AX 树中，对其执行 `AXPress` 即相当于点击；处理器嵌入的原生控件仍留在树中它们旁边。Windows（UI Automation）和 Linux（AT-SPI）后端使用同一份描述。元素的禁用状态尚未发布，Windows 桥接也拒绝元素矩形。
+
 ## 托盘 {#the-tray}
 
 托盘图标是操作系统集成，而不是绘制出来的控件，因此

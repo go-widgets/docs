@@ -44,6 +44,18 @@ err := application.Run(spec, cfg, handler, func() { log.Println("on screen") })
 新しいウィンドウを開けます。ウィンドウではないホスト（デスクトップシェルやブラウザのタブ）向けには、`Bind` と
 `BindScaled` が、同じハンドラに接続された `*toolkit.Surface` を返します。
 
+## 描画されたウィジェットのアクセシビリティ {#painted-accessibility}
+
+独自の[ツールキット]({{< relref "/rendering/toolkit.md#accessibility" >}})ウィジェットを描画するハンドラーは、`Accessible` を実装しない限り、プラットフォームのアクセシビリティ層からは不透明な長方形 1 枚にしか見えません。`application.A11yElementsOf(root)` は、ウィジェットツリーからその記述（各ウィジェットのロール、ラベル、値、境界。最大 `MaxA11yElements` = 1000）を作ります。
+
+```go
+func (v *View) A11yElements() []application.A11yElement {
+	return application.A11yElementsOf(v.root)
+}
+```
+
+macOS では、描画されたボタンが AX ツリーに `AXButton` としてラベル付きで現れ、それに対する `AXPress` はクリックになります。ハンドラーが埋め込むネイティブコントロールも、その隣のツリーに残ります。Windows（UI Automation）と Linux（AT-SPI）のバックエンドも同じ記述を使います。要素の無効状態はまだ公開されず、Windows のブリッジは要素の矩形を拒否します。
+
 ## トレイ {#the-tray}
 
 トレイアイコンは OS との統合であり、描画されるウィジェットではありません。そのため

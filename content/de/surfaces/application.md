@@ -49,6 +49,28 @@ eines.
 Fenster ist – eine Desktop-Shell, ein Browser-Tab –, geben `Bind` und `BindScaled` eine
 `*toolkit.Surface` zurück, die mit demselben Handler verdrahtet ist.
 
+## Barrierefreiheit gezeichneter Widgets {#painted-accessibility}
+
+Ein Handler, der eigene [Toolkit]({{< relref "/rendering/toolkit.md#accessibility" >}})-Widgets
+zeichnet, ist für die Zugänglichkeitsschicht der Plattform ein einziges
+undurchsichtiges Rechteck, sofern er nicht `Accessible` implementiert.
+`application.A11yElementsOf(root)` erzeugt diese Beschreibung aus dem
+Widget-Baum (Rolle, Beschriftung, Wert und Grenzen jedes Widgets, höchstens
+`MaxA11yElements` = 1000):
+
+```go
+func (v *View) A11yElements() []application.A11yElement {
+	return application.A11yElementsOf(v.root)
+}
+```
+
+Unter macOS erscheinen die gezeichneten Schaltflächen dann im AX-Baum als
+`AXButton` mit ihrer Beschriftung, und `AXPress` darauf ist ein Klick; die
+nativen Steuerelemente, die der Handler einbettet, bleiben daneben im Baum. Die
+Back-Ends für Windows (UI Automation) und Linux (AT-SPI) verwenden dieselbe
+Beschreibung. Der deaktivierte Zustand eines Elements wird noch nicht
+veröffentlicht, und die Windows-Brücke lehnt Element-Rechtecke ab.
+
 ## Das Tray {#the-tray}
 
 Ein Tray-Symbol ist Betriebssystemintegration, kein gezeichnetes Widget, deshalb

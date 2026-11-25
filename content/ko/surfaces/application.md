@@ -46,6 +46,18 @@ tray.ErrNoBackend)`로 이유를 알 수 있습니다. 트레이에 무슨 일�
 위해서는 `Bind`와 `BindScaled`가 같은 핸들러에 연결된 `*toolkit.Surface`를
 반환합니다.
 
+## 그려진 위젯의 접근성 {#painted-accessibility}
+
+자체 [툴킷]({{< relref "/rendering/toolkit.md#accessibility" >}}) 위젯을 그리는 핸들러는 `Accessible`을 구현하지 않으면 플랫폼의 접근성 계층에는 불투명한 사각형 하나로만 보입니다. `application.A11yElementsOf(root)`는 위젯 트리에서 그 설명(각 위젯의 역할, 레이블, 값, 경계. 최대 `MaxA11yElements` = 1000)을 만듭니다.
+
+```go
+func (v *View) A11yElements() []application.A11yElement {
+	return application.A11yElementsOf(v.root)
+}
+```
+
+macOS에서는 그려진 버튼이 AX 트리에 레이블과 함께 `AXButton`으로 나타나고, 그 버튼에 대한 `AXPress`는 클릭이 됩니다. 핸들러가 내장하는 네이티브 컨트롤도 그 옆에 트리에 남습니다. Windows(UI Automation)와 Linux(AT-SPI) 백엔드도 같은 설명을 사용합니다. 요소의 비활성 상태는 아직 공개되지 않으며, Windows 브리지는 요소 사각형을 거부합니다.
+
 ## 트레이 {#the-tray}
 
 트레이 아이콘은 그려지는 위젯이 아니라 OS 통합이므로,
