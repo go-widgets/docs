@@ -141,6 +141,28 @@ Souris, clavier, composition IME, tactile (`EventTouchStart`/`Move`/`End`, avec
 `TreeView` fonctionne à la souris comme au clavier, et respecte ⌘ aussi bien
 que Ctrl, car sous macOS Ctrl-clic est le clic secondaire.
 
+## Méthodes de saisie {#ime}
+
+Un `Entry` ou un `TextView` dessiné participe à la méthode de saisie de la
+plateforme (touches mortes, conversion Kana et Hanzi, Hangul) par une seule
+interface, `toolkit.Composer` : `SetPreedit(Preedit)` affiche le texte en cours de
+composition au curseur sans toucher au tampon, `CommitText` insère le résultat,
+`CancelPreedit` l'abandonne, et `CompositionRect` dit où ancrer la fenêtre de
+candidats. Un `Preedit` porte le texte, un curseur et des segments stylés (saisie,
+converti, sélectionné). Il est borné : au plus `MaxPreeditRunes` (256) runes et
+`MaxPreeditSegments` (64) segments, aucun caractère de contrôle, et un
+substitut isolé devient U+FFFD. Un champ désactivé ou masqué ne garde aucun
+preedit : un mot de passe ne s'affiche jamais en clair. L'hôte trouve le champ
+actif par `toolkit.FocusedComposition(root)`.
+
+Le paquet window le branche sur chaque backend : `NSTextInputClient` (Cocoa),
+`GtkIMContext` (GTK4), IMM32 (Win32). Prouvé : macOS en direct (une touche morte
+sur la disposition française compose ê ; texte marqué et Échap via le runtime),
+GTK sous Xvfb avec `GtkIMContextSimple` piloté par xdotool, et la correspondance
+Win32 avec sa cible de fuzzing. Non prouvé : un IME Windows en direct, sa fenêtre
+de candidats ou TSF, ibus et fcitx, et le Kana sur macOS (la source de saisie ne
+peut pas être activée sans interaction).
+
 ## Plusieurs personnes dans un même tampon {#collaboration}
 
 `collabui.CollabText` relie un `CodeEditor` à une partie texte d'une session

@@ -135,6 +135,26 @@ Mouse, keyboard, IME composition, touch (`EventTouchStart`/`Move`/`End`, with
 `TreeView` works from the mouse and from the keyboard, and honours ⌘ as well
 as Ctrl, because on macOS Ctrl-click is the secondary click.
 
+## Input methods {#ime}
+
+A painted `Entry` or `TextView` takes part in the platform's input method (dead
+keys, Kana and Hanzi conversion, Hangul) through one interface, `toolkit.Composer`:
+`SetPreedit(Preedit)` shows the text being composed at the caret without touching
+the buffer, `CommitText` inserts the result, `CancelPreedit` drops it, and
+`CompositionRect` says where the candidate window should anchor. A `Preedit`
+carries the text, a cursor and styled segments (input, converted, selected). It is
+bounded: at most `MaxPreeditRunes` (256) runes and `MaxPreeditSegments` (64)
+segments, no control characters, and a lone surrogate becomes U+FFFD. A disabled
+or masked field keeps no preedit, so a password never shows in clear. A host finds
+the focused field with `toolkit.FocusedComposition(root)`.
+
+The window package wires it on every backend: Cocoa `NSTextInputClient`, GTK4
+`GtkIMContext`, Win32 IMM32. Proven: macOS live (a dead key on the French layout
+composes ê; marked text and Escape through the runtime), GTK under Xvfb with
+`GtkIMContextSimple` driven by xdotool, and the Win32 mapping and its fuzz
+target. Not proven: a live Windows IME, its candidate window or TSF, ibus and
+fcitx, and Kana on macOS (the input source cannot be enabled non-interactively).
+
 ## Several people in one buffer {#collaboration}
 
 `collabui.CollabText` binds a `CodeEditor` to one text part of a

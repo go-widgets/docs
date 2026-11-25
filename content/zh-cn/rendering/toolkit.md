@@ -114,6 +114,12 @@ toolkit.UseOpenTypeText() // Atkinson Hyperlegible, bundled; js/wasm-safe
 长按和滑动）、拖放（`DragSource`、`DropTarget`）。`ListBox`、`Table` 和 `TreeView` 中的多行选择
 可用鼠标和键盘完成，并且除 Ctrl 之外也认 ⌘，因为在 macOS 上 Ctrl 加点击是次要点击。
 
+## 输入法 {#ime}
+
+绘制出来的 `Entry` 和 `TextView` 通过唯一的接口 `toolkit.Composer` 参与平台输入法（死键、假名与汉字转换、谚文）：`SetPreedit(Preedit)` 在光标处显示正在组合的文本而不改动缓冲区，`CommitText` 插入结果，`CancelPreedit` 丢弃组合，`CompositionRect` 告诉输入法候选窗应锚定在哪里。`Preedit` 带有文本、光标和带样式的片段（输入中、已转换、已选中），并且有界：最多 `MaxPreeditRunes`（256）个字符和 `MaxPreeditSegments`（64）个片段，不含控制字符，孤立的代理项变为 U+FFFD。被禁用或被遮蔽的字段不保留 preedit，因此密码绝不会明文显示。宿主用 `toolkit.FocusedComposition(root)` 找到获得焦点的字段。
+
+window 包在每个后端上接通它：Cocoa 为 `NSTextInputClient`，GTK4 为 `GtkIMContext`，Win32 为 IMM32。已证实：macOS 真机（法语布局的死键组合出 ê；标记文本和 Esc 经由运行时），Xvfb 下的 GTK（由 xdotool 驱动 `GtkIMContextSimple`），以及 Win32 映射及其模糊测试目标。未证实：Windows 上的真实输入法、其候选窗或 TSF，ibus 与 fcitx，以及 macOS 上的假名（输入源无法在非交互条件下启用）。
+
 ## 多人共用一个缓冲区 {#collaboration}
 
 `collabui.CollabText` 把一个 `CodeEditor` 绑定到一个

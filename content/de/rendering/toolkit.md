@@ -142,6 +142,29 @@ Maus, Tastatur, IME-Komposition, Touch (`EventTouchStart`/`Move`/`End`, mit
 `TreeView` funktioniert mit der Maus und mit der Tastatur und beachtet ⌘ ebenso
 wie Ctrl, weil unter macOS Ctrl-Klick der Sekundärklick ist.
 
+## Eingabemethoden {#ime}
+
+Ein gezeichnetes `Entry` oder `TextView` nimmt über eine einzige Schnittstelle,
+`toolkit.Composer`, an der Eingabemethode der Plattform teil (Akzenttasten,
+Kana- und Hanzi-Umwandlung, Hangul): `SetPreedit(Preedit)` zeigt den gerade
+komponierten Text an der Einfügemarke, ohne den Puffer zu ändern, `CommitText`
+fügt das Ergebnis ein, `CancelPreedit` verwirft es, und `CompositionRect` sagt,
+wo das Kandidatenfenster verankert wird. Ein `Preedit` trägt den Text, einen
+Cursor und gestaltete Segmente (Eingabe, umgewandelt, ausgewählt). Er ist
+begrenzt: höchstens `MaxPreeditRunes` (256) Runen und `MaxPreeditSegments` (64)
+Segmente, keine Steuerzeichen, und ein einzelnes Surrogat wird zu U+FFFD. Ein
+deaktiviertes oder maskiertes Feld behält keinen Preedit, ein Passwort erscheint
+also nie im Klartext. Der Host findet das fokussierte Feld mit
+`toolkit.FocusedComposition(root)`.
+
+Das Paket window verdrahtet das auf jedem Backend: `NSTextInputClient` (Cocoa),
+`GtkIMContext` (GTK4), IMM32 (Win32). Belegt: macOS live (eine Akzenttaste im
+französischen Layout ergibt ê; markierter Text und Esc über die Laufzeit), GTK
+unter Xvfb mit `GtkIMContextSimple` per xdotool, sowie die Win32-Abbildung samt
+Fuzz-Ziel. Nicht belegt: ein echtes Windows-IME, sein Kandidatenfenster oder TSF,
+ibus und fcitx sowie Kana unter macOS (die Eingabequelle lässt sich nicht ohne
+Interaktion aktivieren).
+
 ## Mehrere Personen in einem Puffer {#collaboration}
 
 `collabui.CollabText` bindet einen `CodeEditor` an einen Textteil einer
