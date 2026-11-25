@@ -19,6 +19,7 @@ platform itself was asked:
 | X11 window | CI, under Xvfb: a known pattern presented, captured and sampled; a click and a key synthesised with `xdotool` and the dispatched `toolkit.Event` asserted; `Show`/`Hide`/`Raise` read back from the server |
 | Cocoa window | a macOS CI lane: a window opened and rendered, pixels sampled, a click and a key synthesised; `Show`/`Hide`/`Raise` asked of a real `NSWindow` from another goroutine and read back from AppKit |
 | Win32 window | a Windows 11 arm64 VM: a real window rendering a `VBox`, a `Label` and a `Button`, three injected clicks driving its counter from 0 to 3 through the window procedure |
+| Native menu and picture (GTK4, Win32) | CI: GTK4 under Xvfb builds the popover menu, puts a picture in a real button and handles a close request; Win32 builds a real `HMENU` from the descriptor, reads its rows back and puts a bitmap on a real child window |
 | Wayland window | against a fake compositor that enforces xdg-shell's map and unmap rules |
 | wasmbox window | headless Chromium driving the real wasmdesk compositor: the composited pixels read back, a real click routed to the widget |
 | Android | an Android 15 arm64 device: damage-only blits measured, memfd dirty memory measured, the accessibility tree benchmarked on the device |
@@ -45,6 +46,10 @@ platform itself was asked:
   draws without it.
 - `window`'s Wayland back-end cannot `Raise`: xdg-shell has no such request,
   and xdg-activation needs a token from the user's own input.
+- A real pointer right-click on GTK4 and the modal `TrackPopupMenu` loop on
+  Win32 are not driven: the menu is built and read back, and a pick is invoked
+  directly. On Windows the picture beside the caption needs a manifest the
+  test binary lacks, so CI proves the picture alone.
 - Android: `android/arm64` only, because it is the only Android target Go
   links without cgo.
 - `window.Screens` returns `ErrScreensUnsupported` on `js/wasm`.

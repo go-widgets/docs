@@ -16,6 +16,7 @@ tags: [status]
 | X11 ウィンドウ | CI（Xvfb 上）: 既知のパターンを表示してキャプチャしサンプリング、`xdotool` でクリックとキーを合成して、ディスパッチされた `toolkit.Event` を検証、`Show`/`Hide`/`Raise` をサーバから読み戻し |
 | Cocoa ウィンドウ | macOS の CI レーン: ウィンドウを開いて描画し、ピクセルをサンプリング、クリックとキーを合成、別の goroutine から実際の `NSWindow` に `Show`/`Hide`/`Raise` を要求して AppKit から読み戻し |
 | Win32 ウィンドウ | Windows 11 arm64 の VM: `VBox`、`Label`、`Button` を描画する実際のウィンドウで、3 回注入したクリックがウィンドウプロシージャ経由でカウンタを 0 から 3 に進めることを確認 |
+| ネイティブメニューと画像 (GTK4、Win32) | CI: Xvfb 上の GTK4 がポップオーバーメニューを構築し、実際のボタンに画像を載せ、閉じる要求を処理する。Win32 は記述子から実際の `HMENU` を構築して各行を読み戻し、実際の子ウィンドウにビットマップを載せる |
 | Wayland ウィンドウ | xdg-shell の map と unmap の規則を強制する偽のコンポジタに対して検証 |
 | wasmbox ウィンドウ | ヘッドレス Chromium で実際の wasmdesk コンポジタを駆動: 合成されたピクセルを読み戻し、実際のクリックをウィジェットにルーティング |
 | Android | Android 15 arm64 の実機: 差分のみの blit を計測、memfd のダーティメモリを計測、アクセシビリティツリーを実機でベンチマーク |
@@ -36,6 +37,7 @@ tags: [status]
 
 - Windows と Linux のトレイは `MenuItem.Icon` を無視します。アイコン付きの行は、アイコンなしで描画されます。
 - `window` の Wayland バックエンドは `Raise` できません。xdg-shell にそのようなリクエストはなく、xdg-activation にはユーザー自身の入力から得たトークンが必要です。
+- GTK4 での実際のポインタによる右クリックと、Win32 のモーダルな `TrackPopupMenu` ループは駆動していません。メニューは構築して読み戻し、選択は直接呼び出しています。Windows ではキャプション横の画像にテストバイナリにないマニフェストが必要なため、CI が証明するのは画像単体のみです。
 - Android: `android/arm64` のみです。cgo なしで Go がリンクできる Android ターゲットはこれだけだからです。
 - `window.Screens` は `js/wasm` では `ErrScreensUnsupported` を返します。
 

@@ -19,6 +19,7 @@ los que se interrogó a la propia plataforma:
 | Ventana X11 | CI, bajo Xvfb: un patrón conocido presentado, capturado y muestreado; un clic y una tecla sintetizados con `xdotool` y el `toolkit.Event` despachado comprobado; `Show`/`Hide`/`Raise` releídos desde el servidor |
 | Ventana Cocoa | una línea de CI en macOS: una ventana abierta y renderizada, píxeles muestreados, un clic y una tecla sintetizados; `Show`/`Hide`/`Raise` solicitados a un `NSWindow` real desde otra goroutine y releídos desde AppKit |
 | Ventana Win32 | una VM Windows 11 arm64: una ventana real que renderiza un `VBox`, un `Label` y un `Button`, con tres clics inyectados que llevan su contador de 0 a 3 a través del procedimiento de ventana |
+| Menú nativo e imagen (GTK4, Win32) | CI: GTK4 bajo Xvfb construye el menú popover, pone una imagen en un botón real y atiende una petición de cierre; Win32 construye un `HMENU` real a partir del descriptor, lee sus filas y pone un mapa de bits en una ventana hija real |
 | Ventana Wayland | frente a un compositor simulado que aplica las reglas de mapeo y desmapeo de xdg-shell |
 | Ventana wasmbox | Chromium headless controlando el compositor wasmdesk real: los píxeles compuestos releídos, un clic real encaminado al widget |
 | Android | un dispositivo Android 15 arm64: copias limitadas a las zonas dañadas medidas, memoria sucia del memfd medida, el árbol de accesibilidad evaluado en el dispositivo |
@@ -47,6 +48,10 @@ los que se interrogó a la propia plataforma:
 - El backend Wayland de `window` no puede hacer `Raise`: xdg-shell no tiene esa
   petición, y xdg-activation necesita un token procedente de la propia entrada
   del usuario.
+- Un clic derecho real con el puntero en GTK4 y el bucle modal de `TrackPopupMenu` en Win32
+  no se ejercitan: el menú se construye y se vuelve a leer, y una selección se invoca
+  directamente. En Windows la imagen junto al título necesita un manifiesto que el binario
+  de prueba no tiene, así que la CI prueba solo la imagen.
 - Android: solo `android/arm64`, porque es el único destino Android que Go
   enlaza sin cgo.
 - `window.Screens` devuelve `ErrScreensUnsupported` en `js/wasm`.

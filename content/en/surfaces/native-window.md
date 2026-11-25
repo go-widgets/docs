@@ -133,10 +133,34 @@ needs.
 | Wayland | commit again | null buffer and commit | `ErrNotSupported`: xdg-shell has no such request |
 | macOS | `orderFront:` | `orderOut:` | activate the app, `makeKeyAndOrderFront:` |
 | Windows | `SW_SHOWNA` | `SW_HIDE` | `SW_RESTORE` and `SetForegroundWindow` |
-| GTK, Android, wasmbox, browser tab | `ErrNotSupported` | `ErrNotSupported` | `ErrNotSupported` |
+| GTK4 | `gtk_widget_set_visible(true)` | `gtk_widget_set_visible(false)` | `gtk_window_present` |
+| Android, wasmbox, browser tab | `ErrNotSupported` | `ErrNotSupported` | `ErrNotSupported` |
 
 Focus is the platform's to grant: under focus-stealing prevention, `Raise`
-may only mark the window as wanting attention, and cannot tell.
+may only mark the window as wanting attention, and cannot tell (a Wayland
+compositor under GTK4 does exactly that).
+
+`Config.HideOnClose` is honoured by X11, Wayland, GTK4, macOS and Windows: the
+window's own close control then hides the window instead of closing it, and
+`Show` or `Raise` brings it back.
+
+## Context menu and picture on native controls
+
+`NativeControl.Menu` and `Image` / `ImageOnly` are applied by every native
+back-end, not only Cocoa. On GTK4 the menu is a popover opened by a secondary
+click and the picture sits in the button, alone or beside the caption. On Win32
+the menu is a real `HMENU` shown with `TrackPopupMenu` on `WM_CONTEXTMENU`, and
+the picture is a bitmap on the button. A disabled entry or a separator is not
+pickable. Both are reapplied only when they changed, since the descriptors are
+rebuilt every frame.
+
+The PNG is bounded: at most 1 MiB and 1024 pixels a side, checked from the
+header before any pixel is allocated, and a picture that cannot be read leaves
+the button as it was. It is fitted inside the button less a 4-pixel margin by
+`painter.IconSize` and `painter.IconBGRAOver`, never scaled up. On Windows
+the image beside the caption needs the visual-styles common controls; without a
+manifest the button shows the picture alone. Windows edit fields keep their own
+system menu.
 
 ## Native controls on Windows
 

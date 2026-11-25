@@ -16,6 +16,7 @@ tags: [status]
 | X11 窗口 | CI，在 Xvfb 下：呈现一幅已知图案，捕获并采样；用 `xdotool` 合成一次点击和一次按键，并断言所分发的 `toolkit.Event`；`Show`/`Hide`/`Raise` 从服务器回读 |
 | Cocoa 窗口 | macOS CI 通道：打开并渲染一个窗口，采样像素，合成一次点击和一次按键；从另一个 goroutine 对真实的 `NSWindow` 调用 `Show`/`Hide`/`Raise`，并从 AppKit 回读 |
 | Win32 窗口 | Windows 11 arm64 虚拟机：一个真实窗口渲染 `VBox`、`Label` 和 `Button`，注入三次点击，经由窗口过程把它的计数器从 0 推到 3 |
+| 原生菜单与图片（GTK4、Win32） | CI：Xvfb 下的 GTK4 构建弹出菜单，在真实按钮中放入图片，并处理关闭请求；Win32 根据描述符构建真实的 `HMENU`，回读其各行，并把位图放到真实的子窗口上 |
 | Wayland 窗口 | 针对一个强制执行 xdg-shell 映射与取消映射规则的模拟合成器 |
 | wasmbox 窗口 | 无头 Chromium 驱动真实的 wasmdesk 合成器：回读合成后的像素，一次真实点击被路由到控件 |
 | Android | 一台 Android 15 arm64 设备：测量仅脏区域的块传送，测量 memfd 脏内存，并在设备上对无障碍树做基准测试 |
@@ -36,6 +37,7 @@ tags: [status]
 
 - Windows 和 Linux 托盘会忽略 `MenuItem.Icon`：带图标的行会不带图标地绘制。
 - `window` 的 Wayland 后端无法 `Raise`：xdg-shell 没有这样的请求，而 xdg-activation 需要来自用户自身输入的令牌。
+- GTK4 上真实的指针右键点击和 Win32 上模态的 `TrackPopupMenu` 循环没有被驱动：菜单被构建并回读，选择则直接调用。在 Windows 上，标题旁的图片需要测试二进制文件所没有的清单，因此 CI 只证明了单独的图片。
 - Android：仅支持 `android/arm64`，因为这是 Go 在没有 cgo 的情况下唯一能链接的 Android 目标。
 - `window.Screens` 在 `js/wasm` 上返回 `ErrScreensUnsupported`。
 

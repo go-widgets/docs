@@ -133,10 +133,33 @@ braucht.
 | Wayland | erneuter Commit | Null-Puffer und Commit | `ErrNotSupported`: xdg-shell hat keine solche Anfrage |
 | macOS | `orderFront:` | `orderOut:` | die App aktivieren, `makeKeyAndOrderFront:` |
 | Windows | `SW_SHOWNA` | `SW_HIDE` | `SW_RESTORE` und `SetForegroundWindow` |
-| GTK, Android, wasmbox, Browser-Tab | `ErrNotSupported` | `ErrNotSupported` | `ErrNotSupported` |
+| GTK4 | `gtk_widget_set_visible(true)` | `gtk_widget_set_visible(false)` | `gtk_window_present` |
+| Android, wasmbox, Browser-Tab | `ErrNotSupported` | `ErrNotSupported` | `ErrNotSupported` |
 
 Den Fokus gewährt die Plattform: Unter einem Schutz gegen Fokusraub kann `Raise`
-das Fenster möglicherweise nur als aufmerksamkeitsbedürftig markieren und kann das nicht erkennen.
+das Fenster möglicherweise nur als aufmerksamkeitsbedürftig markieren und kann das nicht erkennen
+(ein Wayland-Compositor unter GTK4 tut genau das).
+
+`Config.HideOnClose` wird von X11, Wayland, GTK4, macOS und Windows unterstützt: Das
+Schließen-Element des Fensters blendet das Fenster dann aus, statt es zu schließen, und
+`Show` oder `Raise` holt es zurück.
+
+## Kontextmenü und Bild auf nativen Steuerelementen {#context-menu-and-picture-on-native-controls}
+
+`NativeControl.Menu` und `Image` / `ImageOnly` werden von jedem nativen Backend
+umgesetzt, nicht nur von Cocoa. Unter GTK4 ist das Menü ein Popover, das ein
+Sekundärklick öffnet, und das Bild sitzt im Button, allein oder neben der Beschriftung. Unter
+Win32 ist das Menü ein echtes `HMENU`, das bei `WM_CONTEXTMENU` mit `TrackPopupMenu` angezeigt wird,
+und das Bild ist eine Bitmap auf dem Button. Ein deaktivierter Eintrag oder ein Trennstrich ist nicht
+wählbar. Beides wird nur neu angewendet, wenn es sich geändert hat, da die Beschreibungen
+in jedem Frame neu aufgebaut werden.
+
+Das PNG ist begrenzt: höchstens 1 MiB und 1024 Pixel je Seite, aus dem Header geprüft, bevor
+ein Pixel angelegt wird; ein nicht lesbares Bild lässt den Button unverändert. Es wird von
+`painter.IconSize` und `painter.IconBGRAOver` in den Button abzüglich eines Rands von 4 Pixeln
+eingepasst und nie vergrößert. Unter Windows braucht das Bild neben der Beschriftung die
+Common Controls mit visuellen Stilen; ohne Manifest zeigt der Button nur das Bild.
+Windows-Eingabefelder behalten ihr eigenes Systemmenü.
 
 ## Native Steuerelemente unter Windows {#native-controls-on-windows}
 

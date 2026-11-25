@@ -133,10 +133,32 @@ la fermer, puis la ramènent — ce dont a besoin une [application de zone de no
 | Wayland | nouveau commit | tampon nul et commit | `ErrNotSupported` : xdg-shell n'a pas de telle requête |
 | macOS | `orderFront:` | `orderOut:` | activer l'application, `makeKeyAndOrderFront:` |
 | Windows | `SW_SHOWNA` | `SW_HIDE` | `SW_RESTORE` et `SetForegroundWindow` |
-| GTK, Android, wasmbox, onglet de navigateur | `ErrNotSupported` | `ErrNotSupported` | `ErrNotSupported` |
+| GTK4 | `gtk_widget_set_visible(true)` | `gtk_widget_set_visible(false)` | `gtk_window_present` |
+| Android, wasmbox, onglet de navigateur | `ErrNotSupported` | `ErrNotSupported` | `ErrNotSupported` |
 
 Le focus, c'est à la plateforme de l'accorder : avec la prévention du vol de focus, `Raise`
-peut seulement marquer la fenêtre comme demandant l'attention, sans pouvoir le savoir.
+peut seulement marquer la fenêtre comme demandant l'attention, sans pouvoir le savoir
+(un compositeur Wayland sous GTK4 fait exactement cela).
+
+`Config.HideOnClose` est respecté par X11, Wayland, GTK4, macOS et Windows : le contrôle
+de fermeture de la fenêtre la masque alors au lieu de la fermer, et `Show` ou `Raise`
+la ramène.
+
+## Menu contextuel et image sur les contrôles natifs {#context-menu-and-picture-on-native-controls}
+
+`NativeControl.Menu` et `Image` / `ImageOnly` sont appliqués par chaque backend natif, pas
+seulement Cocoa. Sous GTK4, le menu est un popover qu'ouvre un clic secondaire et l'image
+se place dans le bouton, seule ou à côté du libellé. Sous Win32, le menu est un vrai `HMENU`
+affiché avec `TrackPopupMenu` sur `WM_CONTEXTMENU`, et l'image est un bitmap sur le bouton.
+Une entrée désactivée ou un séparateur ne peut pas être choisi. L'un et l'autre ne sont
+réappliqués que lorsqu'ils ont changé, car les descripteurs sont reconstruits à chaque image.
+
+Le PNG est borné : 1 Mio et 1024 pixels de côté au plus, vérifiés d'après l'en-tête avant
+d'allouer le moindre pixel ; une image illisible laisse le bouton tel qu'il était.
+`painter.IconSize` et `painter.IconBGRAOver` l'ajustent au bouton moins une marge de
+4 pixels, sans jamais l'agrandir. Sous Windows, l'image à côté du libellé demande les
+contrôles communs à styles visuels ; sans manifeste, le bouton n'affiche que l'image.
+Les champs de saisie Windows gardent leur propre menu système.
 
 ## Contrôles natifs sous Windows {#native-controls-on-windows}
 
