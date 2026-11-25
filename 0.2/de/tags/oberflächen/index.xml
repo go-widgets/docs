@@ -300,8 +300,9 @@ data-copied-label="Kopiert!"
 &lt;p&gt;Unter macOS erscheinen die gezeichneten Schaltflächen dann im AX-Baum als&lt;code&gt;AXButton&lt;/code&gt; mit ihrer Beschriftung, und &lt;code&gt;AXPress&lt;/code&gt; darauf ist ein Klick; die
 nativen Steuerelemente, die der Handler einbettet, bleiben daneben im Baum. Die
 Back-Ends für Windows (UI Automation) und Linux (AT-SPI) verwenden dieselbe
-Beschreibung. Der deaktivierte Zustand eines Elements wird noch nicht
-veröffentlicht, und die Windows-Brücke lehnt Element-Rechtecke ab.&lt;/p&gt;
+Beschreibung. Ein deaktiviertes Widget wird als&lt;code&gt;A11yElement.Disabled&lt;/code&gt; veröffentlicht: &lt;code&gt;AXEnabled&lt;/code&gt; ist unter macOS false,&lt;code&gt;IsEnabled&lt;/code&gt; ist in UI Automation false, und das AT-SPI-Objekt verliert die
+Zustände &lt;code&gt;ENABLED&lt;/code&gt; und &lt;code&gt;SENSITIVE&lt;/code&gt; (ein &lt;code&gt;StateChanged&lt;/code&gt;-Signal meldet die
+Änderung). Die Windows-Brücke lehnt weiterhin Element-Rechtecke ab.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="the-tray"&gt;Das Tray&lt;span class="hx:absolute hx:-mt-20" id="the-tray"&gt;&lt;/span&gt;
 &lt;a href="#the-tray" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Ein Tray-Symbol ist Betriebssystemintegration, kein gezeichnetes Widget, deshalb
 steuert &lt;a href="https://github.com/go-widgets/tray" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/tray&lt;/code&gt;&lt;/a&gt; die eigene API jeder Plattform,weiterhin mit &lt;code&gt;CGO_ENABLED=0&lt;/code&gt;:&lt;/p&gt;

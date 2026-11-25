@@ -46,7 +46,7 @@ data-copied-label="コピーしました！"
 &lt;/button&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;p&gt;macOS では、描画されたボタンが AX ツリーに &lt;code&gt;AXButton&lt;/code&gt; としてラベル付きで現れ、それに対する &lt;code&gt;AXPress&lt;/code&gt; はクリックになります。ハンドラーが埋め込むネイティブコントロールも、その隣のツリーに残ります。Windows（UI Automation）と Linux（AT-SPI）のバックエンドも同じ記述を使います。要素の無効状態はまだ公開されず、Windows のブリッジは要素の矩形を拒否します。&lt;/p&gt;
+&lt;p&gt;macOS では、描画されたボタンが AX ツリーに &lt;code&gt;AXButton&lt;/code&gt; としてラベル付きで現れ、それに対する &lt;code&gt;AXPress&lt;/code&gt; はクリックになります。ハンドラーが埋め込むネイティブコントロールも、その隣のツリーに残ります。Windows（UI Automation）と Linux（AT-SPI）のバックエンドも同じ記述を使います。無効なウィジェットは &lt;code&gt;A11yElement.Disabled&lt;/code&gt; として公開されます。macOS では &lt;code&gt;AXEnabled&lt;/code&gt; が false、UI Automation では &lt;code&gt;IsEnabled&lt;/code&gt; が false、AT-SPI オブジェクトでは &lt;code&gt;ENABLED&lt;/code&gt; と &lt;code&gt;SENSITIVE&lt;/code&gt; の状態が外れ、&lt;code&gt;StateChanged&lt;/code&gt; シグナルで変更が通知されます。Windows のブリッジは引き続き要素の矩形を拒否します。&lt;/p&gt;
 &lt;h2 data-hextra-search-id="the-tray"&gt;トレイ&lt;span class="hx:absolute hx:-mt-20" id="the-tray"&gt;&lt;/span&gt;
 &lt;a href="#the-tray" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;トレイアイコンは OS との統合であり、描画されるウィジェットではありません。そのため&lt;a href="https://github.com/go-widgets/tray" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/tray&lt;/code&gt;&lt;/a&gt; は各プラットフォーム固有の API を、やはり&lt;code&gt;CGO_ENABLED=0&lt;/code&gt; のまま操作します。&lt;/p&gt;
 &lt;table&gt;

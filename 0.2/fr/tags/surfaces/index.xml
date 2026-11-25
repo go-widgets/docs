@@ -300,8 +300,9 @@ data-copied-label="Copié !"
 &lt;/div&gt;
 &lt;p&gt;Sous macOS, les boutons dessinés apparaissent alors dans l&amp;rsquo;arbre AX comme&lt;code&gt;AXButton&lt;/code&gt; avec leur libellé, et &lt;code&gt;AXPress&lt;/code&gt; sur l&amp;rsquo;un d&amp;rsquo;eux équivaut à un clic ;les contrôles natifs que le gestionnaire embarque restent dans l&amp;rsquo;arbre à leurs
 côtés. Les back-ends Windows (UI Automation) et Linux (AT-SPI) consomment la
-même description. L&amp;rsquo;état désactivé d&amp;rsquo;un élément n&amp;rsquo;est pas encore publié, et le
-pont Windows refuse les rectangles d&amp;rsquo;éléments.&lt;/p&gt;
+même description. Un widget désactivé est publié sous&lt;code&gt;A11yElement.Disabled&lt;/code&gt; : &lt;code&gt;AXEnabled&lt;/code&gt; vaut false sous macOS, &lt;code&gt;IsEnabled&lt;/code&gt; vaut
+false dans UI Automation, et l&amp;rsquo;objet AT-SPI perd les états &lt;code&gt;ENABLED&lt;/code&gt; et&lt;code&gt;SENSITIVE&lt;/code&gt; (un signal &lt;code&gt;StateChanged&lt;/code&gt; annonce le changement). Le pont Windows
+refuse toujours les rectangles d&amp;rsquo;éléments.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="the-tray"&gt;La zone de notification&lt;span class="hx:absolute hx:-mt-20" id="the-tray"&gt;&lt;/span&gt;
 &lt;a href="#the-tray" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Une icône de zone de notification relève de l&amp;rsquo;intégration au système, pas d&amp;rsquo;un widget peint ;&lt;a href="https://github.com/go-widgets/tray" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/tray&lt;/code&gt;&lt;/a&gt; pilote donc l&amp;rsquo;API propre à
 chaque plateforme, toujours avec &lt;code&gt;CGO_ENABLED=0&lt;/code&gt; :&lt;/p&gt;

@@ -62,9 +62,10 @@ data-copied-label="Copied!"
 &lt;p&gt;On macOS the painted buttons then appear in the AX tree as &lt;code&gt;AXButton&lt;/code&gt; with
 their label, and &lt;code&gt;AXPress&lt;/code&gt; on one is a click on it; the native controls the
 handler embeds stay in the tree beside them. The Windows (UI Automation) and
-Linux (AT-SPI) back-ends consume the same description. An element&amp;rsquo;s disabled
-state is not published yet, and the Windows bridge declines element
-rectangles.&lt;/p&gt;
+Linux (AT-SPI) back-ends consume the same description. A disabled widget is
+published as &lt;code&gt;A11yElement.Disabled&lt;/code&gt;: &lt;code&gt;AXEnabled&lt;/code&gt; is false on macOS, &lt;code&gt;IsEnabled&lt;/code&gt;
+is false in UI Automation, and the AT-SPI object drops the &lt;code&gt;ENABLED&lt;/code&gt; and&lt;code&gt;SENSITIVE&lt;/code&gt; states (a &lt;code&gt;StateChanged&lt;/code&gt; signal announces the change). The Windows
+bridge still declines element rectangles.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="the-tray"&gt;The tray&lt;span class="hx:absolute hx:-mt-20" id="the-tray"&gt;&lt;/span&gt;
 &lt;a href="#the-tray" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;A tray icon is OS integration, not a painted widget, so&lt;a href="https://github.com/go-widgets/tray" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/tray&lt;/code&gt;&lt;/a&gt; drives each platform&amp;rsquo;s
 own API, still with &lt;code&gt;CGO_ENABLED=0&lt;/code&gt;:&lt;/p&gt;

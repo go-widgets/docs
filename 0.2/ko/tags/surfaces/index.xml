@@ -287,7 +287,7 @@ data-copied-label="복사됨!"
 &lt;/button&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;p&gt;macOS에서는 그려진 버튼이 AX 트리에 레이블과 함께 &lt;code&gt;AXButton&lt;/code&gt;으로 나타나고, 그 버튼에 대한 &lt;code&gt;AXPress&lt;/code&gt;는 클릭이 됩니다. 핸들러가 내장하는 네이티브 컨트롤도 그 옆에 트리에 남습니다. Windows(UI Automation)와 Linux(AT-SPI) 백엔드도 같은 설명을 사용합니다. 요소의 비활성 상태는 아직 공개되지 않으며, Windows 브리지는 요소 사각형을 거부합니다.&lt;/p&gt;
+&lt;p&gt;macOS에서는 그려진 버튼이 AX 트리에 레이블과 함께 &lt;code&gt;AXButton&lt;/code&gt;으로 나타나고, 그 버튼에 대한 &lt;code&gt;AXPress&lt;/code&gt;는 클릭이 됩니다. 핸들러가 내장하는 네이티브 컨트롤도 그 옆에 트리에 남습니다. Windows(UI Automation)와 Linux(AT-SPI) 백엔드도 같은 설명을 사용합니다. 비활성 위젯은 &lt;code&gt;A11yElement.Disabled&lt;/code&gt;로 공개됩니다. macOS에서는 &lt;code&gt;AXEnabled&lt;/code&gt;가 false, UI Automation에서는 &lt;code&gt;IsEnabled&lt;/code&gt;가 false이며, AT-SPI 객체는 &lt;code&gt;ENABLED&lt;/code&gt;와 &lt;code&gt;SENSITIVE&lt;/code&gt; 상태를 잃고 &lt;code&gt;StateChanged&lt;/code&gt; 신호로 변경을 알립니다. Windows 브리지는 여전히 요소 사각형을 거부합니다.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="the-tray"&gt;트레이&lt;span class="hx:absolute hx:-mt-20" id="the-tray"&gt;&lt;/span&gt;
 &lt;a href="#the-tray" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;트레이 아이콘은 그려지는 위젯이 아니라 OS 통합이므로,&lt;a href="https://github.com/go-widgets/tray" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/tray&lt;/code&gt;&lt;/a&gt;는 각 플랫폼 고유의 API를
 구동하며, 여기서도 &lt;code&gt;CGO_ENABLED=0&lt;/code&gt;입니다.&lt;/p&gt;

@@ -46,7 +46,7 @@ data-copied-label="已复制！"
 &lt;/button&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;p&gt;在 macOS 上，绘制出的按钮随后会以带标签的 &lt;code&gt;AXButton&lt;/code&gt; 出现在 AX 树中，对其执行 &lt;code&gt;AXPress&lt;/code&gt; 即相当于点击；处理器嵌入的原生控件仍留在树中它们旁边。Windows（UI Automation）和 Linux（AT-SPI）后端使用同一份描述。元素的禁用状态尚未发布，Windows 桥接也拒绝元素矩形。&lt;/p&gt;
+&lt;p&gt;在 macOS 上，绘制出的按钮随后会以带标签的 &lt;code&gt;AXButton&lt;/code&gt; 出现在 AX 树中，对其执行 &lt;code&gt;AXPress&lt;/code&gt; 即相当于点击；处理器嵌入的原生控件仍留在树中它们旁边。Windows（UI Automation）和 Linux（AT-SPI）后端使用同一份描述。被禁用的控件以 &lt;code&gt;A11yElement.Disabled&lt;/code&gt; 发布：macOS 上 &lt;code&gt;AXEnabled&lt;/code&gt; 为 false，UI Automation 中 &lt;code&gt;IsEnabled&lt;/code&gt; 为 false，AT-SPI 对象则去掉 &lt;code&gt;ENABLED&lt;/code&gt; 和 &lt;code&gt;SENSITIVE&lt;/code&gt; 状态，并由 &lt;code&gt;StateChanged&lt;/code&gt; 信号通知变化。Windows 桥接仍然拒绝元素矩形。&lt;/p&gt;
 &lt;h2 data-hextra-search-id="the-tray"&gt;托盘&lt;span class="hx:absolute hx:-mt-20" id="the-tray"&gt;&lt;/span&gt;
 &lt;a href="#the-tray" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;托盘图标是操作系统集成，而不是绘制出来的控件，因此&lt;a href="https://github.com/go-widgets/tray" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/tray&lt;/code&gt;&lt;/a&gt; 驱动每个平台自己的 API，同样是 &lt;code&gt;CGO_ENABLED=0&lt;/code&gt;：&lt;/p&gt;
 &lt;table&gt;

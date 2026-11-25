@@ -69,8 +69,10 @@ data-copied-label="¡Copiado!"
 &lt;p&gt;En macOS, los botones dibujados aparecen entonces en el árbol AX como&lt;code&gt;AXButton&lt;/code&gt; con su etiqueta, y &lt;code&gt;AXPress&lt;/code&gt; sobre uno equivale a un clic; los
 controles nativos que el manejador incrusta siguen en el árbol a su lado. Los
 back-ends de Windows (UI Automation) y Linux (AT-SPI) consumen la misma
-descripción. El estado deshabilitado de un elemento aún no se publica, y el
-puente de Windows rechaza los rectángulos de elementos.&lt;/p&gt;
+descripción. Un widget deshabilitado se publica como&lt;code&gt;A11yElement.Disabled&lt;/code&gt;: &lt;code&gt;AXEnabled&lt;/code&gt; es false en macOS, &lt;code&gt;IsEnabled&lt;/code&gt; es false en
+UI Automation, y el objeto AT-SPI pierde los estados &lt;code&gt;ENABLED&lt;/code&gt; y &lt;code&gt;SENSITIVE&lt;/code&gt;
+(una señal &lt;code&gt;StateChanged&lt;/code&gt; anuncia el cambio). El puente de Windows sigue
+rechazando los rectángulos de elementos.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="the-tray"&gt;La bandeja&lt;span class="hx:absolute hx:-mt-20" id="the-tray"&gt;&lt;/span&gt;
 &lt;a href="#the-tray" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Un icono de bandeja es integración con el sistema operativo, no un widget
 pintado, así que &lt;a href="https://github.com/go-widgets/tray" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/tray&lt;/code&gt;&lt;/a&gt; usa la
