@@ -56,7 +56,7 @@ func (v *View) A11yElements() []application.A11yElement {
 }
 ```
 
-macOS에서는 그려진 버튼이 AX 트리에 레이블과 함께 `AXButton`으로 나타나고, 그 버튼에 대한 `AXPress`는 클릭이 됩니다. 핸들러가 내장하는 네이티브 컨트롤도 그 옆에 트리에 남습니다. Windows(UI Automation)와 Linux(AT-SPI) 백엔드도 같은 설명을 사용합니다. 요소의 비활성 상태는 아직 공개되지 않으며, Windows 브리지는 요소 사각형을 거부합니다.
+macOS에서는 그려진 버튼이 AX 트리에 레이블과 함께 `AXButton`으로 나타나고, 그 버튼에 대한 `AXPress`는 클릭이 됩니다. 핸들러가 내장하는 네이티브 컨트롤도 그 옆에 트리에 남습니다. Windows(UI Automation)와 Linux(AT-SPI) 백엔드도 같은 설명을 사용합니다. 비활성 위젯은 `A11yElement.Disabled`로 공개됩니다. macOS에서는 `AXEnabled`가 false, UI Automation에서는 `IsEnabled`가 false이며, AT-SPI 객체는 `ENABLED`와 `SENSITIVE` 상태를 잃고 `StateChanged` 신호로 변경을 알립니다. Windows 브리지는 여전히 요소 사각형을 거부합니다.
 
 ## 트레이 {#the-tray}
 

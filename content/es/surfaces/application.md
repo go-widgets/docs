@@ -70,8 +70,11 @@ En macOS, los botones dibujados aparecen entonces en el árbol AX como
 `AXButton` con su etiqueta, y `AXPress` sobre uno equivale a un clic; los
 controles nativos que el manejador incrusta siguen en el árbol a su lado. Los
 back-ends de Windows (UI Automation) y Linux (AT-SPI) consumen la misma
-descripción. El estado deshabilitado de un elemento aún no se publica, y el
-puente de Windows rechaza los rectángulos de elementos.
+descripción. Un widget deshabilitado se publica como
+`A11yElement.Disabled`: `AXEnabled` es false en macOS, `IsEnabled` es false en
+UI Automation, y el objeto AT-SPI pierde los estados `ENABLED` y `SENSITIVE`
+(una señal `StateChanged` anuncia el cambio). El puente de Windows sigue
+rechazando los rectángulos de elementos.
 
 ## La bandeja {#the-tray}
 
