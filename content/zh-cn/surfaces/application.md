@@ -49,8 +49,8 @@ err := application.Run(spec, cfg, handler, func() { log.Println("on screen") })
 
 - macOS：屏幕顶部的菜单，应用菜单排在最前。
 - Windows：窗口的菜单栏；快捷键以文本显示。
-- X11、Wayland、GTK、wasm 和 Android：返回 `window.ErrNotSupported`，`Run` 会忽略。
-  GTK 尚未支持：GTK 绑定还没有菜单模型。
+- GTK 4：在窗口内容上方放置 `GtkPopoverMenuBar`；快捷键是整个窗口的快捷键，优先于窗口内容。
+- X11、Wayland、wasm 和 Android：返回 `window.ErrNotSupported`，`Run` 会忽略。
 
 ## 绘制控件的无障碍 {#painted-accessibility}
 

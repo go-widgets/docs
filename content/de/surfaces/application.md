@@ -59,8 +59,9 @@ Ausschneiden, Kopieren, Einsetzen, Alles auswählen).
 
 - macOS: das Menü am oberen Bildschirmrand, das Anwendungsmenü zuerst.
 - Windows: die Menüleiste des Fensters; Tastenkürzel erscheinen als Text.
-- X11, Wayland, GTK, wasm und Android: `window.ErrNotSupported`, von `Run`
-  ignoriert. GTK ist eine Lücke: die GTK-Anbindung hat noch kein Menümodell.
+- GTK 4: eine `GtkPopoverMenuBar` über dem Fensterinhalt; Tastenkürzel sind
+  fensterweite Shortcuts, die Vorrang vor dem Inhalt haben.
+- X11, Wayland, wasm und Android: `window.ErrNotSupported`, von `Run` ignoriert.
 
 ## Barrierefreiheit gezeichneter Widgets {#painted-accessibility}
 

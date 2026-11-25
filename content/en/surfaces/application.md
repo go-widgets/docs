@@ -59,8 +59,9 @@ All), so a text field gets its clipboard commands in the menu bar.
 
 - macOS: the menu at the top of the screen, with the application menu first.
 - Windows: the window's menu bar; key equivalents are shown as accelerator text.
-- X11, Wayland, GTK, wasm and Android: `window.ErrNotSupported`, ignored by
-  `Run`. GTK is a gap: the GTK binding has no menu model yet.
+- GTK 4: a `GtkPopoverMenuBar` above the window's content; key equivalents are
+  window-wide shortcuts that take precedence over the content.
+- X11, Wayland, wasm and Android: `window.ErrNotSupported`, ignored by `Run`.
 
 ## Accessibility of painted widgets {#painted-accessibility}
 
