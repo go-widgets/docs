@@ -186,4 +186,48 @@ Vulkan 렌더러를 하드웨어 GPU(AMD Radeon PRO W7700, RADV)에서 측정했
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;포커스는 플랫폼이 허용하는 것입니다. 포커스 탈취 방지 아래에서 &lt;code&gt;Raise&lt;/code&gt;는 창이 주의를
-원한다는 표시만 할 수 있으며, 그 여부를 알 수 없습니다.&lt;/p&gt;</description></item></channel></rss>
+원한다는 표시만 할 수 있으며, 그 여부를 알 수 없습니다.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="native-controls-on-windows"&gt;Windows의 네이티브 컨트롤&lt;span class="hx:absolute hx:-mt-20" id="native-controls-on-windows"&gt;&lt;/span&gt;
+&lt;a href="#native-controls-on-windows" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;toolkit.NativeControl&lt;/code&gt;은 Win32 창의 실제 자식 창이 됩니다. &lt;code&gt;Key&lt;/code&gt;마다 하나이며 프레임마다
+조정됩니다. 값은 컨트롤이 마지막으로 보고한 것과 다를 때만 컨트롤에 반영되므로 사용자의
+편집과 충돌하지 않습니다. 텍스트, 버튼, 슬라이더, 진행률, 스테퍼 외에 다섯 가지를 더 호스팅합니다.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;종류&lt;/th&gt;
+&lt;th&gt;창 클래스&lt;/th&gt;
+&lt;th&gt;값&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NativeList&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;LISTBOX&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Number&lt;/code&gt;가 선택된 행이며, 없으면 &lt;code&gt;-1&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NativeLink&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SysLink&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;클릭하거나 Enter를 누르면 &lt;code&gt;OnActivate&lt;/code&gt;가 호출됨&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NativeDate&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SysDateTimePick32&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Text&lt;/code&gt;는 &lt;code&gt;YYYY-MM-DD&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NativeColor&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;GoWidgetsColorWell&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Text&lt;/code&gt;는 &lt;code&gt;#RRGGBB&lt;/code&gt;이며, 클릭하면 시스템 색상 대화 상자가 열림&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NativeSegmented&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SysTabControl32&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Text&lt;/code&gt;는 선택된 세그먼트의 제목&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;목록의 행과 세그먼트는 컨트롤을 만들 때 고정됩니다. 바꾸려면 &lt;code&gt;Key&lt;/code&gt;를 바꾸십시오.링크는 스스로 아무것도 열지 않습니다. &lt;code&gt;OnActivate&lt;/code&gt;를 호출할 뿐이므로 어떤 주소를 따라갈지(http와
+https만)는 계속 &lt;code&gt;application.OpenURL&lt;/code&gt;이 결정합니다. &lt;code&gt;SysLink&lt;/code&gt;는 비주얼 스타일이 적용된 공용
+컨트롤에만 있으며 매니페스트가 없는 프로그램은 이를 얻지 못합니다. 창은 자체 매니페스트 아래에서
+링크를 만들고, 그것이 불가능하면 같은 방식으로 활성화되는 평평한 버튼을 표시합니다.&lt;/p&gt;</description></item></channel></rss>

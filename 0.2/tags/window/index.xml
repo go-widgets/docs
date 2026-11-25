@@ -306,4 +306,51 @@ needs.&lt;/p&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;Focus is the platform&amp;rsquo;s to grant: under focus-stealing prevention, &lt;code&gt;Raise&lt;/code&gt;
-may only mark the window as wanting attention, and cannot tell.&lt;/p&gt;</description></item></channel></rss>
+may only mark the window as wanting attention, and cannot tell.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="native-controls-on-windows"&gt;Native controls on Windows&lt;span class="hx:absolute hx:-mt-20" id="native-controls-on-windows"&gt;&lt;/span&gt;
+&lt;a href="#native-controls-on-windows" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;A &lt;code&gt;toolkit.NativeControl&lt;/code&gt; becomes a real child window of the Win32 window, one
+per &lt;code&gt;Key&lt;/code&gt;, reconciled every frame: a value is pushed into a control only when it
+differs from what the control last reported, so a person&amp;rsquo;s own edits are never
+fought. Besides the text, button, slider, progress and stepper kinds, five more
+are hosted:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Kind&lt;/th&gt;
+&lt;th&gt;Window class&lt;/th&gt;
+&lt;th&gt;Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NativeList&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;LISTBOX&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Number&lt;/code&gt; is the chosen row, &lt;code&gt;-1&lt;/code&gt; for none&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NativeLink&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SysLink&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;OnActivate&lt;/code&gt; fires on a click or Return&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NativeDate&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SysDateTimePick32&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Text&lt;/code&gt; is &lt;code&gt;YYYY-MM-DD&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NativeColor&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;GoWidgetsColorWell&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Text&lt;/code&gt; is &lt;code&gt;#RRGGBB&lt;/code&gt;; a click opens the system colour dialog&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NativeSegmented&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SysTabControl32&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Text&lt;/code&gt; is the selected segment&amp;rsquo;s title&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;The rows of a list and the segments are fixed when the control is created;change them by changing the &lt;code&gt;Key&lt;/code&gt;. A link never opens anything itself: it only
+calls &lt;code&gt;OnActivate&lt;/code&gt;, so which addresses are followed (http and https only) stays
+the decision of &lt;code&gt;application.OpenURL&lt;/code&gt;. &lt;code&gt;SysLink&lt;/code&gt; exists only in the visual-styles
+common controls, which a program without a manifest does not get; the window
+creates the link under a manifest of its own and, should that be unavailable,shows a flat push button that activates the same way.&lt;/p&gt;</description></item></channel></rss>

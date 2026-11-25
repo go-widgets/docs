@@ -190,7 +190,53 @@ la fermer, puis la ramènent — ce dont a besoin une &lt;a href="https://go-wid
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;Le focus, c&amp;rsquo;est à la plateforme de l&amp;rsquo;accorder : avec la prévention du vol de focus, &lt;code&gt;Raise&lt;/code&gt;
-peut seulement marquer la fenêtre comme demandant l&amp;rsquo;attention, sans pouvoir le savoir.&lt;/p&gt;</description></item><item><title>Une application et son icône de zone de notification</title><link>https://go-widgets.github.io/docs/0.2/fr/surfaces/application/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/fr/surfaces/application/</guid><description>
+peut seulement marquer la fenêtre comme demandant l&amp;rsquo;attention, sans pouvoir le savoir.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="native-controls-on-windows"&gt;Contrôles natifs sous Windows&lt;span class="hx:absolute hx:-mt-20" id="native-controls-on-windows"&gt;&lt;/span&gt;
+&lt;a href="#native-controls-on-windows" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Un &lt;code&gt;toolkit.NativeControl&lt;/code&gt; devient une vraie fenêtre fille de la fenêtre Win32,une par &lt;code&gt;Key&lt;/code&gt;, réconciliée à chaque image : une valeur n&amp;rsquo;est poussée dans un
+contrôle que si elle diffère de ce qu&amp;rsquo;il a rapporté en dernier, de sorte que les
+saisies de la personne ne sont jamais combattues. Outre les types texte, bouton,curseur, progression et incrémenteur, cinq autres sont hébergés :&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;Classe de fenêtre&lt;/th&gt;
+&lt;th&gt;Valeur&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NativeList&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;LISTBOX&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Number&lt;/code&gt; est la ligne choisie, &lt;code&gt;-1&lt;/code&gt; si aucune&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NativeLink&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SysLink&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;OnActivate&lt;/code&gt; est appelé au clic ou sur Entrée&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NativeDate&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SysDateTimePick32&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Text&lt;/code&gt; est &lt;code&gt;AAAA-MM-JJ&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NativeColor&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;GoWidgetsColorWell&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Text&lt;/code&gt; est &lt;code&gt;#RRGGBB&lt;/code&gt; ; un clic ouvre la boîte de couleur du système&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NativeSegmented&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SysTabControl32&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Text&lt;/code&gt; est le titre du segment choisi&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Les lignes d&amp;rsquo;une liste et les segments sont fixés à la création du contrôle ;pour les changer, changez la &lt;code&gt;Key&lt;/code&gt;. Un lien n&amp;rsquo;ouvre jamais rien lui-même : il
+appelle seulement &lt;code&gt;OnActivate&lt;/code&gt;, de sorte que les adresses suivies (http et https
+uniquement) restent la décision de &lt;code&gt;application.OpenURL&lt;/code&gt;. &lt;code&gt;SysLink&lt;/code&gt; n&amp;rsquo;existe que
+dans les contrôles communs à styles visuels, qu&amp;rsquo;un programme sans manifeste n&amp;rsquo;obtient
+pas ; la fenêtre crée le lien sous un manifeste à elle et, s&amp;rsquo;il n&amp;rsquo;est pas
+disponible, affiche un bouton plat qui s&amp;rsquo;active de la même façon.&lt;/p&gt;</description></item><item><title>Une application et son icône de zone de notification</title><link>https://go-widgets.github.io/docs/0.2/fr/surfaces/application/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/fr/surfaces/application/</guid><description>
 &lt;h2 data-hextra-search-id="the-application"&gt;L&amp;rsquo;application&lt;span class="hx:absolute hx:-mt-20" id="the-application"&gt;&lt;/span&gt;
 &lt;a href="#the-application" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;a href="https://github.com/go-widgets/application" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/application&lt;/code&gt;&lt;/a&gt; est la
 couche au-dessus de &lt;a href="https://go-widgets.github.io/docs/0.2/fr/surfaces/native-window/"&gt;&lt;code&gt;window&lt;/code&gt;&lt;/a&gt; : elle ouvre

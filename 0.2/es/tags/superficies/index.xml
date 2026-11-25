@@ -200,7 +200,52 @@ cerrarla y la traen de vuelta: lo que necesita una&lt;a href="https://go-widgets
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;Conceder el foco corresponde a la plataforma: con la prevención del robo de
-foco, &lt;code&gt;Raise&lt;/code&gt; puede limitarse a marcar la ventana como necesitada de atención,y no puede saberlo.&lt;/p&gt;</description></item><item><title>Una aplicación y su bandeja</title><link>https://go-widgets.github.io/docs/0.2/es/surfaces/application/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/es/surfaces/application/</guid><description>
+foco, &lt;code&gt;Raise&lt;/code&gt; puede limitarse a marcar la ventana como necesitada de atención,y no puede saberlo.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="native-controls-on-windows"&gt;Controles nativos en Windows&lt;span class="hx:absolute hx:-mt-20" id="native-controls-on-windows"&gt;&lt;/span&gt;
+&lt;a href="#native-controls-on-windows" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Un &lt;code&gt;toolkit.NativeControl&lt;/code&gt; se convierte en una ventana hija real de la ventana
+Win32, una por &lt;code&gt;Key&lt;/code&gt;, reconciliada en cada fotograma: un valor solo se empuja a un
+control cuando difiere de lo que el control informó por última vez, de modo que las
+ediciones de la persona nunca se combaten. Además de los tipos texto, botón,deslizador, progreso e incrementador, se alojan otros cinco:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Tipo&lt;/th&gt;
+&lt;th&gt;Clase de ventana&lt;/th&gt;
+&lt;th&gt;Valor&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NativeList&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;LISTBOX&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Number&lt;/code&gt; es la fila elegida, &lt;code&gt;-1&lt;/code&gt; si ninguna&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NativeLink&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SysLink&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;OnActivate&lt;/code&gt; se llama con un clic o con Intro&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NativeDate&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SysDateTimePick32&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Text&lt;/code&gt; es &lt;code&gt;AAAA-MM-DD&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NativeColor&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;GoWidgetsColorWell&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Text&lt;/code&gt; es &lt;code&gt;#RRGGBB&lt;/code&gt;; un clic abre el diálogo de color del sistema&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NativeSegmented&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SysTabControl32&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Text&lt;/code&gt; es el título del segmento elegido&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Las filas de una lista y los segmentos se fijan al crear el control; para cambiarlos,cambie la &lt;code&gt;Key&lt;/code&gt;. Un enlace nunca abre nada por sí mismo: solo llama a &lt;code&gt;OnActivate&lt;/code&gt;,de modo que qué direcciones se siguen (solo http y https) sigue siendo decisión de&lt;code&gt;application.OpenURL&lt;/code&gt;. &lt;code&gt;SysLink&lt;/code&gt; solo existe en los controles comunes con estilos
+visuales, que un programa sin manifiesto no obtiene; la ventana crea el enlace bajo
+un manifiesto propio y, si no está disponible, muestra un botón plano que se activa
+de la misma manera.&lt;/p&gt;</description></item><item><title>Una aplicación y su bandeja</title><link>https://go-widgets.github.io/docs/0.2/es/surfaces/application/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/es/surfaces/application/</guid><description>
 &lt;h2 data-hextra-search-id="the-application"&gt;La aplicación&lt;span class="hx:absolute hx:-mt-20" id="the-application"&gt;&lt;/span&gt;
 &lt;a href="#the-application" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;a href="https://github.com/go-widgets/application" target="_blank" rel="noopener"&gt;&lt;code&gt;go-widgets/application&lt;/code&gt;&lt;/a&gt; es la
 capa situada por encima de &lt;a href="https://go-widgets.github.io/docs/0.2/es/surfaces/native-window/"&gt;&lt;code&gt;window&lt;/code&gt;&lt;/a&gt;:abre la ventana, hace girar su bucle, coloca un icono en la bandeja en cuanto
