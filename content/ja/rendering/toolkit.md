@@ -121,6 +121,12 @@ toolkit.UseOpenTypeText() // Atkinson Hyperlegible, bundled; js/wasm-safe
 `TreeView` での複数行の選択は、マウスでもキーボードでも行え、Ctrl に加えて ⌘ にも対応しています。macOS では
 Ctrl クリックが副クリックだからです。
 
+## 入力メソッド {#ime}
+
+描画された `Entry` と `TextView` は、1 つのインターフェース `toolkit.Composer` を通じてプラットフォームの入力メソッド（デッドキー、かな・漢字変換、ハングル）に参加します。`SetPreedit(Preedit)` は変換中のテキストをバッファに触れずにキャレット位置へ表示し、`CommitText` は結果を挿入し、`CancelPreedit` は破棄し、`CompositionRect` は候補ウィンドウをどこに固定するかを返します。`Preedit` はテキスト、カーソル、スタイル付きセグメント（入力中、変換済み、選択中）を持ち、上限があります。最大 `MaxPreeditRunes`（256）ルーン、`MaxPreeditSegments`（64）セグメントで、制御文字は含まれず、単独のサロゲートは U+FFFD になります。無効なフィールドやマスクされたフィールドは preedit を保持しないため、パスワードが平文で表示されることはありません。ホストは `toolkit.FocusedComposition(root)` でフォーカス中のフィールドを見つけます。
+
+window パッケージはこれを全バックエンドに接続します。Cocoa は `NSTextInputClient`、GTK4 は `GtkIMContext`、Win32 は IMM32 です。実証済み：macOS の実機（フランス語配列のデッドキーで ê が合成され、マークテキストと Esc がランタイム経由で動作）、Xvfb 上の GTK（xdotool で駆動する `GtkIMContextSimple`）、Win32 のマッピングとそのファズターゲット。未実証：Windows 実機の IME、その候補ウィンドウや TSF、ibus と fcitx、macOS のかな（入力ソースを非対話的に有効化できないため）。
+
 ## 一つのバッファを複数人で {#collaboration}
 
 `collabui.CollabText` は `CodeEditor` を [`go-crdt/collab`](https://github.com/go-crdt/collab)

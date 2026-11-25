@@ -133,6 +133,12 @@ toolkit.UseOpenTypeText() // Atkinson Hyperlegible, bundled; js/wasm-safe
 지원합니다. `ListBox`, `Table`, `TreeView`의 다중 행 선택은 마우스와 키보드 모두로
 동작하며, macOS에서는 Ctrl-클릭이 보조 클릭이므로 Ctrl뿐 아니라 ⌘도 인식합니다.
 
+## 입력기 (Input methods) {#ime}
+
+그려진 `Entry`와 `TextView`는 하나의 인터페이스 `toolkit.Composer`를 통해 플랫폼의 입력기(데드키, 가나·한자 변환, 한글)에 참여합니다. `SetPreedit(Preedit)`는 조합 중인 텍스트를 버퍼를 건드리지 않고 캐럿 위치에 보여 주고, `CommitText`는 결과를 삽입하며, `CancelPreedit`는 버리고, `CompositionRect`는 후보 창을 어디에 고정할지 알려 줍니다. `Preedit`는 텍스트, 커서, 스타일이 있는 세그먼트(입력 중, 변환됨, 선택됨)를 담으며 크기가 제한됩니다. 최대 `MaxPreeditRunes`(256)개의 룬과 `MaxPreeditSegments`(64)개의 세그먼트, 제어 문자 없음, 단독 서로게이트는 U+FFFD가 됩니다. 비활성 필드나 가려진 필드는 preedit를 보관하지 않으므로 비밀번호가 평문으로 보이지 않습니다. 호스트는 `toolkit.FocusedComposition(root)`로 포커스된 필드를 찾습니다.
+
+window 패키지는 이를 모든 백엔드에 연결합니다. Cocoa는 `NSTextInputClient`, GTK4는 `GtkIMContext`, Win32는 IMM32입니다. 검증됨: macOS 실기(프랑스어 배열의 데드키로 ê가 조합되고, 마크된 텍스트와 Esc가 런타임을 통해 동작), Xvfb 아래의 GTK(xdotool로 구동한 `GtkIMContextSimple`), Win32 매핑과 그 퍼즈 대상. 검증되지 않음: 실제 Windows IME, 그 후보 창이나 TSF, ibus와 fcitx, macOS의 가나(입력 소스를 비대화식으로 활성화할 수 없음).
+
 ## 한 버퍼를 여러 사람이 (Collaboration) {#collaboration}
 
 `collabui.CollabText`는 `CodeEditor`를 [`go-crdt/collab`](https://github.com/go-crdt/collab)

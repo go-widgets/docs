@@ -142,6 +142,28 @@ arrastrar y soltar (`DragSource`, `DropTarget`). La selección de varias filas e
 `ListBox`, `Table` y `TreeView` funciona con el ratón y con el teclado, y
 respeta ⌘ además de Ctrl, porque en macOS Ctrl-clic es el clic secundario.
 
+## Métodos de entrada {#ime}
+
+Un `Entry` o `TextView` dibujado participa en el método de entrada de la
+plataforma (teclas muertas, conversión Kana y Hanzi, Hangul) mediante una sola
+interfaz, `toolkit.Composer`: `SetPreedit(Preedit)` muestra el texto que se está
+componiendo en el cursor sin tocar el búfer, `CommitText` inserta el resultado,
+`CancelPreedit` lo descarta, y `CompositionRect` indica dónde anclar la ventana de
+candidatos. Un `Preedit` lleva el texto, un cursor y segmentos con estilo
+(entrada, convertido, seleccionado). Está acotado: como máximo `MaxPreeditRunes`
+(256) runas y `MaxPreeditSegments` (64) segmentos, sin caracteres de control, y un
+sustituto suelto pasa a ser U+FFFD. Un campo desactivado o enmascarado no guarda
+preedit, así que una contraseña nunca se ve en claro. El anfitrión encuentra el
+campo con foco con `toolkit.FocusedComposition(root)`.
+
+El paquete window lo conecta en cada backend: `NSTextInputClient` (Cocoa),
+`GtkIMContext` (GTK4), IMM32 (Win32). Probado: macOS en vivo (una tecla muerta en
+la distribución francesa compone ê; texto marcado y Escape a través del runtime),
+GTK bajo Xvfb con `GtkIMContextSimple` manejado por xdotool, y la correspondencia
+de Win32 con su objetivo de fuzzing. No probado: un IME de Windows en vivo, su
+ventana de candidatos o TSF, ibus y fcitx, y Kana en macOS (la fuente de entrada
+no puede activarse sin interacción).
+
 ## Varias personas en un mismo búfer {#collaboration}
 
 `collabui.CollabText` vincula un `CodeEditor` a una parte de texto de una sesión
