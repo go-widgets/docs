@@ -59,8 +59,9 @@ standard (Annuler, Couper, Copier, Coller, Tout sélectionner).
 
 - macOS : le menu en haut de l'écran, menu de l'application en premier.
 - Windows : la barre de menus de la fenêtre ; les raccourcis sont affichés en texte.
-- X11, Wayland, GTK, wasm et Android : `window.ErrNotSupported`, ignoré par
-  `Run`. GTK est une lacune : la liaison GTK n'a pas encore de modèle de menu.
+- GTK 4 : une `GtkPopoverMenuBar` au-dessus du contenu de la fenêtre ; les
+  raccourcis sont des raccourcis de toute la fenêtre, prioritaires sur le contenu.
+- X11, Wayland, wasm et Android : `window.ErrNotSupported`, ignoré par `Run`.
 
 ## Accessibilité des widgets dessinés {#painted-accessibility}
 

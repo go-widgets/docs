@@ -54,8 +54,8 @@ err := application.Run(spec, cfg, handler, func() { log.Println("on screen") })
 
 - macOS: 画面上部のメニュー。アプリケーションメニューが先頭に来ます。
 - Windows: ウィンドウのメニューバー。キーの割り当てはテキストで表示されます。
-- X11、Wayland、GTK、wasm、Android: `window.ErrNotSupported` を返し、`Run` は無視します。
-  GTK は未対応です。GTK バインディングにはまだメニューモデルがありません。
+- GTK 4: ウィンドウの内容の上に `GtkPopoverMenuBar` を置きます。キーの割り当てはウィンドウ全体のショートカットで、内容より優先されます。
+- X11、Wayland、wasm、Android: `window.ErrNotSupported` を返し、`Run` は無視します。
 
 ## 描画されたウィジェットのアクセシビリティ {#painted-accessibility}
 

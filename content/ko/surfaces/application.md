@@ -56,8 +56,8 @@ goroutine에서든 바꿀 수 있고, 메뉴가 바뀐 경우에만 다시 설�
 
 - macOS: 화면 위쪽의 메뉴이며 애플리케이션 메뉴가 맨 앞에 옵니다.
 - Windows: 창의 메뉴 막대이며 단축키는 텍스트로 표시됩니다.
-- X11, Wayland, GTK, wasm, Android: `window.ErrNotSupported`를 반환하며 `Run`은 이를 무시합니다.
-  GTK는 아직 지원되지 않습니다. GTK 바인딩에 메뉴 모델이 없습니다.
+- GTK 4: 창 내용 위에 `GtkPopoverMenuBar`를 둡니다. 단축키는 창 전체의 단축키이며 내용보다 우선합니다.
+- X11, Wayland, wasm, Android: `window.ErrNotSupported`를 반환하며 `Run`은 이를 무시합니다.
 
 ## 그려진 위젯의 접근성 {#painted-accessibility}
 

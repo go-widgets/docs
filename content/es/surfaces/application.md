@@ -61,8 +61,9 @@ Copiar, Pegar, Seleccionar todo).
 
 - macOS: el menú en la parte superior de la pantalla, con el menú de la aplicación primero.
 - Windows: la barra de menús de la ventana; los atajos se muestran como texto.
-- X11, Wayland, GTK, wasm y Android: `window.ErrNotSupported`, ignorado por
-  `Run`. GTK es una carencia: el enlace de GTK aún no tiene modelo de menú.
+- GTK 4: un `GtkPopoverMenuBar` sobre el contenido de la ventana; los atajos son
+  accesos directos de toda la ventana y tienen prioridad sobre el contenido.
+- X11, Wayland, wasm y Android: `window.ErrNotSupported`, ignorado por `Run`.
 
 ## Accesibilidad de los widgets dibujados {#painted-accessibility}
 
