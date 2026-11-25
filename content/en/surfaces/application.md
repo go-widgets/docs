@@ -49,6 +49,19 @@ itself.
 window — a desktop shell, a browser tab — `Bind` and `BindScaled` return a
 `*toolkit.Surface` wired to the same handler.
 
+## The menu bar {#menu-bar}
+
+`application.Config.Menu` takes the same `tray.Menu` a tray icon uses and
+installs it as the application's menu bar; `application.SetMenu` changes it
+later, from any goroutine, and reinstalls it only when the menu changed.
+`tray.EditMenu()` is the standard Edit menu (Undo, Cut, Copy, Paste, Select
+All), so a text field gets its clipboard commands in the menu bar.
+
+- macOS: the menu at the top of the screen, with the application menu first.
+- Windows: the window's menu bar; key equivalents are shown as accelerator text.
+- X11, Wayland, GTK, wasm and Android: `window.ErrNotSupported`, ignored by
+  `Run`. GTK is a gap: the GTK binding has no menu model yet.
+
 ## Accessibility of painted widgets {#painted-accessibility}
 
 A handler that paints its own [toolkit]({{< relref "/rendering/toolkit.md#accessibility" >}})

@@ -46,6 +46,19 @@ tray.ErrNoBackend)`로 이유를 알 수 있습니다. 트레이에 무슨 일�
 위해서는 `Bind`와 `BindScaled`가 같은 핸들러에 연결된 `*toolkit.Surface`를
 반환합니다.
 
+## 메뉴 막대 {#menu-bar}
+
+`application.Config.Menu`는 트레이 아이콘이 쓰는 것과 같은 `tray.Menu`를 받아
+애플리케이션의 메뉴 막대로 설치합니다. `application.SetMenu`는 나중에 어느
+goroutine에서든 바꿀 수 있고, 메뉴가 바뀐 경우에만 다시 설치합니다.
+`tray.EditMenu()`는 표준 편집 메뉴(실행 취소, 잘라내기, 복사, 붙여넣기,
+모두 선택)입니다.
+
+- macOS: 화면 위쪽의 메뉴이며 애플리케이션 메뉴가 맨 앞에 옵니다.
+- Windows: 창의 메뉴 막대이며 단축키는 텍스트로 표시됩니다.
+- X11, Wayland, GTK, wasm, Android: `window.ErrNotSupported`를 반환하며 `Run`은 이를 무시합니다.
+  GTK는 아직 지원되지 않습니다. GTK 바인딩에 메뉴 모델이 없습니다.
+
 ## 그려진 위젯의 접근성 {#painted-accessibility}
 
 자체 [툴킷]({{< relref "/rendering/toolkit.md#accessibility" >}}) 위젯을 그리는 핸들러는 `Accessible`을 구현하지 않으면 플랫폼의 접근성 계층에는 불투명한 사각형 하나로만 보입니다. `application.A11yElementsOf(root)`는 위젯 트리에서 그 설명(각 위젯의 역할, 레이블, 값, 경계. 최대 `MaxA11yElements` = 1000)을 만듭니다.

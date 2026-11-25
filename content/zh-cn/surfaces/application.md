@@ -41,6 +41,17 @@ err := application.Run(spec, cfg, handler, func() { log.Println("on screen") })
 对于不是窗口的宿主——桌面外壳、浏览器标签页——`Bind` 和 `BindScaled` 返回一个与同一 handler 相连的
 `*toolkit.Surface`。
 
+## 菜单栏 {#menu-bar}
+
+`application.Config.Menu` 接受与托盘图标相同的 `tray.Menu`，并将其安装为应用的
+菜单栏；`application.SetMenu` 之后可在任意 goroutine 中修改，只有菜单变化时才会
+重新安装。`tray.EditMenu()` 是标准的编辑菜单（撤销、剪切、复制、粘贴、全选）。
+
+- macOS：屏幕顶部的菜单，应用菜单排在最前。
+- Windows：窗口的菜单栏；快捷键以文本显示。
+- X11、Wayland、GTK、wasm 和 Android：返回 `window.ErrNotSupported`，`Run` 会忽略。
+  GTK 尚未支持：GTK 绑定还没有菜单模型。
+
 ## 绘制控件的无障碍 {#painted-accessibility}
 
 自行绘制[工具包]({{< relref "/rendering/toolkit.md#accessibility" >}})控件的处理器，除非实现 `Accessible`，否则在平台的无障碍层看来只是一个不透明的矩形。`application.A11yElementsOf(root)` 根据控件树生成这份描述（每个控件的角色、标签、值和边界，最多 `MaxA11yElements` = 1000 个）：

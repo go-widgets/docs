@@ -44,6 +44,19 @@ err := application.Run(spec, cfg, handler, func() { log.Println("on screen") })
 新しいウィンドウを開けます。ウィンドウではないホスト（デスクトップシェルやブラウザのタブ）向けには、`Bind` と
 `BindScaled` が、同じハンドラに接続された `*toolkit.Surface` を返します。
 
+## メニューバー {#menu-bar}
+
+`application.Config.Menu` はトレイアイコンと同じ `tray.Menu` を受け取り、
+アプリケーションのメニューバーとして設定します。`application.SetMenu` は
+任意の goroutine から後で変更でき、メニューが変わったときだけ再設定します。
+`tray.EditMenu()` は標準の編集メニュー (取り消す、カット、コピー、ペースト、
+すべてを選択) です。
+
+- macOS: 画面上部のメニュー。アプリケーションメニューが先頭に来ます。
+- Windows: ウィンドウのメニューバー。キーの割り当てはテキストで表示されます。
+- X11、Wayland、GTK、wasm、Android: `window.ErrNotSupported` を返し、`Run` は無視します。
+  GTK は未対応です。GTK バインディングにはまだメニューモデルがありません。
+
 ## 描画されたウィジェットのアクセシビリティ {#painted-accessibility}
 
 独自の[ツールキット]({{< relref "/rendering/toolkit.md#accessibility" >}})ウィジェットを描画するハンドラーは、`Accessible` を実装しない限り、プラットフォームのアクセシビリティ層からは不透明な長方形 1 枚にしか見えません。`application.A11yElementsOf(root)` は、ウィジェットツリーからその記述（各ウィジェットのロール、ラベル、値、境界。最大 `MaxA11yElements` = 1000）を作ります。

@@ -51,6 +51,19 @@ nueva. Para un host que no es una ventana —un shell de escritorio, una pestañ
 del navegador—, `Bind` y `BindScaled` devuelven un `*toolkit.Surface`
 conectado al mismo manejador.
 
+## La barra de menús {#menu-bar}
+
+`application.Config.Menu` recibe el mismo `tray.Menu` que un icono de bandeja y
+lo instala como barra de menús de la aplicación; `application.SetMenu` la
+cambia después, desde cualquier goroutine, y solo la reinstala si el menú
+cambió. `tray.EditMenu()` es el menú Edición estándar (Deshacer, Cortar,
+Copiar, Pegar, Seleccionar todo).
+
+- macOS: el menú en la parte superior de la pantalla, con el menú de la aplicación primero.
+- Windows: la barra de menús de la ventana; los atajos se muestran como texto.
+- X11, Wayland, GTK, wasm y Android: `window.ErrNotSupported`, ignorado por
+  `Run`. GTK es una carencia: el enlace de GTK aún no tiene modelo de menú.
+
 ## Accesibilidad de los widgets dibujados {#painted-accessibility}
 
 Un manejador que dibuja sus propios widgets del
