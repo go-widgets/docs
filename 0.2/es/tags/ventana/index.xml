@@ -368,4 +368,57 @@ ediciones de la persona nunca se combaten. Además de los tipos texto, botón,de
 &lt;p&gt;Las filas de una lista y los segmentos se fijan al crear el control; para cambiarlos,cambie la &lt;code&gt;Key&lt;/code&gt;. Un enlace nunca abre nada por sí mismo: solo llama a &lt;code&gt;OnActivate&lt;/code&gt;,de modo que qué direcciones se siguen (solo http y https) sigue siendo decisión de&lt;code&gt;application.OpenURL&lt;/code&gt;. &lt;code&gt;SysLink&lt;/code&gt; solo existe en los controles comunes con estilos
 visuales, que un programa sin manifiesto no obtiene; la ventana crea el enlace bajo
 un manifiesto propio y, si no está disponible, muestra un botón plano que se activa
-de la misma manera.&lt;/p&gt;</description></item></channel></rss>
+de la misma manera.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="tablas-árboles-y-pestañas-nativos"&gt;Tablas, árboles y pestañas nativos&lt;span class="hx:absolute hx:-mt-20" id="tablas-árboles-y-pestañas-nativos"&gt;&lt;/span&gt;
+&lt;a href="#tablas-%c3%a1rboles-y-pesta%c3%b1as-nativos" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Tres tipos más llevan datos estructurados. Se crean con&lt;code&gt;NewNativeTable(columns, rows, selected)&lt;/code&gt;, &lt;code&gt;NewNativeTree(nodes, selectedPath)&lt;/code&gt;
+y &lt;code&gt;NewNativeTabs(titles, selected)&lt;/code&gt;; &lt;code&gt;NativeControl&lt;/code&gt; ha ganado &lt;code&gt;Columns&lt;/code&gt;,&lt;code&gt;Rows&lt;/code&gt;, &lt;code&gt;Tree&lt;/code&gt; y &lt;code&gt;Revision&lt;/code&gt; para ellos, y &lt;code&gt;Native.SetRows&lt;/code&gt; sustituye después las
+filas de una tabla.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Tipo&lt;/th&gt;
+&lt;th&gt;Cocoa&lt;/th&gt;
+&lt;th&gt;GTK4&lt;/th&gt;
+&lt;th&gt;Win32&lt;/th&gt;
+&lt;th&gt;Selección&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NativeTable&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;NSTableView&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;GtkColumnView&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SysListView32&lt;/code&gt; (&lt;code&gt;LVS_REPORT&lt;/code&gt;, &lt;code&gt;LVS_OWNERDATA&lt;/code&gt;)&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Number&lt;/code&gt; / &lt;code&gt;OnNumber&lt;/code&gt; es la fila, &lt;code&gt;-1&lt;/code&gt; para ninguna&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NativeTree&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;NSOutlineView&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;GtkListView&lt;/code&gt; sobre un &lt;code&gt;GtkTreeListModel&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SysTreeView32&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Text&lt;/code&gt; / &lt;code&gt;OnText&lt;/code&gt; es una ruta como &lt;code&gt;2.0.1&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NativeTabs&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;NSTabView&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;GtkNotebook&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SysTabControl32&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Number&lt;/code&gt; / &lt;code&gt;OnNumber&lt;/code&gt; es la pestaña, &lt;code&gt;-1&lt;/code&gt; para ninguna&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;La ordenación no está implementada: las filas aparecen en el orden dado. Un
+control de pestañas es solo la tira de pestañas; el contenido bajo una pestaña lo
+dispone la biblioteca como siempre. Los sustitutos pintados (&lt;code&gt;Table&lt;/code&gt;, &lt;code&gt;TreeView&lt;/code&gt;
+con &lt;code&gt;HideRoot&lt;/code&gt;, &lt;code&gt;TabBar&lt;/code&gt;) dibujan los mismos datos donde no se aloja ningún control
+nativo. Los motores de ventana que alojan estas clases (alojados por&lt;code&gt;go-widgets/window&lt;/code&gt;) llegan en la próxima versión de la ventana; en Cocoa hacen
+falta los nuevos tipos &lt;code&gt;GridView&lt;/code&gt;, &lt;code&gt;OutlineView&lt;/code&gt; y &lt;code&gt;TabView&lt;/code&gt; de &lt;code&gt;go-macos/appkit&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Los datos tienen límites: como máximo &lt;code&gt;MaxNativeRows&lt;/code&gt; (100000) filas,&lt;code&gt;MaxNativeColumns&lt;/code&gt; (64) columnas, &lt;code&gt;MaxNativeTreeDepth&lt;/code&gt; (32) niveles,&lt;code&gt;MaxNativeTreeNodes&lt;/code&gt; (100000) nodos y &lt;code&gt;MaxNativeTabs&lt;/code&gt; (64) pestañas; un valor
+mayor se rechaza, no se trunca.&lt;/p&gt;
+&lt;p&gt;La conciliación solo trata los cambios. El fotograma se indexa por&lt;code&gt;Native.Revision()&lt;/code&gt;: mientras la revisión no cambia, las filas no se recorren en
+absoluto, y solo se envían al control cuando cambia. En Cocoa, un fotograma de
+10 000 filas cuesta 160 us con la revisión sin cambios y 687 us cuando cambian
+las filas (incluida la construcción de las 10 000 filas); &lt;code&gt;SetGrid&lt;/code&gt; por sí solo
+tarda 1,3 us porque el origen de datos es virtual. En Win32, una revisión sin
+cambios cuesta 0,26 ns y ninguna asignación, frente a 43,8 us para recorrer
+10 000 filas (medido en un M4 Max para Cocoa, un núcleo).&lt;/p&gt;</description></item></channel></rss>

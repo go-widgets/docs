@@ -230,4 +230,45 @@ Vulkan 렌더러를 하드웨어 GPU(AMD Radeon PRO W7700, RADV)에서 측정했
 &lt;p&gt;목록의 행과 세그먼트는 컨트롤을 만들 때 고정됩니다. 바꾸려면 &lt;code&gt;Key&lt;/code&gt;를 바꾸십시오.링크는 스스로 아무것도 열지 않습니다. &lt;code&gt;OnActivate&lt;/code&gt;를 호출할 뿐이므로 어떤 주소를 따라갈지(http와
 https만)는 계속 &lt;code&gt;application.OpenURL&lt;/code&gt;이 결정합니다. &lt;code&gt;SysLink&lt;/code&gt;는 비주얼 스타일이 적용된 공용
 컨트롤에만 있으며 매니페스트가 없는 프로그램은 이를 얻지 못합니다. 창은 자체 매니페스트 아래에서
-링크를 만들고, 그것이 불가능하면 같은 방식으로 활성화되는 평평한 버튼을 표시합니다.&lt;/p&gt;</description></item></channel></rss>
+링크를 만들고, 그것이 불가능하면 같은 방식으로 활성화되는 평평한 버튼을 표시합니다.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="네이티브-테이블-트리-탭"&gt;네이티브 테이블, 트리, 탭&lt;span class="hx:absolute hx:-mt-20" id="네이티브-테이블-트리-탭"&gt;&lt;/span&gt;
+&lt;a href="#%eb%84%a4%ec%9d%b4%ed%8b%b0%eb%b8%8c-%ed%85%8c%ec%9d%b4%eb%b8%94-%ed%8a%b8%eb%a6%ac-%ed%83%ad" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;구조화된 데이터를 담는 종류가 세 가지 더 있습니다. &lt;code&gt;NewNativeTable(columns, rows, selected)&lt;/code&gt;,&lt;code&gt;NewNativeTree(nodes, selectedPath)&lt;/code&gt;, &lt;code&gt;NewNativeTabs(titles, selected)&lt;/code&gt;로 만듭니다.이를 위해 &lt;code&gt;NativeControl&lt;/code&gt;에 &lt;code&gt;Columns&lt;/code&gt;, &lt;code&gt;Rows&lt;/code&gt;, &lt;code&gt;Tree&lt;/code&gt;, &lt;code&gt;Revision&lt;/code&gt;이 추가되었고,&lt;code&gt;Native.SetRows&lt;/code&gt;는 나중에 테이블의 행을 교체합니다.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;종류&lt;/th&gt;
+&lt;th&gt;Cocoa&lt;/th&gt;
+&lt;th&gt;GTK4&lt;/th&gt;
+&lt;th&gt;Win32&lt;/th&gt;
+&lt;th&gt;선택&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NativeTable&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;NSTableView&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;GtkColumnView&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SysListView32&lt;/code&gt; (&lt;code&gt;LVS_REPORT&lt;/code&gt;, &lt;code&gt;LVS_OWNERDATA&lt;/code&gt;)&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Number&lt;/code&gt; / &lt;code&gt;OnNumber&lt;/code&gt;가 행, 없음은 &lt;code&gt;-1&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NativeTree&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;NSOutlineView&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;GtkTreeListModel&lt;/code&gt; 위의 &lt;code&gt;GtkListView&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SysTreeView32&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Text&lt;/code&gt; / &lt;code&gt;OnText&lt;/code&gt;가 &lt;code&gt;2.0.1&lt;/code&gt; 같은 경로&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NativeTabs&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;NSTabView&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;GtkNotebook&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SysTabControl32&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Number&lt;/code&gt; / &lt;code&gt;OnNumber&lt;/code&gt;가 탭, 없음은 &lt;code&gt;-1&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;정렬은 구현되어 있지 않습니다. 행은 주어진 순서대로 나타납니다. 탭 컨트롤은 탭 띠일 뿐이며,탭 아래의 내용은 여느 때처럼 툴킷이 배치합니다. 그려지는 대체물(&lt;code&gt;Table&lt;/code&gt;, &lt;code&gt;HideRoot&lt;/code&gt;가 있는&lt;code&gt;TreeView&lt;/code&gt;, &lt;code&gt;TabBar&lt;/code&gt;)은 네이티브 컨트롤이 호스팅되지 않는 곳에서 같은 데이터를 그립니다.이 클래스들을 호스팅하는 창 백엔드(&lt;code&gt;go-widgets/window&lt;/code&gt;가 호스팅)는 다음 창 릴리스에서 제공됩니다.Cocoa 쪽에는 &lt;code&gt;go-macos/appkit&lt;/code&gt;의 새 종류 &lt;code&gt;GridView&lt;/code&gt;, &lt;code&gt;OutlineView&lt;/code&gt;, &lt;code&gt;TabView&lt;/code&gt;가 필요합니다.&lt;/p&gt;
+&lt;p&gt;데이터에는 한도가 있습니다. 행은 최대 &lt;code&gt;MaxNativeRows&lt;/code&gt;(100000), 열은 &lt;code&gt;MaxNativeColumns&lt;/code&gt;(64),트리 깊이는 &lt;code&gt;MaxNativeTreeDepth&lt;/code&gt;(32), 노드는 &lt;code&gt;MaxNativeTreeNodes&lt;/code&gt;(100000),탭은 &lt;code&gt;MaxNativeTabs&lt;/code&gt;(64)입니다. 더 큰 값은 잘리지 않고 거부됩니다.&lt;/p&gt;
+&lt;p&gt;조정은 바뀐 것만 처리합니다. 프레임은 &lt;code&gt;Native.Revision()&lt;/code&gt;을 키로 하며, 리비전이 같은 동안에는
+행을 전혀 훑지 않고, 바뀔 때만 행을 컨트롤로 보냅니다. Cocoa에서 10,000행 프레임은
+리비전이 그대로면 160 us, 행이 바뀌면 687 us(10,000행 구성 포함)입니다. 데이터 소스가 가상이므로&lt;code&gt;SetGrid&lt;/code&gt; 자체는 1.3 us입니다. Win32에서는 리비전이 그대로면 0.26 ns에 할당이 없고,10,000행을 훑는 데는 43.8 us가 듭니다(Cocoa는 M4 Max, 단일 코어에서 측정).&lt;/p&gt;</description></item></channel></rss>

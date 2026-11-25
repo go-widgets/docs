@@ -236,4 +236,56 @@ appelle seulement &lt;code&gt;OnActivate&lt;/code&gt;, de sorte que les adresses
 uniquement) restent la décision de &lt;code&gt;application.OpenURL&lt;/code&gt;. &lt;code&gt;SysLink&lt;/code&gt; n&amp;rsquo;existe que
 dans les contrôles communs à styles visuels, qu&amp;rsquo;un programme sans manifeste n&amp;rsquo;obtient
 pas ; la fenêtre crée le lien sous un manifeste à elle et, s&amp;rsquo;il n&amp;rsquo;est pas
-disponible, affiche un bouton plat qui s&amp;rsquo;active de la même façon.&lt;/p&gt;</description></item></channel></rss>
+disponible, affiche un bouton plat qui s&amp;rsquo;active de la même façon.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="tableaux-arbres-et-onglets-natifs"&gt;Tableaux, arbres et onglets natifs&lt;span class="hx:absolute hx:-mt-20" id="tableaux-arbres-et-onglets-natifs"&gt;&lt;/span&gt;
+&lt;a href="#tableaux-arbres-et-onglets-natifs" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Trois types de plus portent des données structurées. On les construit avec&lt;code&gt;NewNativeTable(columns, rows, selected)&lt;/code&gt;, &lt;code&gt;NewNativeTree(nodes, selectedPath)&lt;/code&gt;
+et &lt;code&gt;NewNativeTabs(titles, selected)&lt;/code&gt; ; &lt;code&gt;NativeControl&lt;/code&gt; a gagné &lt;code&gt;Columns&lt;/code&gt;,&lt;code&gt;Rows&lt;/code&gt;, &lt;code&gt;Tree&lt;/code&gt; et &lt;code&gt;Revision&lt;/code&gt; pour eux, et &lt;code&gt;Native.SetRows&lt;/code&gt; remplace ensuite les
+lignes d&amp;rsquo;un tableau.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;Cocoa&lt;/th&gt;
+&lt;th&gt;GTK4&lt;/th&gt;
+&lt;th&gt;Win32&lt;/th&gt;
+&lt;th&gt;Sélection&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NativeTable&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;NSTableView&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;GtkColumnView&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SysListView32&lt;/code&gt; (&lt;code&gt;LVS_REPORT&lt;/code&gt;, &lt;code&gt;LVS_OWNERDATA&lt;/code&gt;)&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Number&lt;/code&gt; / &lt;code&gt;OnNumber&lt;/code&gt; est la ligne, &lt;code&gt;-1&lt;/code&gt; pour aucune&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NativeTree&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;NSOutlineView&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;GtkListView&lt;/code&gt; sur un &lt;code&gt;GtkTreeListModel&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SysTreeView32&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Text&lt;/code&gt; / &lt;code&gt;OnText&lt;/code&gt; est un chemin comme &lt;code&gt;2.0.1&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NativeTabs&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;NSTabView&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;GtkNotebook&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SysTabControl32&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Number&lt;/code&gt; / &lt;code&gt;OnNumber&lt;/code&gt; est l&amp;rsquo;onglet, &lt;code&gt;-1&lt;/code&gt; pour aucun&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Le tri n&amp;rsquo;est pas implémenté : les lignes apparaissent dans l&amp;rsquo;ordre donné. Un
+contrôle d&amp;rsquo;onglets n&amp;rsquo;est que la barre d&amp;rsquo;onglets ; le contenu sous un onglet est
+disposé par la boîte à outils comme d&amp;rsquo;habitude. Les repliements peints(&lt;code&gt;Table&lt;/code&gt;, &lt;code&gt;TreeView&lt;/code&gt; avec &lt;code&gt;HideRoot&lt;/code&gt;, &lt;code&gt;TabBar&lt;/code&gt;) dessinent les mêmes données là
+où aucun contrôle natif n&amp;rsquo;est hébergé. Les moteurs de fenêtre qui hébergent ces
+classes (hébergés par &lt;code&gt;go-widgets/window&lt;/code&gt;) arrivent dans la prochaine version de
+la fenêtre ; côté Cocoa, il faut les nouveaux types &lt;code&gt;GridView&lt;/code&gt;, &lt;code&gt;OutlineView&lt;/code&gt; et&lt;code&gt;TabView&lt;/code&gt; de &lt;code&gt;go-macos/appkit&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Les données sont bornées : au plus &lt;code&gt;MaxNativeRows&lt;/code&gt; (100000) lignes,&lt;code&gt;MaxNativeColumns&lt;/code&gt; (64) colonnes, &lt;code&gt;MaxNativeTreeDepth&lt;/code&gt; (32) niveaux,&lt;code&gt;MaxNativeTreeNodes&lt;/code&gt; (100000) nœuds et &lt;code&gt;MaxNativeTabs&lt;/code&gt; (64) onglets ; une valeur
+plus grande est refusée, pas tronquée.&lt;/p&gt;
+&lt;p&gt;La réconciliation ne traite que les changements. L&amp;rsquo;image est indexée sur&lt;code&gt;Native.Revision()&lt;/code&gt; : tant que la révision ne change pas, les lignes ne sont
+pas parcourues du tout, et elles ne sont poussées vers le contrôle que lorsqu&amp;rsquo;elle
+bouge. Sur Cocoa, une image de 10 000 lignes coûte 160 us avec une révision
+inchangée et 687 us quand les lignes changent (construction des 10 000 lignes
+comprise) ; &lt;code&gt;SetGrid&lt;/code&gt; seul prend 1,3 us, la source de données étant virtuelle.Sur Win32, une révision inchangée coûte 0,26 ns et aucune allocation, contre
+43,8 us pour parcourir 10 000 lignes (mesuré sur un M4 Max pour Cocoa, un cœur).&lt;/p&gt;</description></item></channel></rss>
