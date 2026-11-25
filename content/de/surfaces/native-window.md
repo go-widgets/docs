@@ -137,3 +137,27 @@ braucht.
 
 Den Fokus gewährt die Plattform: Unter einem Schutz gegen Fokusraub kann `Raise`
 das Fenster möglicherweise nur als aufmerksamkeitsbedürftig markieren und kann das nicht erkennen.
+
+## Native Steuerelemente unter Windows {#native-controls-on-windows}
+
+Ein `toolkit.NativeControl` wird zu einem echten Kindfenster des Win32-Fensters,
+eines pro `Key`, in jedem Frame abgeglichen: Ein Wert wird nur dann in ein
+Steuerelement geschrieben, wenn er sich von dem unterscheidet, was das Steuerelement
+zuletzt gemeldet hat, sodass die Eingaben der Person nie bekämpft werden. Neben den
+Typen Text, Schaltfläche, Schieberegler, Fortschritt und Stepper werden fünf weitere gehostet:
+
+| Typ | Fensterklasse | Wert |
+|---|---|---|
+| `NativeList` | `LISTBOX` | `Number` ist die gewählte Zeile, `-1` für keine |
+| `NativeLink` | `SysLink` | `OnActivate` wird bei Klick oder Eingabetaste aufgerufen |
+| `NativeDate` | `SysDateTimePick32` | `Text` ist `JJJJ-MM-TT` |
+| `NativeColor` | `GoWidgetsColorWell` | `Text` ist `#RRGGBB`; ein Klick öffnet den Farbdialog des Systems |
+| `NativeSegmented` | `SysTabControl32` | `Text` ist der Titel des gewählten Segments |
+
+Die Zeilen einer Liste und die Segmente stehen bei der Erzeugung des Steuerelements
+fest; um sie zu ändern, ändern Sie den `Key`. Ein Link öffnet nie selbst etwas: Er
+ruft nur `OnActivate` auf, sodass die Entscheidung, welche Adressen verfolgt werden
+(nur http und https), bei `application.OpenURL` bleibt. `SysLink` gibt es nur in den
+Common Controls mit visuellen Stilen, die ein Programm ohne Manifest nicht erhält;
+das Fenster erzeugt den Link unter einem eigenen Manifest und zeigt, falls das nicht
+möglich ist, eine flache Schaltfläche, die auf dieselbe Weise aktiviert.

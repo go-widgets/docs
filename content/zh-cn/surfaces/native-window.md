@@ -106,3 +106,22 @@ return w.Run(root) // root is any toolkit.Widget
 | GTK、Android、wasmbox、浏览器标签页 | `ErrNotSupported` | `ErrNotSupported` | `ErrNotSupported` |
 
 焦点由平台决定是否授予：在有防抢焦点机制的情况下，`Raise` 可能只能把窗口标记为需要关注，并且无法得知结果。
+
+## Windows 上的原生控件 {#native-controls-on-windows}
+
+`toolkit.NativeControl` 会成为 Win32 窗口的真实子窗口，每个 `Key` 一个，并在每一帧进行协调：
+只有当值与控件最后一次报告的不同时才会写入控件，因此不会与用户自己的编辑相冲突。除文本、按钮、
+滑块、进度条和步进器外，还托管另外五种：
+
+| 类型 | 窗口类 | 值 |
+|---|---|---|
+| `NativeList` | `LISTBOX` | `Number` 是所选行，无选择时为 `-1` |
+| `NativeLink` | `SysLink` | 点击或按回车时调用 `OnActivate` |
+| `NativeDate` | `SysDateTimePick32` | `Text` 为 `YYYY-MM-DD` |
+| `NativeColor` | `GoWidgetsColorWell` | `Text` 为 `#RRGGBB`；点击会打开系统颜色对话框 |
+| `NativeSegmented` | `SysTabControl32` | `Text` 是所选分段的标题 |
+
+列表的行和分段在创建控件时就已固定；要更改它们，请更改 `Key`。链接自己从不打开任何东西：
+它只调用 `OnActivate`，因此跟随哪些地址（仅 http 和 https）仍由 `application.OpenURL` 决定。
+`SysLink` 只存在于带视觉样式的通用控件中，没有清单的程序无法获得它；窗口会在自带的清单下创建链接，
+若不可用，则显示一个以相同方式激活的扁平按钮。
