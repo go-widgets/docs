@@ -66,9 +66,11 @@ func (v *View) A11yElements() []application.A11yElement {
 On macOS the painted buttons then appear in the AX tree as `AXButton` with
 their label, and `AXPress` on one is a click on it; the native controls the
 handler embeds stay in the tree beside them. The Windows (UI Automation) and
-Linux (AT-SPI) back-ends consume the same description. An element's disabled
-state is not published yet, and the Windows bridge declines element
-rectangles.
+Linux (AT-SPI) back-ends consume the same description. A disabled widget is
+published as `A11yElement.Disabled`: `AXEnabled` is false on macOS, `IsEnabled`
+is false in UI Automation, and the AT-SPI object drops the `ENABLED` and
+`SENSITIVE` states (a `StateChanged` signal announces the change). The Windows
+bridge still declines element rectangles.
 
 ## The tray
 

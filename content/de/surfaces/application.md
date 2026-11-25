@@ -68,8 +68,11 @@ Unter macOS erscheinen die gezeichneten Schaltflächen dann im AX-Baum als
 `AXButton` mit ihrer Beschriftung, und `AXPress` darauf ist ein Klick; die
 nativen Steuerelemente, die der Handler einbettet, bleiben daneben im Baum. Die
 Back-Ends für Windows (UI Automation) und Linux (AT-SPI) verwenden dieselbe
-Beschreibung. Der deaktivierte Zustand eines Elements wird noch nicht
-veröffentlicht, und die Windows-Brücke lehnt Element-Rechtecke ab.
+Beschreibung. Ein deaktiviertes Widget wird als
+`A11yElement.Disabled` veröffentlicht: `AXEnabled` ist unter macOS false,
+`IsEnabled` ist in UI Automation false, und das AT-SPI-Objekt verliert die
+Zustände `ENABLED` und `SENSITIVE` (ein `StateChanged`-Signal meldet die
+Änderung). Die Windows-Brücke lehnt weiterhin Element-Rechtecke ab.
 
 ## Das Tray {#the-tray}
 

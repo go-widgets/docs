@@ -54,7 +54,7 @@ func (v *View) A11yElements() []application.A11yElement {
 }
 ```
 
-macOS では、描画されたボタンが AX ツリーに `AXButton` としてラベル付きで現れ、それに対する `AXPress` はクリックになります。ハンドラーが埋め込むネイティブコントロールも、その隣のツリーに残ります。Windows（UI Automation）と Linux（AT-SPI）のバックエンドも同じ記述を使います。要素の無効状態はまだ公開されず、Windows のブリッジは要素の矩形を拒否します。
+macOS では、描画されたボタンが AX ツリーに `AXButton` としてラベル付きで現れ、それに対する `AXPress` はクリックになります。ハンドラーが埋め込むネイティブコントロールも、その隣のツリーに残ります。Windows（UI Automation）と Linux（AT-SPI）のバックエンドも同じ記述を使います。無効なウィジェットは `A11yElement.Disabled` として公開されます。macOS では `AXEnabled` が false、UI Automation では `IsEnabled` が false、AT-SPI オブジェクトでは `ENABLED` と `SENSITIVE` の状態が外れ、`StateChanged` シグナルで変更が通知されます。Windows のブリッジは引き続き要素の矩形を拒否します。
 
 ## トレイ {#the-tray}
 

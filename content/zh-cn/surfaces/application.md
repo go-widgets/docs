@@ -51,7 +51,7 @@ func (v *View) A11yElements() []application.A11yElement {
 }
 ```
 
-在 macOS 上，绘制出的按钮随后会以带标签的 `AXButton` 出现在 AX 树中，对其执行 `AXPress` 即相当于点击；处理器嵌入的原生控件仍留在树中它们旁边。Windows（UI Automation）和 Linux（AT-SPI）后端使用同一份描述。元素的禁用状态尚未发布，Windows 桥接也拒绝元素矩形。
+在 macOS 上，绘制出的按钮随后会以带标签的 `AXButton` 出现在 AX 树中，对其执行 `AXPress` 即相当于点击；处理器嵌入的原生控件仍留在树中它们旁边。Windows（UI Automation）和 Linux（AT-SPI）后端使用同一份描述。被禁用的控件以 `A11yElement.Disabled` 发布：macOS 上 `AXEnabled` 为 false，UI Automation 中 `IsEnabled` 为 false，AT-SPI 对象则去掉 `ENABLED` 和 `SENSITIVE` 状态，并由 `StateChanged` 信号通知变化。Windows 桥接仍然拒绝元素矩形。
 
 ## 托盘 {#the-tray}
 

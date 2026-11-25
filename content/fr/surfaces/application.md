@@ -68,8 +68,11 @@ Sous macOS, les boutons dessinés apparaissent alors dans l'arbre AX comme
 `AXButton` avec leur libellé, et `AXPress` sur l'un d'eux équivaut à un clic ;
 les contrôles natifs que le gestionnaire embarque restent dans l'arbre à leurs
 côtés. Les back-ends Windows (UI Automation) et Linux (AT-SPI) consomment la
-même description. L'état désactivé d'un élément n'est pas encore publié, et le
-pont Windows refuse les rectangles d'éléments.
+même description. Un widget désactivé est publié sous
+`A11yElement.Disabled` : `AXEnabled` vaut false sous macOS, `IsEnabled` vaut
+false dans UI Automation, et l'objet AT-SPI perd les états `ENABLED` et
+`SENSITIVE` (un signal `StateChanged` annonce le changement). Le pont Windows
+refuse toujours les rectangles d'éléments.
 
 ## La zone de notification {#the-tray}
 
