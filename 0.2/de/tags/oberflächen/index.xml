@@ -355,8 +355,9 @@ geändert hat. &lt;code&gt;tray.EditMenu()&lt;/code&gt; ist das Standardmenü Be
 &lt;ul&gt;
 &lt;li&gt;macOS: das Menü am oberen Bildschirmrand, das Anwendungsmenü zuerst.&lt;/li&gt;
 &lt;li&gt;Windows: die Menüleiste des Fensters; Tastenkürzel erscheinen als Text.&lt;/li&gt;
-&lt;li&gt;X11, Wayland, GTK, wasm und Android: &lt;code&gt;window.ErrNotSupported&lt;/code&gt;, von &lt;code&gt;Run&lt;/code&gt;
-ignoriert. GTK ist eine Lücke: die GTK-Anbindung hat noch kein Menümodell.&lt;/li&gt;
+&lt;li&gt;GTK 4: eine &lt;code&gt;GtkPopoverMenuBar&lt;/code&gt; über dem Fensterinhalt; Tastenkürzel sind
+fensterweite Shortcuts, die Vorrang vor dem Inhalt haben.&lt;/li&gt;
+&lt;li&gt;X11, Wayland, wasm und Android: &lt;code&gt;window.ErrNotSupported&lt;/code&gt;, von &lt;code&gt;Run&lt;/code&gt; ignoriert.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 data-hextra-search-id="painted-accessibility"&gt;Barrierefreiheit gezeichneter Widgets&lt;span class="hx:absolute hx:-mt-20" id="painted-accessibility"&gt;&lt;/span&gt;
 &lt;a href="#painted-accessibility" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Ein Handler, der eigene &lt;a href="https://go-widgets.github.io/docs/0.2/de/rendering/toolkit/#accessibility"&gt;Toolkit&lt;/a&gt;-Widgets

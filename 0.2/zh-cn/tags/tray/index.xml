@@ -34,7 +34,8 @@ data-copied-label="已复制！"
 &lt;ul&gt;
 &lt;li&gt;macOS：屏幕顶部的菜单，应用菜单排在最前。&lt;/li&gt;
 &lt;li&gt;Windows：窗口的菜单栏；快捷键以文本显示。&lt;/li&gt;
-&lt;li&gt;X11、Wayland、GTK、wasm 和 Android：返回 &lt;code&gt;window.ErrNotSupported&lt;/code&gt;，&lt;code&gt;Run&lt;/code&gt; 会忽略。GTK 尚未支持：GTK 绑定还没有菜单模型。&lt;/li&gt;
+&lt;li&gt;GTK 4：在窗口内容上方放置 &lt;code&gt;GtkPopoverMenuBar&lt;/code&gt;；快捷键是整个窗口的快捷键，优先于窗口内容。&lt;/li&gt;
+&lt;li&gt;X11、Wayland、wasm 和 Android：返回 &lt;code&gt;window.ErrNotSupported&lt;/code&gt;，&lt;code&gt;Run&lt;/code&gt; 会忽略。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 data-hextra-search-id="painted-accessibility"&gt;绘制控件的无障碍&lt;span class="hx:absolute hx:-mt-20" id="painted-accessibility"&gt;&lt;/span&gt;
 &lt;a href="#painted-accessibility" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;自行绘制&lt;a href="https://go-widgets.github.io/docs/0.2/zh-cn/rendering/toolkit/#accessibility"&gt;工具包&lt;/a&gt;控件的处理器，除非实现 &lt;code&gt;Accessible&lt;/code&gt;，否则在平台的无障碍层看来只是一个不透明的矩形。&lt;code&gt;application.A11yElementsOf(root)&lt;/code&gt; 根据控件树生成这份描述（每个控件的角色、标签、值和边界，最多 &lt;code&gt;MaxA11yElements&lt;/code&gt; = 1000 个）：&lt;/p&gt;
