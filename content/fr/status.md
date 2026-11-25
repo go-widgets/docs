@@ -19,6 +19,7 @@ la plateforme elle-même :
 | Fenêtre X11 | CI, sous Xvfb : un motif connu présenté, capturé et échantillonné ; un clic et une touche synthétisés avec `xdotool` et le `toolkit.Event` distribué vérifié ; `Show`/`Hide`/`Raise` relus auprès du serveur |
 | Fenêtre Cocoa | une voie de CI macOS : une fenêtre ouverte et rendue, des pixels échantillonnés, un clic et une touche synthétisés ; `Show`/`Hide`/`Raise` demandés à une vraie `NSWindow` depuis une autre goroutine et relus auprès d'AppKit |
 | Fenêtre Win32 | une VM Windows 11 arm64 : une vraie fenêtre rendant une `VBox`, un `Label` et un `Button`, trois clics injectés faisant passer son compteur de 0 à 3 via la procédure de fenêtre |
+| Menu natif et image (GTK4, Win32) | CI : GTK4 sous Xvfb construit le menu popover, place une image dans un vrai bouton et traite une demande de fermeture ; Win32 construit un vrai `HMENU` depuis le descripteur, relit ses lignes et pose un bitmap sur une vraie fenêtre fille |
 | Fenêtre Wayland | face à un faux compositeur qui impose les règles de map et d'unmap de xdg-shell |
 | Fenêtre wasmbox | un Chromium headless pilotant le vrai compositeur wasmdesk : les pixels composités relus, un vrai clic acheminé jusqu'au widget |
 | Android | un appareil Android 15 arm64 : copies limitées aux zones endommagées mesurées, mémoire sale du memfd mesurée, arbre d'accessibilité évalué sur l'appareil |
@@ -45,6 +46,10 @@ la plateforme elle-même :
   se dessine sans elle.
 - Le back-end Wayland de `window` ne sait pas faire `Raise` : xdg-shell n'a pas de telle requête,
   et xdg-activation exige un jeton issu d'une action de l'utilisateur lui-même.
+- Un vrai clic droit au pointeur sous GTK4 et la boucle modale de `TrackPopupMenu` sous Win32
+  ne sont pas pilotés : le menu est construit et relu, et un choix est invoqué directement.
+  Sous Windows, l'image à côté du libellé exige un manifeste que le binaire de test n'a pas ;
+  la CI ne prouve donc que l'image seule.
 - Android : `android/arm64` uniquement, car c'est la seule cible Android que Go
   sait lier sans cgo.
 - `window.Screens` renvoie `ErrScreensUnsupported` sur `js/wasm`.

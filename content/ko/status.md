@@ -18,6 +18,7 @@ tags: [status]
 | X11 창 | Xvfb 아래의 CI: 알려진 패턴을 표시, 캡처, 샘플링하고, `xdotool`로 클릭과 키 입력을 합성해 전달된 `toolkit.Event`를 검증하며, `Show`/`Hide`/`Raise`를 서버에서 다시 읽어 확인 |
 | Cocoa 창 | macOS CI 레인: 창을 열어 렌더링하고, 픽셀을 샘플링하며, 클릭과 키 입력을 합성하고, 다른 고루틴에서 실제 `NSWindow`에 `Show`/`Hide`/`Raise`를 요청한 뒤 AppKit에서 다시 읽어 확인 |
 | Win32 창 | Windows 11 arm64 VM: `VBox`, `Label`, `Button`을 렌더링하는 실제 창에서, 주입한 세 번의 클릭이 윈도우 프로시저를 거쳐 카운터를 0에서 3까지 올림 |
+| 네이티브 메뉴와 그림 (GTK4, Win32) | CI: Xvfb 위의 GTK4가 팝오버 메뉴를 만들고, 실제 버튼에 그림을 넣고, 닫기 요청을 처리함. Win32는 기술자로 실제 `HMENU`를 만들어 각 행을 다시 읽고, 실제 자식 창에 비트맵을 올림 |
 | Wayland 창 | xdg-shell의 map 및 unmap 규칙을 강제하는 가짜 컴포지터를 상대로 검증 |
 | wasmbox 창 | 실제 wasmdesk 컴포지터를 구동하는 헤드리스 Chromium: 합성된 픽셀을 다시 읽고, 실제 클릭이 위젯으로 라우팅됨 |
 | Android | Android 15 arm64 기기: 변경 영역만 전송하는 blit을 측정하고, memfd 더티 메모리를 측정하고, 접근성 트리를 기기에서 벤치마크 |
@@ -43,6 +44,9 @@ tags: [status]
   아이콘 없이 그려집니다.
 - `window`의 Wayland 백엔드는 `Raise`를 할 수 없습니다. xdg-shell에 그런 요청이
   없고, xdg-activation에는 사용자 자신의 입력에서 얻은 토큰이 필요합니다.
+- GTK4의 실제 포인터 오른쪽 클릭과 Win32의 모달 `TrackPopupMenu` 루프는 구동하지 않습니다.
+  메뉴는 만들어 다시 읽고, 선택은 직접 호출합니다. Windows에서 캡션 옆의 그림에는 테스트
+  바이너리에 없는 매니페스트가 필요하므로, CI는 그림만 단독으로 증명합니다.
 - Android: `android/arm64`만 지원합니다. cgo 없이 Go가 링크하는 유일한 Android
   대상이기 때문입니다.
 - `window.Screens`는 `js/wasm`에서 `ErrScreensUnsupported`를 반환합니다.

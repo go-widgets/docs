@@ -113,10 +113,29 @@ OS が論理フレームを物理的なクライアント領域に合わせて�
 | Wayland | 再度コミット | null バッファとコミット | `ErrNotSupported`：xdg-shell にはそのようなリクエストがありません |
 | macOS | `orderFront:` | `orderOut:` | アプリをアクティブにし、`makeKeyAndOrderFront:` |
 | Windows | `SW_SHOWNA` | `SW_HIDE` | `SW_RESTORE` と `SetForegroundWindow` |
-| GTK、Android、wasmbox、ブラウザのタブ | `ErrNotSupported` | `ErrNotSupported` | `ErrNotSupported` |
+| GTK4 | `gtk_widget_set_visible(true)` | `gtk_widget_set_visible(false)` | `gtk_window_present` |
+| Android、wasmbox、ブラウザのタブ | `ErrNotSupported` | `ErrNotSupported` | `ErrNotSupported` |
 
 フォーカスを与えるかどうかはプラットフォームが決めます。フォーカス奪取の防止機能が働いている場合、`Raise` は
-ウィンドウに注意を求めるマークを付けるだけになることがあり、その結果を知ることはできません。
+ウィンドウに注意を求めるマークを付けるだけになることがあり、その結果を知ることはできません
+（GTK4 上の Wayland コンポジタはまさにそうします）。
+
+`Config.HideOnClose` は X11、Wayland、GTK4、macOS、Windows で有効です。ウィンドウ自身の閉じる
+コントロールがウィンドウを閉じる代わりに隠し、`Show` または `Raise` で元に戻ります。
+
+## ネイティブコントロールのコンテキストメニューと画像 {#context-menu-and-picture-on-native-controls}
+
+`NativeControl.Menu` と `Image` / `ImageOnly` は、Cocoa だけでなくすべてのネイティブバックエンドが
+適用します。GTK4 ではメニューは副ボタンのクリックで開くポップオーバーで、画像はボタンの中に、単独で
+またはキャプションの横に置かれます。Win32 ではメニューは `WM_CONTEXTMENU` で `TrackPopupMenu` により
+表示される本物の `HMENU` で、画像はボタン上のビットマップです。無効な項目や区切り線は選べません。
+記述子は毎フレーム作り直されるため、どちらも変更があったときにだけ再適用されます。
+
+PNG には上限があります。最大 1 MiB、1 辺 1024 ピクセルで、ピクセルを確保する前にヘッダーで検査します。
+読み取れない画像はボタンをそのままにします。画像は `painter.IconSize` と `painter.IconBGRAOver` により、
+ボタンから 4 ピクセルの余白を引いた大きさに収められ、拡大されることはありません。Windows でキャプションの横に
+画像を置くにはビジュアルスタイル対応のコモンコントロールが必要で、マニフェストがない場合はボタンに画像のみが
+表示されます。Windows の編集フィールドは独自のシステムメニューをそのまま使います。
 
 ## Windows のネイティブコントロール {#native-controls-on-windows}
 

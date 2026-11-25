@@ -103,9 +103,26 @@ return w.Run(root) // root is any toolkit.Widget
 | Wayland | 再次 commit | 空缓冲区并 commit | `ErrNotSupported`：xdg-shell 没有这样的请求 |
 | macOS | `orderFront:` | `orderOut:` | 激活应用，`makeKeyAndOrderFront:` |
 | Windows | `SW_SHOWNA` | `SW_HIDE` | `SW_RESTORE` 和 `SetForegroundWindow` |
-| GTK、Android、wasmbox、浏览器标签页 | `ErrNotSupported` | `ErrNotSupported` | `ErrNotSupported` |
+| GTK4 | `gtk_widget_set_visible(true)` | `gtk_widget_set_visible(false)` | `gtk_window_present` |
+| Android、wasmbox、浏览器标签页 | `ErrNotSupported` | `ErrNotSupported` | `ErrNotSupported` |
 
-焦点由平台决定是否授予：在有防抢焦点机制的情况下，`Raise` 可能只能把窗口标记为需要关注，并且无法得知结果。
+焦点由平台决定是否授予：在有防抢焦点机制的情况下，`Raise` 可能只能把窗口标记为需要关注，并且无法得知结果
+（GTK4 下的 Wayland 合成器正是如此）。
+
+`Config.HideOnClose` 由 X11、Wayland、GTK4、macOS 和 Windows 支持：窗口自带的关闭控件会隐藏窗口而不是
+关闭它，`Show` 或 `Raise` 可以把它带回来。
+
+## 原生控件上的上下文菜单和图片 {#context-menu-and-picture-on-native-controls}
+
+`NativeControl.Menu` 以及 `Image` / `ImageOnly` 由每个原生后端应用，而不只是 Cocoa。在 GTK4 上，
+菜单是由次要点击打开的弹出框，图片位于按钮内，可以单独显示，也可以与标题并排。在 Win32 上，菜单是在
+`WM_CONTEXTMENU` 时用 `TrackPopupMenu` 显示的真实 `HMENU`，图片是按钮上的位图。已禁用的条目或分隔线
+不可选择。由于描述符每帧都会重建，两者只在发生变化时才重新应用。
+
+PNG 有上限：最大 1 MiB，每边 1024 像素，在分配任何像素之前先根据文件头检查；无法读取的图片会让按钮保持
+原样。`painter.IconSize` 和 `painter.IconBGRAOver` 会把图片缩放到按钮减去 4 像素边距的范围内，绝不放大。在
+Windows 上，与标题并排的图片需要启用视觉样式的通用控件；没有清单（manifest）时，按钮只显示图片。
+Windows 的编辑框保留它自己的系统菜单。
 
 ## Windows 上的原生控件 {#native-controls-on-windows}
 

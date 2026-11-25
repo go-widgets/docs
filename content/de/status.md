@@ -19,6 +19,7 @@ die Plattform selbst gefragt wurde:
 | X11-Fenster | CI, unter Xvfb: ein bekanntes Muster dargestellt, aufgenommen und abgetastet; ein Klick und eine Taste mit `xdotool` synthetisiert und das ausgelöste `toolkit.Event` geprüft; `Show`/`Hide`/`Raise` vom Server zurückgelesen |
 | Cocoa-Fenster | eine macOS-CI-Spur: ein Fenster geöffnet und gerendert, Pixel abgetastet, ein Klick und eine Taste synthetisiert; `Show`/`Hide`/`Raise` von einer anderen Goroutine aus an ein echtes `NSWindow` gerichtet und von AppKit zurückgelesen |
 | Win32-Fenster | eine Windows-11-arm64-VM: ein echtes Fenster, das eine `VBox`, ein `Label` und einen `Button` rendert, drei injizierte Klicks treiben seinen Zähler über die Fensterprozedur von 0 auf 3 |
+| Natives Menü und Bild (GTK4, Win32) | CI: GTK4 unter Xvfb baut das Popover-Menü auf, setzt ein Bild in einen echten Button und behandelt eine Schließanfrage; Win32 baut aus dem Descriptor ein echtes `HMENU`, liest dessen Zeilen zurück und setzt eine Bitmap auf ein echtes Kindfenster |
 | Wayland-Fenster | gegen einen Fake-Compositor, der die Map- und Unmap-Regeln von xdg-shell durchsetzt |
 | wasmbox-Fenster | Headless-Chromium steuert den echten wasmdesk-Compositor: die komponierten Pixel zurückgelesen, ein echter Klick an das Widget geleitet |
 | Android | ein Android-15-arm64-Gerät: Blits nur geschädigter Bereiche gemessen, memfd-Dirty-Memory gemessen, der Barrierefreiheitsbaum auf dem Gerät gebenchmarkt |
@@ -45,6 +46,10 @@ die Plattform selbst gefragt wurde:
   wird ohne es gezeichnet.
 - Das Wayland-Back-End von `window` kann kein `Raise`: xdg-shell hat keine solche Anfrage,
   und xdg-activation braucht ein Token aus der eigenen Eingabe des Benutzers.
+- Ein echter Zeiger-Rechtsklick unter GTK4 und die modale `TrackPopupMenu`-Schleife unter
+  Win32 werden nicht angesteuert: Das Menü wird aufgebaut und zurückgelesen, eine Auswahl
+  direkt ausgelöst. Unter Windows braucht das Bild neben der Beschriftung ein Manifest, das
+  dem Test-Binary fehlt; die CI belegt daher nur das Bild allein.
 - Android: nur `android/arm64`, weil es das einzige Android-Ziel ist, das Go
   ohne cgo linkt.
 - `window.Screens` gibt unter `js/wasm` `ErrScreensUnsupported` zurück.

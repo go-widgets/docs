@@ -139,11 +139,33 @@ cerrarla y la traen de vuelta: lo que necesita una
 | Wayland | volver a hacer commit | búfer nulo y commit | `ErrNotSupported`: xdg-shell no tiene esa petición |
 | macOS | `orderFront:` | `orderOut:` | activar la aplicación, `makeKeyAndOrderFront:` |
 | Windows | `SW_SHOWNA` | `SW_HIDE` | `SW_RESTORE` y `SetForegroundWindow` |
-| GTK, Android, wasmbox, pestaña del navegador | `ErrNotSupported` | `ErrNotSupported` | `ErrNotSupported` |
+| GTK4 | `gtk_widget_set_visible(true)` | `gtk_widget_set_visible(false)` | `gtk_window_present` |
+| Android, wasmbox, pestaña del navegador | `ErrNotSupported` | `ErrNotSupported` | `ErrNotSupported` |
 
 Conceder el foco corresponde a la plataforma: con la prevención del robo de
 foco, `Raise` puede limitarse a marcar la ventana como necesitada de atención,
-y no puede saberlo.
+y no puede saberlo (un compositor Wayland bajo GTK4 hace exactamente eso).
+
+`Config.HideOnClose` lo respetan X11, Wayland, GTK4, macOS y Windows: el control
+de cierre de la ventana la oculta en lugar de cerrarla, y `Show` o `Raise` la
+devuelve.
+
+## Menú contextual e imagen en los controles nativos {#context-menu-and-picture-on-native-controls}
+
+`NativeControl.Menu` e `Image` / `ImageOnly` los aplica cada backend nativo, no
+solo Cocoa. En GTK4 el menú es un popover que abre un clic secundario y la imagen
+va dentro del botón, sola o junto al título. En Win32 el menú es un `HMENU` real
+que se muestra con `TrackPopupMenu` en `WM_CONTEXTMENU`, y la imagen es un mapa
+de bits en el botón. Una entrada desactivada o un separador no se puede elegir.
+Ambos se vuelven a aplicar solo cuando han cambiado, porque los descriptores se
+reconstruyen en cada fotograma.
+
+El PNG está acotado: como máximo 1 MiB y 1024 píxeles por lado, comprobado desde la
+cabecera antes de reservar ningún píxel; una imagen ilegible deja el botón como estaba.
+`painter.IconSize` y `painter.IconBGRAOver` la ajustan al botón menos un margen de
+4 píxeles, sin ampliarla nunca. En Windows, la imagen junto al título requiere los
+controles comunes con estilos visuales; sin manifiesto, el botón muestra solo la
+imagen. Los campos de edición de Windows conservan su propio menú del sistema.
 
 ## Controles nativos en Windows {#native-controls-on-windows}
 

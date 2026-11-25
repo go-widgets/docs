@@ -121,10 +121,28 @@ Linux(X11과 Wayland)에서는 `Config{GPU: true}`로 프레임을 Vulkan으로 
 | Wayland | commit again | null buffer and commit | `ErrNotSupported`: xdg-shell has no such request |
 | macOS | `orderFront:` | `orderOut:` | activate the app, `makeKeyAndOrderFront:` |
 | Windows | `SW_SHOWNA` | `SW_HIDE` | `SW_RESTORE` and `SetForegroundWindow` |
-| GTK, Android, wasmbox, browser tab | `ErrNotSupported` | `ErrNotSupported` | `ErrNotSupported` |
+| GTK4 | `gtk_widget_set_visible(true)` | `gtk_widget_set_visible(false)` | `gtk_window_present` |
+| Android, wasmbox, browser tab | `ErrNotSupported` | `ErrNotSupported` | `ErrNotSupported` |
 
 포커스는 플랫폼이 허용하는 것입니다. 포커스 탈취 방지 아래에서 `Raise`는 창이 주의를
-원한다는 표시만 할 수 있으며, 그 여부를 알 수 없습니다.
+원한다는 표시만 할 수 있으며, 그 여부를 알 수 없습니다(GTK4 아래의 Wayland 컴포지터가 정확히 그렇게 합니다).
+
+`Config.HideOnClose`는 X11, Wayland, GTK4, macOS, Windows에서 지원됩니다. 창의 닫기
+컨트롤이 창을 닫는 대신 숨기며, `Show`나 `Raise`가 다시 가져옵니다.
+
+## 네이티브 컨트롤의 컨텍스트 메뉴와 이미지 {#context-menu-and-picture-on-native-controls}
+
+`NativeControl.Menu`와 `Image` / `ImageOnly`는 Cocoa만이 아니라 모든 네이티브 백엔드가
+적용합니다. GTK4에서 메뉴는 보조 클릭으로 열리는 팝오버이고, 이미지는 버튼 안에 단독으로
+또는 캡션 옆에 놓입니다. Win32에서 메뉴는 `WM_CONTEXTMENU`에서 `TrackPopupMenu`로 표시되는
+실제 `HMENU`이고, 이미지는 버튼 위의 비트맵입니다. 비활성 항목이나 구분선은 선택할 수
+없습니다. 디스크립터는 매 프레임 다시 만들어지므로, 둘 다 바뀌었을 때만 다시 적용됩니다.
+
+PNG에는 한도가 있습니다. 최대 1 MiB, 한 변 1024픽셀이며, 픽셀을 할당하기 전에 헤더로
+검사합니다. 읽을 수 없는 이미지는 버튼을 그대로 둡니다. 이미지는 `painter.IconSize`와
+`painter.IconBGRAOver`가 버튼에서 4픽셀 여백을 뺀 크기에 맞추며, 절대 확대하지 않습니다.
+Windows에서 캡션 옆의 이미지는 비주얼 스타일 공용 컨트롤이 필요하며, 매니페스트가 없으면
+버튼에는 이미지만 표시됩니다. Windows 편집 필드는 자체 시스템 메뉴를 유지합니다.
 
 ## Windows의 네이티브 컨트롤 {#native-controls-on-windows}
 
