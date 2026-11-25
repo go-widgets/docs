@@ -25,6 +25,10 @@ die Plattform selbst gefragt wurde:&lt;/p&gt;
 &lt;td&gt;eine Windows-11-arm64-VM: ein echtes Fenster, das eine &lt;code&gt;VBox&lt;/code&gt;, ein &lt;code&gt;Label&lt;/code&gt; und einen &lt;code&gt;Button&lt;/code&gt; rendert, drei injizierte Klicks treiben seinen Zähler über die Fensterprozedur von 0 auf 3&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
+&lt;td&gt;Natives Menü und Bild (GTK4, Win32)&lt;/td&gt;
+&lt;td&gt;CI: GTK4 unter Xvfb baut das Popover-Menü auf, setzt ein Bild in einen echten Button und behandelt eine Schließanfrage; Win32 baut aus dem Descriptor ein echtes &lt;code&gt;HMENU&lt;/code&gt;, liest dessen Zeilen zurück und setzt eine Bitmap auf ein echtes Kindfenster&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
 &lt;td&gt;Wayland-Fenster&lt;/td&gt;
 &lt;td&gt;gegen einen Fake-Compositor, der die Map- und Unmap-Regeln von xdg-shell durchsetzt&lt;/td&gt;
 &lt;/tr&gt;
@@ -74,6 +78,10 @@ sind abgedeckt.&lt;/li&gt;
 &lt;li&gt;Die Trays unter Windows und Linux ignorieren &lt;code&gt;MenuItem.Icon&lt;/code&gt;: Eine Zeile mit einem Symbol
 wird ohne es gezeichnet.&lt;/li&gt;
 &lt;li&gt;Das Wayland-Back-End von &lt;code&gt;window&lt;/code&gt; kann kein &lt;code&gt;Raise&lt;/code&gt;: xdg-shell hat keine solche Anfrage,und xdg-activation braucht ein Token aus der eigenen Eingabe des Benutzers.&lt;/li&gt;
+&lt;li&gt;Ein echter Zeiger-Rechtsklick unter GTK4 und die modale &lt;code&gt;TrackPopupMenu&lt;/code&gt;-Schleife unter
+Win32 werden nicht angesteuert: Das Menü wird aufgebaut und zurückgelesen, eine Auswahl
+direkt ausgelöst. Unter Windows braucht das Bild neben der Beschriftung ein Manifest, das
+dem Test-Binary fehlt; die CI belegt daher nur das Bild allein.&lt;/li&gt;
 &lt;li&gt;Android: nur &lt;code&gt;android/arm64&lt;/code&gt;, weil es das einzige Android-Ziel ist, das Go
 ohne cgo linkt.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;window.Screens&lt;/code&gt; gibt unter &lt;code&gt;js/wasm&lt;/code&gt; &lt;code&gt;ErrScreensUnsupported&lt;/code&gt; zurück.&lt;/li&gt;

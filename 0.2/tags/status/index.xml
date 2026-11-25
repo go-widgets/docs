@@ -25,6 +25,10 @@ platform itself was asked:&lt;/p&gt;
 &lt;td&gt;a Windows 11 arm64 VM: a real window rendering a &lt;code&gt;VBox&lt;/code&gt;, a &lt;code&gt;Label&lt;/code&gt; and a &lt;code&gt;Button&lt;/code&gt;, three injected clicks driving its counter from 0 to 3 through the window procedure&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
+&lt;td&gt;Native menu and picture (GTK4, Win32)&lt;/td&gt;
+&lt;td&gt;CI: GTK4 under Xvfb builds the popover menu, puts a picture in a real button and handles a close request; Win32 builds a real &lt;code&gt;HMENU&lt;/code&gt; from the descriptor, reads its rows back and puts a bitmap on a real child window&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
 &lt;td&gt;Wayland window&lt;/td&gt;
 &lt;td&gt;against a fake compositor that enforces xdg-shell&amp;rsquo;s map and unmap rules&lt;/td&gt;
 &lt;/tr&gt;
@@ -74,6 +78,10 @@ are covered.&lt;/li&gt;
 &lt;li&gt;The Windows and Linux trays ignore &lt;code&gt;MenuItem.Icon&lt;/code&gt;: a row with an icon
 draws without it.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;window&lt;/code&gt;&amp;rsquo;s Wayland back-end cannot &lt;code&gt;Raise&lt;/code&gt;: xdg-shell has no such request,and xdg-activation needs a token from the user&amp;rsquo;s own input.&lt;/li&gt;
+&lt;li&gt;A real pointer right-click on GTK4 and the modal &lt;code&gt;TrackPopupMenu&lt;/code&gt; loop on
+Win32 are not driven: the menu is built and read back, and a pick is invoked
+directly. On Windows the picture beside the caption needs a manifest the
+test binary lacks, so CI proves the picture alone.&lt;/li&gt;
 &lt;li&gt;Android: &lt;code&gt;android/arm64&lt;/code&gt; only, because it is the only Android target Go
 links without cgo.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;window.Screens&lt;/code&gt; returns &lt;code&gt;ErrScreensUnsupported&lt;/code&gt; on &lt;code&gt;js/wasm&lt;/code&gt;.&lt;/li&gt;

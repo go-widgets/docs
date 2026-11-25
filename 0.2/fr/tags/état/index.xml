@@ -272,6 +272,10 @@ la plateforme elle-même :&lt;/p&gt;
 &lt;td&gt;une VM Windows 11 arm64 : une vraie fenêtre rendant une &lt;code&gt;VBox&lt;/code&gt;, un &lt;code&gt;Label&lt;/code&gt; et un &lt;code&gt;Button&lt;/code&gt;, trois clics injectés faisant passer son compteur de 0 à 3 via la procédure de fenêtre&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
+&lt;td&gt;Menu natif et image (GTK4, Win32)&lt;/td&gt;
+&lt;td&gt;CI : GTK4 sous Xvfb construit le menu popover, place une image dans un vrai bouton et traite une demande de fermeture ; Win32 construit un vrai &lt;code&gt;HMENU&lt;/code&gt; depuis le descripteur, relit ses lignes et pose un bitmap sur une vraie fenêtre fille&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
 &lt;td&gt;Fenêtre Wayland&lt;/td&gt;
 &lt;td&gt;face à un faux compositeur qui impose les règles de map et d&amp;rsquo;unmap de xdg-shell&lt;/td&gt;
 &lt;/tr&gt;
@@ -321,6 +325,8 @@ sont couverts.&lt;/li&gt;
 &lt;li&gt;Les zones de notification Windows et Linux ignorent &lt;code&gt;MenuItem.Icon&lt;/code&gt; : une ligne avec une icône
 se dessine sans elle.&lt;/li&gt;
 &lt;li&gt;Le back-end Wayland de &lt;code&gt;window&lt;/code&gt; ne sait pas faire &lt;code&gt;Raise&lt;/code&gt; : xdg-shell n&amp;rsquo;a pas de telle requête,et xdg-activation exige un jeton issu d&amp;rsquo;une action de l&amp;rsquo;utilisateur lui-même.&lt;/li&gt;
+&lt;li&gt;Un vrai clic droit au pointeur sous GTK4 et la boucle modale de &lt;code&gt;TrackPopupMenu&lt;/code&gt; sous Win32
+ne sont pas pilotés : le menu est construit et relu, et un choix est invoqué directement.Sous Windows, l&amp;rsquo;image à côté du libellé exige un manifeste que le binaire de test n&amp;rsquo;a pas ;la CI ne prouve donc que l&amp;rsquo;image seule.&lt;/li&gt;
 &lt;li&gt;Android : &lt;code&gt;android/arm64&lt;/code&gt; uniquement, car c&amp;rsquo;est la seule cible Android que Go
 sait lier sans cgo.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;window.Screens&lt;/code&gt; renvoie &lt;code&gt;ErrScreensUnsupported&lt;/code&gt; sur &lt;code&gt;js/wasm&lt;/code&gt;.&lt;/li&gt;

@@ -192,7 +192,13 @@ cerrarla y la traen de vuelta: lo que necesita una&lt;a href="https://go-widgets
 &lt;td&gt;&lt;code&gt;SW_RESTORE&lt;/code&gt; y &lt;code&gt;SetForegroundWindow&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;GTK, Android, wasmbox, pestaña del navegador&lt;/td&gt;
+&lt;td&gt;GTK4&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;gtk_widget_set_visible(true)&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;gtk_widget_set_visible(false)&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;gtk_window_present&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Android, wasmbox, pestaña del navegador&lt;/td&gt;
 &lt;td&gt;&lt;code&gt;ErrNotSupported&lt;/code&gt;&lt;/td&gt;
 &lt;td&gt;&lt;code&gt;ErrNotSupported&lt;/code&gt;&lt;/td&gt;
 &lt;td&gt;&lt;code&gt;ErrNotSupported&lt;/code&gt;&lt;/td&gt;
@@ -200,7 +206,22 @@ cerrarla y la traen de vuelta: lo que necesita una&lt;a href="https://go-widgets
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;Conceder el foco corresponde a la plataforma: con la prevención del robo de
-foco, &lt;code&gt;Raise&lt;/code&gt; puede limitarse a marcar la ventana como necesitada de atención,y no puede saberlo.&lt;/p&gt;
+foco, &lt;code&gt;Raise&lt;/code&gt; puede limitarse a marcar la ventana como necesitada de atención,y no puede saberlo (un compositor Wayland bajo GTK4 hace exactamente eso).&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Config.HideOnClose&lt;/code&gt; lo respetan X11, Wayland, GTK4, macOS y Windows: el control
+de cierre de la ventana la oculta en lugar de cerrarla, y &lt;code&gt;Show&lt;/code&gt; o &lt;code&gt;Raise&lt;/code&gt; la
+devuelve.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="context-menu-and-picture-on-native-controls"&gt;Menú contextual e imagen en los controles nativos&lt;span class="hx:absolute hx:-mt-20" id="context-menu-and-picture-on-native-controls"&gt;&lt;/span&gt;
+&lt;a href="#context-menu-and-picture-on-native-controls" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;NativeControl.Menu&lt;/code&gt; e &lt;code&gt;Image&lt;/code&gt; / &lt;code&gt;ImageOnly&lt;/code&gt; los aplica cada backend nativo, no
+solo Cocoa. En GTK4 el menú es un popover que abre un clic secundario y la imagen
+va dentro del botón, sola o junto al título. En Win32 el menú es un &lt;code&gt;HMENU&lt;/code&gt; real
+que se muestra con &lt;code&gt;TrackPopupMenu&lt;/code&gt; en &lt;code&gt;WM_CONTEXTMENU&lt;/code&gt;, y la imagen es un mapa
+de bits en el botón. Una entrada desactivada o un separador no se puede elegir.Ambos se vuelven a aplicar solo cuando han cambiado, porque los descriptores se
+reconstruyen en cada fotograma.&lt;/p&gt;
+&lt;p&gt;El PNG está acotado: como máximo 1 MiB y 1024 píxeles por lado, comprobado desde la
+cabecera antes de reservar ningún píxel; una imagen ilegible deja el botón como estaba.&lt;code&gt;painter.IconSize&lt;/code&gt; y &lt;code&gt;painter.IconBGRAOver&lt;/code&gt; la ajustan al botón menos un margen de
+4 píxeles, sin ampliarla nunca. En Windows, la imagen junto al título requiere los
+controles comunes con estilos visuales; sin manifiesto, el botón muestra solo la
+imagen. Los campos de edición de Windows conservan su propio menú del sistema.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="native-controls-on-windows"&gt;Controles nativos en Windows&lt;span class="hx:absolute hx:-mt-20" id="native-controls-on-windows"&gt;&lt;/span&gt;
 &lt;a href="#native-controls-on-windows" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Un &lt;code&gt;toolkit.NativeControl&lt;/code&gt; se convierte en una ventana hija real de la ventana
 Win32, una por &lt;code&gt;Key&lt;/code&gt;, reconciliada en cada fotograma: un valor solo se empuja a un

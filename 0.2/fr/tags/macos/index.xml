@@ -182,7 +182,13 @@ la fermer, puis la ramènent — ce dont a besoin une &lt;a href="https://go-wid
 &lt;td&gt;&lt;code&gt;SW_RESTORE&lt;/code&gt; et &lt;code&gt;SetForegroundWindow&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;GTK, Android, wasmbox, onglet de navigateur&lt;/td&gt;
+&lt;td&gt;GTK4&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;gtk_widget_set_visible(true)&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;gtk_widget_set_visible(false)&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;gtk_window_present&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Android, wasmbox, onglet de navigateur&lt;/td&gt;
 &lt;td&gt;&lt;code&gt;ErrNotSupported&lt;/code&gt;&lt;/td&gt;
 &lt;td&gt;&lt;code&gt;ErrNotSupported&lt;/code&gt;&lt;/td&gt;
 &lt;td&gt;&lt;code&gt;ErrNotSupported&lt;/code&gt;&lt;/td&gt;
@@ -190,7 +196,20 @@ la fermer, puis la ramènent — ce dont a besoin une &lt;a href="https://go-wid
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;Le focus, c&amp;rsquo;est à la plateforme de l&amp;rsquo;accorder : avec la prévention du vol de focus, &lt;code&gt;Raise&lt;/code&gt;
-peut seulement marquer la fenêtre comme demandant l&amp;rsquo;attention, sans pouvoir le savoir.&lt;/p&gt;
+peut seulement marquer la fenêtre comme demandant l&amp;rsquo;attention, sans pouvoir le savoir(un compositeur Wayland sous GTK4 fait exactement cela).&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Config.HideOnClose&lt;/code&gt; est respecté par X11, Wayland, GTK4, macOS et Windows : le contrôle
+de fermeture de la fenêtre la masque alors au lieu de la fermer, et &lt;code&gt;Show&lt;/code&gt; ou &lt;code&gt;Raise&lt;/code&gt;
+la ramène.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="context-menu-and-picture-on-native-controls"&gt;Menu contextuel et image sur les contrôles natifs&lt;span class="hx:absolute hx:-mt-20" id="context-menu-and-picture-on-native-controls"&gt;&lt;/span&gt;
+&lt;a href="#context-menu-and-picture-on-native-controls" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;NativeControl.Menu&lt;/code&gt; et &lt;code&gt;Image&lt;/code&gt; / &lt;code&gt;ImageOnly&lt;/code&gt; sont appliqués par chaque backend natif, pas
+seulement Cocoa. Sous GTK4, le menu est un popover qu&amp;rsquo;ouvre un clic secondaire et l&amp;rsquo;image
+se place dans le bouton, seule ou à côté du libellé. Sous Win32, le menu est un vrai &lt;code&gt;HMENU&lt;/code&gt;
+affiché avec &lt;code&gt;TrackPopupMenu&lt;/code&gt; sur &lt;code&gt;WM_CONTEXTMENU&lt;/code&gt;, et l&amp;rsquo;image est un bitmap sur le bouton.Une entrée désactivée ou un séparateur ne peut pas être choisi. L&amp;rsquo;un et l&amp;rsquo;autre ne sont
+réappliqués que lorsqu&amp;rsquo;ils ont changé, car les descripteurs sont reconstruits à chaque image.&lt;/p&gt;
+&lt;p&gt;Le PNG est borné : 1 Mio et 1024 pixels de côté au plus, vérifiés d&amp;rsquo;après l&amp;rsquo;en-tête avant
+d&amp;rsquo;allouer le moindre pixel ; une image illisible laisse le bouton tel qu&amp;rsquo;il était.&lt;code&gt;painter.IconSize&lt;/code&gt; et &lt;code&gt;painter.IconBGRAOver&lt;/code&gt; l&amp;rsquo;ajustent au bouton moins une marge de
+4 pixels, sans jamais l&amp;rsquo;agrandir. Sous Windows, l&amp;rsquo;image à côté du libellé demande les
+contrôles communs à styles visuels ; sans manifeste, le bouton n&amp;rsquo;affiche que l&amp;rsquo;image.Les champs de saisie Windows gardent leur propre menu système.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="native-controls-on-windows"&gt;Contrôles natifs sous Windows&lt;span class="hx:absolute hx:-mt-20" id="native-controls-on-windows"&gt;&lt;/span&gt;
 &lt;a href="#native-controls-on-windows" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Un &lt;code&gt;toolkit.NativeControl&lt;/code&gt; devient une vraie fenêtre fille de la fenêtre Win32,une par &lt;code&gt;Key&lt;/code&gt;, réconciliée à chaque image : une valeur n&amp;rsquo;est poussée dans un
 contrôle que si elle diffère de ce qu&amp;rsquo;il a rapporté en dernier, de sorte que les

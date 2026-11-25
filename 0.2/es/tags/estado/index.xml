@@ -25,6 +25,10 @@ los que se interrogó a la propia plataforma:&lt;/p&gt;
 &lt;td&gt;una VM Windows 11 arm64: una ventana real que renderiza un &lt;code&gt;VBox&lt;/code&gt;, un &lt;code&gt;Label&lt;/code&gt; y un &lt;code&gt;Button&lt;/code&gt;, con tres clics inyectados que llevan su contador de 0 a 3 a través del procedimiento de ventana&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
+&lt;td&gt;Menú nativo e imagen (GTK4, Win32)&lt;/td&gt;
+&lt;td&gt;CI: GTK4 bajo Xvfb construye el menú popover, pone una imagen en un botón real y atiende una petición de cierre; Win32 construye un &lt;code&gt;HMENU&lt;/code&gt; real a partir del descriptor, lee sus filas y pone un mapa de bits en una ventana hija real&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
 &lt;td&gt;Ventana Wayland&lt;/td&gt;
 &lt;td&gt;frente a un compositor simulado que aplica las reglas de mapeo y desmapeo de xdg-shell&lt;/td&gt;
 &lt;/tr&gt;
@@ -75,6 +79,10 @@ se dibuja sin él.&lt;/li&gt;
 &lt;li&gt;El backend Wayland de &lt;code&gt;window&lt;/code&gt; no puede hacer &lt;code&gt;Raise&lt;/code&gt;: xdg-shell no tiene esa
 petición, y xdg-activation necesita un token procedente de la propia entrada
 del usuario.&lt;/li&gt;
+&lt;li&gt;Un clic derecho real con el puntero en GTK4 y el bucle modal de &lt;code&gt;TrackPopupMenu&lt;/code&gt; en Win32
+no se ejercitan: el menú se construye y se vuelve a leer, y una selección se invoca
+directamente. En Windows la imagen junto al título necesita un manifiesto que el binario
+de prueba no tiene, así que la CI prueba solo la imagen.&lt;/li&gt;
 &lt;li&gt;Android: solo &lt;code&gt;android/arm64&lt;/code&gt;, porque es el único destino Android que Go
 enlaza sin cgo.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;window.Screens&lt;/code&gt; devuelve &lt;code&gt;ErrScreensUnsupported&lt;/code&gt; en &lt;code&gt;js/wasm&lt;/code&gt;.&lt;/li&gt;

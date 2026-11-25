@@ -23,6 +23,10 @@
 &lt;td&gt;Windows 11 arm64 の VM: &lt;code&gt;VBox&lt;/code&gt;、&lt;code&gt;Label&lt;/code&gt;、&lt;code&gt;Button&lt;/code&gt; を描画する実際のウィンドウで、3 回注入したクリックがウィンドウプロシージャ経由でカウンタを 0 から 3 に進めることを確認&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
+&lt;td&gt;ネイティブメニューと画像 (GTK4、Win32)&lt;/td&gt;
+&lt;td&gt;CI: Xvfb 上の GTK4 がポップオーバーメニューを構築し、実際のボタンに画像を載せ、閉じる要求を処理する。Win32 は記述子から実際の &lt;code&gt;HMENU&lt;/code&gt; を構築して各行を読み戻し、実際の子ウィンドウにビットマップを載せる&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
 &lt;td&gt;Wayland ウィンドウ&lt;/td&gt;
 &lt;td&gt;xdg-shell の map と unmap の規則を強制する偽のコンポジタに対して検証&lt;/td&gt;
 &lt;/tr&gt;
@@ -67,6 +71,7 @@
 &lt;a href="#not-done" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;Windows と Linux のトレイは &lt;code&gt;MenuItem.Icon&lt;/code&gt; を無視します。アイコン付きの行は、アイコンなしで描画されます。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;window&lt;/code&gt; の Wayland バックエンドは &lt;code&gt;Raise&lt;/code&gt; できません。xdg-shell にそのようなリクエストはなく、xdg-activation にはユーザー自身の入力から得たトークンが必要です。&lt;/li&gt;
+&lt;li&gt;GTK4 での実際のポインタによる右クリックと、Win32 のモーダルな &lt;code&gt;TrackPopupMenu&lt;/code&gt; ループは駆動していません。メニューは構築して読み戻し、選択は直接呼び出しています。Windows ではキャプション横の画像にテストバイナリにないマニフェストが必要なため、CI が証明するのは画像単体のみです。&lt;/li&gt;
 &lt;li&gt;Android: &lt;code&gt;android/arm64&lt;/code&gt; のみです。cgo なしで Go がリンクできる Android ターゲットはこれだけだからです。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;window.Screens&lt;/code&gt; は &lt;code&gt;js/wasm&lt;/code&gt; では &lt;code&gt;ErrScreensUnsupported&lt;/code&gt; を返します。&lt;/li&gt;
 &lt;/ul&gt;

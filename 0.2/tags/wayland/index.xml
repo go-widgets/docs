@@ -179,7 +179,13 @@ needs.&lt;/p&gt;
 &lt;td&gt;&lt;code&gt;SW_RESTORE&lt;/code&gt; and &lt;code&gt;SetForegroundWindow&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;GTK, Android, wasmbox, browser tab&lt;/td&gt;
+&lt;td&gt;GTK4&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;gtk_widget_set_visible(true)&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;gtk_widget_set_visible(false)&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;gtk_window_present&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Android, wasmbox, browser tab&lt;/td&gt;
 &lt;td&gt;&lt;code&gt;ErrNotSupported&lt;/code&gt;&lt;/td&gt;
 &lt;td&gt;&lt;code&gt;ErrNotSupported&lt;/code&gt;&lt;/td&gt;
 &lt;td&gt;&lt;code&gt;ErrNotSupported&lt;/code&gt;&lt;/td&gt;
@@ -187,7 +193,24 @@ needs.&lt;/p&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;Focus is the platform&amp;rsquo;s to grant: under focus-stealing prevention, &lt;code&gt;Raise&lt;/code&gt;
-may only mark the window as wanting attention, and cannot tell.&lt;/p&gt;
+may only mark the window as wanting attention, and cannot tell (a Wayland
+compositor under GTK4 does exactly that).&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Config.HideOnClose&lt;/code&gt; is honoured by X11, Wayland, GTK4, macOS and Windows: the
+window&amp;rsquo;s own close control then hides the window instead of closing it, and&lt;code&gt;Show&lt;/code&gt; or &lt;code&gt;Raise&lt;/code&gt; brings it back.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="context-menu-and-picture-on-native-controls"&gt;Context menu and picture on native controls&lt;span class="hx:absolute hx:-mt-20" id="context-menu-and-picture-on-native-controls"&gt;&lt;/span&gt;
+&lt;a href="#context-menu-and-picture-on-native-controls" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;NativeControl.Menu&lt;/code&gt; and &lt;code&gt;Image&lt;/code&gt; / &lt;code&gt;ImageOnly&lt;/code&gt; are applied by every native
+back-end, not only Cocoa. On GTK4 the menu is a popover opened by a secondary
+click and the picture sits in the button, alone or beside the caption. On Win32
+the menu is a real &lt;code&gt;HMENU&lt;/code&gt; shown with &lt;code&gt;TrackPopupMenu&lt;/code&gt; on &lt;code&gt;WM_CONTEXTMENU&lt;/code&gt;, and
+the picture is a bitmap on the button. A disabled entry or a separator is not
+pickable. Both are reapplied only when they changed, since the descriptors are
+rebuilt every frame.&lt;/p&gt;
+&lt;p&gt;The PNG is bounded: at most 1 MiB and 1024 pixels a side, checked from the
+header before any pixel is allocated, and a picture that cannot be read leaves
+the button as it was. It is fitted inside the button less a 4-pixel margin by&lt;code&gt;painter.IconSize&lt;/code&gt; and &lt;code&gt;painter.IconBGRAOver&lt;/code&gt;, never scaled up. On Windows
+the image beside the caption needs the visual-styles common controls; without a
+manifest the button shows the picture alone. Windows edit fields keep their own
+system menu.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="native-controls-on-windows"&gt;Native controls on Windows&lt;span class="hx:absolute hx:-mt-20" id="native-controls-on-windows"&gt;&lt;/span&gt;
 &lt;a href="#native-controls-on-windows" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;A &lt;code&gt;toolkit.NativeControl&lt;/code&gt; becomes a real child window of the Win32 window, one
 per &lt;code&gt;Key&lt;/code&gt;, reconciled every frame: a value is pushed into a control only when it

@@ -23,6 +23,10 @@
 &lt;td&gt;Windows 11 arm64 虚拟机：一个真实窗口渲染 &lt;code&gt;VBox&lt;/code&gt;、&lt;code&gt;Label&lt;/code&gt; 和 &lt;code&gt;Button&lt;/code&gt;，注入三次点击，经由窗口过程把它的计数器从 0 推到 3&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
+&lt;td&gt;原生菜单与图片（GTK4、Win32）&lt;/td&gt;
+&lt;td&gt;CI：Xvfb 下的 GTK4 构建弹出菜单，在真实按钮中放入图片，并处理关闭请求；Win32 根据描述符构建真实的 &lt;code&gt;HMENU&lt;/code&gt;，回读其各行，并把位图放到真实的子窗口上&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
 &lt;td&gt;Wayland 窗口&lt;/td&gt;
 &lt;td&gt;针对一个强制执行 xdg-shell 映射与取消映射规则的模拟合成器&lt;/td&gt;
 &lt;/tr&gt;
@@ -67,6 +71,7 @@
 &lt;a href="#not-done" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;Windows 和 Linux 托盘会忽略 &lt;code&gt;MenuItem.Icon&lt;/code&gt;：带图标的行会不带图标地绘制。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;window&lt;/code&gt; 的 Wayland 后端无法 &lt;code&gt;Raise&lt;/code&gt;：xdg-shell 没有这样的请求，而 xdg-activation 需要来自用户自身输入的令牌。&lt;/li&gt;
+&lt;li&gt;GTK4 上真实的指针右键点击和 Win32 上模态的 &lt;code&gt;TrackPopupMenu&lt;/code&gt; 循环没有被驱动：菜单被构建并回读，选择则直接调用。在 Windows 上，标题旁的图片需要测试二进制文件所没有的清单，因此 CI 只证明了单独的图片。&lt;/li&gt;
 &lt;li&gt;Android：仅支持 &lt;code&gt;android/arm64&lt;/code&gt;，因为这是 Go 在没有 cgo 的情况下唯一能链接的 Android 目标。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;window.Screens&lt;/code&gt; 在 &lt;code&gt;js/wasm&lt;/code&gt; 上返回 &lt;code&gt;ErrScreensUnsupported&lt;/code&gt;。&lt;/li&gt;
 &lt;/ul&gt;

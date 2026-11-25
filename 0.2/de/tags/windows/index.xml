@@ -185,7 +185,13 @@ braucht.&lt;/p&gt;
 &lt;td&gt;&lt;code&gt;SW_RESTORE&lt;/code&gt; und &lt;code&gt;SetForegroundWindow&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;GTK, Android, wasmbox, Browser-Tab&lt;/td&gt;
+&lt;td&gt;GTK4&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;gtk_widget_set_visible(true)&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;gtk_widget_set_visible(false)&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;gtk_window_present&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Android, wasmbox, Browser-Tab&lt;/td&gt;
 &lt;td&gt;&lt;code&gt;ErrNotSupported&lt;/code&gt;&lt;/td&gt;
 &lt;td&gt;&lt;code&gt;ErrNotSupported&lt;/code&gt;&lt;/td&gt;
 &lt;td&gt;&lt;code&gt;ErrNotSupported&lt;/code&gt;&lt;/td&gt;
@@ -193,7 +199,20 @@ braucht.&lt;/p&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;Den Fokus gewährt die Plattform: Unter einem Schutz gegen Fokusraub kann &lt;code&gt;Raise&lt;/code&gt;
-das Fenster möglicherweise nur als aufmerksamkeitsbedürftig markieren und kann das nicht erkennen.&lt;/p&gt;
+das Fenster möglicherweise nur als aufmerksamkeitsbedürftig markieren und kann das nicht erkennen(ein Wayland-Compositor unter GTK4 tut genau das).&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Config.HideOnClose&lt;/code&gt; wird von X11, Wayland, GTK4, macOS und Windows unterstützt: Das
+Schließen-Element des Fensters blendet das Fenster dann aus, statt es zu schließen, und&lt;code&gt;Show&lt;/code&gt; oder &lt;code&gt;Raise&lt;/code&gt; holt es zurück.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="context-menu-and-picture-on-native-controls"&gt;Kontextmenü und Bild auf nativen Steuerelementen&lt;span class="hx:absolute hx:-mt-20" id="context-menu-and-picture-on-native-controls"&gt;&lt;/span&gt;
+&lt;a href="#context-menu-and-picture-on-native-controls" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;NativeControl.Menu&lt;/code&gt; und &lt;code&gt;Image&lt;/code&gt; / &lt;code&gt;ImageOnly&lt;/code&gt; werden von jedem nativen Backend
+umgesetzt, nicht nur von Cocoa. Unter GTK4 ist das Menü ein Popover, das ein
+Sekundärklick öffnet, und das Bild sitzt im Button, allein oder neben der Beschriftung. Unter
+Win32 ist das Menü ein echtes &lt;code&gt;HMENU&lt;/code&gt;, das bei &lt;code&gt;WM_CONTEXTMENU&lt;/code&gt; mit &lt;code&gt;TrackPopupMenu&lt;/code&gt; angezeigt wird,und das Bild ist eine Bitmap auf dem Button. Ein deaktivierter Eintrag oder ein Trennstrich ist nicht
+wählbar. Beides wird nur neu angewendet, wenn es sich geändert hat, da die Beschreibungen
+in jedem Frame neu aufgebaut werden.&lt;/p&gt;
+&lt;p&gt;Das PNG ist begrenzt: höchstens 1 MiB und 1024 Pixel je Seite, aus dem Header geprüft, bevor
+ein Pixel angelegt wird; ein nicht lesbares Bild lässt den Button unverändert. Es wird von&lt;code&gt;painter.IconSize&lt;/code&gt; und &lt;code&gt;painter.IconBGRAOver&lt;/code&gt; in den Button abzüglich eines Rands von 4 Pixeln
+eingepasst und nie vergrößert. Unter Windows braucht das Bild neben der Beschriftung die
+Common Controls mit visuellen Stilen; ohne Manifest zeigt der Button nur das Bild.Windows-Eingabefelder behalten ihr eigenes Systemmenü.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="native-controls-on-windows"&gt;Native Steuerelemente unter Windows&lt;span class="hx:absolute hx:-mt-20" id="native-controls-on-windows"&gt;&lt;/span&gt;
 &lt;a href="#native-controls-on-windows" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Ein &lt;code&gt;toolkit.NativeControl&lt;/code&gt; wird zu einem echten Kindfenster des Win32-Fensters,eines pro &lt;code&gt;Key&lt;/code&gt;, in jedem Frame abgeglichen: Ein Wert wird nur dann in ein
 Steuerelement geschrieben, wenn er sich von dem unterscheidet, was das Steuerelement
