@@ -267,6 +267,13 @@ data-copied-label="已复制！"
 &lt;p&gt;&lt;code&gt;handler&lt;/code&gt; 实现 &lt;code&gt;Handler&lt;/code&gt;——&lt;code&gt;Frame&lt;/code&gt;、&lt;code&gt;Resize&lt;/code&gt;、鼠标、滚动和按键事件——并且可以实现任何可选能力：外观、快捷键、带修饰键的点击和按键、次要点击、上下文菜单、剪贴板、无障碍、原生控件。循环从不包装 handler；它对每项能力做类型断言，并遵从它找到的那些。有一个测试会遍历该包中的这些断言，如果包文档没有点出每一项，就会失败。&lt;/p&gt;
 &lt;p&gt;无法挂上的托盘是 &lt;code&gt;Run&lt;/code&gt; 的错误，而不是静默：&lt;code&gt;errors.Is(err, tray.ErrNoBackend)&lt;/code&gt; 会说明原因。无论托盘如何都想要窗口的应用，把 &lt;code&gt;Spec.Tray&lt;/code&gt; 留空，自己运行一个托盘。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;Run&lt;/code&gt; 在循环返回时关闭它的窗口，因此托盘应用的“打开”可以再次调用 &lt;code&gt;Run&lt;/code&gt; 来得到一个新窗口。对于不是窗口的宿主——桌面外壳、浏览器标签页——&lt;code&gt;Bind&lt;/code&gt; 和 &lt;code&gt;BindScaled&lt;/code&gt; 返回一个与同一 handler 相连的&lt;code&gt;*toolkit.Surface&lt;/code&gt;。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="menu-bar"&gt;菜单栏&lt;span class="hx:absolute hx:-mt-20" id="menu-bar"&gt;&lt;/span&gt;
+&lt;a href="#menu-bar" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;application.Config.Menu&lt;/code&gt; 接受与托盘图标相同的 &lt;code&gt;tray.Menu&lt;/code&gt;，并将其安装为应用的菜单栏；&lt;code&gt;application.SetMenu&lt;/code&gt; 之后可在任意 goroutine 中修改，只有菜单变化时才会重新安装。&lt;code&gt;tray.EditMenu()&lt;/code&gt; 是标准的编辑菜单（撤销、剪切、复制、粘贴、全选）。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;macOS：屏幕顶部的菜单，应用菜单排在最前。&lt;/li&gt;
+&lt;li&gt;Windows：窗口的菜单栏；快捷键以文本显示。&lt;/li&gt;
+&lt;li&gt;X11、Wayland、GTK、wasm 和 Android：返回 &lt;code&gt;window.ErrNotSupported&lt;/code&gt;，&lt;code&gt;Run&lt;/code&gt; 会忽略。GTK 尚未支持：GTK 绑定还没有菜单模型。&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 data-hextra-search-id="painted-accessibility"&gt;绘制控件的无障碍&lt;span class="hx:absolute hx:-mt-20" id="painted-accessibility"&gt;&lt;/span&gt;
 &lt;a href="#painted-accessibility" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;自行绘制&lt;a href="https://go-widgets.github.io/docs/0.2/zh-cn/rendering/toolkit/#accessibility"&gt;工具包&lt;/a&gt;控件的处理器，除非实现 &lt;code&gt;Accessible&lt;/code&gt;，否则在平台的无障碍层看来只是一个不透明的矩形。&lt;code&gt;application.A11yElementsOf(root)&lt;/code&gt; 根据控件树生成这份描述（每个控件的角色、标签、值和边界，最多 &lt;code&gt;MaxA11yElements&lt;/code&gt; = 1000 个）：&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;

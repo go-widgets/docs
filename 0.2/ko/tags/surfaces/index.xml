@@ -328,6 +328,15 @@ data-copied-label="복사됨!"
 호출하여 새 창을 얻을 수 있습니다. 창이 아닌 호스트(데스크톱 셸, 브라우저 탭)를
 위해서는 &lt;code&gt;Bind&lt;/code&gt;와 &lt;code&gt;BindScaled&lt;/code&gt;가 같은 핸들러에 연결된 &lt;code&gt;*toolkit.Surface&lt;/code&gt;를
 반환합니다.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="menu-bar"&gt;메뉴 막대&lt;span class="hx:absolute hx:-mt-20" id="menu-bar"&gt;&lt;/span&gt;
+&lt;a href="#menu-bar" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;application.Config.Menu&lt;/code&gt;는 트레이 아이콘이 쓰는 것과 같은 &lt;code&gt;tray.Menu&lt;/code&gt;를 받아
+애플리케이션의 메뉴 막대로 설치합니다. &lt;code&gt;application.SetMenu&lt;/code&gt;는 나중에 어느
+goroutine에서든 바꿀 수 있고, 메뉴가 바뀐 경우에만 다시 설치합니다.&lt;code&gt;tray.EditMenu()&lt;/code&gt;는 표준 편집 메뉴(실행 취소, 잘라내기, 복사, 붙여넣기,모두 선택)입니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;macOS: 화면 위쪽의 메뉴이며 애플리케이션 메뉴가 맨 앞에 옵니다.&lt;/li&gt;
+&lt;li&gt;Windows: 창의 메뉴 막대이며 단축키는 텍스트로 표시됩니다.&lt;/li&gt;
+&lt;li&gt;X11, Wayland, GTK, wasm, Android: &lt;code&gt;window.ErrNotSupported&lt;/code&gt;를 반환하며 &lt;code&gt;Run&lt;/code&gt;은 이를 무시합니다.GTK는 아직 지원되지 않습니다. GTK 바인딩에 메뉴 모델이 없습니다.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 data-hextra-search-id="painted-accessibility"&gt;그려진 위젯의 접근성&lt;span class="hx:absolute hx:-mt-20" id="painted-accessibility"&gt;&lt;/span&gt;
 &lt;a href="#painted-accessibility" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;자체 &lt;a href="https://go-widgets.github.io/docs/0.2/ko/rendering/toolkit/#accessibility"&gt;툴킷&lt;/a&gt; 위젯을 그리는 핸들러는 &lt;code&gt;Accessible&lt;/code&gt;을 구현하지 않으면 플랫폼의 접근성 계층에는 불투명한 사각형 하나로만 보입니다. &lt;code&gt;application.A11yElementsOf(root)&lt;/code&gt;는 위젯 트리에서 그 설명(각 위젯의 역할, 레이블, 값, 경계. 최대 &lt;code&gt;MaxA11yElements&lt;/code&gt; = 1000)을 만듭니다.&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;

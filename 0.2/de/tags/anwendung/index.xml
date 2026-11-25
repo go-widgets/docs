@@ -36,6 +36,17 @@ Fenster will, egal was mit dem Tray geschieht, lässt &lt;code&gt;Spec.Tray&lt;/
 eines.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;Run&lt;/code&gt; schließt sein Fenster, wenn die Schleife zurückkehrt, sodass das „Open&amp;quot; einer Tray-Anwendung&lt;code&gt;Run&lt;/code&gt; erneut aufrufen kann, um ein frisches Fenster zu bekommen. Für einen Host, der kein
 Fenster ist – eine Desktop-Shell, ein Browser-Tab –, geben &lt;code&gt;Bind&lt;/code&gt; und &lt;code&gt;BindScaled&lt;/code&gt; eine&lt;code&gt;*toolkit.Surface&lt;/code&gt; zurück, die mit demselben Handler verdrahtet ist.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="menu-bar"&gt;Die Menüleiste&lt;span class="hx:absolute hx:-mt-20" id="menu-bar"&gt;&lt;/span&gt;
+&lt;a href="#menu-bar" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;application.Config.Menu&lt;/code&gt; nimmt dasselbe &lt;code&gt;tray.Menu&lt;/code&gt; wie ein Tray-Symbol und
+installiert es als Menüleiste der Anwendung; &lt;code&gt;application.SetMenu&lt;/code&gt; ändert sie
+später, aus jeder Goroutine, und installiert sie nur neu, wenn sich das Menü
+geändert hat. &lt;code&gt;tray.EditMenu()&lt;/code&gt; ist das Standardmenü Bearbeiten (Widerrufen,Ausschneiden, Kopieren, Einsetzen, Alles auswählen).&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;macOS: das Menü am oberen Bildschirmrand, das Anwendungsmenü zuerst.&lt;/li&gt;
+&lt;li&gt;Windows: die Menüleiste des Fensters; Tastenkürzel erscheinen als Text.&lt;/li&gt;
+&lt;li&gt;X11, Wayland, GTK, wasm und Android: &lt;code&gt;window.ErrNotSupported&lt;/code&gt;, von &lt;code&gt;Run&lt;/code&gt;
+ignoriert. GTK ist eine Lücke: die GTK-Anbindung hat noch kein Menümodell.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 data-hextra-search-id="painted-accessibility"&gt;Barrierefreiheit gezeichneter Widgets&lt;span class="hx:absolute hx:-mt-20" id="painted-accessibility"&gt;&lt;/span&gt;
 &lt;a href="#painted-accessibility" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Ein Handler, der eigene &lt;a href="https://go-widgets.github.io/docs/0.2/de/rendering/toolkit/#accessibility"&gt;Toolkit&lt;/a&gt;-Widgets
 zeichnet, ist für die Zugänglichkeitsschicht der Plattform ein einziges

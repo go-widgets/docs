@@ -29,6 +29,13 @@ data-copied-label="コピーしました！"
 &lt;p&gt;&lt;code&gt;handler&lt;/code&gt; は &lt;code&gt;Handler&lt;/code&gt;（&lt;code&gt;Frame&lt;/code&gt;、&lt;code&gt;Resize&lt;/code&gt;、マウス、スクロール、キーのイベント）を実装し、さらにオプションの機能（外観、ショートカット、修飾キー付きのクリックとキー、副クリック、コンテキストメニュー、クリップボード、アクセシビリティ、ネイティブコントロール）のどれでも実装できます。ループはハンドラをラップしません。各機能を型アサーションで確認し、見つかったものに対応します。テストがパッケージ内のそれらのアサーションを洗い出し、パッケージのドキュメントがそのすべてに言及していなければ失敗します。&lt;/p&gt;
 &lt;p&gt;取り付けられないトレイは、沈黙ではなく &lt;code&gt;Run&lt;/code&gt; のエラーになります。&lt;code&gt;errors.Is(err, tray.ErrNoBackend)&lt;/code&gt; で理由が分かります。トレイがどうなってもウィンドウは必要というアプリケーションは、&lt;code&gt;Spec.Tray&lt;/code&gt; を nil のままにして、自前でトレイを実行します。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;Run&lt;/code&gt; はループが戻るときにウィンドウを閉じるので、トレイアプリケーションの「開く」から &lt;code&gt;Run&lt;/code&gt; をもう一度呼び出して新しいウィンドウを開けます。ウィンドウではないホスト（デスクトップシェルやブラウザのタブ）向けには、&lt;code&gt;Bind&lt;/code&gt; と&lt;code&gt;BindScaled&lt;/code&gt; が、同じハンドラに接続された &lt;code&gt;*toolkit.Surface&lt;/code&gt; を返します。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="menu-bar"&gt;メニューバー&lt;span class="hx:absolute hx:-mt-20" id="menu-bar"&gt;&lt;/span&gt;
+&lt;a href="#menu-bar" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;application.Config.Menu&lt;/code&gt; はトレイアイコンと同じ &lt;code&gt;tray.Menu&lt;/code&gt; を受け取り、アプリケーションのメニューバーとして設定します。&lt;code&gt;application.SetMenu&lt;/code&gt; は任意の goroutine から後で変更でき、メニューが変わったときだけ再設定します。&lt;code&gt;tray.EditMenu()&lt;/code&gt; は標準の編集メニュー (取り消す、カット、コピー、ペースト、すべてを選択) です。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;macOS: 画面上部のメニュー。アプリケーションメニューが先頭に来ます。&lt;/li&gt;
+&lt;li&gt;Windows: ウィンドウのメニューバー。キーの割り当てはテキストで表示されます。&lt;/li&gt;
+&lt;li&gt;X11、Wayland、GTK、wasm、Android: &lt;code&gt;window.ErrNotSupported&lt;/code&gt; を返し、&lt;code&gt;Run&lt;/code&gt; は無視します。GTK は未対応です。GTK バインディングにはまだメニューモデルがありません。&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 data-hextra-search-id="painted-accessibility"&gt;描画されたウィジェットのアクセシビリティ&lt;span class="hx:absolute hx:-mt-20" id="painted-accessibility"&gt;&lt;/span&gt;
 &lt;a href="#painted-accessibility" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;独自の&lt;a href="https://go-widgets.github.io/docs/0.2/ja/rendering/toolkit/#accessibility"&gt;ツールキット&lt;/a&gt;ウィジェットを描画するハンドラーは、&lt;code&gt;Accessible&lt;/code&gt; を実装しない限り、プラットフォームのアクセシビリティ層からは不透明な長方形 1 枚にしか見えません。&lt;code&gt;application.A11yElementsOf(root)&lt;/code&gt; は、ウィジェットツリーからその記述（各ウィジェットのロール、ラベル、値、境界。最大 &lt;code&gt;MaxA11yElements&lt;/code&gt; = 1000）を作ります。&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
