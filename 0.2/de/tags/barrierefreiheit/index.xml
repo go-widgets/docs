@@ -160,6 +160,19 @@ mehrere, etwa um eine CJK- oder arabische Schrift hinzuzufügen; das eigene &lt;
 &lt;h2 data-hextra-search-id="input"&gt;Eingabe&lt;span class="hx:absolute hx:-mt-20" id="input"&gt;&lt;/span&gt;
 &lt;a href="#input" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Maus, Tastatur, IME-Komposition, Touch (&lt;code&gt;EventTouchStart&lt;/code&gt;/&lt;code&gt;Move&lt;/code&gt;/&lt;code&gt;End&lt;/code&gt;, mit&lt;code&gt;GestureRecognizer&lt;/code&gt; für Tippen, langes Drücken und Wischen), Drag and Drop(&lt;code&gt;DragSource&lt;/code&gt;, &lt;code&gt;DropTarget&lt;/code&gt;). Mehrfachauswahl von Zeilen in &lt;code&gt;ListBox&lt;/code&gt;, &lt;code&gt;Table&lt;/code&gt; und&lt;code&gt;TreeView&lt;/code&gt; funktioniert mit der Maus und mit der Tastatur und beachtet ⌘ ebenso
 wie Ctrl, weil unter macOS Ctrl-Klick der Sekundärklick ist.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="ime"&gt;Eingabemethoden&lt;span class="hx:absolute hx:-mt-20" id="ime"&gt;&lt;/span&gt;
+&lt;a href="#ime" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Ein gezeichnetes &lt;code&gt;Entry&lt;/code&gt; oder &lt;code&gt;TextView&lt;/code&gt; nimmt über eine einzige Schnittstelle,&lt;code&gt;toolkit.Composer&lt;/code&gt;, an der Eingabemethode der Plattform teil (Akzenttasten,Kana- und Hanzi-Umwandlung, Hangul): &lt;code&gt;SetPreedit(Preedit)&lt;/code&gt; zeigt den gerade
+komponierten Text an der Einfügemarke, ohne den Puffer zu ändern, &lt;code&gt;CommitText&lt;/code&gt;
+fügt das Ergebnis ein, &lt;code&gt;CancelPreedit&lt;/code&gt; verwirft es, und &lt;code&gt;CompositionRect&lt;/code&gt; sagt,wo das Kandidatenfenster verankert wird. Ein &lt;code&gt;Preedit&lt;/code&gt; trägt den Text, einen
+Cursor und gestaltete Segmente (Eingabe, umgewandelt, ausgewählt). Er ist
+begrenzt: höchstens &lt;code&gt;MaxPreeditRunes&lt;/code&gt; (256) Runen und &lt;code&gt;MaxPreeditSegments&lt;/code&gt; (64)Segmente, keine Steuerzeichen, und ein einzelnes Surrogat wird zu U+FFFD. Ein
+deaktiviertes oder maskiertes Feld behält keinen Preedit, ein Passwort erscheint
+also nie im Klartext. Der Host findet das fokussierte Feld mit&lt;code&gt;toolkit.FocusedComposition(root)&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Das Paket window verdrahtet das auf jedem Backend: &lt;code&gt;NSTextInputClient&lt;/code&gt; (Cocoa),&lt;code&gt;GtkIMContext&lt;/code&gt; (GTK4), IMM32 (Win32). Belegt: macOS live (eine Akzenttaste im
+französischen Layout ergibt ê; markierter Text und Esc über die Laufzeit), GTK
+unter Xvfb mit &lt;code&gt;GtkIMContextSimple&lt;/code&gt; per xdotool, sowie die Win32-Abbildung samt
+Fuzz-Ziel. Nicht belegt: ein echtes Windows-IME, sein Kandidatenfenster oder TSF,ibus und fcitx sowie Kana unter macOS (die Eingabequelle lässt sich nicht ohne
+Interaktion aktivieren).&lt;/p&gt;
 &lt;h2 data-hextra-search-id="collaboration"&gt;Mehrere Personen in einem Puffer&lt;span class="hx:absolute hx:-mt-20" id="collaboration"&gt;&lt;/span&gt;
 &lt;a href="#collaboration" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;collabui.CollabText&lt;/code&gt; bindet einen &lt;code&gt;CodeEditor&lt;/code&gt; an einen Textteil einer&lt;a href="https://github.com/go-crdt/collab" target="_blank" rel="noopener"&gt;&lt;code&gt;go-crdt/collab&lt;/code&gt;&lt;/a&gt;-Sitzung. Das
 Zusammenführen gehört dem CRDT, und die Bindung fügt nichts davon hinzu. &lt;strong&gt;Wo&lt;/strong&gt;

@@ -209,6 +209,20 @@ remplace la police globale pour ce seul widget.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="input"&gt;Saisie&lt;span class="hx:absolute hx:-mt-20" id="input"&gt;&lt;/span&gt;
 &lt;a href="#input" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Souris, clavier, composition IME, tactile (&lt;code&gt;EventTouchStart&lt;/code&gt;/&lt;code&gt;Move&lt;/code&gt;/&lt;code&gt;End&lt;/code&gt;, avec&lt;code&gt;GestureRecognizer&lt;/code&gt; pour les tapes, les appuis longs et les balayages), glisser-déposer(&lt;code&gt;DragSource&lt;/code&gt;, &lt;code&gt;DropTarget&lt;/code&gt;). La sélection de plusieurs lignes dans &lt;code&gt;ListBox&lt;/code&gt;, &lt;code&gt;Table&lt;/code&gt; et&lt;code&gt;TreeView&lt;/code&gt; fonctionne à la souris comme au clavier, et respecte ⌘ aussi bien
 que Ctrl, car sous macOS Ctrl-clic est le clic secondaire.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="ime"&gt;Méthodes de saisie&lt;span class="hx:absolute hx:-mt-20" id="ime"&gt;&lt;/span&gt;
+&lt;a href="#ime" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Un &lt;code&gt;Entry&lt;/code&gt; ou un &lt;code&gt;TextView&lt;/code&gt; dessiné participe à la méthode de saisie de la
+plateforme (touches mortes, conversion Kana et Hanzi, Hangul) par une seule
+interface, &lt;code&gt;toolkit.Composer&lt;/code&gt; : &lt;code&gt;SetPreedit(Preedit)&lt;/code&gt; affiche le texte en cours de
+composition au curseur sans toucher au tampon, &lt;code&gt;CommitText&lt;/code&gt; insère le résultat,&lt;code&gt;CancelPreedit&lt;/code&gt; l&amp;rsquo;abandonne, et &lt;code&gt;CompositionRect&lt;/code&gt; dit où ancrer la fenêtre de
+candidats. Un &lt;code&gt;Preedit&lt;/code&gt; porte le texte, un curseur et des segments stylés (saisie,converti, sélectionné). Il est borné : au plus &lt;code&gt;MaxPreeditRunes&lt;/code&gt; (256) runes et&lt;code&gt;MaxPreeditSegments&lt;/code&gt; (64) segments, aucun caractère de contrôle, et un
+substitut isolé devient U+FFFD. Un champ désactivé ou masqué ne garde aucun
+preedit : un mot de passe ne s&amp;rsquo;affiche jamais en clair. L&amp;rsquo;hôte trouve le champ
+actif par &lt;code&gt;toolkit.FocusedComposition(root)&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Le paquet window le branche sur chaque backend : &lt;code&gt;NSTextInputClient&lt;/code&gt; (Cocoa),&lt;code&gt;GtkIMContext&lt;/code&gt; (GTK4), IMM32 (Win32). Prouvé : macOS en direct (une touche morte
+sur la disposition française compose ê ; texte marqué et Échap via le runtime),GTK sous Xvfb avec &lt;code&gt;GtkIMContextSimple&lt;/code&gt; piloté par xdotool, et la correspondance
+Win32 avec sa cible de fuzzing. Non prouvé : un IME Windows en direct, sa fenêtre
+de candidats ou TSF, ibus et fcitx, et le Kana sur macOS (la source de saisie ne
+peut pas être activée sans interaction).&lt;/p&gt;
 &lt;h2 data-hextra-search-id="collaboration"&gt;Plusieurs personnes dans un même tampon&lt;span class="hx:absolute hx:-mt-20" id="collaboration"&gt;&lt;/span&gt;
 &lt;a href="#collaboration" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;collabui.CollabText&lt;/code&gt; relie un &lt;code&gt;CodeEditor&lt;/code&gt; à une partie texte d&amp;rsquo;une session&lt;a href="https://github.com/go-crdt/collab" target="_blank" rel="noopener"&gt;&lt;code&gt;go-crdt/collab&lt;/code&gt;&lt;/a&gt;. La fusion appartient au
 CRDT et la liaison n&amp;rsquo;en ajoute rien. &lt;strong&gt;Où&lt;/strong&gt; une modification est appliquée

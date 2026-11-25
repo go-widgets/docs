@@ -337,6 +337,21 @@ propio de un widget sustituye la global solo para ese widget.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="input"&gt;Entrada&lt;span class="hx:absolute hx:-mt-20" id="input"&gt;&lt;/span&gt;
 &lt;a href="#input" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Ratón, teclado, composición IME, táctil (&lt;code&gt;EventTouchStart&lt;/code&gt;/&lt;code&gt;Move&lt;/code&gt;/&lt;code&gt;End&lt;/code&gt;, con&lt;code&gt;GestureRecognizer&lt;/code&gt; para toques, pulsaciones largas y deslizamientos),arrastrar y soltar (&lt;code&gt;DragSource&lt;/code&gt;, &lt;code&gt;DropTarget&lt;/code&gt;). La selección de varias filas en&lt;code&gt;ListBox&lt;/code&gt;, &lt;code&gt;Table&lt;/code&gt; y &lt;code&gt;TreeView&lt;/code&gt; funciona con el ratón y con el teclado, y
 respeta ⌘ además de Ctrl, porque en macOS Ctrl-clic es el clic secundario.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="ime"&gt;Métodos de entrada&lt;span class="hx:absolute hx:-mt-20" id="ime"&gt;&lt;/span&gt;
+&lt;a href="#ime" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Un &lt;code&gt;Entry&lt;/code&gt; o &lt;code&gt;TextView&lt;/code&gt; dibujado participa en el método de entrada de la
+plataforma (teclas muertas, conversión Kana y Hanzi, Hangul) mediante una sola
+interfaz, &lt;code&gt;toolkit.Composer&lt;/code&gt;: &lt;code&gt;SetPreedit(Preedit)&lt;/code&gt; muestra el texto que se está
+componiendo en el cursor sin tocar el búfer, &lt;code&gt;CommitText&lt;/code&gt; inserta el resultado,&lt;code&gt;CancelPreedit&lt;/code&gt; lo descarta, y &lt;code&gt;CompositionRect&lt;/code&gt; indica dónde anclar la ventana de
+candidatos. Un &lt;code&gt;Preedit&lt;/code&gt; lleva el texto, un cursor y segmentos con estilo(entrada, convertido, seleccionado). Está acotado: como máximo &lt;code&gt;MaxPreeditRunes&lt;/code&gt;
+(256) runas y &lt;code&gt;MaxPreeditSegments&lt;/code&gt; (64) segmentos, sin caracteres de control, y un
+sustituto suelto pasa a ser U+FFFD. Un campo desactivado o enmascarado no guarda
+preedit, así que una contraseña nunca se ve en claro. El anfitrión encuentra el
+campo con foco con &lt;code&gt;toolkit.FocusedComposition(root)&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;El paquete window lo conecta en cada backend: &lt;code&gt;NSTextInputClient&lt;/code&gt; (Cocoa),&lt;code&gt;GtkIMContext&lt;/code&gt; (GTK4), IMM32 (Win32). Probado: macOS en vivo (una tecla muerta en
+la distribución francesa compone ê; texto marcado y Escape a través del runtime),GTK bajo Xvfb con &lt;code&gt;GtkIMContextSimple&lt;/code&gt; manejado por xdotool, y la correspondencia
+de Win32 con su objetivo de fuzzing. No probado: un IME de Windows en vivo, su
+ventana de candidatos o TSF, ibus y fcitx, y Kana en macOS (la fuente de entrada
+no puede activarse sin interacción).&lt;/p&gt;
 &lt;h2 data-hextra-search-id="collaboration"&gt;Varias personas en un mismo búfer&lt;span class="hx:absolute hx:-mt-20" id="collaboration"&gt;&lt;/span&gt;
 &lt;a href="#collaboration" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;collabui.CollabText&lt;/code&gt; vincula un &lt;code&gt;CodeEditor&lt;/code&gt; a una parte de texto de una sesión&lt;a href="https://github.com/go-crdt/collab" target="_blank" rel="noopener"&gt;&lt;code&gt;go-crdt/collab&lt;/code&gt;&lt;/a&gt;. La fusión es del CRDT y el
 vínculo no añade nada de ella. &lt;strong&gt;Dónde&lt;/strong&gt; se aplica una edición es del vínculo, y

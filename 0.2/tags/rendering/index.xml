@@ -332,6 +332,18 @@ overrides the global one for that widget alone.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="input"&gt;Input&lt;span class="hx:absolute hx:-mt-20" id="input"&gt;&lt;/span&gt;
 &lt;a href="#input" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Mouse, keyboard, IME composition, touch (&lt;code&gt;EventTouchStart&lt;/code&gt;/&lt;code&gt;Move&lt;/code&gt;/&lt;code&gt;End&lt;/code&gt;, with&lt;code&gt;GestureRecognizer&lt;/code&gt; for taps, long presses and swipes), drag and drop(&lt;code&gt;DragSource&lt;/code&gt;, &lt;code&gt;DropTarget&lt;/code&gt;). Multi-row selection in &lt;code&gt;ListBox&lt;/code&gt;, &lt;code&gt;Table&lt;/code&gt; and&lt;code&gt;TreeView&lt;/code&gt; works from the mouse and from the keyboard, and honours ⌘ as well
 as Ctrl, because on macOS Ctrl-click is the secondary click.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="ime"&gt;Input methods&lt;span class="hx:absolute hx:-mt-20" id="ime"&gt;&lt;/span&gt;
+&lt;a href="#ime" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;A painted &lt;code&gt;Entry&lt;/code&gt; or &lt;code&gt;TextView&lt;/code&gt; takes part in the platform&amp;rsquo;s input method (dead
+keys, Kana and Hanzi conversion, Hangul) through one interface, &lt;code&gt;toolkit.Composer&lt;/code&gt;:&lt;code&gt;SetPreedit(Preedit)&lt;/code&gt; shows the text being composed at the caret without touching
+the buffer, &lt;code&gt;CommitText&lt;/code&gt; inserts the result, &lt;code&gt;CancelPreedit&lt;/code&gt; drops it, and&lt;code&gt;CompositionRect&lt;/code&gt; says where the candidate window should anchor. A &lt;code&gt;Preedit&lt;/code&gt;
+carries the text, a cursor and styled segments (input, converted, selected). It is
+bounded: at most &lt;code&gt;MaxPreeditRunes&lt;/code&gt; (256) runes and &lt;code&gt;MaxPreeditSegments&lt;/code&gt; (64)segments, no control characters, and a lone surrogate becomes U+FFFD. A disabled
+or masked field keeps no preedit, so a password never shows in clear. A host finds
+the focused field with &lt;code&gt;toolkit.FocusedComposition(root)&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The window package wires it on every backend: Cocoa &lt;code&gt;NSTextInputClient&lt;/code&gt;, GTK4&lt;code&gt;GtkIMContext&lt;/code&gt;, Win32 IMM32. Proven: macOS live (a dead key on the French layout
+composes ê; marked text and Escape through the runtime), GTK under Xvfb with&lt;code&gt;GtkIMContextSimple&lt;/code&gt; driven by xdotool, and the Win32 mapping and its fuzz
+target. Not proven: a live Windows IME, its candidate window or TSF, ibus and
+fcitx, and Kana on macOS (the input source cannot be enabled non-interactively).&lt;/p&gt;
 &lt;h2 data-hextra-search-id="collaboration"&gt;Several people in one buffer&lt;span class="hx:absolute hx:-mt-20" id="collaboration"&gt;&lt;/span&gt;
 &lt;a href="#collaboration" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;collabui.CollabText&lt;/code&gt; binds a &lt;code&gt;CodeEditor&lt;/code&gt; to one text part of a&lt;a href="https://github.com/go-crdt/collab" target="_blank" rel="noopener"&gt;&lt;code&gt;go-crdt/collab&lt;/code&gt;&lt;/a&gt; session. The merge is the
 CRDT&amp;rsquo;s and the binding adds none of it. &lt;strong&gt;Where&lt;/strong&gt; an edit is applied is the
