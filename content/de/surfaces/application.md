@@ -49,6 +49,19 @@ eines.
 Fenster ist – eine Desktop-Shell, ein Browser-Tab –, geben `Bind` und `BindScaled` eine
 `*toolkit.Surface` zurück, die mit demselben Handler verdrahtet ist.
 
+## Die Menüleiste {#menu-bar}
+
+`application.Config.Menu` nimmt dasselbe `tray.Menu` wie ein Tray-Symbol und
+installiert es als Menüleiste der Anwendung; `application.SetMenu` ändert sie
+später, aus jeder Goroutine, und installiert sie nur neu, wenn sich das Menü
+geändert hat. `tray.EditMenu()` ist das Standardmenü Bearbeiten (Widerrufen,
+Ausschneiden, Kopieren, Einsetzen, Alles auswählen).
+
+- macOS: das Menü am oberen Bildschirmrand, das Anwendungsmenü zuerst.
+- Windows: die Menüleiste des Fensters; Tastenkürzel erscheinen als Text.
+- X11, Wayland, GTK, wasm und Android: `window.ErrNotSupported`, von `Run`
+  ignoriert. GTK ist eine Lücke: die GTK-Anbindung hat noch kein Menümodell.
+
 ## Barrierefreiheit gezeichneter Widgets {#painted-accessibility}
 
 Ein Handler, der eigene [Toolkit]({{< relref "/rendering/toolkit.md#accessibility" >}})-Widgets

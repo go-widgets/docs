@@ -49,6 +49,19 @@ de zone de notification peut rappeler `Run` pour une nouvelle fenêtre. Pour un 
 fenêtre — un shell de bureau, un onglet de navigateur — `Bind` et `BindScaled` renvoient une
 `*toolkit.Surface` branchée sur le même handler.
 
+## La barre de menus {#menu-bar}
+
+`application.Config.Menu` prend le même `tray.Menu` qu'une icône de zone de
+notification et l'installe comme barre de menus de l'application ;
+`application.SetMenu` la change ensuite, depuis n'importe quelle goroutine, et
+ne la réinstalle que si le menu a changé. `tray.EditMenu()` est le menu Édition
+standard (Annuler, Couper, Copier, Coller, Tout sélectionner).
+
+- macOS : le menu en haut de l'écran, menu de l'application en premier.
+- Windows : la barre de menus de la fenêtre ; les raccourcis sont affichés en texte.
+- X11, Wayland, GTK, wasm et Android : `window.ErrNotSupported`, ignoré par
+  `Run`. GTK est une lacune : la liaison GTK n'a pas encore de modèle de menu.
+
 ## Accessibilité des widgets dessinés {#painted-accessibility}
 
 Un gestionnaire qui dessine ses propres widgets du
