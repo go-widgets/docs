@@ -161,3 +161,37 @@ the decision of `application.OpenURL`. `SysLink` exists only in the visual-style
 common controls, which a program without a manifest does not get; the window
 creates the link under a manifest of its own and, should that be unavailable,
 shows a flat push button that activates the same way.
+
+## Native tables, trees and tabs
+
+Three more kinds carry structured data. Build them with
+`NewNativeTable(columns, rows, selected)`, `NewNativeTree(nodes, selectedPath)`
+and `NewNativeTabs(titles, selected)`; the `NativeControl` gained `Columns`,
+`Rows`, `Tree` and `Revision` for them, and `Native.SetRows` replaces the rows
+of a table afterwards.
+
+| Kind | Cocoa | GTK4 | Win32 | Selection |
+|---|---|---|---|---|
+| `NativeTable` | `NSTableView` | `GtkColumnView` | `SysListView32` (`LVS_REPORT`, `LVS_OWNERDATA`) | `Number` / `OnNumber` is the row, `-1` for none |
+| `NativeTree` | `NSOutlineView` | `GtkListView` over a `GtkTreeListModel` | `SysTreeView32` | `Text` / `OnText` is a path such as `2.0.1` |
+| `NativeTabs` | `NSTabView` | `GtkNotebook` | `SysTabControl32` | `Number` / `OnNumber` is the tab, `-1` for none |
+
+Sorting is not implemented: rows appear in the order given. A tab control is
+only the tab strip; the content under a tab is laid out by the toolkit as
+usual. The painted fallbacks (`Table`, `TreeView` with `HideRoot`, `TabBar`)
+draw the same data where no native control is hosted. The window back-ends that
+host these classes (hosted by `go-widgets/window`) arrive in the next window
+release; the Cocoa side needs the new `GridView`, `OutlineView` and `TabView`
+kinds of `go-macos/appkit`.
+
+The data is bounded: at most `MaxNativeRows` (100000) rows, `MaxNativeColumns`
+(64) columns, `MaxNativeTreeDepth` (32) levels, `MaxNativeTreeNodes` (100000)
+nodes and `MaxNativeTabs` (64) tabs; a larger value is refused, not truncated.
+
+Reconciling is change-only. The frame is keyed on `Native.Revision()`: while the
+revision is unchanged the rows are not walked at all, and the rows are pushed to
+the control only when it moves. On Cocoa a frame with 10,000 rows costs 160 us
+with an unchanged revision and 687 us when the rows change (including building
+the 10,000 rows); `SetGrid` itself takes 1.3 us because the data source is
+virtual. On Win32 an unchanged revision costs 0.26 ns and no allocation, against
+43.8 us to walk 10,000 rows (measured on an M4 Max for Cocoa, one core).

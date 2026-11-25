@@ -125,3 +125,30 @@ return w.Run(root) // root is any toolkit.Widget
 它只调用 `OnActivate`，因此跟随哪些地址（仅 http 和 https）仍由 `application.OpenURL` 决定。
 `SysLink` 只存在于带视觉样式的通用控件中，没有清单的程序无法获得它；窗口会在自带的清单下创建链接，
 若不可用，则显示一个以相同方式激活的扁平按钮。
+
+## 原生表格、树和标签页
+
+另有三种类型承载结构化数据，用 `NewNativeTable(columns, rows, selected)`、
+`NewNativeTree(nodes, selectedPath)` 和 `NewNativeTabs(titles, selected)` 创建；
+为此 `NativeControl` 新增了 `Columns`、`Rows`、`Tree` 和 `Revision`，
+之后可用 `Native.SetRows` 替换表格的行。
+
+| 类型 | Cocoa | GTK4 | Win32 | 选择 |
+|---|---|---|---|---|
+| `NativeTable` | `NSTableView` | `GtkColumnView` | `SysListView32`（`LVS_REPORT`、`LVS_OWNERDATA`） | `Number` / `OnNumber` 是行，`-1` 表示无 |
+| `NativeTree` | `NSOutlineView` | 基于 `GtkTreeListModel` 的 `GtkListView` | `SysTreeView32` | `Text` / `OnText` 是形如 `2.0.1` 的路径 |
+| `NativeTabs` | `NSTabView` | `GtkNotebook` | `SysTabControl32` | `Number` / `OnNumber` 是标签页，`-1` 表示无 |
+
+排序尚未实现：行按给定顺序显示。标签页控件只是标签条；标签页下的内容仍由工具包照常布局。
+绘制的后备实现（`Table`、带 `HideRoot` 的 `TreeView`、`TabBar`）在没有承载原生控件的地方绘制相同的数据。
+承载这些类的窗口后端（由 `go-widgets/window` 承载）将在下一个窗口版本中提供；
+Cocoa 一侧需要 `go-macos/appkit` 新增的 `GridView`、`OutlineView` 和 `TabView` 类型。
+
+数据有上限：最多 `MaxNativeRows`（100000）行、`MaxNativeColumns`（64）列、
+`MaxNativeTreeDepth`（32）层、`MaxNativeTreeNodes`（100000）个节点和 `MaxNativeTabs`（64）个标签页；
+超出的值会被拒绝，而不是被截断。
+
+协调只处理变化。帧以 `Native.Revision()` 为键：修订号不变时完全不遍历行，只有它变化时才把行推给控件。
+在 Cocoa 上，10,000 行的一帧在修订号不变时耗时 160 us，行变化时为 687 us（含构建这 10,000 行）；
+由于数据源是虚拟的，`SetGrid` 本身只需 1.3 us。在 Win32 上，修订号不变时耗时 0.26 ns 且无分配，
+遍历 10,000 行则需 43.8 us（Cocoa 在 M4 Max 上单核测得）。

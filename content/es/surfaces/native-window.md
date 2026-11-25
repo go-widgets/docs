@@ -168,3 +168,39 @@ de modo que qué direcciones se siguen (solo http y https) sigue siendo decisió
 visuales, que un programa sin manifiesto no obtiene; la ventana crea el enlace bajo
 un manifiesto propio y, si no está disponible, muestra un botón plano que se activa
 de la misma manera.
+
+## Tablas, árboles y pestañas nativos
+
+Tres tipos más llevan datos estructurados. Se crean con
+`NewNativeTable(columns, rows, selected)`, `NewNativeTree(nodes, selectedPath)`
+y `NewNativeTabs(titles, selected)`; `NativeControl` ha ganado `Columns`,
+`Rows`, `Tree` y `Revision` para ellos, y `Native.SetRows` sustituye después las
+filas de una tabla.
+
+| Tipo | Cocoa | GTK4 | Win32 | Selección |
+|---|---|---|---|---|
+| `NativeTable` | `NSTableView` | `GtkColumnView` | `SysListView32` (`LVS_REPORT`, `LVS_OWNERDATA`) | `Number` / `OnNumber` es la fila, `-1` para ninguna |
+| `NativeTree` | `NSOutlineView` | `GtkListView` sobre un `GtkTreeListModel` | `SysTreeView32` | `Text` / `OnText` es una ruta como `2.0.1` |
+| `NativeTabs` | `NSTabView` | `GtkNotebook` | `SysTabControl32` | `Number` / `OnNumber` es la pestaña, `-1` para ninguna |
+
+La ordenación no está implementada: las filas aparecen en el orden dado. Un
+control de pestañas es solo la tira de pestañas; el contenido bajo una pestaña lo
+dispone la biblioteca como siempre. Los sustitutos pintados (`Table`, `TreeView`
+con `HideRoot`, `TabBar`) dibujan los mismos datos donde no se aloja ningún control
+nativo. Los motores de ventana que alojan estas clases (alojados por
+`go-widgets/window`) llegan en la próxima versión de la ventana; en Cocoa hacen
+falta los nuevos tipos `GridView`, `OutlineView` y `TabView` de `go-macos/appkit`.
+
+Los datos tienen límites: como máximo `MaxNativeRows` (100000) filas,
+`MaxNativeColumns` (64) columnas, `MaxNativeTreeDepth` (32) niveles,
+`MaxNativeTreeNodes` (100000) nodos y `MaxNativeTabs` (64) pestañas; un valor
+mayor se rechaza, no se trunca.
+
+La conciliación solo trata los cambios. El fotograma se indexa por
+`Native.Revision()`: mientras la revisión no cambia, las filas no se recorren en
+absoluto, y solo se envían al control cuando cambia. En Cocoa, un fotograma de
+10 000 filas cuesta 160 us con la revisión sin cambios y 687 us cuando cambian
+las filas (incluida la construcción de las 10 000 filas); `SetGrid` por sí solo
+tarda 1,3 us porque el origen de datos es virtual. En Win32, una revisión sin
+cambios cuesta 0,26 ns y ninguna asignación, frente a 43,8 us para recorrer
+10 000 filas (medido en un M4 Max para Cocoa, un núcleo).

@@ -145,3 +145,32 @@ Linux(X11과 Wayland)에서는 `Config{GPU: true}`로 프레임을 Vulkan으로 
 https만)는 계속 `application.OpenURL`이 결정합니다. `SysLink`는 비주얼 스타일이 적용된 공용
 컨트롤에만 있으며 매니페스트가 없는 프로그램은 이를 얻지 못합니다. 창은 자체 매니페스트 아래에서
 링크를 만들고, 그것이 불가능하면 같은 방식으로 활성화되는 평평한 버튼을 표시합니다.
+
+## 네이티브 테이블, 트리, 탭
+
+구조화된 데이터를 담는 종류가 세 가지 더 있습니다. `NewNativeTable(columns, rows, selected)`,
+`NewNativeTree(nodes, selectedPath)`, `NewNativeTabs(titles, selected)`로 만듭니다.
+이를 위해 `NativeControl`에 `Columns`, `Rows`, `Tree`, `Revision`이 추가되었고,
+`Native.SetRows`는 나중에 테이블의 행을 교체합니다.
+
+| 종류 | Cocoa | GTK4 | Win32 | 선택 |
+|---|---|---|---|---|
+| `NativeTable` | `NSTableView` | `GtkColumnView` | `SysListView32` (`LVS_REPORT`, `LVS_OWNERDATA`) | `Number` / `OnNumber`가 행, 없음은 `-1` |
+| `NativeTree` | `NSOutlineView` | `GtkTreeListModel` 위의 `GtkListView` | `SysTreeView32` | `Text` / `OnText`가 `2.0.1` 같은 경로 |
+| `NativeTabs` | `NSTabView` | `GtkNotebook` | `SysTabControl32` | `Number` / `OnNumber`가 탭, 없음은 `-1` |
+
+정렬은 구현되어 있지 않습니다. 행은 주어진 순서대로 나타납니다. 탭 컨트롤은 탭 띠일 뿐이며,
+탭 아래의 내용은 여느 때처럼 툴킷이 배치합니다. 그려지는 대체물(`Table`, `HideRoot`가 있는
+`TreeView`, `TabBar`)은 네이티브 컨트롤이 호스팅되지 않는 곳에서 같은 데이터를 그립니다.
+이 클래스들을 호스팅하는 창 백엔드(`go-widgets/window`가 호스팅)는 다음 창 릴리스에서 제공됩니다.
+Cocoa 쪽에는 `go-macos/appkit`의 새 종류 `GridView`, `OutlineView`, `TabView`가 필요합니다.
+
+데이터에는 한도가 있습니다. 행은 최대 `MaxNativeRows`(100000), 열은 `MaxNativeColumns`(64),
+트리 깊이는 `MaxNativeTreeDepth`(32), 노드는 `MaxNativeTreeNodes`(100000),
+탭은 `MaxNativeTabs`(64)입니다. 더 큰 값은 잘리지 않고 거부됩니다.
+
+조정은 바뀐 것만 처리합니다. 프레임은 `Native.Revision()`을 키로 하며, 리비전이 같은 동안에는
+행을 전혀 훑지 않고, 바뀔 때만 행을 컨트롤로 보냅니다. Cocoa에서 10,000행 프레임은
+리비전이 그대로면 160 us, 행이 바뀌면 687 us(10,000행 구성 포함)입니다. 데이터 소스가 가상이므로
+`SetGrid` 자체는 1.3 us입니다. Win32에서는 리비전이 그대로면 0.26 ns에 할당이 없고,
+10,000행을 훑는 데는 43.8 us가 듭니다(Cocoa는 M4 Max, 단일 코어에서 측정).
