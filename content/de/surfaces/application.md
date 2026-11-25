@@ -123,6 +123,19 @@ oder ein Headless-Dienst übergibt `WithBackend(tray.NewHeadless())`.
 
 `(*Tray).Notify(tray.Notification{Title, Body, OnClick})` löst eine native Systembenachrichtigung aus: UNUserNotificationCenter unter macOS, `org.freedesktop.Notifications` unter Linux, ein Shell_NotifyIcon-Ballon unter Windows. Der Titel hat höchstens 63 Runen und der Text 255 (`MaxNotificationTitle`, `MaxNotificationBody`); ein leerer Titel ergibt `ErrEmptyTitle`. Die Fehler benennen die Ursache: `ErrNoNotifier` (kein Back-End), `ErrNotRunning`, `ErrNotBundled` (macOS liefert nur für ein App-Bundle) und `ErrNotAuthorized` (der Benutzer hat abgelehnt). `tray.NewHeadless()` hält in `Headless.Notified` fest, was gesendet wurde, für Tests.
 
+## Native Dialoge
+
+`application.OpenFile`, `SaveFile`, `Alert` und `Confirm` zeigen die eigenen Dialoge der Plattform: NSOpenPanel, NSSavePanel und NSAlert unter macOS, GtkFileDialog und GtkAlertDialog (GTK 4.10 oder neuer) unter GTK, IFileDialog und TaskDialog unter Windows.
+
+```go
+err := application.OpenFile(application.OpenOptions{
+    Title: "Öffnen", Multiple: true,
+    Filters: []application.Filter{{Name: "Bilder", Extensions: []string{"png", "jpg"}}},
+}, func(r application.OpenResult) { /* r.Paths oder r.Err == application.ErrCancelled */ })
+```
+
+Der Aufruf kehrt sofort zurück und ist aus jeder Goroutine sicher; die Rückruffunktion läuft genau einmal in einer eigenen Goroutine, nie im UI-Thread, und wird nicht aufgerufen, wenn der Aufruf selbst einen Fehler liefert. `ErrNoWindow` kommt zurück, bevor `Run` das Fenster geöffnet hat, `ErrNotSupported` bei einem Back-End ohne native Dialoge (X11, Wayland, wasm) und `ErrInvalidDialog` bei überschrittener Grenze, einem NUL-Byte oder Text, der kein UTF-8 ist. Pfade werden so zurückgegeben, wie die Plattform sie liefert, nie aufgelöst.
+
 ## Einen Link öffnen
 
 `application.OpenURL(rawURL)` öffnet eine `http`- oder `https`-URL im Browser des Benutzers: NSWorkspace unter macOS, ShellExecuteW unter Windows, das OpenURI-Portal und danach `xdg-open` unter Linux. Die URL braucht einen Host, einen Port (falls vorhanden) zwischen 1 und 65535 und höchstens 8 KiB; alles andere wird mit `ErrURLScheme` oder `ErrURLInvalid` abgelehnt, und eine Plattform ohne Launcher liefert `ErrOpenURLUnsupported`.

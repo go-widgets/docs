@@ -105,6 +105,19 @@ t.Run() // blocks on the platform's loop until Quit
 
 `(*Tray).Notify(tray.Notification{Title, Body, OnClick})` はネイティブのシステム通知を出します。macOS では UNUserNotificationCenter、Linux では `org.freedesktop.Notifications`、Windows では Shell_NotifyIcon のバルーンです。タイトルは最大 63 ルーン、本文は最大 255 ルーンです（`MaxNotificationTitle`、`MaxNotificationBody`）。タイトルが空だと `ErrEmptyTitle` になります。エラーは原因を示します。`ErrNoNotifier`（バックエンドなし）、`ErrNotRunning`、`ErrNotBundled`（macOS はアプリバンドルにだけ配信します）、`ErrNotAuthorized`（ユーザーが拒否）。`tray.NewHeadless()` は送られた内容をテスト用に `Headless.Notified` に記録します。
 
+## ネイティブダイアログ
+
+`application.OpenFile`、`SaveFile`、`Alert`、`Confirm` は、プラットフォーム固有のダイアログを表示します。macOS では NSOpenPanel、NSSavePanel、NSAlert、GTK では GtkFileDialog と GtkAlertDialog（GTK 4.10 以降）、Windows では IFileDialog と TaskDialog を使います。
+
+```go
+err := application.OpenFile(application.OpenOptions{
+    Title: "開く", Multiple: true,
+    Filters: []application.Filter{{Name: "画像", Extensions: []string{"png", "jpg"}}},
+}, func(r application.OpenResult) { /* r.Paths、または r.Err == application.ErrCancelled */ })
+```
+
+呼び出しはすぐに戻り、どの goroutine からでも安全に使えます。コールバックは専用の goroutine で正確に 1 回だけ実行され、UI スレッドでは実行されません。呼び出し自体がエラーを返した場合、コールバックは呼ばれません。`Run` がウィンドウを開く前は `ErrNoWindow`、ネイティブダイアログのないバックエンド（X11、Wayland、wasm）では `ErrNotSupported`、上限超過、NUL バイト、UTF-8 でない文字列は `ErrInvalidDialog` が返ります。パスはプラットフォームが返した形のまま返され、解決されることはありません。
+
 ## リンクを開く
 
 `application.OpenURL(rawURL)` は `http` または `https` の URL をユーザーのブラウザで開きます。macOS では NSWorkspace、Windows では ShellExecuteW、Linux では OpenURI ポータルに続いて `xdg-open` を使います。URL にはホストが必要で、ポートがある場合は 1〜65535、全体は 8 KiB 以下でなければなりません。それ以外は `ErrURLScheme` または `ErrURLInvalid` で拒否され、ランチャーのないプラットフォームでは `ErrOpenURLUnsupported` が返ります。

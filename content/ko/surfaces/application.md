@@ -107,6 +107,19 @@ t.Run() // blocks on the platform's loop until Quit
 
 `(*Tray).Notify(tray.Notification{Title, Body, OnClick})`는 네이티브 시스템 알림을 띄웁니다. macOS에서는 UNUserNotificationCenter, Linux에서는 `org.freedesktop.Notifications`, Windows에서는 Shell_NotifyIcon 풍선입니다. 제목은 최대 63룬, 본문은 최대 255룬입니다(`MaxNotificationTitle`, `MaxNotificationBody`). 제목이 비어 있으면 `ErrEmptyTitle`입니다. 오류는 원인을 알려 줍니다. `ErrNoNotifier`(백엔드 없음), `ErrNotRunning`, `ErrNotBundled`(macOS는 앱 번들에만 전달함), `ErrNotAuthorized`(사용자가 거부함). `tray.NewHeadless()`는 보낸 내용을 테스트용으로 `Headless.Notified`에 기록합니다.
 
+## 네이티브 대화상자
+
+`application.OpenFile`, `SaveFile`, `Alert`, `Confirm`은 플랫폼 고유의 대화상자를 표시합니다. macOS에서는 NSOpenPanel, NSSavePanel, NSAlert, GTK에서는 GtkFileDialog와 GtkAlertDialog(GTK 4.10 이상), Windows에서는 IFileDialog와 TaskDialog를 사용합니다.
+
+```go
+err := application.OpenFile(application.OpenOptions{
+    Title: "열기", Multiple: true,
+    Filters: []application.Filter{{Name: "이미지", Extensions: []string{"png", "jpg"}}},
+}, func(r application.OpenResult) { /* r.Paths 또는 r.Err == application.ErrCancelled */ })
+```
+
+호출은 즉시 반환되며 어떤 goroutine에서든 안전합니다. 콜백은 자체 goroutine에서 정확히 한 번 실행되고 UI 스레드에서는 실행되지 않으며, 호출 자체가 오류를 반환하면 호출되지 않습니다. `Run`이 창을 열기 전에는 `ErrNoWindow`, 네이티브 대화상자가 없는 백엔드(X11, Wayland, wasm)에서는 `ErrNotSupported`, 한도 초과, NUL 바이트, UTF-8이 아닌 텍스트에는 `ErrInvalidDialog`가 반환됩니다. 경로는 플랫폼이 준 그대로 반환되며 해석되지 않습니다.
+
 ## 링크 열기
 
 `application.OpenURL(rawURL)`은 `http` 또는 `https` URL을 사용자의 브라우저에서 엽니다. macOS에서는 NSWorkspace, Windows에서는 ShellExecuteW, Linux에서는 OpenURI 포털 다음 `xdg-open`을 사용합니다. URL에는 호스트가 있어야 하고, 포트가 있다면 1~65535, 전체는 8 KiB 이하여야 합니다. 그 외에는 `ErrURLScheme` 또는 `ErrURLInvalid`로 거부되며, 런처가 없는 플랫폼은 `ErrOpenURLUnsupported`를 반환합니다.

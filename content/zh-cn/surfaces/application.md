@@ -97,6 +97,19 @@ t.Run() // blocks on the platform's loop until Quit
 
 `(*Tray).Notify(tray.Notification{Title, Body, OnClick})` 发出一条原生系统通知：macOS 上是 UNUserNotificationCenter，Linux 上是 `org.freedesktop.Notifications`，Windows 上是 Shell_NotifyIcon 气泡。标题最多 63 个 rune，正文最多 255 个（`MaxNotificationTitle`、`MaxNotificationBody`）；标题为空则返回 `ErrEmptyTitle`。这些错误会指明原因：`ErrNoNotifier`（没有后端）、`ErrNotRunning`、`ErrNotBundled`（macOS 只为应用包投递）以及 `ErrNotAuthorized`（用户拒绝）。`tray.NewHeadless()` 会把发出的内容记录在 `Headless.Notified` 中，供测试使用。
 
+## 原生对话框
+
+`application.OpenFile`、`SaveFile`、`Alert` 和 `Confirm` 显示平台自带的对话框：macOS 上是 NSOpenPanel、NSSavePanel 和 NSAlert，GTK 上是 GtkFileDialog 和 GtkAlertDialog（GTK 4.10 或更高），Windows 上是 IFileDialog 和 TaskDialog。
+
+```go
+err := application.OpenFile(application.OpenOptions{
+    Title: "打开", Multiple: true,
+    Filters: []application.Filter{{Name: "图片", Extensions: []string{"png", "jpg"}}},
+}, func(r application.OpenResult) { /* r.Paths，或 r.Err == application.ErrCancelled */ })
+```
+
+调用立即返回，可在任何 goroutine 中安全使用；回调在它自己的 goroutine 上恰好执行一次，绝不在界面线程上执行，如果调用本身返回错误，则不会调用回调。`Run` 打开窗口之前返回 `ErrNoWindow`，没有原生对话框的后端（X11、Wayland、wasm）返回 `ErrNotSupported`，超出限制、含 NUL 字节或不是 UTF-8 的文本返回 `ErrInvalidDialog`。路径按平台给出的原样返回，绝不做解析。
+
 ## 打开链接
 
 `application.OpenURL(rawURL)` 在用户的浏览器中打开一个 `http` 或 `https` URL：macOS 上用 NSWorkspace，Windows 上用 ShellExecuteW，Linux 上先用 OpenURI 门户，再用 `xdg-open`。URL 需要有主机，端口（如果有）在 1-65535 之间，且不超过 8 KiB；其他情况一律以 `ErrURLScheme` 或 `ErrURLInvalid` 拒绝，没有启动器的平台返回 `ErrOpenURLUnsupported`。
