@@ -110,6 +110,19 @@ silencio no hace nada. Una prueba o un servicio sin interfaz pasa
 
 `(*Tray).Notify(tray.Notification{Title, Body, OnClick})` lanza una notificación nativa del sistema: UNUserNotificationCenter en macOS, `org.freedesktop.Notifications` en Linux, un globo de Shell_NotifyIcon en Windows. El título tiene como máximo 63 runas y el cuerpo 255 (`MaxNotificationTitle`, `MaxNotificationBody`); un título vacío da `ErrEmptyTitle`. Los errores nombran la causa: `ErrNoNotifier` (sin back-end), `ErrNotRunning`, `ErrNotBundled` (macOS solo entrega para un paquete de aplicación) y `ErrNotAuthorized` (el usuario la rechazó). `tray.NewHeadless()` registra lo enviado en `Headless.Notified`, para las pruebas.
 
+## Diálogos nativos
+
+`application.OpenFile`, `SaveFile`, `Alert` y `Confirm` muestran los diálogos propios de la plataforma: NSOpenPanel, NSSavePanel y NSAlert en macOS, GtkFileDialog y GtkAlertDialog (GTK 4.10 o posterior) en GTK, IFileDialog y TaskDialog en Windows.
+
+```go
+err := application.OpenFile(application.OpenOptions{
+    Title: "Abrir", Multiple: true,
+    Filters: []application.Filter{{Name: "Imágenes", Extensions: []string{"png", "jpg"}}},
+}, func(r application.OpenResult) { /* r.Paths, o r.Err == application.ErrCancelled */ })
+```
+
+La llamada vuelve de inmediato y es segura desde cualquier goroutine; la función de retorno se ejecuta exactamente una vez en su propia goroutine, nunca en el hilo de la interfaz, y no se llama si la propia llamada devuelve un error. `ErrNoWindow` se devuelve antes de que `Run` abra la ventana, `ErrNotSupported` en un back-end sin diálogos nativos (X11, Wayland, wasm) y `ErrInvalidDialog` por un límite superado, un byte NUL o un texto que no es UTF-8. Las rutas se devuelven tal como las da la plataforma, nunca resueltas.
+
 ## Abrir un enlace
 
 `application.OpenURL(rawURL)` abre una URL `http` o `https` en el navegador del usuario: NSWorkspace en macOS, ShellExecuteW en Windows, el portal OpenURI y luego `xdg-open` en Linux. La URL necesita un host, un puerto (si lo hay) entre 1 y 65535 y como máximo 8 KiB; cualquier otra cosa se rechaza con `ErrURLScheme` o `ErrURLInvalid`, y una plataforma sin lanzador devuelve `ErrOpenURLUnsupported`.

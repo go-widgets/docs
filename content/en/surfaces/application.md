@@ -114,6 +114,27 @@ Windows. The title is at most 63 runes and the body 255
 `ErrNotAuthorized` (the user refused). `tray.NewHeadless()` records what was
 sent in `Headless.Notified`, for tests.
 
+## Native dialogs
+
+`application.OpenFile`, `SaveFile`, `Alert` and `Confirm` show the platform's own
+dialogs: NSOpenPanel, NSSavePanel and NSAlert on macOS, GtkFileDialog and
+GtkAlertDialog (GTK 4.10 or later) on GTK, IFileDialog and TaskDialog on Windows.
+
+```go
+err := application.OpenFile(application.OpenOptions{
+    Title: "Open", Multiple: true,
+    Filters: []application.Filter{{Name: "Images", Extensions: []string{"png", "jpg"}}},
+}, func(r application.OpenResult) { /* r.Paths, or r.Err == application.ErrCancelled */ })
+```
+
+The call returns at once and is safe from any goroutine; the callback runs
+exactly once on its own goroutine, never on the UI thread, and is never called
+when the call itself returns an error. `ErrNoWindow` comes back before `Run` has
+opened the window, `ErrNotSupported` on a back-end without native dialogs (X11,
+Wayland, wasm), and `ErrInvalidDialog` for a bound exceeded, a NUL byte or text
+that is not UTF-8. Paths are returned as the platform gives them, never
+resolved.
+
 ## Opening a link
 
 `application.OpenURL(rawURL)` opens an `http` or `https` URL in the user's
