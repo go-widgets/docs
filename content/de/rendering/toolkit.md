@@ -24,7 +24,7 @@ die Zahlen zu wiederholen.
 | Aktion | `Button`, `ToggleButton`, `CheckButton`, `RadioButton` + `RadioGroup`, `Switch`, `SplitButton`, `IconButton`, `CycleButton`, `Chip`, `SegmentedBar` |
 | Eingabe | `Entry`, `TextView` (Auswahl, IME-Vorschau, Syntax-Spans, Zeilennummern), `SpinButton`, `Scale`, `RangeSlider`, `SearchEntry`, `TagField`, `ComboBox`, `FormField` mit `Validate`/`Rule` |
 | Auswahl | `ListBox`, `TreeView`, `DropDown` |
-| Container | `Container` mit austauschbarem `Layout` (`FitLayout`, `BoxLayout`, `BorderLayout`, `CardLayout`, `FlowLayout`); `HBox`, `VBox`, `Grid`, `Frame`, `Dock`, `Border`, `Stack`, `Overlay`, `Paned`, `Splitter`, `Expander`, `Accordion`; ein deklarativer `Node`-Builder |
+| Container | `Container` mit austauschbarem `Layout` (`FitLayout`, `BoxLayout`, `BorderLayout`, `CardLayout`, `FlowLayout`); `HBox`, `VBox`, `Grid`, `Frame`, `Dock`, `Border`, `Stack`, `Overlay`, `Paned`, `Splitter`, `Expander`, `Accordion`, `ListPane` (eine gerahmte Liste über einer Leiste verbundener Symbolschaltflächen, im macOS-, Windows- oder GNOME-Stil); ein deklarativer `Node`-Builder |
 | Navigation | `Menu`, `MenuBar` (mit `Alt`+Buchstabe), `ContextMenu`, `Popover`, `CommandPalette`, `Dialog`, `MessageDialog`, `Wizard`, `Notebook`, `ViewSwitcher`, `Carousel` |
 | Rückmeldung | `ProgressBar`, `ProgressCircle`, `LevelBar`, `Spinner`, `Tooltip`, `Notification`, `Toast`, `Banner`, `Alert`, `Badge`, `Skeleton` |
 | Daten | `Table` (Zellbearbeitung, fixierte Spalten, Gruppenzeilen, Aggregate, aufklappbare Zeilen), `TreeTable`, `PropertyGrid`, `Kanban`, `Gantt`, `Agenda` (Woche, Monat, Quartal, Jahr; mehrere Kalender) |

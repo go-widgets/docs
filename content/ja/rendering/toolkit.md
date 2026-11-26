@@ -23,7 +23,7 @@ v0.329.0 では、公開されているウィジェット型が **160 種類**�
 | アクション | `Button`, `ToggleButton`, `CheckButton`, `RadioButton` + `RadioGroup`, `Switch`, `SplitButton`, `IconButton`, `CycleButton`, `Chip`, `SegmentedBar` |
 | 入力 | `Entry`, `TextView`（選択、IME プレビュー、シンタックススパン、行番号）, `SpinButton`, `Scale`, `RangeSlider`, `SearchEntry`, `TagField`, `ComboBox`, `FormField` と `Validate`/`Rule` |
 | 選択 | `ListBox`, `TreeView`, `DropDown` |
-| コンテナ | 差し替え可能な `Layout` を持つ `Container`（`FitLayout`, `BoxLayout`, `BorderLayout`, `CardLayout`, `FlowLayout`）、`HBox`, `VBox`, `Grid`, `Frame`, `Dock`, `Border`, `Stack`, `Overlay`, `Paned`, `Splitter`, `Expander`, `Accordion`、宣言的な `Node` ビルダー |
+| コンテナ | 差し替え可能な `Layout` を持つ `Container`（`FitLayout`, `BoxLayout`, `BorderLayout`, `CardLayout`, `FlowLayout`）、`HBox`, `VBox`, `Grid`, `Frame`, `Dock`, `Border`, `Stack`, `Overlay`, `Paned`, `Splitter`, `Expander`, `Accordion`, `ListPane`（アイコンボタンを連結したバーを下に持つ枠付きリスト。macOS、Windows、GNOME のスタイル）、宣言的な `Node` ビルダー |
 | ナビゲーション | `Menu`, `MenuBar`（`Alt`+文字キー対応）, `ContextMenu`, `Popover`, `CommandPalette`, `Dialog`, `MessageDialog`, `Wizard`, `Notebook`, `ViewSwitcher`, `Carousel` |
 | フィードバック | `ProgressBar`, `ProgressCircle`, `LevelBar`, `Spinner`, `Tooltip`, `Notification`, `Toast`, `Banner`, `Alert`, `Badge`, `Skeleton` |
 | データ | `Table`（セル編集、列の固定、グループ行、集計、行エキスパンダー）, `TreeTable`, `PropertyGrid`, `Kanban`, `Gantt`, `Agenda`（週、月、四半期、年。複数のカレンダー） |

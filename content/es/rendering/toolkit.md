@@ -24,7 +24,7 @@ a ejecutarlos en lugar de repetir las cifras.
 | Acción | `Button`, `ToggleButton`, `CheckButton`, `RadioButton` + `RadioGroup`, `Switch`, `SplitButton`, `IconButton`, `CycleButton`, `Chip`, `SegmentedBar` |
 | Entrada | `Entry`, `TextView` (selección, vista previa de IME, tramos de sintaxis, números de línea), `SpinButton`, `Scale`, `RangeSlider`, `SearchEntry`, `TagField`, `ComboBox`, `FormField` con `Validate`/`Rule` |
 | Selección | `ListBox`, `TreeView`, `DropDown` |
-| Contenedores | `Container` con un `Layout` intercambiable (`FitLayout`, `BoxLayout`, `BorderLayout`, `CardLayout`, `FlowLayout`); `HBox`, `VBox`, `Grid`, `Frame`, `Dock`, `Border`, `Stack`, `Overlay`, `Paned`, `Splitter`, `Expander`, `Accordion`; un constructor declarativo `Node` |
+| Contenedores | `Container` con un `Layout` intercambiable (`FitLayout`, `BoxLayout`, `BorderLayout`, `CardLayout`, `FlowLayout`); `HBox`, `VBox`, `Grid`, `Frame`, `Dock`, `Border`, `Stack`, `Overlay`, `Paned`, `Splitter`, `Expander`, `Accordion`, `ListPane` (una lista enmarcada sobre una barra de botones de icono unidos, en estilo macOS, Windows o GNOME); un constructor declarativo `Node` |
 | Navegación | `Menu`, `MenuBar` (con `Alt`+letra), `ContextMenu`, `Popover`, `CommandPalette`, `Dialog`, `MessageDialog`, `Wizard`, `Notebook`, `ViewSwitcher`, `Carousel` |
 | Respuesta | `ProgressBar`, `ProgressCircle`, `LevelBar`, `Spinner`, `Tooltip`, `Notification`, `Toast`, `Banner`, `Alert`, `Badge`, `Skeleton` |
 | Datos | `Table` (edición de celdas, columnas fijas, filas de grupo, agregados, expansores de fila), `TreeTable`, `PropertyGrid`, `Kanban`, `Gantt`, `Agenda` (semana, mes, trimestre, año; varios calendarios) |
