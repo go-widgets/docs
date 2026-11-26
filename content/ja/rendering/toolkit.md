@@ -200,6 +200,25 @@ func wait(tree *toolkit.FileTree) error { return tree.RefreshStatus(context.Back
 
 **ブラウザでは（js/wasm、v0.374.1）。** `RefreshStatus` は常に `ErrSyncStatusBlocks` を返し、UI の goroutine で `Repository.Status` を呼び出すことはありません。`PostUI` なしの `SetRepository` や `Entries` の変更も、同じエラーを `StatusError()` に公開します。js/wasm ではツリーは UI の goroutine で `Status` を呼ばず、バックグラウンドの goroutine からのみ呼びます（`PostUI` を設定し、`RefreshStatusAsync` を使ってください）。ワーカーの応答を待つ `Status` を UI の goroutine で呼ぶと唯一のスレッドがデッドロックしますが、ツリーはそのような `Status` とスナップショットを読むだけの `Status` を区別できないため、どちらも拒否します。したがってブラウザで使う `Status` は、別の goroutine から呼んでも安全でなければなりません。往復通信か、ミューテックスで保護された、または不変のスナップショットです。ネイティブビルドは変わりません。
 
+## SVG パックのアイコン {#svg-icons}
+
+`toolkit.SVGGlyph(doc, num, den)` は SVG ドキュメントをボタンの `Icon` に変えます。
+グリフはボタンのサイズでラスタライズされ、テーマに従うようテキストのインクで
+再着色され、アイコンとサイズごとにキャッシュされます。`num/den` はグリフが
+ボタンに占める割合です。アイコンパックは SVG とそのライセンスを埋め込む独立した
+モジュールなので、プログラムは名前を挙げたアイコンだけをリンクします。
+[`tabler-icons`](https://github.com/go-widgets/tabler-icons)（MIT、
+[Tabler Icons](https://tabler.io/icons) 由来）が最初のパックです。
+
+```go
+btn := toolkit.NewButton("Edit server", nil)
+btn.Flat = true
+btn.Icon = toolkit.SVGGlyph(tabler.MustSVG(tabler.Settings), 16, 24)
+```
+
+`SVGGlyph` には toolkit v0.402.0 以降が必要です。`ListPane` は、追加・削除ボタンの
+隣に、こうしたボタンを `Extra` フィールドで受け取ります。
+
 ## バイナリサイズ：プログラムは使うものだけをリンクする {#binary-size}
 
 ツールキットは 1 つの大きなパッケージですが、リンカにとっては問題ありません。Go のデッドコード除去は、

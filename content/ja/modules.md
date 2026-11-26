@@ -14,6 +14,7 @@ API リファレンスは [pkg.go.dev](https://pkg.go.dev/) がソースから�
 | [`skin`](https://github.com/go-widgets/skin) | v0.3.0 | [データとして記述されたウィジェット]({{< relref "/rendering/skin.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/skin) |
 | [`gpupainter`](https://github.com/go-widgets/gpupainter) | v0.4.0 | GPU 向けにフレームを記録する `painter.Painter`（go-gfx/gpu2d）。[Metal または WebGPU]({{< relref "/surfaces/browser.md" >}}) で描画し、CPU ペインタとバイト単位で同一 | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/gpupainter) |
 | [`shellterm`](https://github.com/go-widgets/shellterm) | v0.1.0 | 行指向のターミナル。ツールキットの `Terminal` と行エディタを、利用者が用意するシェルの前に置きます | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/shellterm) |
+| [`tabler-icons`](https://github.com/go-widgets/tabler-icons) | v0.1.0 | `toolkit.SVGGlyph` 用に埋め込まれた SVG 形式の [Tabler Icons](https://tabler.io/icons)（MIT）。現時点のアイコンは `settings` のみ | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/tabler-icons) |
 | [`isoicons`](https://github.com/go-widgets/isoicons) | v0.4.0 | ツールキットのアイソメトリック図のための、アイソメトリックアイコンパック（クラウドネイティブ、AWS） | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/isoicons) |
 | [`mvvm`](https://github.com/go-widgets/mvvm) | v0.15.0 | [オブザーバブル、コマンド、バインダ、undo]({{< relref "/state/mvvm.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvm) |
 | [`mvvmtk`](https://github.com/go-widgets/mvvmtk) | v0.15.0 | [ツールキットのウィジェット向けの 1 呼び出しバインダ]({{< relref "/state/mvvm.md#mvvmtk-one-call-per-widget" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvmtk) |

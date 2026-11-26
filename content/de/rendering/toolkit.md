@@ -282,6 +282,25 @@ Browser verwendetes `Status` muss deshalb aus einer anderen Goroutine sicher
 aufrufbar sein: ein Round-Trip oder ein durch einen Mutex geschützter bzw.
 unveränderlicher Snapshot. Native Builds bleiben unverändert.
 
+## Icons aus einem SVG-Paket {#svg-icons}
+
+`toolkit.SVGGlyph(doc, num, den)` macht aus einem SVG-Dokument das `Icon` eines
+Buttons: Das Glyph wird in der Größe des Buttons gerastert, mit der Textfarbe
+eingefärbt, damit es dem Theme folgt, und je Icon und Größe zwischengespeichert.
+`num/den` ist der Anteil des Buttons, den das Glyph füllt. Icon-Pakete sind eigene
+Module, die die SVGs und ihre Lizenz einbetten, sodass ein Programm nur die Icons
+linkt, die es nennt. [`tabler-icons`](https://github.com/go-widgets/tabler-icons)
+(MIT, aus [Tabler Icons](https://tabler.io/icons)) ist das erste:
+
+```go
+btn := toolkit.NewButton("Edit server", nil)
+btn.Flat = true
+btn.Icon = toolkit.SVGGlyph(tabler.MustSVG(tabler.Settings), 16, 24)
+```
+
+`SVGGlyph` braucht toolkit v0.402.0 oder neuer. Eine `ListPane` nimmt solche Buttons
+in ihrem Feld `Extra` auf, neben ihren eigenen Buttons zum Hinzufügen und Entfernen.
+
 ## Binärgröße: ein Programm linkt, was es benutzt {#binary-size}
 
 Das Toolkit ist ein großes Paket, und für den Linker ist das in Ordnung: Die

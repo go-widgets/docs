@@ -190,6 +190,23 @@ func wait(tree *toolkit.FileTree) error { return tree.RefreshStatus(context.Back
 
 **在浏览器中（js/wasm，v0.374.1）。** `RefreshStatus` 始终返回 `ErrSyncStatusBlocks`，且从不在界面 goroutine 上调用 `Repository.Status`；没有 `PostUI` 时，`SetRepository` 和 `Entries` 的变化会在 `StatusError()` 上发布同样的错误。在 js/wasm 中，树从不在界面 goroutine 上调用 `Status`，只会从后台 goroutine 调用（设置 `PostUI` 并使用 `RefreshStatusAsync`）。等待 worker 答复的 `Status` 若在界面 goroutine 上调用，会使唯一的线程死锁，而树无法区分这样的 `Status` 与只读取快照的 `Status`，因此两者都拒绝。所以在浏览器中使用的 `Status` 必须能从另一个 goroutine 安全调用：一次往返通信，或由互斥锁保护的、或不可变的快照。原生构建不受影响。
 
+## 来自 SVG 图标包的图标 {#svg-icons}
+
+`toolkit.SVGGlyph(doc, num, den)` 把一个 SVG 文档变成按钮的 `Icon`：字形按按钮的
+大小栅格化，用文字墨色重新着色以跟随主题，并按图标和尺寸缓存。`num/den` 是字形
+占按钮的比例。图标包是独立的模块，内嵌 SVG 及其许可证，因此程序只会链接它点名的
+图标。[`tabler-icons`](https://github.com/go-widgets/tabler-icons)（MIT，来自
+[Tabler Icons](https://tabler.io/icons)）是第一个图标包：
+
+```go
+btn := toolkit.NewButton("Edit server", nil)
+btn.Flat = true
+btn.Icon = toolkit.SVGGlyph(tabler.MustSVG(tabler.Settings), 16, 24)
+```
+
+`SVGGlyph` 需要 toolkit v0.402.0 或更高版本。`ListPane` 在自带的添加和删除按钮旁，
+通过 `Extra` 字段接受这类按钮。
+
 ## 二进制体积：程序只链接它用到的部分 {#binary-size}
 
 工具包是一个很大的包，这对链接器来说没有问题：Go 的死代码消除只保留从 `main.main` **以及每个被导入包的初始化任务**

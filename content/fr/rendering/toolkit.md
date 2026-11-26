@@ -278,6 +278,25 @@ le navigateur doit par conséquent pouvoir être appelé sans risque depuis une 
 goroutine : un aller-retour, ou un instantané protégé par un mutex ou immuable.
 Les compilations natives ne changent pas.
 
+## Icônes d'un jeu SVG {#svg-icons}
+
+`toolkit.SVGGlyph(doc, num, den)` transforme un document SVG en `Icon` de bouton :
+le glyphe est tramé à la taille du bouton, recoloré avec l'encre du texte pour
+suivre le thème, et mis en cache par icône et par taille. `num/den` est la part du
+bouton que remplit le glyphe. Les jeux d'icônes sont des modules à part qui
+embarquent les SVG et leur licence, si bien qu'un programme ne lie que les icônes
+qu'il nomme. [`tabler-icons`](https://github.com/go-widgets/tabler-icons) (MIT,
+issu de [Tabler Icons](https://tabler.io/icons)) est le premier :
+
+```go
+btn := toolkit.NewButton("Edit server", nil)
+btn.Flat = true
+btn.Icon = toolkit.SVGGlyph(tabler.MustSVG(tabler.Settings), 16, 24)
+```
+
+`SVGGlyph` demande toolkit v0.402.0 ou plus. Un `ListPane` accepte de tels boutons
+dans son champ `Extra`, à côté de ses propres boutons d'ajout et de retrait.
+
 ## Taille du binaire : un programme lie ce qu'il utilise {#binary-size}
 
 La boîte à outils est un grand paquet, et l'éditeur de liens s'en accommode :
