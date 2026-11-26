@@ -189,7 +189,7 @@ data-copied-label="コピーしました！"
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;コンテナ&lt;/td&gt;
-&lt;td&gt;差し替え可能な &lt;code&gt;Layout&lt;/code&gt; を持つ &lt;code&gt;Container&lt;/code&gt;（&lt;code&gt;FitLayout&lt;/code&gt;, &lt;code&gt;BoxLayout&lt;/code&gt;, &lt;code&gt;BorderLayout&lt;/code&gt;, &lt;code&gt;CardLayout&lt;/code&gt;, &lt;code&gt;FlowLayout&lt;/code&gt;）、&lt;code&gt;HBox&lt;/code&gt;, &lt;code&gt;VBox&lt;/code&gt;, &lt;code&gt;Grid&lt;/code&gt;, &lt;code&gt;Frame&lt;/code&gt;, &lt;code&gt;Dock&lt;/code&gt;, &lt;code&gt;Border&lt;/code&gt;, &lt;code&gt;Stack&lt;/code&gt;, &lt;code&gt;Overlay&lt;/code&gt;, &lt;code&gt;Paned&lt;/code&gt;, &lt;code&gt;Splitter&lt;/code&gt;, &lt;code&gt;Expander&lt;/code&gt;, &lt;code&gt;Accordion&lt;/code&gt;、宣言的な &lt;code&gt;Node&lt;/code&gt; ビルダー&lt;/td&gt;
+&lt;td&gt;差し替え可能な &lt;code&gt;Layout&lt;/code&gt; を持つ &lt;code&gt;Container&lt;/code&gt;（&lt;code&gt;FitLayout&lt;/code&gt;, &lt;code&gt;BoxLayout&lt;/code&gt;, &lt;code&gt;BorderLayout&lt;/code&gt;, &lt;code&gt;CardLayout&lt;/code&gt;, &lt;code&gt;FlowLayout&lt;/code&gt;）、&lt;code&gt;HBox&lt;/code&gt;, &lt;code&gt;VBox&lt;/code&gt;, &lt;code&gt;Grid&lt;/code&gt;, &lt;code&gt;Frame&lt;/code&gt;, &lt;code&gt;Dock&lt;/code&gt;, &lt;code&gt;Border&lt;/code&gt;, &lt;code&gt;Stack&lt;/code&gt;, &lt;code&gt;Overlay&lt;/code&gt;, &lt;code&gt;Paned&lt;/code&gt;, &lt;code&gt;Splitter&lt;/code&gt;, &lt;code&gt;Expander&lt;/code&gt;, &lt;code&gt;Accordion&lt;/code&gt;, &lt;code&gt;ListPane&lt;/code&gt;（アイコンボタンを連結したバーを下に持つ枠付きリスト。macOS、Windows、GNOME のスタイル）、宣言的な &lt;code&gt;Node&lt;/code&gt; ビルダー&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;ナビゲーション&lt;/td&gt;

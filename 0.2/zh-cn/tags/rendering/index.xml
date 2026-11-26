@@ -189,7 +189,7 @@ data-copied-label="已复制！"
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;容器&lt;/td&gt;
-&lt;td&gt;带可替换 &lt;code&gt;Layout&lt;/code&gt; 的 &lt;code&gt;Container&lt;/code&gt;（&lt;code&gt;FitLayout&lt;/code&gt;、&lt;code&gt;BoxLayout&lt;/code&gt;、&lt;code&gt;BorderLayout&lt;/code&gt;、&lt;code&gt;CardLayout&lt;/code&gt;、&lt;code&gt;FlowLayout&lt;/code&gt;）；&lt;code&gt;HBox&lt;/code&gt;、&lt;code&gt;VBox&lt;/code&gt;、&lt;code&gt;Grid&lt;/code&gt;、&lt;code&gt;Frame&lt;/code&gt;、&lt;code&gt;Dock&lt;/code&gt;、&lt;code&gt;Border&lt;/code&gt;、&lt;code&gt;Stack&lt;/code&gt;、&lt;code&gt;Overlay&lt;/code&gt;、&lt;code&gt;Paned&lt;/code&gt;、&lt;code&gt;Splitter&lt;/code&gt;、&lt;code&gt;Expander&lt;/code&gt;、&lt;code&gt;Accordion&lt;/code&gt;；声明式的 &lt;code&gt;Node&lt;/code&gt; 构建器&lt;/td&gt;
+&lt;td&gt;带可替换 &lt;code&gt;Layout&lt;/code&gt; 的 &lt;code&gt;Container&lt;/code&gt;（&lt;code&gt;FitLayout&lt;/code&gt;、&lt;code&gt;BoxLayout&lt;/code&gt;、&lt;code&gt;BorderLayout&lt;/code&gt;、&lt;code&gt;CardLayout&lt;/code&gt;、&lt;code&gt;FlowLayout&lt;/code&gt;）；&lt;code&gt;HBox&lt;/code&gt;、&lt;code&gt;VBox&lt;/code&gt;、&lt;code&gt;Grid&lt;/code&gt;、&lt;code&gt;Frame&lt;/code&gt;、&lt;code&gt;Dock&lt;/code&gt;、&lt;code&gt;Border&lt;/code&gt;、&lt;code&gt;Stack&lt;/code&gt;、&lt;code&gt;Overlay&lt;/code&gt;、&lt;code&gt;Paned&lt;/code&gt;、&lt;code&gt;Splitter&lt;/code&gt;、&lt;code&gt;Expander&lt;/code&gt;、&lt;code&gt;Accordion&lt;/code&gt;、&lt;code&gt;ListPane&lt;/code&gt;（带边框的列表，下方是相连的图标按钮栏，提供 macOS、Windows、GNOME 三种样式）；声明式的 &lt;code&gt;Node&lt;/code&gt; 构建器&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;导航&lt;/td&gt;
