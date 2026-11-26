@@ -278,6 +278,25 @@ llamarse con seguridad desde otra goroutine: un viaje de ida y vuelta, o una
 instantánea protegida por un mutex o inmutable. Las compilaciones nativas no
 cambian.
 
+## Iconos de un paquete SVG {#svg-icons}
+
+`toolkit.SVGGlyph(doc, num, den)` convierte un documento SVG en el `Icon` de un
+botón: el glifo se rasteriza al tamaño del botón, se retiñe con la tinta del texto
+para seguir el tema y se guarda en caché por icono y tamaño. `num/den` es la parte
+del botón que ocupa el glifo. Los paquetes de iconos son módulos aparte que
+incorporan los SVG y su licencia, así que un programa solo enlaza los iconos que
+nombra. [`tabler-icons`](https://github.com/go-widgets/tabler-icons) (MIT, de
+[Tabler Icons](https://tabler.io/icons)) es el primero:
+
+```go
+btn := toolkit.NewButton("Edit server", nil)
+btn.Flat = true
+btn.Icon = toolkit.SVGGlyph(tabler.MustSVG(tabler.Settings), 16, 24)
+```
+
+`SVGGlyph` requiere toolkit v0.402.0 o posterior. Un `ListPane` admite esos botones
+en su campo `Extra`, junto a sus propios botones de añadir y quitar.
+
 ## Tamaño del binario: un programa enlaza lo que usa {#binary-size}
 
 El toolkit es un paquete grande, y para el enlazador eso no es un problema: la

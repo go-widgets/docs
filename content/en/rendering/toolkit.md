@@ -183,6 +183,25 @@ ones they could not, so a peer's insertion inside the deleted range is deleted
 *around* and survives. Placement is a guess; a character that was on somebody's
 screen a moment ago is not.
 
+## Icons from an SVG pack {#svg-icons}
+
+`toolkit.SVGGlyph(doc, num, den)` turns an SVG document into a button's `Icon`:
+the glyph is rasterised at the button's size, recoloured with the text ink so it
+follows the theme, and cached per icon and size. `num/den` is the share of the
+button the glyph fills. Icon packs are modules of their own that embed the SVGs
+and their licence, so a program links only the icons it names.
+[`tabler-icons`](https://github.com/go-widgets/tabler-icons) (MIT, from
+[Tabler Icons](https://tabler.io/icons)) is the first one:
+
+```go
+btn := toolkit.NewButton("Edit server", nil)
+btn.Flat = true
+btn.Icon = toolkit.SVGGlyph(tabler.MustSVG(tabler.Settings), 16, 24)
+```
+
+`SVGGlyph` needs toolkit v0.402.0 or later. A `ListPane` takes such buttons in
+its `Extra` field, next to its own add and remove buttons.
+
 ## Binary size: a program links what it uses {#binary-size}
 
 The toolkit is one large package, and that is fine for the linker: Go's

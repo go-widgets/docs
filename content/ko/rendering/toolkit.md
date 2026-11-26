@@ -212,6 +212,24 @@ func wait(tree *toolkit.FileTree) error { return tree.RefreshStatus(context.Back
 
 **브라우저에서(js/wasm, v0.374.1).** `RefreshStatus`는 항상 `ErrSyncStatusBlocks`를 반환하며 UI goroutine에서 `Repository.Status`를 호출하지 않습니다. `PostUI` 없이 `SetRepository`를 호출하거나 `Entries`를 바꾸면 같은 오류가 `StatusError()`로 게시됩니다. js/wasm에서 트리는 UI goroutine에서 `Status`를 절대 호출하지 않고, 백그라운드 goroutine에서만 호출합니다(`PostUI`를 설정하고 `RefreshStatusAsync`를 사용하세요). 워커의 응답을 기다리는 `Status`를 UI goroutine에서 호출하면 하나뿐인 스레드가 교착 상태에 빠지는데, 트리는 그런 `Status`와 스냅샷만 읽는 `Status`를 구별할 수 없으므로 둘 다 거부합니다. 따라서 브라우저에서 쓰는 `Status`는 다른 goroutine에서 호출해도 안전해야 합니다. 왕복 통신이거나, 뮤텍스로 보호되거나 불변인 스냅샷이어야 합니다. 네이티브 빌드는 달라지지 않습니다.
 
+## SVG 팩의 아이콘 {#svg-icons}
+
+`toolkit.SVGGlyph(doc, num, den)`은 SVG 문서를 버튼의 `Icon`으로 바꿉니다. 글리프는
+버튼 크기로 래스터화되고, 테마를 따르도록 텍스트 잉크 색으로 다시 칠해지며,
+아이콘과 크기별로 캐시됩니다. `num/den`은 글리프가 버튼에서 차지하는 비율입니다.
+아이콘 팩은 SVG와 라이선스를 내장한 별도의 모듈이므로, 프로그램은 이름을 지정한
+아이콘만 링크합니다. [`tabler-icons`](https://github.com/go-widgets/tabler-icons)
+(MIT, [Tabler Icons](https://tabler.io/icons) 기반)가 첫 번째 팩입니다.
+
+```go
+btn := toolkit.NewButton("Edit server", nil)
+btn.Flat = true
+btn.Icon = toolkit.SVGGlyph(tabler.MustSVG(tabler.Settings), 16, 24)
+```
+
+`SVGGlyph`에는 toolkit v0.402.0 이상이 필요합니다. `ListPane`은 추가·제거 버튼 옆에
+이런 버튼을 `Extra` 필드로 받습니다.
+
 ## 바이너리 크기: 프로그램은 사용하는 것만 링크합니다 {#binary-size}
 
 툴킷은 하나의 큰 패키지이지만 링커에게는 문제가 되지 않습니다. Go의 데드 코드 제거는
