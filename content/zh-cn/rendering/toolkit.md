@@ -22,7 +22,7 @@ tags: [rendering, toolkit, widgets, theme, accessibility]
 | 操作 | `Button`、`ToggleButton`、`CheckButton`、`RadioButton` + `RadioGroup`、`Switch`、`SplitButton`、`IconButton`、`CycleButton`、`Chip`、`SegmentedBar` |
 | 输入 | `Entry`、`TextView`（选择、输入法预览、语法着色区间、行号）、`SpinButton`、`Scale`、`RangeSlider`、`SearchEntry`、`TagField`、`ComboBox`、带 `Validate`/`Rule` 的 `FormField` |
 | 选择 | `ListBox`、`TreeView`、`DropDown` |
-| 容器 | 带可替换 `Layout` 的 `Container`（`FitLayout`、`BoxLayout`、`BorderLayout`、`CardLayout`、`FlowLayout`）；`HBox`、`VBox`、`Grid`、`Frame`、`Dock`、`Border`、`Stack`、`Overlay`、`Paned`、`Splitter`、`Expander`、`Accordion`；声明式的 `Node` 构建器 |
+| 容器 | 带可替换 `Layout` 的 `Container`（`FitLayout`、`BoxLayout`、`BorderLayout`、`CardLayout`、`FlowLayout`）；`HBox`、`VBox`、`Grid`、`Frame`、`Dock`、`Border`、`Stack`、`Overlay`、`Paned`、`Splitter`、`Expander`、`Accordion`、`ListPane`（带边框的列表，下方是相连的图标按钮栏，提供 macOS、Windows、GNOME 三种样式）；声明式的 `Node` 构建器 |
 | 导航 | `Menu`、`MenuBar`（支持 `Alt`+字母）、`ContextMenu`、`Popover`、`CommandPalette`、`Dialog`、`MessageDialog`、`Wizard`、`Notebook`、`ViewSwitcher`、`Carousel` |
 | 反馈 | `ProgressBar`、`ProgressCircle`、`LevelBar`、`Spinner`、`Tooltip`、`Notification`、`Toast`、`Banner`、`Alert`、`Badge`、`Skeleton` |
 | 数据 | `Table`（单元格编辑、冻结列、分组行、聚合、行展开器）、`TreeTable`、`PropertyGrid`、`Kanban`、`Gantt`、`Agenda`（周、月、季度、年；多个日历） |
