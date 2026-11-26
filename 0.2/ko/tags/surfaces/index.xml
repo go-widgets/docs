@@ -338,6 +338,33 @@ goroutine에서든 바꿀 수 있고, 메뉴가 바뀐 경우에만 다시 설�
 &lt;li&gt;GTK 4: 창 내용 위에 &lt;code&gt;GtkPopoverMenuBar&lt;/code&gt;를 둡니다. 단축키는 창 전체의 단축키이며 내용보다 우선합니다.&lt;/li&gt;
 &lt;li&gt;X11, Wayland, wasm, Android: &lt;code&gt;window.ErrNotSupported&lt;/code&gt;를 반환하며 &lt;code&gt;Run&lt;/code&gt;은 이를 무시합니다.&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h2 data-hextra-search-id="second-window"&gt;두 번째 창&lt;span class="hx:absolute hx:-mt-20" id="second-window"&gt;&lt;/span&gt;
+&lt;a href="#second-window" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;application.OpenWindow(cfg, handler)&lt;/code&gt;는 실행 중인 애플리케이션에 자체
+핸들러를 가진 다른 창을 열고 &lt;code&gt;*Window&lt;/code&gt;를 반환합니다. UI 스레드(예: 클릭
+핸들러)에서 호출하세요. &lt;code&gt;Run&lt;/code&gt;이 첫 창을 열기 전에는 &lt;code&gt;ErrNoWindow&lt;/code&gt;, 지원하지
+않는 백엔드에서는 &lt;code&gt;ErrNotSupported&lt;/code&gt;를 반환합니다.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;application&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;OpenWindow&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;application&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;WindowConfig&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;Title&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;서버 추가&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Width&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;420&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;Height&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;320&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;newAddServerForm&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;w&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;OnClose&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Println&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;폼이 닫혔습니다&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="코드 복사"
+aria-label="코드 복사"
+data-copied-label="복사됨!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;(*Window).Close&lt;/code&gt;는 창을 닫고, &lt;code&gt;Raise&lt;/code&gt;는 맨 앞으로 가져오며(닫힌 뒤에는&lt;code&gt;ErrNoWindow&lt;/code&gt;), &lt;code&gt;OnClose&lt;/code&gt;는 콜백을 등록합니다(창이 이미 닫혔다면 즉시 실행).두 번째 창을 닫아도 첫 창은 계속 실행되고, 첫 창을 닫으면 나머지도 닫힙니다.핸들러는 메인과 같은 외관, 클립보드, 다시 그리기 서비스를 받습니다. 하위
+계층은 &lt;code&gt;window.OpenChild(parent, cfg, root, onClose)&lt;/code&gt;로, Cocoa, GTK 4, Win32
+백엔드의 선택적 기능입니다. X11, Wayland, wasm, Android는&lt;code&gt;window.ErrNotSupported&lt;/code&gt;를 반환합니다. 부모 관계와 모달은 제공하지 않습니다.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="painted-accessibility"&gt;그려진 위젯의 접근성&lt;span class="hx:absolute hx:-mt-20" id="painted-accessibility"&gt;&lt;/span&gt;
 &lt;a href="#painted-accessibility" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;자체 &lt;a href="https://go-widgets.github.io/docs/0.2/ko/rendering/toolkit/#accessibility"&gt;툴킷&lt;/a&gt; 위젯을 그리는 핸들러는 &lt;code&gt;Accessible&lt;/code&gt;을 구현하지 않으면 플랫폼의 접근성 계층에는 불투명한 사각형 하나로만 보입니다. &lt;code&gt;application.A11yElementsOf(root)&lt;/code&gt;는 위젯 트리에서 그 설명(각 위젯의 역할, 레이블, 값, 경계. 최대 &lt;code&gt;MaxA11yElements&lt;/code&gt; = 1000)을 만듭니다.&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
