@@ -63,6 +63,34 @@ Ausschneiden, Kopieren, Einsetzen, Alles auswählen).
   fensterweite Shortcuts, die Vorrang vor dem Inhalt haben.
 - X11, Wayland, wasm und Android: `window.ErrNotSupported`, von `Run` ignoriert.
 
+## Ein zweites Fenster {#second-window}
+
+`application.OpenWindow(cfg, handler)` öffnet ein weiteres Fenster der
+laufenden Anwendung mit eigenem Handler und gibt ein `*Window` zurück. Der
+Aufruf gehört in den UI-Thread (etwa ein Klick-Handler); vor dem ersten
+Fenster von `Run` antwortet er `ErrNoWindow`, auf einem Backend ohne diese
+Fähigkeit `ErrNotSupported`.
+
+```go
+w, err := application.OpenWindow(
+	application.WindowConfig{Title: "Server hinzufügen", Width: 420, Height: 320},
+	newAddServerForm(),
+)
+if err == nil {
+	w.OnClose(func() { log.Println("Formular geschlossen") })
+}
+```
+
+`(*Window).Close` schließt es, `Raise` holt es nach vorn (`ErrNoWindow`, wenn
+es geschlossen ist) und `OnClose` registriert einen Rückruf, der sofort läuft,
+wenn das Fenster schon weg ist. Ein zweites Fenster zu schließen lässt das
+erste weiterlaufen; schließt man das erste, schließen die anderen mit. Der
+Handler erhält dieselben Dienste für Erscheinungsbild, Zwischenablage und
+Neuzeichnen wie der Haupt-Handler. Darunter liegt
+`window.OpenChild(parent, cfg, root, onClose)`, eine optionale Fähigkeit der
+Backends Cocoa, GTK 4 und Win32; X11, Wayland, wasm und Android antworten
+`window.ErrNotSupported`. Eltern- und Modalbeziehungen gibt es nicht.
+
 ## Barrierefreiheit gezeichneter Widgets {#painted-accessibility}
 
 Ein Handler, der eigene [Toolkit]({{< relref "/rendering/toolkit.md#accessibility" >}})-Widgets

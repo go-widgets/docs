@@ -63,6 +63,34 @@ standard (Annuler, Couper, Copier, Coller, Tout sélectionner).
   raccourcis sont des raccourcis de toute la fenêtre, prioritaires sur le contenu.
 - X11, Wayland, wasm et Android : `window.ErrNotSupported`, ignoré par `Run`.
 
+## Une seconde fenêtre {#second-window}
+
+`application.OpenWindow(cfg, handler)` ouvre une autre fenêtre de
+l'application en cours, avec son propre handler, et renvoie un `*Window`.
+Appelez-la depuis le fil de l'interface (un gestionnaire de clic, par
+exemple) ; elle répond `ErrNoWindow` avant que `Run` n'ait ouvert la première
+fenêtre et `ErrNotSupported` sur un back-end qui ne le peut pas.
+
+```go
+w, err := application.OpenWindow(
+	application.WindowConfig{Title: "Ajouter un serveur", Width: 420, Height: 320},
+	newAddServerForm(),
+)
+if err == nil {
+	w.OnClose(func() { log.Println("formulaire fermé") })
+}
+```
+
+`(*Window).Close` la ferme, `Raise` la ramène au premier plan (`ErrNoWindow`
+une fois fermée) et `OnClose` enregistre un rappel, exécuté aussitôt si la
+fenêtre a déjà disparu. Fermer une fenêtre secondaire laisse la première en
+marche ; fermer la première ferme les autres. Le handler reçoit les mêmes
+services d'apparence, de presse-papiers et de repaint que le principal. La
+couche inférieure est `window.OpenChild(parent, cfg, root, onClose)`, une
+capacité optionnelle des back-ends Cocoa, GTK 4 et Win32 ; X11, Wayland, wasm
+et Android répondent `window.ErrNotSupported`. Les relations parent et modale
+ne sont pas proposées.
+
 ## Accessibilité des widgets dessinés {#painted-accessibility}
 
 Un gestionnaire qui dessine ses propres widgets du
