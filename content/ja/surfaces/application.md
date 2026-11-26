@@ -57,6 +57,31 @@ err := application.Run(spec, cfg, handler, func() { log.Println("on screen") })
 - GTK 4: ウィンドウの内容の上に `GtkPopoverMenuBar` を置きます。キーの割り当てはウィンドウ全体のショートカットで、内容より優先されます。
 - X11、Wayland、wasm、Android: `window.ErrNotSupported` を返し、`Run` は無視します。
 
+## 2 つ目のウィンドウ {#second-window}
+
+`application.OpenWindow(cfg, handler)` は、実行中のアプリケーションに独自の
+ハンドラを持つ別のウィンドウを開き、`*Window` を返します。UI スレッド
+(クリックハンドラなど)から呼んでください。`Run` が最初のウィンドウを開く前は
+`ErrNoWindow`、対応しないバックエンドでは `ErrNotSupported` を返します。
+
+```go
+w, err := application.OpenWindow(
+	application.WindowConfig{Title: "サーバーを追加", Width: 420, Height: 320},
+	newAddServerForm(),
+)
+if err == nil {
+	w.OnClose(func() { log.Println("フォームを閉じました") })
+}
+```
+
+`(*Window).Close` で閉じ、`Raise` で前面に出し(閉じた後は `ErrNoWindow`)、
+`OnClose` でコールバックを登録します(ウィンドウが既に閉じていれば直ちに実行)。
+2 つ目のウィンドウを閉じても最初のウィンドウは動き続け、最初のウィンドウを閉じると
+他も閉じます。ハンドラにはメインと同じ外観・クリップボード・再描画のサービスが渡されます。
+下位層は `window.OpenChild(parent, cfg, root, onClose)` で、Cocoa、GTK 4、Win32 の
+オプション機能です。X11、Wayland、wasm、Android は `window.ErrNotSupported` を返します。
+親子関係とモーダルは提供しません。
+
 ## 描画されたウィジェットのアクセシビリティ {#painted-accessibility}
 
 独自の[ツールキット]({{< relref "/rendering/toolkit.md#accessibility" >}})ウィジェットを描画するハンドラーは、`Accessible` を実装しない限り、プラットフォームのアクセシビリティ層からは不透明な長方形 1 枚にしか見えません。`application.A11yElementsOf(root)` は、ウィジェットツリーからその記述（各ウィジェットのロール、ラベル、値、境界。最大 `MaxA11yElements` = 1000）を作ります。

@@ -59,6 +59,31 @@ goroutine에서든 바꿀 수 있고, 메뉴가 바뀐 경우에만 다시 설�
 - GTK 4: 창 내용 위에 `GtkPopoverMenuBar`를 둡니다. 단축키는 창 전체의 단축키이며 내용보다 우선합니다.
 - X11, Wayland, wasm, Android: `window.ErrNotSupported`를 반환하며 `Run`은 이를 무시합니다.
 
+## 두 번째 창 {#second-window}
+
+`application.OpenWindow(cfg, handler)`는 실행 중인 애플리케이션에 자체
+핸들러를 가진 다른 창을 열고 `*Window`를 반환합니다. UI 스레드(예: 클릭
+핸들러)에서 호출하세요. `Run`이 첫 창을 열기 전에는 `ErrNoWindow`, 지원하지
+않는 백엔드에서는 `ErrNotSupported`를 반환합니다.
+
+```go
+w, err := application.OpenWindow(
+	application.WindowConfig{Title: "서버 추가", Width: 420, Height: 320},
+	newAddServerForm(),
+)
+if err == nil {
+	w.OnClose(func() { log.Println("폼이 닫혔습니다") })
+}
+```
+
+`(*Window).Close`는 창을 닫고, `Raise`는 맨 앞으로 가져오며(닫힌 뒤에는
+`ErrNoWindow`), `OnClose`는 콜백을 등록합니다(창이 이미 닫혔다면 즉시 실행).
+두 번째 창을 닫아도 첫 창은 계속 실행되고, 첫 창을 닫으면 나머지도 닫힙니다.
+핸들러는 메인과 같은 외관, 클립보드, 다시 그리기 서비스를 받습니다. 하위
+계층은 `window.OpenChild(parent, cfg, root, onClose)`로, Cocoa, GTK 4, Win32
+백엔드의 선택적 기능입니다. X11, Wayland, wasm, Android는
+`window.ErrNotSupported`를 반환합니다. 부모 관계와 모달은 제공하지 않습니다.
+
 ## 그려진 위젯의 접근성 {#painted-accessibility}
 
 자체 [툴킷]({{< relref "/rendering/toolkit.md#accessibility" >}}) 위젯을 그리는 핸들러는 `Accessible`을 구현하지 않으면 플랫폼의 접근성 계층에는 불투명한 사각형 하나로만 보입니다. `application.A11yElementsOf(root)`는 위젯 트리에서 그 설명(각 위젯의 역할, 레이블, 값, 경계. 최대 `MaxA11yElements` = 1000)을 만듭니다.

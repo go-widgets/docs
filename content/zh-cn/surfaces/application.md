@@ -52,6 +52,28 @@ err := application.Run(spec, cfg, handler, func() { log.Println("on screen") })
 - GTK 4：在窗口内容上方放置 `GtkPopoverMenuBar`；快捷键是整个窗口的快捷键，优先于窗口内容。
 - X11、Wayland、wasm 和 Android：返回 `window.ErrNotSupported`，`Run` 会忽略。
 
+## 第二个窗口 {#second-window}
+
+`application.OpenWindow(cfg, handler)` 在运行中的应用里再打开一个带自己处理器的
+窗口，并返回 `*Window`。请在 UI 线程（例如点击处理函数）中调用；`Run` 打开第一个窗口之前
+返回 `ErrNoWindow`，不支持的后端返回 `ErrNotSupported`。
+
+```go
+w, err := application.OpenWindow(
+	application.WindowConfig{Title: "添加服务器", Width: 420, Height: 320},
+	newAddServerForm(),
+)
+if err == nil {
+	w.OnClose(func() { log.Println("表单已关闭") })
+}
+```
+
+`(*Window).Close` 关闭窗口，`Raise` 将其置于最前（关闭后返回 `ErrNoWindow`），
+`OnClose` 注册回调（窗口已关闭则立即执行）。关闭第二个窗口不影响第一个；关闭第一个会关闭其余窗口。
+处理器获得与主窗口相同的外观、剪贴板和重绘服务。底层是 `window.OpenChild(parent, cfg, root, onClose)`，
+Cocoa、GTK 4 和 Win32 后端的可选能力；X11、Wayland、wasm 和 Android 返回
+`window.ErrNotSupported`。不提供父子和模态关系。
+
 ## 绘制控件的无障碍 {#painted-accessibility}
 
 自行绘制[工具包]({{< relref "/rendering/toolkit.md#accessibility" >}})控件的处理器，除非实现 `Accessible`，否则在平台的无障碍层看来只是一个不透明的矩形。`application.A11yElementsOf(root)` 根据控件树生成这份描述（每个控件的角色、标签、值和边界，最多 `MaxA11yElements` = 1000 个）：

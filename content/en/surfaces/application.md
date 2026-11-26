@@ -63,6 +63,32 @@ All), so a text field gets its clipboard commands in the menu bar.
   window-wide shortcuts that take precedence over the content.
 - X11, Wayland, wasm and Android: `window.ErrNotSupported`, ignored by `Run`.
 
+## A second window {#second-window}
+
+`application.OpenWindow(cfg, handler)` opens another window of the running
+application, with its own handler, and returns a `*Window`. Call it from the
+UI thread (a click handler, say); it answers `ErrNoWindow` before `Run` has
+opened the first window and `ErrNotSupported` on a back-end that cannot.
+
+```go
+w, err := application.OpenWindow(
+	application.WindowConfig{Title: "Add server", Width: 420, Height: 320},
+	newAddServerForm(),
+)
+if err == nil {
+	w.OnClose(func() { log.Println("form closed") })
+}
+```
+
+`(*Window).Close` closes it, `Raise` brings it to the front (`ErrNoWindow`
+once it is closed) and `OnClose` registers a callback, run at once if the
+window is already gone. Closing a secondary window leaves the first one
+running; closing the first closes the others. The handler gets the same
+appearance, clipboard and repaint services as the main one. The lower layer is
+`window.OpenChild(parent, cfg, root, onClose)`, an optional capability of the
+Cocoa, GTK 4 and Win32 back-ends; X11, Wayland, wasm and Android answer
+`window.ErrNotSupported`. Parent and modal relations are not offered.
+
 ## Accessibility of painted widgets {#painted-accessibility}
 
 A handler that paints its own [toolkit]({{< relref "/rendering/toolkit.md#accessibility" >}})

@@ -65,6 +65,33 @@ Copiar, Pegar, Seleccionar todo).
   accesos directos de toda la ventana y tienen prioridad sobre el contenido.
 - X11, Wayland, wasm y Android: `window.ErrNotSupported`, ignorado por `Run`.
 
+## Una segunda ventana {#second-window}
+
+`application.OpenWindow(cfg, handler)` abre otra ventana de la aplicación en
+marcha, con su propio handler, y devuelve un `*Window`. Llámela desde el hilo
+de la interfaz (un manejador de clic, por ejemplo); responde `ErrNoWindow`
+antes de que `Run` abra la primera ventana y `ErrNotSupported` en un back-end
+que no puede.
+
+```go
+w, err := application.OpenWindow(
+	application.WindowConfig{Title: "Añadir servidor", Width: 420, Height: 320},
+	newAddServerForm(),
+)
+if err == nil {
+	w.OnClose(func() { log.Println("formulario cerrado") })
+}
+```
+
+`(*Window).Close` la cierra, `Raise` la trae al frente (`ErrNoWindow` una vez
+cerrada) y `OnClose` registra una llamada que se ejecuta de inmediato si la
+ventana ya no existe. Cerrar una ventana secundaria deja en marcha la primera;
+cerrar la primera cierra las demás. El handler recibe los mismos servicios de
+apariencia, portapapeles y repintado que el principal. La capa inferior es
+`window.OpenChild(parent, cfg, root, onClose)`, una capacidad opcional de los
+back-ends Cocoa, GTK 4 y Win32; X11, Wayland, wasm y Android responden
+`window.ErrNotSupported`. No se ofrecen relaciones de padre ni modales.
+
 ## Accesibilidad de los widgets dibujados {#painted-accessibility}
 
 Un manejador que dibuja sus propios widgets del
