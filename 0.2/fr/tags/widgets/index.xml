@@ -292,6 +292,29 @@ s&amp;rsquo;il était appelé sur la goroutine d&amp;rsquo;interface, et l&amp;r
 ne fait que lire un instantané : il refuse donc les deux. Un &lt;code&gt;Status&lt;/code&gt; utilisé dans
 le navigateur doit par conséquent pouvoir être appelé sans risque depuis une autre
 goroutine : un aller-retour, ou un instantané protégé par un mutex ou immuable.Les compilations natives ne changent pas.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="svg-icons"&gt;Icônes d&amp;rsquo;un jeu SVG&lt;span class="hx:absolute hx:-mt-20" id="svg-icons"&gt;&lt;/span&gt;
+&lt;a href="#svg-icons" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;toolkit.SVGGlyph(doc, num, den)&lt;/code&gt; transforme un document SVG en &lt;code&gt;Icon&lt;/code&gt; de bouton :le glyphe est tramé à la taille du bouton, recoloré avec l&amp;rsquo;encre du texte pour
+suivre le thème, et mis en cache par icône et par taille. &lt;code&gt;num/den&lt;/code&gt; est la part du
+bouton que remplit le glyphe. Les jeux d&amp;rsquo;icônes sont des modules à part qui
+embarquent les SVG et leur licence, si bien qu&amp;rsquo;un programme ne lie que les icônes
+qu&amp;rsquo;il nomme. &lt;a href="https://github.com/go-widgets/tabler-icons" target="_blank" rel="noopener"&gt;&lt;code&gt;tabler-icons&lt;/code&gt;&lt;/a&gt; (MIT,issu de &lt;a href="https://tabler.io/icons" target="_blank" rel="noopener"&gt;Tabler Icons&lt;/a&gt;) est le premier :&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;btn&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewButton&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Edit server&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;btn&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Flat&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;btn&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Icon&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;SVGGlyph&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;tabler&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;MustSVG&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;tabler&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Settings&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;24&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copier le code"
+aria-label="Copier le code"
+data-copied-label="Copié !"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;SVGGlyph&lt;/code&gt; demande toolkit v0.402.0 ou plus. Un &lt;code&gt;ListPane&lt;/code&gt; accepte de tels boutons
+dans son champ &lt;code&gt;Extra&lt;/code&gt;, à côté de ses propres boutons d&amp;rsquo;ajout et de retrait.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="binary-size"&gt;Taille du binaire : un programme lie ce qu&amp;rsquo;il utilise&lt;span class="hx:absolute hx:-mt-20" id="binary-size"&gt;&lt;/span&gt;
 &lt;a href="#binary-size" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;La boîte à outils est un grand paquet, et l&amp;rsquo;éditeur de liens s&amp;rsquo;en accommode :l&amp;rsquo;élimination de code mort de Go ne garde que ce qui est atteignable depuis&lt;code&gt;main.main&lt;/code&gt; &lt;strong&gt;et depuis les tâches d&amp;rsquo;initialisation de chaque paquet importé&lt;/strong&gt;.Les widgets qu&amp;rsquo;un programme ne touche jamais sont retirés. Ce qui n&amp;rsquo;est pas
 retiré, c&amp;rsquo;est tout ce qu&amp;rsquo;atteint un initialiseur de niveau paquet ou le &lt;code&gt;init&lt;/code&gt;

@@ -42,6 +42,12 @@
 &lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/shellterm" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
+&lt;td&gt;&lt;a href="https://github.com/go-widgets/tabler-icons" target="_blank" rel="noopener"&gt;&lt;code&gt;tabler-icons&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;v0.1.0&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;toolkit.SVGGlyph&lt;/code&gt;용으로 내장된 SVG 형태의 &lt;a href="https://tabler.io/icons" target="_blank" rel="noopener"&gt;Tabler Icons&lt;/a&gt;(MIT). 현재 아이콘은 &lt;code&gt;settings&lt;/code&gt; 하나뿐입니다&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/tabler-icons" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
 &lt;td&gt;&lt;a href="https://github.com/go-widgets/isoicons" target="_blank" rel="noopener"&gt;&lt;code&gt;isoicons&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
 &lt;td&gt;v0.4.0&lt;/td&gt;
 &lt;td&gt;툴킷의 아이소메트릭 다이어그램용 아이소메트릭 아이콘 팩(클라우드 네이티브, AWS)&lt;/td&gt;
