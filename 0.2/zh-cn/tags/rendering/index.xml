@@ -104,6 +104,65 @@ data-copied-label="已复制！"
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;缓冲区始终归调用方所有。&lt;code&gt;PixelPainter&lt;/code&gt; 只是把图元翻译成写入操作，所以同一个 &lt;code&gt;[]byte&lt;/code&gt; 可以直接交给窗口后端、&lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; 或图像编码器，中间无需拷贝。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="recording-to-svg"&gt;录制为 SVG&lt;span class="hx:absolute hx:-mt-20" id="recording-to-svg"&gt;&lt;/span&gt;
+&lt;a href="#recording-to-svg" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;svgrec.Recorder&lt;/code&gt;（包 &lt;code&gt;github.com/go-widgets/painter/svgrec&lt;/code&gt;）是第三种绘制器：它把同样的调用转换成&lt;strong&gt;原生 SVG 文档&lt;/strong&gt;，由 &lt;code&gt;&amp;lt;rect&amp;gt;&lt;/code&gt;、&lt;code&gt;&amp;lt;path&amp;gt;&lt;/code&gt; 和 &lt;code&gt;&amp;lt;clipPath&amp;gt;&lt;/code&gt; 元素组成，只有在确实绘制了光栅图的地方才使用 &lt;code&gt;&amp;lt;image&amp;gt;&lt;/code&gt;。结果无损、可缩放，并且是确定性的：相同的调用得到相同的字节。&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;r&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;_&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;svgrec&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;New&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1000&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;700&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;widget&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Draw&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;r&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;painter&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;LightTheme&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;doc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;r&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;SVG&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// err is the first call that was refused, if any&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+aria-label="复制代码"
+data-copied-label="已复制！"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;它实现了 &lt;code&gt;Clipper&lt;/code&gt;、&lt;code&gt;Translator&lt;/code&gt;、&lt;code&gt;PathPainter&lt;/code&gt;、&lt;code&gt;ImagePainter&lt;/code&gt; 和 &lt;code&gt;MaskPainter&lt;/code&gt;。在 SVG 没有忠实对应物的地方，映射表会明说，而不是悄悄地近似：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;调用&lt;/th&gt;
+&lt;th&gt;SVG&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;FillRect&lt;/code&gt;、&lt;code&gt;PutPixel&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;rect&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;FillRoundRect&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;rect rx&amp;gt;&lt;/code&gt;；圆角的抗锯齿方式与像素绘制器不同&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;StrokeRect&lt;/code&gt;、&lt;code&gt;StrokeRoundRect&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;一个 &lt;code&gt;evenodd&lt;/code&gt; 边框，环向内绘制，与像素绘制器一致&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Text&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;字形轮廓（见下文）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;PushClip&lt;/code&gt; / &lt;code&gt;PushTranslate&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;clipPath&amp;gt;&lt;/code&gt; 加一个嵌套的 &lt;code&gt;&amp;lt;g&amp;gt;&lt;/code&gt;；平移直接作用于坐标&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;FillPath&lt;/code&gt;、&lt;code&gt;StrokePath&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;path&amp;gt;&lt;/code&gt;；描边宽度以用户单位计，因此随 viewBox 缩放；长度为零的子路径在 SVG 中会画出一个点，而像素绘制器什么也不画&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;DrawImage&lt;/code&gt;、&lt;code&gt;DrawMask&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;带 PNG 数据 URI 的 &lt;code&gt;&amp;lt;image&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;文本变成轮廓，而不是 &lt;code&gt;&amp;lt;text&amp;gt;&lt;/code&gt;。&lt;/strong&gt; 内置的 5x7 字体是像素网格，因此每个字符串是一个由合并后的连续段组成的 &lt;code&gt;&amp;lt;path&amp;gt;&lt;/code&gt;，外面包一个 &lt;code&gt;&amp;lt;g&amp;gt;&lt;/code&gt;，其 &lt;code&gt;&amp;lt;title&amp;gt;&lt;/code&gt; 为辅助技术保存文本。嵌入子集字体需要字体写入器和遵循它的查看器；不遵循的查看器会回退到另一种字体，使版式错位。代价是：文本无法选中。用 TrueType 字体排版的文本目前还不会记录为轮廓；&lt;code&gt;FacePainter&lt;/code&gt; 未提供，因此它以光栅 &lt;code&gt;DrawMask&lt;/code&gt; 的形式出现。&lt;/p&gt;
+&lt;p&gt;绘制器的方法不返回错误，因此被拒绝的调用（无效的 UTF-8、XML 无法承载的字符、超过 1&amp;laquo;24 的坐标、超出其 &lt;code&gt;Limits&lt;/code&gt; 的调用或文档）会被丢弃，第一个错误由 &lt;code&gt;Err()&lt;/code&gt; 和 &lt;code&gt;SVG()&lt;/code&gt; 报告。模糊测试目标会用 &lt;code&gt;encoding/xml&lt;/code&gt; 把每个输出重新解析，只要出现写入器自己不产生的元素或属性就判失败。&lt;/p&gt;
+&lt;p&gt;与像素绘制器相比（用纯 Go 的 &lt;code&gt;go-gfx/gfx/svg&lt;/code&gt; 光栅化），示例控件、矩形、位图文本、裁剪和平移与之逐像素一致；路径在单个通道上最多相差 1；抗锯齿圆角在最差场景中，对 7.5 % 的像素，单个通道最多相差 61。&lt;/p&gt;
 &lt;h2 data-hextra-search-id="trying-it"&gt;试一试&lt;span class="hx:absolute hx:-mt-20" id="trying-it"&gt;&lt;/span&gt;
 &lt;a href="#trying-it" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;仓库自带的演示通过两种绘制器绘制同样的三个控件：&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;

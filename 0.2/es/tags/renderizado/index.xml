@@ -112,6 +112,85 @@ data-copied-label="¡Copiado!"
 primitivas en escrituras, de modo que el mismo &lt;code&gt;[]byte&lt;/code&gt; puede entregarse a un
 backend de ventana, a un &lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; o a un codificador de imágenes sin ninguna
 copia intermedia.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="recording-to-svg"&gt;Grabar a SVG&lt;span class="hx:absolute hx:-mt-20" id="recording-to-svg"&gt;&lt;/span&gt;
+&lt;a href="#recording-to-svg" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;svgrec.Recorder&lt;/code&gt; (paquete &lt;code&gt;github.com/go-widgets/painter/svgrec&lt;/code&gt;) es un tercer
+painter: convierte las mismas llamadas en un &lt;strong&gt;documento SVG nativo&lt;/strong&gt;, con
+elementos &lt;code&gt;&amp;lt;rect&amp;gt;&lt;/code&gt;, &lt;code&gt;&amp;lt;path&amp;gt;&lt;/code&gt; y &lt;code&gt;&amp;lt;clipPath&amp;gt;&lt;/code&gt;, y un &lt;code&gt;&amp;lt;image&amp;gt;&lt;/code&gt; solo donde de verdad
+se dibuja un raster. El resultado no tiene pérdidas, es redimensionable y es
+determinista: las mismas llamadas producen los mismos bytes.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;r&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;_&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;svgrec&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;New&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1000&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;700&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;widget&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Draw&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;r&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;painter&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;LightTheme&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;doc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;r&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;SVG&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// err is the first call that was refused, if any&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copiar código"
+aria-label="Copiar código"
+data-copied-label="¡Copiado!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Implementa &lt;code&gt;Clipper&lt;/code&gt;, &lt;code&gt;Translator&lt;/code&gt;, &lt;code&gt;PathPainter&lt;/code&gt;, &lt;code&gt;ImagePainter&lt;/code&gt; y&lt;code&gt;MaskPainter&lt;/code&gt;. Donde SVG no tiene un equivalente fiel, la correspondencia lo dice
+en lugar de aproximar en silencio:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Llamada&lt;/th&gt;
+&lt;th&gt;SVG&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;FillRect&lt;/code&gt;, &lt;code&gt;PutPixel&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;rect&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;FillRoundRect&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;rect rx&amp;gt;&lt;/code&gt;; la esquina se suaviza de forma distinta a la del pixel painter&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;StrokeRect&lt;/code&gt;, &lt;code&gt;StrokeRoundRect&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;un marco &lt;code&gt;evenodd&lt;/code&gt;, con los anillos dibujados hacia dentro como hace el pixel painter&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Text&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;contornos de glifos (abajo)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;PushClip&lt;/code&gt; / &lt;code&gt;PushTranslate&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;clipPath&amp;gt;&lt;/code&gt; más un &lt;code&gt;&amp;lt;g&amp;gt;&lt;/code&gt; anidado; la traslación se aplica a las coordenadas&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;FillPath&lt;/code&gt;, &lt;code&gt;StrokePath&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;path&amp;gt;&lt;/code&gt;; el grosor del trazo está en unidades de usuario, así que escala con el viewBox, y un subtrazado de longitud cero pinta un punto en SVG donde el pixel painter no pinta nada&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;DrawImage&lt;/code&gt;, &lt;code&gt;DrawMask&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;image&amp;gt;&lt;/code&gt; con un URI de datos PNG&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;El texto se convierte en contornos, no en &lt;code&gt;&amp;lt;text&amp;gt;&lt;/code&gt;.&lt;/strong&gt; La fuente integrada de 5x7
+es una cuadrícula de píxeles, así que cada cadena es un único &lt;code&gt;&amp;lt;path&amp;gt;&lt;/code&gt; de tramos
+fusionados, envuelto en un &lt;code&gt;&amp;lt;g&amp;gt;&lt;/code&gt; cuyo &lt;code&gt;&amp;lt;title&amp;gt;&lt;/code&gt; contiene el texto para las
+tecnologías de asistencia. Una fuente incrustada con un subconjunto de glifos
+necesitaría un escritor de fuentes y un visor que la respete, y un visor que no
+lo haga recurriría a otra tipografía y movería el diseño. El coste: el texto no
+se puede seleccionar. El texto compuesto con una fuente TrueType aún no se graba
+como contornos; &lt;code&gt;FacePainter&lt;/code&gt; no se ofrece, así que llega como un &lt;code&gt;DrawMask&lt;/code&gt;
+raster.&lt;/p&gt;
+&lt;p&gt;Los métodos del painter no devuelven error, por lo que una llamada rechazada(UTF-8 no válido, un carácter que XML no puede transportar, una coordenada por
+encima de 1&amp;laquo;24, una llamada o un documento que supere sus &lt;code&gt;Limits&lt;/code&gt;) se descarta
+y el primer error lo informan &lt;code&gt;Err()&lt;/code&gt; y &lt;code&gt;SVG()&lt;/code&gt;. Los destinos de fuzzing vuelven a
+analizar cada salida con &lt;code&gt;encoding/xml&lt;/code&gt; y fallan ante cualquier elemento o
+atributo que el escritor no genere él mismo.&lt;/p&gt;
+&lt;p&gt;Frente al pixel painter, rasterizado con el &lt;code&gt;go-gfx/gfx/svg&lt;/code&gt; en Go puro, los
+widgets de ejemplo, los rectángulos, el texto de mapa de bits, los recortes y la
+traslación coinciden al píxel; los trazados difieren como máximo en 1 en un
+canal; las esquinas redondeadas suavizadas, hasta en 61 en un canal en el 7,5 %de los píxeles de la peor escena.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="trying-it"&gt;Probarlo&lt;span class="hx:absolute hx:-mt-20" id="trying-it"&gt;&lt;/span&gt;
 &lt;a href="#trying-it" class="subheading-anchor" aria-label="Enlace permanente a esta sección"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Las demos del propio repositorio dibujan los mismos tres widgets a través de
 ambos painters:&lt;/p&gt;

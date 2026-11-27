@@ -110,6 +110,84 @@ data-copied-label="Kopiert!"
 &lt;/table&gt;
 &lt;p&gt;Der Puffer bleibt im Besitz des Aufrufers. Ein &lt;code&gt;PixelPainter&lt;/code&gt; übersetzt nur Primitive
 in Schreibzugriffe, sodass derselbe &lt;code&gt;[]byte&lt;/code&gt; an ein Fenster-Back-End, ein&lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; oder einen Bild-Encoder übergeben werden kann, ohne dazwischen zu kopieren.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="recording-to-svg"&gt;Als SVG aufzeichnen&lt;span class="hx:absolute hx:-mt-20" id="recording-to-svg"&gt;&lt;/span&gt;
+&lt;a href="#recording-to-svg" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;svgrec.Recorder&lt;/code&gt; (Paket &lt;code&gt;github.com/go-widgets/painter/svgrec&lt;/code&gt;) ist ein dritter
+Painter: Er macht aus denselben Aufrufen ein &lt;strong&gt;natives SVG-Dokument&lt;/strong&gt; aus den
+Elementen &lt;code&gt;&amp;lt;rect&amp;gt;&lt;/code&gt;, &lt;code&gt;&amp;lt;path&amp;gt;&lt;/code&gt; und &lt;code&gt;&amp;lt;clipPath&amp;gt;&lt;/code&gt; sowie einem &lt;code&gt;&amp;lt;image&amp;gt;&lt;/code&gt; nur dort, wo
+tatsächlich ein Raster gezeichnet wird. Das Ergebnis ist verlustfrei, skalierbar
+und deterministisch: Dieselben Aufrufe ergeben dieselben Bytes.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;r&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;_&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;svgrec&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;New&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1000&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;700&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;widget&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Draw&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;r&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;painter&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;LightTheme&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;doc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;r&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;SVG&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// err is the first call that was refused, if any&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Code kopieren"
+aria-label="Code kopieren"
+data-copied-label="Kopiert!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Er implementiert &lt;code&gt;Clipper&lt;/code&gt;, &lt;code&gt;Translator&lt;/code&gt;, &lt;code&gt;PathPainter&lt;/code&gt;, &lt;code&gt;ImagePainter&lt;/code&gt; und&lt;code&gt;MaskPainter&lt;/code&gt;. Wo SVG kein getreues Gegenstück hat, sagt die Zuordnung das, statt
+stillschweigend zu approximieren:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Aufruf&lt;/th&gt;
+&lt;th&gt;SVG&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;FillRect&lt;/code&gt;, &lt;code&gt;PutPixel&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;rect&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;FillRoundRect&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;rect rx&amp;gt;&lt;/code&gt;; die Ecke wird anders geglättet als beim Pixel-Painter&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;StrokeRect&lt;/code&gt;, &lt;code&gt;StrokeRoundRect&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;ein &lt;code&gt;evenodd&lt;/code&gt;-Rahmen, Ringe nach innen gezeichnet wie beim Pixel-Painter&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Text&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Glyphenumrisse (siehe unten)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;PushClip&lt;/code&gt; / &lt;code&gt;PushTranslate&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;clipPath&amp;gt;&lt;/code&gt; plus ein verschachteltes &lt;code&gt;&amp;lt;g&amp;gt;&lt;/code&gt;; die Verschiebung wird auf die Koordinaten angewendet&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;FillPath&lt;/code&gt;, &lt;code&gt;StrokePath&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;path&amp;gt;&lt;/code&gt;; eine Strichbreite steht in Benutzereinheiten und skaliert daher mit der viewBox, und ein Teilpfad der Länge null malt in SVG einen Punkt, wo der Pixel-Painter nichts malt&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;DrawImage&lt;/code&gt;, &lt;code&gt;DrawMask&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;image&amp;gt;&lt;/code&gt; mit einer PNG-Daten-URI&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;Text wird zu Umrissen, nicht zu &lt;code&gt;&amp;lt;text&amp;gt;&lt;/code&gt;.&lt;/strong&gt; Die eingebaute 5x7-Schrift ist ein
+Pixelraster, daher wird jede Zeichenkette zu einem &lt;code&gt;&amp;lt;path&amp;gt;&lt;/code&gt; aus zusammengefassten
+Läufen, eingefasst in ein &lt;code&gt;&amp;lt;g&amp;gt;&lt;/code&gt;, dessen &lt;code&gt;&amp;lt;title&amp;gt;&lt;/code&gt; den Text für Hilfstechnologien
+enthält. Eine eingebettete Teilmengen-Schrift bräuchte einen Font-Writer und einen
+Betrachter, der sie beachtet; ein Betrachter, der das nicht tut, würde auf eine
+andere Schrift ausweichen und das Layout verschieben. Der Preis: Der Text ist nicht
+auswählbar. In einer TrueType-Schrift gesetzter Text wird noch nicht als Umriss
+aufgezeichnet; &lt;code&gt;FacePainter&lt;/code&gt; wird nicht angeboten, er kommt also als Raster-&lt;code&gt;DrawMask&lt;/code&gt; an.&lt;/p&gt;
+&lt;p&gt;Painter-Methoden geben keinen Fehler zurück, daher wird ein abgelehnter Aufruf(ungültiges UTF-8, ein Zeichen, das XML nicht tragen kann, eine Koordinate jenseits
+von 1&amp;laquo;24, ein Aufruf oder Dokument über seinen &lt;code&gt;Limits&lt;/code&gt;) verworfen, und der erste
+Fehler wird von &lt;code&gt;Err()&lt;/code&gt; und &lt;code&gt;SVG()&lt;/code&gt; gemeldet. Die Fuzz-Targets parsen jede Ausgabe
+mit &lt;code&gt;encoding/xml&lt;/code&gt; zurück und schlagen bei jedem Element oder Attribut fehl, das
+der Writer nicht selbst erzeugt.&lt;/p&gt;
+&lt;p&gt;Gegenüber dem Pixel-Painter, gerastert mit dem reinen Go-Paket &lt;code&gt;go-gfx/gfx/svg&lt;/code&gt;,stimmen die Beispiel-Widgets, Rechtecke, Bitmap-Text, Clips und Verschiebung
+pixelgenau überein; Pfade weichen um höchstens 1 in einem Kanal ab; geglättete
+runde Ecken um bis zu 61 in einem Kanal bei 7,5 % der Pixel der schlechtesten
+Szene.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="trying-it"&gt;Ausprobieren&lt;span class="hx:absolute hx:-mt-20" id="trying-it"&gt;&lt;/span&gt;
 &lt;a href="#trying-it" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Die Demos des Repositorys zeichnen dieselben drei Widgets über beide Painter:&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;

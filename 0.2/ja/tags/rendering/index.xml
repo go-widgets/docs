@@ -104,6 +104,65 @@ data-copied-label="コピーしました！"
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;バッファは呼び出し側のものです。&lt;code&gt;PixelPainter&lt;/code&gt; はプリミティブを書き込みに変換するだけなので、同じ &lt;code&gt;[]byte&lt;/code&gt; を、コピーを挟まずにウィンドウのバックエンド、&lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt;、画像エンコーダに渡せます。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="recording-to-svg"&gt;SVG への記録&lt;span class="hx:absolute hx:-mt-20" id="recording-to-svg"&gt;&lt;/span&gt;
+&lt;a href="#recording-to-svg" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;svgrec.Recorder&lt;/code&gt;（パッケージ &lt;code&gt;github.com/go-widgets/painter/svgrec&lt;/code&gt;）は 3 つ目のペインタです。同じ呼び出しを&lt;strong&gt;ネイティブな SVG ドキュメント&lt;/strong&gt;に変換します。出力は &lt;code&gt;&amp;lt;rect&amp;gt;&lt;/code&gt;、&lt;code&gt;&amp;lt;path&amp;gt;&lt;/code&gt;、&lt;code&gt;&amp;lt;clipPath&amp;gt;&lt;/code&gt; の各要素で、&lt;code&gt;&amp;lt;image&amp;gt;&lt;/code&gt; はラスタが実際に描かれる箇所にだけ使われます。結果は劣化がなく拡大縮小でき、しかも決定的です。同じ呼び出しからは同じバイト列が得られます。&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;r&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;_&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;svgrec&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;New&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1000&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;700&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;widget&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Draw&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;r&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;painter&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;LightTheme&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;doc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;r&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;SVG&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// err is the first call that was refused, if any&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="コードをコピー"
+aria-label="コードをコピー"
+data-copied-label="コピーしました！"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;Clipper&lt;/code&gt;、&lt;code&gt;Translator&lt;/code&gt;、&lt;code&gt;PathPainter&lt;/code&gt;、&lt;code&gt;ImagePainter&lt;/code&gt;、&lt;code&gt;MaskPainter&lt;/code&gt; を実装しています。SVG に忠実な対応物がない場合、対応表は黙って近似するのではなく、その旨を明記します。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;呼び出し&lt;/th&gt;
+&lt;th&gt;SVG&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;FillRect&lt;/code&gt;、&lt;code&gt;PutPixel&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;rect&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;FillRoundRect&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;rect rx&amp;gt;&lt;/code&gt;。角のアンチエイリアスはピクセルペインタとは異なる&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;StrokeRect&lt;/code&gt;、&lt;code&gt;StrokeRoundRect&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;evenodd&lt;/code&gt; の枠。リングはピクセルペインタと同様に内側へ描かれる&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Text&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;グリフのアウトライン（後述）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;PushClip&lt;/code&gt; / &lt;code&gt;PushTranslate&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;clipPath&amp;gt;&lt;/code&gt; と入れ子の &lt;code&gt;&amp;lt;g&amp;gt;&lt;/code&gt;。平行移動は座標に適用される&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;FillPath&lt;/code&gt;、&lt;code&gt;StrokePath&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;path&amp;gt;&lt;/code&gt;。線幅はユーザー単位なので viewBox に合わせて拡大縮小される。長さ 0 のサブパスは、ピクセルペインタでは何も描かれないが、SVG では点が描かれる&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;DrawImage&lt;/code&gt;、&lt;code&gt;DrawMask&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;PNG の data URI を持つ &lt;code&gt;&amp;lt;image&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;テキストは &lt;code&gt;&amp;lt;text&amp;gt;&lt;/code&gt; ではなくアウトラインになります。&lt;/strong&gt; 組み込みの 5x7 フォントはピクセルの格子なので、各文字列は連結されたランからなる 1 つの &lt;code&gt;&amp;lt;path&amp;gt;&lt;/code&gt; になり、支援技術向けにそのテキストを &lt;code&gt;&amp;lt;title&amp;gt;&lt;/code&gt; に持つ &lt;code&gt;&amp;lt;g&amp;gt;&lt;/code&gt; で包まれます。サブセットフォントを埋め込むには、フォントライタと、それを尊重するビューアが必要です。尊重しないビューアは別の書体にフォールバックし、レイアウトがずれてしまいます。代償として、テキストは選択できません。TrueType の書体で組まれたテキストはまだアウトラインとしては記録されません。&lt;code&gt;FacePainter&lt;/code&gt; は提供されないため、ラスタの &lt;code&gt;DrawMask&lt;/code&gt; として届きます。&lt;/p&gt;
+&lt;p&gt;ペインタのメソッドはエラーを返さないため、拒否された呼び出し（不正な UTF-8、XML が表せない文字、1&amp;laquo;24 を超える座標、&lt;code&gt;Limits&lt;/code&gt; を超える呼び出しやドキュメント）は破棄され、最初のエラーが &lt;code&gt;Err()&lt;/code&gt; と &lt;code&gt;SVG()&lt;/code&gt; で報告されます。ファズターゲットは出力をすべて &lt;code&gt;encoding/xml&lt;/code&gt; で解析し直し、ライタ自身が生成しない要素や属性があれば失敗します。&lt;/p&gt;
+&lt;p&gt;ピクセルペインタと比べると（純 Go の &lt;code&gt;go-gfx/gfx/svg&lt;/code&gt; でラスタライズした場合）、サンプルウィジェット、矩形、ビットマップテキスト、クリップ、平行移動はピクセル単位で一致します。パスの差はチャンネルあたり最大 1、アンチエイリアスされた角丸の差は最悪のシーンで、ピクセルの 7.5 % においてチャンネルあたり最大 61 です。&lt;/p&gt;
 &lt;h2 data-hextra-search-id="trying-it"&gt;試してみる&lt;span class="hx:absolute hx:-mt-20" id="trying-it"&gt;&lt;/span&gt;
 &lt;a href="#trying-it" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;リポジトリ自身のデモは、同じ 3 つのウィジェットを両方のペインタで描画します。&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;

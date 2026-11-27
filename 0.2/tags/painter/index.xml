@@ -110,6 +110,77 @@ data-copied-label="Copied!"
 &lt;/table&gt;
 &lt;p&gt;The buffer stays the caller&amp;rsquo;s. A &lt;code&gt;PixelPainter&lt;/code&gt; only translates primitives
 into writes, so the same &lt;code&gt;[]byte&lt;/code&gt; can be handed to a window back-end, a&lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; or an image encoder without a copy in between.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="recording-to-svg"&gt;Recording to SVG&lt;span class="hx:absolute hx:-mt-20" id="recording-to-svg"&gt;&lt;/span&gt;
+&lt;a href="#recording-to-svg" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;svgrec.Recorder&lt;/code&gt; (package &lt;code&gt;github.com/go-widgets/painter/svgrec&lt;/code&gt;) is a third
+painter: it turns the same calls into a &lt;strong&gt;native SVG document&lt;/strong&gt;, &lt;code&gt;&amp;lt;rect&amp;gt;&lt;/code&gt;,&lt;code&gt;&amp;lt;path&amp;gt;&lt;/code&gt; and &lt;code&gt;&amp;lt;clipPath&amp;gt;&lt;/code&gt; elements, and an &lt;code&gt;&amp;lt;image&amp;gt;&lt;/code&gt; only where a raster is
+really drawn. The result is lossless and resizable, and deterministic: the same
+calls give the same bytes.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;r&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;_&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;svgrec&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;New&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1000&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;700&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;widget&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Draw&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;r&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;painter&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;LightTheme&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;doc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;r&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;SVG&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// err is the first call that was refused, if any&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copy code"
+aria-label="Copy code"
+data-copied-label="Copied!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;It implements &lt;code&gt;Clipper&lt;/code&gt;, &lt;code&gt;Translator&lt;/code&gt;, &lt;code&gt;PathPainter&lt;/code&gt;, &lt;code&gt;ImagePainter&lt;/code&gt; and&lt;code&gt;MaskPainter&lt;/code&gt;. Where SVG has no faithful equivalent the mapping says so rather
+than approximating silently:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Call&lt;/th&gt;
+&lt;th&gt;SVG&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;FillRect&lt;/code&gt;, &lt;code&gt;PutPixel&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;rect&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;FillRoundRect&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;rect rx&amp;gt;&lt;/code&gt;; the corner is anti-aliased differently from the pixel painter&amp;rsquo;s&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;StrokeRect&lt;/code&gt;, &lt;code&gt;StrokeRoundRect&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;an &lt;code&gt;evenodd&lt;/code&gt; frame, rings drawn inward as the pixel painter does&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Text&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;glyph outlines (below)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;PushClip&lt;/code&gt; / &lt;code&gt;PushTranslate&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;clipPath&amp;gt;&lt;/code&gt; plus a nested &lt;code&gt;&amp;lt;g&amp;gt;&lt;/code&gt;; translation is applied to the coordinates&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;FillPath&lt;/code&gt;, &lt;code&gt;StrokePath&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;path&amp;gt;&lt;/code&gt;; a stroke width is in user units, so it scales with the viewBox, and a zero-length subpath paints a dot in SVG where the pixel painter paints nothing&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;DrawImage&lt;/code&gt;, &lt;code&gt;DrawMask&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;image&amp;gt;&lt;/code&gt; with a PNG data URI&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;Text becomes outlines, not &lt;code&gt;&amp;lt;text&amp;gt;&lt;/code&gt;.&lt;/strong&gt; The built-in 5x7 font is a pixel grid,so each string is one &lt;code&gt;&amp;lt;path&amp;gt;&lt;/code&gt; of merged runs, wrapped in a &lt;code&gt;&amp;lt;g&amp;gt;&lt;/code&gt; whose&lt;code&gt;&amp;lt;title&amp;gt;&lt;/code&gt; holds the text for assistive technology. An embedded subset font
+would need a font writer and a viewer that honours it, and a viewer that does
+not would fall back to another face and move the layout. The cost: the text is
+not selectable. Text set in a TrueType face is not recorded as outlines yet;&lt;code&gt;FacePainter&lt;/code&gt; is not offered, so it arrives as a raster &lt;code&gt;DrawMask&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Painter methods return no error, so a refused call (invalid UTF-8, a character
+XML cannot carry, a coordinate beyond 1&amp;laquo;24, a call or document over its&lt;code&gt;Limits&lt;/code&gt;) is dropped and the first error is reported by &lt;code&gt;Err()&lt;/code&gt; and &lt;code&gt;SVG()&lt;/code&gt;.The fuzz targets parse every output back with &lt;code&gt;encoding/xml&lt;/code&gt; and fail on any
+element or attribute the writer does not own.&lt;/p&gt;
+&lt;p&gt;Against the pixel painter, rasterised with the pure-Go &lt;code&gt;go-gfx/gfx/svg&lt;/code&gt;, the
+sample widgets, rectangles, bitmap text, clips and translation match to the
+pixel; paths differ by at most 1 in a channel; anti-aliased rounded corners by
+up to 61 in a channel on 7.5 % of the pixels of the worst scene.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="trying-it"&gt;Trying it&lt;span class="hx:absolute hx:-mt-20" id="trying-it"&gt;&lt;/span&gt;
 &lt;a href="#trying-it" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;The repository&amp;rsquo;s own demos draw the same three widgets through both painters:&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;

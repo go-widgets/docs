@@ -110,6 +110,84 @@ data-copied-label="Copié !"
 &lt;/table&gt;
 &lt;p&gt;Le tampon reste celui de l&amp;rsquo;appelant. Un &lt;code&gt;PixelPainter&lt;/code&gt; ne fait que traduire les primitives
 en écritures, si bien que le même &lt;code&gt;[]byte&lt;/code&gt; peut être remis à un back-end de fenêtre, à un&lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; ou à un encodeur d&amp;rsquo;images sans copie intermédiaire.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="recording-to-svg"&gt;Enregistrer en SVG&lt;span class="hx:absolute hx:-mt-20" id="recording-to-svg"&gt;&lt;/span&gt;
+&lt;a href="#recording-to-svg" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;svgrec.Recorder&lt;/code&gt; (paquet &lt;code&gt;github.com/go-widgets/painter/svgrec&lt;/code&gt;) est un troisième
+painter : il transforme les mêmes appels en un &lt;strong&gt;document SVG natif&lt;/strong&gt;, des éléments&lt;code&gt;&amp;lt;rect&amp;gt;&lt;/code&gt;, &lt;code&gt;&amp;lt;path&amp;gt;&lt;/code&gt; et &lt;code&gt;&amp;lt;clipPath&amp;gt;&lt;/code&gt;, et un &lt;code&gt;&amp;lt;image&amp;gt;&lt;/code&gt; uniquement là où un raster est
+réellement dessiné. Le résultat est sans perte et redimensionnable, et déterministe :les mêmes appels donnent les mêmes octets.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;r&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;_&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;svgrec&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;New&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1000&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;700&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;widget&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Draw&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;r&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;painter&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;LightTheme&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;doc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;r&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;SVG&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// err is the first call that was refused, if any&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copier le code"
+aria-label="Copier le code"
+data-copied-label="Copié !"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Il implémente &lt;code&gt;Clipper&lt;/code&gt;, &lt;code&gt;Translator&lt;/code&gt;, &lt;code&gt;PathPainter&lt;/code&gt;, &lt;code&gt;ImagePainter&lt;/code&gt; et&lt;code&gt;MaskPainter&lt;/code&gt;. Là où SVG n&amp;rsquo;a pas d&amp;rsquo;équivalent fidèle, la correspondance le dit
+plutôt que d&amp;rsquo;approximer en silence :&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Appel&lt;/th&gt;
+&lt;th&gt;SVG&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;FillRect&lt;/code&gt;, &lt;code&gt;PutPixel&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;rect&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;FillRoundRect&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;rect rx&amp;gt;&lt;/code&gt; ; le coin est anticrénelé différemment de celui du pixel painter&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;StrokeRect&lt;/code&gt;, &lt;code&gt;StrokeRoundRect&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;un cadre &lt;code&gt;evenodd&lt;/code&gt;, anneaux dessinés vers l&amp;rsquo;intérieur comme le fait le pixel painter&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Text&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;contours de glyphes (ci-dessous)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;PushClip&lt;/code&gt; / &lt;code&gt;PushTranslate&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;clipPath&amp;gt;&lt;/code&gt; plus un &lt;code&gt;&amp;lt;g&amp;gt;&lt;/code&gt; imbriqué ; la translation est appliquée aux coordonnées&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;FillPath&lt;/code&gt;, &lt;code&gt;StrokePath&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;path&amp;gt;&lt;/code&gt; ; une largeur de trait est exprimée en unités utilisateur, elle suit donc la viewBox, et un sous-chemin de longueur nulle peint un point en SVG là où le pixel painter ne peint rien&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;DrawImage&lt;/code&gt;, &lt;code&gt;DrawMask&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;image&amp;gt;&lt;/code&gt; avec une URI de données PNG&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;Le texte devient des contours, pas du &lt;code&gt;&amp;lt;text&amp;gt;&lt;/code&gt;.&lt;/strong&gt; La police 5x7 intégrée est une
+grille de pixels : chaque chaîne est donc un seul &lt;code&gt;&amp;lt;path&amp;gt;&lt;/code&gt; de segments fusionnés,enveloppé dans un &lt;code&gt;&amp;lt;g&amp;gt;&lt;/code&gt; dont le &lt;code&gt;&amp;lt;title&amp;gt;&lt;/code&gt; contient le texte pour les technologies
+d&amp;rsquo;assistance. Une police embarquée en sous-ensemble exigerait un écrivain de
+polices et un visualiseur qui la respecte, et un visualiseur qui ne le fait pas
+se rabattrait sur une autre police et décalerait la mise en page. Le coût : le
+texte n&amp;rsquo;est pas sélectionnable. Le texte composé dans une police TrueType n&amp;rsquo;est pas
+encore enregistré en contours ; &lt;code&gt;FacePainter&lt;/code&gt; n&amp;rsquo;est pas proposé, il arrive donc
+sous forme de &lt;code&gt;DrawMask&lt;/code&gt; raster.&lt;/p&gt;
+&lt;p&gt;Les méthodes du painter ne renvoient aucune erreur : un appel refusé (UTF-8
+invalide, un caractère que XML ne peut pas porter, une coordonnée au-delà de
+1&amp;laquo;24, un appel ou un document dépassant ses &lt;code&gt;Limits&lt;/code&gt;) est ignoré et la première
+erreur est rapportée par &lt;code&gt;Err()&lt;/code&gt; et &lt;code&gt;SVG()&lt;/code&gt;. Les cibles de fuzzing relisent chaque
+sortie avec &lt;code&gt;encoding/xml&lt;/code&gt; et échouent sur tout élément ou attribut que
+l&amp;rsquo;écrivain ne produit pas lui-même.&lt;/p&gt;
+&lt;p&gt;Comparé au pixel painter, rastérisé avec le &lt;code&gt;go-gfx/gfx/svg&lt;/code&gt; en Go pur, les
+widgets d&amp;rsquo;exemple, les rectangles, le texte bitmap, les clips et la translation
+coïncident au pixel près ; les chemins diffèrent d&amp;rsquo;au plus 1 dans un canal ; les
+coins arrondis anticrénelés, jusqu&amp;rsquo;à 61 dans un canal sur 7,5 % des pixels de la
+pire scène.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="trying-it"&gt;Essayer&lt;span class="hx:absolute hx:-mt-20" id="trying-it"&gt;&lt;/span&gt;
 &lt;a href="#trying-it" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Les démos du dépôt lui-même dessinent les trois mêmes widgets avec les deux painters :&lt;/p&gt;
 &lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
