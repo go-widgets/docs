@@ -58,6 +58,57 @@ Der Puffer bleibt im Besitz des Aufrufers. Ein `PixelPainter` übersetzt nur Pri
 in Schreibzugriffe, sodass derselbe `[]byte` an ein Fenster-Back-End, ein
 `<canvas>` oder einen Bild-Encoder übergeben werden kann, ohne dazwischen zu kopieren.
 
+## Als SVG aufzeichnen {#recording-to-svg}
+
+`svgrec.Recorder` (Paket `github.com/go-widgets/painter/svgrec`) ist ein dritter
+Painter: Er macht aus denselben Aufrufen ein **natives SVG-Dokument** aus den
+Elementen `<rect>`, `<path>` und `<clipPath>` sowie einem `<image>` nur dort, wo
+tatsächlich ein Raster gezeichnet wird. Das Ergebnis ist verlustfrei, skalierbar
+und deterministisch: Dieselben Aufrufe ergeben dieselben Bytes.
+
+```go
+r, _ := svgrec.New(1000, 700)
+widget.Draw(r, painter.LightTheme())
+doc, err := r.SVG() // err is the first call that was refused, if any
+```
+
+Er implementiert `Clipper`, `Translator`, `PathPainter`, `ImagePainter` und
+`MaskPainter`. Wo SVG kein getreues Gegenstück hat, sagt die Zuordnung das, statt
+stillschweigend zu approximieren:
+
+| Aufruf | SVG |
+|---|---|
+| `FillRect`, `PutPixel` | `<rect>` |
+| `FillRoundRect` | `<rect rx>`; die Ecke wird anders geglättet als beim Pixel-Painter |
+| `StrokeRect`, `StrokeRoundRect` | ein `evenodd`-Rahmen, Ringe nach innen gezeichnet wie beim Pixel-Painter |
+| `Text` | Glyphenumrisse (siehe unten) |
+| `PushClip` / `PushTranslate` | `<clipPath>` plus ein verschachteltes `<g>`; die Verschiebung wird auf die Koordinaten angewendet |
+| `FillPath`, `StrokePath` | `<path>`; eine Strichbreite steht in Benutzereinheiten und skaliert daher mit der viewBox, und ein Teilpfad der Länge null malt in SVG einen Punkt, wo der Pixel-Painter nichts malt |
+| `DrawImage`, `DrawMask` | `<image>` mit einer PNG-Daten-URI |
+
+**Text wird zu Umrissen, nicht zu `<text>`.** Die eingebaute 5x7-Schrift ist ein
+Pixelraster, daher wird jede Zeichenkette zu einem `<path>` aus zusammengefassten
+Läufen, eingefasst in ein `<g>`, dessen `<title>` den Text für Hilfstechnologien
+enthält. Eine eingebettete Teilmengen-Schrift bräuchte einen Font-Writer und einen
+Betrachter, der sie beachtet; ein Betrachter, der das nicht tut, würde auf eine
+andere Schrift ausweichen und das Layout verschieben. Der Preis: Der Text ist nicht
+auswählbar. In einer TrueType-Schrift gesetzter Text wird noch nicht als Umriss
+aufgezeichnet; `FacePainter` wird nicht angeboten, er kommt also als Raster-
+`DrawMask` an.
+
+Painter-Methoden geben keinen Fehler zurück, daher wird ein abgelehnter Aufruf
+(ungültiges UTF-8, ein Zeichen, das XML nicht tragen kann, eine Koordinate jenseits
+von 1<<24, ein Aufruf oder Dokument über seinen `Limits`) verworfen, und der erste
+Fehler wird von `Err()` und `SVG()` gemeldet. Die Fuzz-Targets parsen jede Ausgabe
+mit `encoding/xml` zurück und schlagen bei jedem Element oder Attribut fehl, das
+der Writer nicht selbst erzeugt.
+
+Gegenüber dem Pixel-Painter, gerastert mit dem reinen Go-Paket `go-gfx/gfx/svg`,
+stimmen die Beispiel-Widgets, Rechtecke, Bitmap-Text, Clips und Verschiebung
+pixelgenau überein; Pfade weichen um höchstens 1 in einem Kanal ab; geglättete
+runde Ecken um bis zu 61 in einem Kanal bei 7,5 % der Pixel der schlechtesten
+Szene.
+
 ## Ausprobieren {#trying-it}
 
 Die Demos des Repositorys zeichnen dieselben drei Widgets über beide Painter:

@@ -61,6 +61,57 @@ primitivas en escrituras, de modo que el mismo `[]byte` puede entregarse a un
 backend de ventana, a un `<canvas>` o a un codificador de imágenes sin ninguna
 copia intermedia.
 
+## Grabar a SVG {#recording-to-svg}
+
+`svgrec.Recorder` (paquete `github.com/go-widgets/painter/svgrec`) es un tercer
+painter: convierte las mismas llamadas en un **documento SVG nativo**, con
+elementos `<rect>`, `<path>` y `<clipPath>`, y un `<image>` solo donde de verdad
+se dibuja un raster. El resultado no tiene pérdidas, es redimensionable y es
+determinista: las mismas llamadas producen los mismos bytes.
+
+```go
+r, _ := svgrec.New(1000, 700)
+widget.Draw(r, painter.LightTheme())
+doc, err := r.SVG() // err is the first call that was refused, if any
+```
+
+Implementa `Clipper`, `Translator`, `PathPainter`, `ImagePainter` y
+`MaskPainter`. Donde SVG no tiene un equivalente fiel, la correspondencia lo dice
+en lugar de aproximar en silencio:
+
+| Llamada | SVG |
+|---|---|
+| `FillRect`, `PutPixel` | `<rect>` |
+| `FillRoundRect` | `<rect rx>`; la esquina se suaviza de forma distinta a la del pixel painter |
+| `StrokeRect`, `StrokeRoundRect` | un marco `evenodd`, con los anillos dibujados hacia dentro como hace el pixel painter |
+| `Text` | contornos de glifos (abajo) |
+| `PushClip` / `PushTranslate` | `<clipPath>` más un `<g>` anidado; la traslación se aplica a las coordenadas |
+| `FillPath`, `StrokePath` | `<path>`; el grosor del trazo está en unidades de usuario, así que escala con el viewBox, y un subtrazado de longitud cero pinta un punto en SVG donde el pixel painter no pinta nada |
+| `DrawImage`, `DrawMask` | `<image>` con un URI de datos PNG |
+
+**El texto se convierte en contornos, no en `<text>`.** La fuente integrada de 5x7
+es una cuadrícula de píxeles, así que cada cadena es un único `<path>` de tramos
+fusionados, envuelto en un `<g>` cuyo `<title>` contiene el texto para las
+tecnologías de asistencia. Una fuente incrustada con un subconjunto de glifos
+necesitaría un escritor de fuentes y un visor que la respete, y un visor que no
+lo haga recurriría a otra tipografía y movería el diseño. El coste: el texto no
+se puede seleccionar. El texto compuesto con una fuente TrueType aún no se graba
+como contornos; `FacePainter` no se ofrece, así que llega como un `DrawMask`
+raster.
+
+Los métodos del painter no devuelven error, por lo que una llamada rechazada
+(UTF-8 no válido, un carácter que XML no puede transportar, una coordenada por
+encima de 1<<24, una llamada o un documento que supere sus `Limits`) se descarta
+y el primer error lo informan `Err()` y `SVG()`. Los destinos de fuzzing vuelven a
+analizar cada salida con `encoding/xml` y fallan ante cualquier elemento o
+atributo que el escritor no genere él mismo.
+
+Frente al pixel painter, rasterizado con el `go-gfx/gfx/svg` en Go puro, los
+widgets de ejemplo, los rectángulos, el texto de mapa de bits, los recortes y la
+traslación coinciden al píxel; los trazados difieren como máximo en 1 en un
+canal; las esquinas redondeadas suavizadas, hasta en 61 en un canal en el 7,5 %
+de los píxeles de la peor escena.
+
 ## Probarlo {#trying-it}
 
 Las demos del propio repositorio dibujan los mismos tres widgets a través de
