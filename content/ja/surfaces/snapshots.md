@@ -28,3 +28,24 @@ widget.PNG(p, btn, 200, 40, toolkit.DefaultLight())
 
 `svg/cmd/gallery-render` は、ウィジェットのカタログをライトとダークでレンダリングします：
 [go-widgets.github.io/svg](https://go-widgets.github.io/svg/)。
+
+## アニメーション SVG
+
+`svg.Animate` は、時刻付きの SVG フレームの一覧（たとえば painter の
+[`svgrec`](../../rendering/painter/) レコーダーの出力）を 1 つのアニメーション SVG
+にまとめます。フレーム間で変わらないサブツリーは `<defs>` に 1 回だけ保存され、
+`<use>` で再利用されます。連続する同一フレームは統合され、タイミングは純粋な
+CSS（`@keyframes`、スクリプトなし）で、`prefers-reduced-motion` で停止します。
+
+```go
+out, err := svg.Animate([]svg.Frame{
+    {At: 0, SVG: first},
+    {At: 100 * time.Millisecond, SVG: second},
+}, svg.Options{End: time.Second, Title: "demo"})
+```
+
+1000×700 の 60 フレームで、一部だけが動く画面は 1.49 MB から 65 KB
+（22.9 分の 1）に、静止画面は 24 KB（60 分の 1）になります。入力は許可リストで
+解析され、上限（フレーム数、バイト数、時間、サイズ）があり、拒否はすべて型付き
+エラーです。`Document.Video` は、2 つの小さなインターフェースで渡すラスタライザと
+動画エンコーダを駆動します。WebM エンコーダは同梱されていません。

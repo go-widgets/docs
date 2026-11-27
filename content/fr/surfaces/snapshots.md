@@ -29,3 +29,26 @@ doté de son propre producteur de pixels n'entraîne pas la boîte à outils dan
 
 `svg/cmd/gallery-render` rend le catalogue de widgets, en clair et en sombre :
 [go-widgets.github.io/svg](https://go-widgets.github.io/svg/).
+
+## SVG animé
+
+`svg.Animate` assemble une liste d'images SVG datées (par exemple issues de
+l'enregistreur [`svgrec`](../../rendering/painter/) du peintre) en un seul SVG
+animé. Chaque sous-arbre qui ne change pas d'une image à l'autre est stocké une
+fois dans `<defs>` et réutilisé par `<use>` ; les images successives identiques
+fusionnent, et le minutage est du pur CSS (`@keyframes`, aucun script),
+interrompu par `prefers-reduced-motion`.
+
+```go
+out, err := svg.Animate([]svg.Frame{
+    {At: 0, SVG: first},
+    {At: 100 * time.Millisecond, SVG: second},
+}, svg.Options{End: time.Second, Title: "demo"})
+```
+
+Sur 60 images de 1000×700, un écran avec une zone vivante passe de 1,49 Mo
+d'images à 65 Ko (22,9 fois plus petit) ; un écran statique à 24 Ko (60 fois).
+L'entrée est analysée par liste blanche et bornée (images, octets, durée,
+taille), et chaque refus est une erreur typée. `Document.Video` pilote un
+rastériseur et un encodeur vidéo que vous fournissez via deux petites
+interfaces ; aucun encodeur WebM n'est inclus.

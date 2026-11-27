@@ -26,3 +26,22 @@ widget.PNG(p, btn, 200, 40, toolkit.DefaultLight())
 
 `svg/cmd/gallery-render` 以浅色和深色渲染控件目录：
 [go-widgets.github.io/svg](https://go-widgets.github.io/svg/)。
+
+## 动画 SVG
+
+`svg.Animate` 把一组带时间的 SVG 帧（例如来自 painter 的
+[`svgrec`](../../rendering/painter/) 录制器）拼成一个动画 SVG。帧与帧之间没有
+变化的子树只在 `<defs>` 中保存一次，并用 `<use>` 复用；相邻的相同帧会合并，
+时序是纯 CSS（`@keyframes`，没有脚本），可被 `prefers-reduced-motion` 停止。
+
+```go
+out, err := svg.Animate([]svg.Frame{
+    {At: 0, SVG: first},
+    {At: 100 * time.Millisecond, SVG: second},
+}, svg.Options{End: time.Second, Title: "demo"})
+```
+
+对 60 帧 1000×700 的画面，只有一个区域在变化的屏幕从 1.49 MB 缩小到 65 KB
+（缩小 22.9 倍），静态屏幕缩小到 24 KB（60 倍）。输入用允许列表解析并有上限
+（帧数、字节数、时长、尺寸），每次拒绝都是带类型的错误。`Document.Video` 驱动由您
+通过两个小接口提供的光栅化器和视频编码器；不附带 WebM 编码器。
