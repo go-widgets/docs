@@ -301,6 +301,32 @@ btn.Icon = toolkit.SVGGlyph(tabler.MustSVG(tabler.Settings), 16, 24)
 `SVGGlyph` braucht toolkit v0.402.0 oder neuer. Eine `ListPane` nimmt solche Buttons
 in ihrem Feld `Extra` auf, neben ihren eigenen Buttons zum Hinzufügen und Entfernen.
 
+## Umbrochener Text und Logos {#wrap-logo}
+
+Seit v0.404.0 bricht ein `Label` mit `Wrap = true` seinen Text an seinen Grenzen
+um, und `Label.HeightFor(width)` und `Button.HeightFor(width)` liefern die bei
+einer Breite nötige Höhe. Auch eine `Button`-Beschriftung, die breiter als der
+Button ist, wird umbrochen. `toolkit.WrapLines(font, text, width)` ist der
+zugrunde liegende Umbruch: Er trennt an Leerzeichen und Zeilenumbrüchen sowie
+zwischen Runen in einem Wort, das breiter als die Zeile ist.
+
+```go
+lbl := toolkit.NewLabel("Eine lange Beschriftung ohne Auslassungspunkte")
+lbl.Wrap = true
+h := lbl.HeightFor(240) // bei 240 Pixel Breite nötige Höhe
+```
+
+`toolkit.NewLogo(name, docFunc)` ist ein quadratisches Widget mit der Rolle
+`image`; ein leeres Dokument zeichnet das Programmzeichen. `toolkit.LogoRows(row)`
+ist ein `ListBox.ItemRenderer`, der je Zeile ein Logo mit umbrochenem Titel und
+Untertitel zeichnet (`row(i)` liefert ein `LogoRow{Doc, Title, Subtitle}`); Text
+wird nur dann mit Auslassungspunkten gekürzt, wenn die feste Zeilenhöhe die
+Zeilen nicht fasst.
+
+`tabler-icons` v0.2.0 bringt 13 Icons: `PlugConnected`, `PlugConnectedX`,
+`Login`, `Logout`, `Pencil`, `Refresh`, `ExternalLink`, `X`, `Trash`,
+`ArrowLeft`, `ArrowRight`, `Check` und `Plus`.
+
 ## Binärgröße: ein Programm linkt, was es benutzt {#binary-size}
 
 Das Toolkit ist ein großes Paket, und für den Linker ist das in Ordnung: Die

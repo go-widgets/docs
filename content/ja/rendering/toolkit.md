@@ -219,6 +219,30 @@ btn.Icon = toolkit.SVGGlyph(tabler.MustSVG(tabler.Settings), 16, 24)
 `SVGGlyph` には toolkit v0.402.0 以降が必要です。`ListPane` は、追加・削除ボタンの
 隣に、こうしたボタンを `Extra` フィールドで受け取ります。
 
+## 折り返しテキストとロゴ {#wrap-logo}
+
+v0.404.0 から、`Wrap = true` の `Label` はテキストを自身の範囲に合わせて折り返し、
+`Label.HeightFor(width)` と `Button.HeightFor(width)` は、その幅で必要な高さを返します。
+ボタンより幅の広い `Button` のキャプションも折り返されます。
+`toolkit.WrapLines(font, text, width)` が折り返しの本体で、スペースと改行で分割し、
+行より幅の広い単語はルーン単位で分割します。
+
+```go
+lbl := toolkit.NewLabel("省略記号がもう要らない長いキャプション")
+lbl.Wrap = true
+h := lbl.HeightFor(240) // 幅 240 で必要なピクセル数
+```
+
+`toolkit.NewLogo(name, docFunc)` は役割が `image` の正方形ウィジェットで、ドキュメントが
+空ならアプリケーションのマークを描きます。`toolkit.LogoRows(row)` は `ListBox.ItemRenderer`
+で、行ごとにロゴと、折り返されるタイトルおよびサブタイトルを描きます（`row(i)` は
+`LogoRow{Doc, Title, Subtitle}` を返します）。固定の行高さに収まらない場合に限り、
+テキストは省略記号で切り詰められます。
+
+`tabler-icons` v0.2.0 で 13 個のアイコンが加わりました。`PlugConnected`、`PlugConnectedX`、
+`Login`、`Logout`、`Pencil`、`Refresh`、`ExternalLink`、`X`、`Trash`、`ArrowLeft`、
+`ArrowRight`、`Check`、`Plus` です。
+
 ## バイナリサイズ：プログラムは使うものだけをリンクする {#binary-size}
 
 ツールキットは 1 つの大きなパッケージですが、リンカにとっては問題ありません。Go のデッドコード除去は、

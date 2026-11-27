@@ -230,6 +230,29 @@ btn.Icon = toolkit.SVGGlyph(tabler.MustSVG(tabler.Settings), 16, 24)
 `SVGGlyph`에는 toolkit v0.402.0 이상이 필요합니다. `ListPane`은 추가·제거 버튼 옆에
 이런 버튼을 `Extra` 필드로 받습니다.
 
+## 줄바꿈 텍스트와 로고 {#wrap-logo}
+
+v0.404.0부터 `Wrap = true`인 `Label`은 텍스트를 자신의 영역에 맞춰 줄바꿈하고,
+`Label.HeightFor(width)`와 `Button.HeightFor(width)`는 해당 너비에서 필요한 높이를
+돌려줍니다. 버튼보다 넓은 `Button` 캡션도 줄바꿈됩니다.
+`toolkit.WrapLines(font, text, width)`가 바탕이 되는 분할기로, 공백과 줄바꿈에서
+나누고 줄보다 넓은 단어는 룬 사이에서 나눕니다.
+
+```go
+lbl := toolkit.NewLabel("말줄임표가 더는 필요 없는 긴 캡션")
+lbl.Wrap = true
+h := lbl.HeightFor(240) // 너비 240에서 필요한 픽셀 수
+```
+
+`toolkit.NewLogo(name, docFunc)`는 역할이 `image`인 정사각형 위젯이며, 문서가 비어
+있으면 애플리케이션 마크를 그립니다. `toolkit.LogoRows(row)`는 `ListBox.ItemRenderer`로,
+행마다 로고와 줄바꿈되는 제목·부제를 그립니다(`row(i)`는 `LogoRow{Doc, Title, Subtitle}`를
+돌려줍니다). 고정된 행 높이에 줄이 들어가지 않을 때만 텍스트를 말줄임표로 자릅니다.
+
+`tabler-icons` v0.2.0은 아이콘 13개를 추가합니다. `PlugConnected`, `PlugConnectedX`,
+`Login`, `Logout`, `Pencil`, `Refresh`, `ExternalLink`, `X`, `Trash`, `ArrowLeft`,
+`ArrowRight`, `Check`, `Plus`입니다.
+
 ## 바이너리 크기: 프로그램은 사용하는 것만 링크합니다 {#binary-size}
 
 툴킷은 하나의 큰 패키지이지만 링커에게는 문제가 되지 않습니다. Go의 데드 코드 제거는

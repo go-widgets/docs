@@ -207,6 +207,28 @@ btn.Icon = toolkit.SVGGlyph(tabler.MustSVG(tabler.Settings), 16, 24)
 `SVGGlyph` 需要 toolkit v0.402.0 或更高版本。`ListPane` 在自带的添加和删除按钮旁，
 通过 `Extra` 字段接受这类按钮。
 
+## 自动换行的文本与徽标 {#wrap-logo}
+
+自 v0.404.0 起，`Wrap = true` 的 `Label` 会按自身边界换行，`Label.HeightFor(width)` 和
+`Button.HeightFor(width)` 返回在给定宽度下所需的高度。比按钮更宽的 `Button` 标题同样会换行。
+`toolkit.WrapLines(font, text, width)` 是底层的断行函数：在空格和换行处断开，
+对比整行还宽的单词则在字符（rune）之间断开。
+
+```go
+lbl := toolkit.NewLabel("不再需要省略号的长标题")
+lbl.Wrap = true
+h := lbl.HeightFor(240) // 宽度为 240 时所需的像素高度
+```
+
+`toolkit.NewLogo(name, docFunc)` 是角色为 `image` 的正方形部件，文档为空时绘制应用标志。
+`toolkit.LogoRows(row)` 是一个 `ListBox.ItemRenderer`，每行绘制一个徽标，
+以及自动换行的标题和副标题（`row(i)` 返回 `LogoRow{Doc, Title, Subtitle}`）；
+只有固定行高容纳不下这些行时，文本才会以省略号截断。
+
+`tabler-icons` v0.2.0 新增 13 个图标：`PlugConnected`、`PlugConnectedX`、`Login`、
+`Logout`、`Pencil`、`Refresh`、`ExternalLink`、`X`、`Trash`、`ArrowLeft`、
+`ArrowRight`、`Check` 和 `Plus`。
+
 ## 二进制体积：程序只链接它用到的部分 {#binary-size}
 
 工具包是一个很大的包，这对链接器来说没有问题：Go 的死代码消除只保留从 `main.main` **以及每个被导入包的初始化任务**
