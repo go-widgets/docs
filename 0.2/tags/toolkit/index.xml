@@ -467,4 +467,85 @@ on &lt;code&gt;StatusError()&lt;/code&gt;. In js/wasm the tree never calls &lt;c
 called on the UI goroutine, and the tree cannot tell such a &lt;code&gt;Status&lt;/code&gt; from one that
 only reads a snapshot, so it refuses both. A &lt;code&gt;Status&lt;/code&gt; used in the browser must
 therefore be safe to call from another goroutine: a round trip, or a
-mutex-guarded or immutable snapshot. Native builds are unchanged.&lt;/p&gt;</description></item></channel></rss>
+mutex-guarded or immutable snapshot. Native builds are unchanged.&lt;/p&gt;</description></item><item><title>Your app's languages and light/dark mode</title><link>https://go-widgets.github.io/docs/0.2/rendering/i18n-theme/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://go-widgets.github.io/docs/0.2/rendering/i18n-theme/</guid><description>
+&lt;p&gt;Since toolkit v0.403.0 the package has three small pieces for an application
+that speaks several languages and offers a light and a dark look.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="catalog"&gt;Catalog&lt;span class="hx:absolute hx:-mt-20" id="catalog"&gt;&lt;/span&gt;
+&lt;a href="#catalog" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;The toolkit&amp;rsquo;s own words stay with &lt;code&gt;SetLocalizer&lt;/code&gt; and &lt;code&gt;Tr&lt;/code&gt;. A &lt;code&gt;Catalog&lt;/code&gt; holds
+the words the &lt;em&gt;application&lt;/em&gt; writes: one &lt;code&gt;key -&amp;gt; text&lt;/code&gt; table per locale, and a
+fallback locale that answers for the others.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;cat&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewCatalog&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;en&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;Add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;en&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;map&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;save&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Save&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;count&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;%d items&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;}).&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;Add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;fr&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;map&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;save&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Enregistrer&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;count&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;%d éléments&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;loc&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;cat&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Negotiate&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;browserLanguages&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// &amp;#34;fr&amp;#34; for []string{&amp;#34;fr-CA&amp;#34;, &amp;#34;en&amp;#34;}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;SetLocalizer&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;cat&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Localizer&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;loc&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copy code"
+aria-label="Copy code"
+data-copied-label="Copied!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Add(locale, msgs)&lt;/code&gt; merges into that locale&amp;rsquo;s table and returns the catalog,so calls chain. Tags are compared in lower case with &lt;code&gt;-&lt;/code&gt; separators(&lt;code&gt;fr_CA&lt;/code&gt; and &lt;code&gt;FR-ca&lt;/code&gt; are both &lt;code&gt;fr-ca&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Lookup(locale, key)&lt;/code&gt; answers from the locale&amp;rsquo;s own table or, for a regional
+tag with no table (&lt;code&gt;fr-ca&lt;/code&gt;), from its language&amp;rsquo;s (&lt;code&gt;fr&lt;/code&gt;); it does not use the
+fallback, and &lt;code&gt;ok&lt;/code&gt; is false for a missing key.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Text(locale, key)&lt;/code&gt; is &lt;code&gt;Lookup&lt;/code&gt;, then the fallback locale&amp;rsquo;s text, else &lt;code&gt;&amp;quot;&amp;quot;&lt;/code&gt;.A half-translated table therefore shows English, never a key.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Localizer(locale)&lt;/code&gt; is the function &lt;code&gt;SetLocalizer&lt;/code&gt; takes.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Fallback()&lt;/code&gt;, &lt;code&gt;Locales()&lt;/code&gt; and &lt;code&gt;Keys()&lt;/code&gt; list what the catalog holds, sorted.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 data-hextra-search-id="negotiatelocale"&gt;NegotiateLocale&lt;span class="hx:absolute hx:-mt-20" id="negotiatelocale"&gt;&lt;/span&gt;
+&lt;a href="#negotiatelocale" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;NegotiateLocale(requested, available, fallback)&lt;/code&gt; picks the entry of&lt;code&gt;available&lt;/code&gt; that best answers &lt;code&gt;requested&lt;/code&gt;, most wanted first (a browser&amp;rsquo;s&lt;code&gt;navigator.languages&lt;/code&gt;). For each requested tag, an exact match (case
+ignored, &lt;code&gt;_&lt;/code&gt; read as &lt;code&gt;-&lt;/code&gt;) wins, else an available locale of the same language(&lt;code&gt;fr-CA&lt;/code&gt; is answered by &lt;code&gt;fr&lt;/code&gt;, &lt;code&gt;fr&lt;/code&gt; by &lt;code&gt;fr-FR&lt;/code&gt;); the first requested tag that is
+answered wins. None: &lt;code&gt;fallback&lt;/code&gt;. A &lt;code&gt;;q=&lt;/code&gt; weight is read without its value.&lt;code&gt;Catalog.Negotiate(requested)&lt;/code&gt; is the same over the catalog&amp;rsquo;s own locales.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="i18ntest"&gt;i18ntest&lt;span class="hx:absolute hx:-mt-20" id="i18ntest"&gt;&lt;/span&gt;
+&lt;a href="#i18ntest" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;A catalog that is translated halfway is a bug you only see in one language.&lt;code&gt;i18ntest.Check&lt;/code&gt; turns it into a failing test:&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;TestCatalogIsComplete&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;t&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nx"&gt;testing&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;T&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;i18ntest&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Check&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;t&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;catalog&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copy code"
+aria-label="Copy code"
+data-copied-label="Copied!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;It fails once per locale that lacks keys (naming them), once per translation
+whose &lt;code&gt;fmt&lt;/code&gt; verbs differ from the fallback&amp;rsquo;s (a dropped or reordered &lt;code&gt;%d&lt;/code&gt;
+would print garbage), and when the catalog has no locale at all. &lt;code&gt;Missing()&lt;/code&gt;
+and &lt;code&gt;VerbMismatches()&lt;/code&gt; on the catalog give the same lists to your own code.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="thememanager"&gt;ThemeManager&lt;span class="hx:absolute hx:-mt-20" id="thememanager"&gt;&lt;/span&gt;
+&lt;a href="#thememanager" class="subheading-anchor" aria-label="Permalink for this section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;A &lt;code&gt;ThemeFamily&lt;/code&gt; is a theme in its two variants (&lt;code&gt;Name&lt;/code&gt;, &lt;code&gt;Light&lt;/code&gt;, &lt;code&gt;Dark&lt;/code&gt;).&lt;code&gt;default&lt;/code&gt;, &lt;code&gt;adwaita&lt;/code&gt;, &lt;code&gt;fluent&lt;/code&gt; and &lt;code&gt;whitesur&lt;/code&gt; are registered;&lt;code&gt;RegisterThemeFamily&lt;/code&gt; adds your own, &lt;code&gt;ThemeFamilyNamed&lt;/code&gt; and &lt;code&gt;ThemeFamilies&lt;/code&gt;
+read the registry. A &lt;code&gt;ThemeMode&lt;/code&gt; is the viewer&amp;rsquo;s choice: &lt;code&gt;ThemeSystem&lt;/code&gt; (the
+zero value, it follows the system), &lt;code&gt;ThemeLight&lt;/code&gt; or &lt;code&gt;ThemeDark&lt;/code&gt;; &lt;code&gt;String&lt;/code&gt;
+gives &lt;code&gt;&amp;quot;system&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;light&amp;quot;&lt;/code&gt; or &lt;code&gt;&amp;quot;dark&amp;quot;&lt;/code&gt;, the form to store, and&lt;code&gt;ParseThemeMode&lt;/code&gt; reads it back.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;m&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewThemeManager&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;family&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// ThemeSystem, system light&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;m&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Follow&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;colorScheme&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// ColorScheme: Dark() and Watch(f)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;unsub&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;m&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;OnChange&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;func&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;repaint&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;m&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Theme&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;m&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;SetMode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ThemeDark&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copy code"
+aria-label="Copy code"
+data-copied-label="Copied!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;Theme()&lt;/code&gt; builds the variant in effect; &lt;code&gt;Dark()&lt;/code&gt; says which it is. &lt;code&gt;SetMode&lt;/code&gt;
+and &lt;code&gt;SetFamily&lt;/code&gt; tell the subscribers when something changed. &lt;code&gt;Follow&lt;/code&gt; reads a&lt;code&gt;ColorScheme&lt;/code&gt; (in a browser, &lt;code&gt;prefers-color-scheme&lt;/code&gt;; in a test, a fake) and
+tracks it live, so &lt;code&gt;ThemeSystem&lt;/code&gt; repaints without a reload; &lt;code&gt;Close&lt;/code&gt; stops
+following. A manager is safe for use from several goroutines, and subscribers
+run outside its lock, so they may call back into it.&lt;/p&gt;</description></item></channel></rss>
