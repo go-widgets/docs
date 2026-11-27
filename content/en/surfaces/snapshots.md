@@ -29,3 +29,24 @@ with its own pixel producer does not pull the toolkit into its module graph.
 
 `svg/cmd/gallery-render` renders the widget catalogue, light and dark:
 [go-widgets.github.io/svg](https://go-widgets.github.io/svg/).
+
+## Animated SVG
+
+`svg.Animate` stitches a timed list of SVG frames (for example from the
+painter's [`svgrec`](../../rendering/painter/) recorder) into one animated SVG.
+Every subtree that does not change between frames is stored once in `<defs>`
+and reused with `<use>`; adjacent identical frames merge, and the timing is
+pure CSS (`@keyframes`, no script), stopped by `prefers-reduced-motion`.
+
+```go
+out, err := svg.Animate([]svg.Frame{
+    {At: 0, SVG: first},
+    {At: 100 * time.Millisecond, SVG: second},
+}, svg.Options{End: time.Second, Title: "demo"})
+```
+
+On 60 frames of 1000×700, a screen with one live region goes from 1.49 MB of
+frames to 65 KB (22.9× smaller); a static screen to 24 KB (60×). Input is
+parsed with an allowlist and bounded (frames, bytes, duration, size), and every
+refusal is a typed error. `Document.Video` drives a rasteriser and a video
+encoder you supply through two small interfaces; no WebM encoder is bundled.

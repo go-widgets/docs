@@ -30,3 +30,26 @@ grafo de módulos.
 
 `svg/cmd/gallery-render` renderiza el catálogo de widgets, en claro y en oscuro:
 [go-widgets.github.io/svg](https://go-widgets.github.io/svg/).
+
+## SVG animado
+
+`svg.Animate` une una lista de fotogramas SVG con tiempo (por ejemplo del
+grabador [`svgrec`](../../rendering/painter/) del painter) en un único SVG
+animado. Cada subárbol que no cambia entre fotogramas se guarda una vez en
+`<defs>` y se reutiliza con `<use>`; los fotogramas idénticos consecutivos se
+fusionan, y la temporización es CSS puro (`@keyframes`, sin script), detenida por
+`prefers-reduced-motion`.
+
+```go
+out, err := svg.Animate([]svg.Frame{
+    {At: 0, SVG: first},
+    {At: 100 * time.Millisecond, SVG: second},
+}, svg.Options{End: time.Second, Title: "demo"})
+```
+
+Con 60 fotogramas de 1000×700, una pantalla con una región viva pasa de 1,49 MB
+a 65 KB (22,9 veces menor); una pantalla estática, a 24 KB (60 veces). La
+entrada se analiza con una lista permitida y está acotada (fotogramas, bytes,
+duración, tamaño), y cada rechazo es un error tipado. `Document.Video` maneja un
+rasterizador y un codificador de vídeo que usted aporta mediante dos interfaces
+pequeñas; no se incluye ningún codificador WebM.

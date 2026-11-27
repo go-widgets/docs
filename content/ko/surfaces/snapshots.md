@@ -29,3 +29,24 @@ widget.PNG(p, btn, 200, 40, toolkit.DefaultLight())
 
 `svg/cmd/gallery-render`는 위젯 카탈로그를 밝은 테마와 어두운 테마로 렌더링합니다:
 [go-widgets.github.io/svg](https://go-widgets.github.io/svg/).
+
+## 애니메이션 SVG
+
+`svg.Animate`는 시각이 붙은 SVG 프레임 목록(예: painter의
+[`svgrec`](../../rendering/painter/) 레코더 출력)을 하나의 애니메이션 SVG로
+합칩니다. 프레임 사이에서 바뀌지 않는 하위 트리는 `<defs>`에 한 번만 저장되고
+`<use>`로 재사용됩니다. 연속된 동일 프레임은 병합되며, 타이밍은 순수 CSS
+(`@keyframes`, 스크립트 없음)이고 `prefers-reduced-motion`으로 멈춥니다.
+
+```go
+out, err := svg.Animate([]svg.Frame{
+    {At: 0, SVG: first},
+    {At: 100 * time.Millisecond, SVG: second},
+}, svg.Options{End: time.Second, Title: "demo"})
+```
+
+1000×700 프레임 60개에서, 일부 영역만 움직이는 화면은 1.49 MB에서 65 KB로
+(22.9배 작게), 정지 화면은 24 KB로(60배) 줄어듭니다. 입력은 허용 목록으로
+파싱되고 한도(프레임 수, 바이트, 시간, 크기)가 있으며, 모든 거부는 타입이 있는
+오류입니다. `Document.Video`는 두 개의 작은 인터페이스로 제공하는 래스터라이저와
+비디오 인코더를 구동합니다. WebM 인코더는 포함되어 있지 않습니다.
