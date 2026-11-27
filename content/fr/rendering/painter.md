@@ -58,6 +58,57 @@ Le tampon reste celui de l'appelant. Un `PixelPainter` ne fait que traduire les 
 en écritures, si bien que le même `[]byte` peut être remis à un back-end de fenêtre, à un
 `<canvas>` ou à un encodeur d'images sans copie intermédiaire.
 
+## Enregistrer en SVG {#recording-to-svg}
+
+`svgrec.Recorder` (paquet `github.com/go-widgets/painter/svgrec`) est un troisième
+painter : il transforme les mêmes appels en un **document SVG natif**, des éléments
+`<rect>`, `<path>` et `<clipPath>`, et un `<image>` uniquement là où un raster est
+réellement dessiné. Le résultat est sans perte et redimensionnable, et déterministe :
+les mêmes appels donnent les mêmes octets.
+
+```go
+r, _ := svgrec.New(1000, 700)
+widget.Draw(r, painter.LightTheme())
+doc, err := r.SVG() // err is the first call that was refused, if any
+```
+
+Il implémente `Clipper`, `Translator`, `PathPainter`, `ImagePainter` et
+`MaskPainter`. Là où SVG n'a pas d'équivalent fidèle, la correspondance le dit
+plutôt que d'approximer en silence :
+
+| Appel | SVG |
+|---|---|
+| `FillRect`, `PutPixel` | `<rect>` |
+| `FillRoundRect` | `<rect rx>` ; le coin est anticrénelé différemment de celui du pixel painter |
+| `StrokeRect`, `StrokeRoundRect` | un cadre `evenodd`, anneaux dessinés vers l'intérieur comme le fait le pixel painter |
+| `Text` | contours de glyphes (ci-dessous) |
+| `PushClip` / `PushTranslate` | `<clipPath>` plus un `<g>` imbriqué ; la translation est appliquée aux coordonnées |
+| `FillPath`, `StrokePath` | `<path>` ; une largeur de trait est exprimée en unités utilisateur, elle suit donc la viewBox, et un sous-chemin de longueur nulle peint un point en SVG là où le pixel painter ne peint rien |
+| `DrawImage`, `DrawMask` | `<image>` avec une URI de données PNG |
+
+**Le texte devient des contours, pas du `<text>`.** La police 5x7 intégrée est une
+grille de pixels : chaque chaîne est donc un seul `<path>` de segments fusionnés,
+enveloppé dans un `<g>` dont le `<title>` contient le texte pour les technologies
+d'assistance. Une police embarquée en sous-ensemble exigerait un écrivain de
+polices et un visualiseur qui la respecte, et un visualiseur qui ne le fait pas
+se rabattrait sur une autre police et décalerait la mise en page. Le coût : le
+texte n'est pas sélectionnable. Le texte composé dans une police TrueType n'est pas
+encore enregistré en contours ; `FacePainter` n'est pas proposé, il arrive donc
+sous forme de `DrawMask` raster.
+
+Les méthodes du painter ne renvoient aucune erreur : un appel refusé (UTF-8
+invalide, un caractère que XML ne peut pas porter, une coordonnée au-delà de
+1<<24, un appel ou un document dépassant ses `Limits`) est ignoré et la première
+erreur est rapportée par `Err()` et `SVG()`. Les cibles de fuzzing relisent chaque
+sortie avec `encoding/xml` et échouent sur tout élément ou attribut que
+l'écrivain ne produit pas lui-même.
+
+Comparé au pixel painter, rastérisé avec le `go-gfx/gfx/svg` en Go pur, les
+widgets d'exemple, les rectangles, le texte bitmap, les clips et la translation
+coïncident au pixel près ; les chemins diffèrent d'au plus 1 dans un canal ; les
+coins arrondis anticrénelés, jusqu'à 61 dans un canal sur 7,5 % des pixels de la
+pire scène.
+
 ## Essayer {#trying-it}
 
 Les démos du dépôt lui-même dessinent les trois mêmes widgets avec les deux painters :

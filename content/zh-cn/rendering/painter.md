@@ -51,6 +51,34 @@ if c, ok := p.(painter.Clipper); ok {
 
 缓冲区始终归调用方所有。`PixelPainter` 只是把图元翻译成写入操作，所以同一个 `[]byte` 可以直接交给窗口后端、`<canvas>` 或图像编码器，中间无需拷贝。
 
+## 录制为 SVG {#recording-to-svg}
+
+`svgrec.Recorder`（包 `github.com/go-widgets/painter/svgrec`）是第三种绘制器：它把同样的调用转换成**原生 SVG 文档**，由 `<rect>`、`<path>` 和 `<clipPath>` 元素组成，只有在确实绘制了光栅图的地方才使用 `<image>`。结果无损、可缩放，并且是确定性的：相同的调用得到相同的字节。
+
+```go
+r, _ := svgrec.New(1000, 700)
+widget.Draw(r, painter.LightTheme())
+doc, err := r.SVG() // err is the first call that was refused, if any
+```
+
+它实现了 `Clipper`、`Translator`、`PathPainter`、`ImagePainter` 和 `MaskPainter`。在 SVG 没有忠实对应物的地方，映射表会明说，而不是悄悄地近似：
+
+| 调用 | SVG |
+|---|---|
+| `FillRect`、`PutPixel` | `<rect>` |
+| `FillRoundRect` | `<rect rx>`；圆角的抗锯齿方式与像素绘制器不同 |
+| `StrokeRect`、`StrokeRoundRect` | 一个 `evenodd` 边框，环向内绘制，与像素绘制器一致 |
+| `Text` | 字形轮廓（见下文） |
+| `PushClip` / `PushTranslate` | `<clipPath>` 加一个嵌套的 `<g>`；平移直接作用于坐标 |
+| `FillPath`、`StrokePath` | `<path>`；描边宽度以用户单位计，因此随 viewBox 缩放；长度为零的子路径在 SVG 中会画出一个点，而像素绘制器什么也不画 |
+| `DrawImage`、`DrawMask` | 带 PNG 数据 URI 的 `<image>` |
+
+**文本变成轮廓，而不是 `<text>`。** 内置的 5x7 字体是像素网格，因此每个字符串是一个由合并后的连续段组成的 `<path>`，外面包一个 `<g>`，其 `<title>` 为辅助技术保存文本。嵌入子集字体需要字体写入器和遵循它的查看器；不遵循的查看器会回退到另一种字体，使版式错位。代价是：文本无法选中。用 TrueType 字体排版的文本目前还不会记录为轮廓；`FacePainter` 未提供，因此它以光栅 `DrawMask` 的形式出现。
+
+绘制器的方法不返回错误，因此被拒绝的调用（无效的 UTF-8、XML 无法承载的字符、超过 1<<24 的坐标、超出其 `Limits` 的调用或文档）会被丢弃，第一个错误由 `Err()` 和 `SVG()` 报告。模糊测试目标会用 `encoding/xml` 把每个输出重新解析，只要出现写入器自己不产生的元素或属性就判失败。
+
+与像素绘制器相比（用纯 Go 的 `go-gfx/gfx/svg` 光栅化），示例控件、矩形、位图文本、裁剪和平移与之逐像素一致；路径在单个通道上最多相差 1；抗锯齿圆角在最差场景中，对 7.5 % 的像素，单个通道最多相差 61。
+
 ## 试一试 {#trying-it}
 
 仓库自带的演示通过两种绘制器绘制同样的三个控件：
