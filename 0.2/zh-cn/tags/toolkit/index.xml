@@ -259,6 +259,25 @@ data-copied-label="已复制！"
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;&lt;code&gt;SVGGlyph&lt;/code&gt; 需要 toolkit v0.402.0 或更高版本。&lt;code&gt;ListPane&lt;/code&gt; 在自带的添加和删除按钮旁，通过 &lt;code&gt;Extra&lt;/code&gt; 字段接受这类按钮。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="wrap-logo"&gt;自动换行的文本与徽标&lt;span class="hx:absolute hx:-mt-20" id="wrap-logo"&gt;&lt;/span&gt;
+&lt;a href="#wrap-logo" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;自 v0.404.0 起，&lt;code&gt;Wrap = true&lt;/code&gt; 的 &lt;code&gt;Label&lt;/code&gt; 会按自身边界换行，&lt;code&gt;Label.HeightFor(width)&lt;/code&gt; 和&lt;code&gt;Button.HeightFor(width)&lt;/code&gt; 返回在给定宽度下所需的高度。比按钮更宽的 &lt;code&gt;Button&lt;/code&gt; 标题同样会换行。&lt;code&gt;toolkit.WrapLines(font, text, width)&lt;/code&gt; 是底层的断行函数：在空格和换行处断开，对比整行还宽的单词则在字符（rune）之间断开。&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;lbl&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewLabel&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;不再需要省略号的长标题&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;lbl&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Wrap&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;h&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;lbl&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;HeightFor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;240&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// 宽度为 240 时所需的像素高度&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="复制代码"
+aria-label="复制代码"
+data-copied-label="已复制！"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;toolkit.NewLogo(name, docFunc)&lt;/code&gt; 是角色为 &lt;code&gt;image&lt;/code&gt; 的正方形部件，文档为空时绘制应用标志。&lt;code&gt;toolkit.LogoRows(row)&lt;/code&gt; 是一个 &lt;code&gt;ListBox.ItemRenderer&lt;/code&gt;，每行绘制一个徽标，以及自动换行的标题和副标题（&lt;code&gt;row(i)&lt;/code&gt; 返回 &lt;code&gt;LogoRow{Doc, Title, Subtitle}&lt;/code&gt;）；只有固定行高容纳不下这些行时，文本才会以省略号截断。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;tabler-icons&lt;/code&gt; v0.2.0 新增 13 个图标：&lt;code&gt;PlugConnected&lt;/code&gt;、&lt;code&gt;PlugConnectedX&lt;/code&gt;、&lt;code&gt;Login&lt;/code&gt;、&lt;code&gt;Logout&lt;/code&gt;、&lt;code&gt;Pencil&lt;/code&gt;、&lt;code&gt;Refresh&lt;/code&gt;、&lt;code&gt;ExternalLink&lt;/code&gt;、&lt;code&gt;X&lt;/code&gt;、&lt;code&gt;Trash&lt;/code&gt;、&lt;code&gt;ArrowLeft&lt;/code&gt;、&lt;code&gt;ArrowRight&lt;/code&gt;、&lt;code&gt;Check&lt;/code&gt; 和 &lt;code&gt;Plus&lt;/code&gt;。&lt;/p&gt;
 &lt;h2 data-hextra-search-id="binary-size"&gt;二进制体积：程序只链接它用到的部分&lt;span class="hx:absolute hx:-mt-20" id="binary-size"&gt;&lt;/span&gt;
 &lt;a href="#binary-size" class="subheading-anchor" aria-label="此章节的永久链接"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;工具包是一个很大的包，这对链接器来说没有问题：Go 的死代码消除只保留从 &lt;code&gt;main.main&lt;/code&gt; &lt;strong&gt;以及每个被导入包的初始化任务&lt;/strong&gt;
 可达的部分。程序从未碰到的控件会被丢弃。不会被丢弃的，是包级初始化器或被导入包的 &lt;code&gt;init&lt;/code&gt; 所能到达的一切，因此自 v0.345.0 起，工具包让自己的初始化器不做任何工作，并避免导入其 &lt;code&gt;init&lt;/code&gt; 会拖入代码的包：&lt;/p&gt;

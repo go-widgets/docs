@@ -438,6 +438,26 @@ data-copied-label="コピーしました！"
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;&lt;code&gt;SVGGlyph&lt;/code&gt; には toolkit v0.402.0 以降が必要です。&lt;code&gt;ListPane&lt;/code&gt; は、追加・削除ボタンの隣に、こうしたボタンを &lt;code&gt;Extra&lt;/code&gt; フィールドで受け取ります。&lt;/p&gt;
+&lt;h2 data-hextra-search-id="wrap-logo"&gt;折り返しテキストとロゴ&lt;span class="hx:absolute hx:-mt-20" id="wrap-logo"&gt;&lt;/span&gt;
+&lt;a href="#wrap-logo" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;v0.404.0 から、&lt;code&gt;Wrap = true&lt;/code&gt; の &lt;code&gt;Label&lt;/code&gt; はテキストを自身の範囲に合わせて折り返し、&lt;code&gt;Label.HeightFor(width)&lt;/code&gt; と &lt;code&gt;Button.HeightFor(width)&lt;/code&gt; は、その幅で必要な高さを返します。ボタンより幅の広い &lt;code&gt;Button&lt;/code&gt; のキャプションも折り返されます。&lt;code&gt;toolkit.WrapLines(font, text, width)&lt;/code&gt; が折り返しの本体で、スペースと改行で分割し、行より幅の広い単語はルーン単位で分割します。&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;lbl&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewLabel&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;省略記号がもう要らない長いキャプション&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;lbl&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Wrap&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;h&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;lbl&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;HeightFor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;240&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// 幅 240 で必要なピクセル数&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="コードをコピー"
+aria-label="コードをコピー"
+data-copied-label="コピーしました！"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;toolkit.NewLogo(name, docFunc)&lt;/code&gt; は役割が &lt;code&gt;image&lt;/code&gt; の正方形ウィジェットで、ドキュメントが空ならアプリケーションのマークを描きます。&lt;code&gt;toolkit.LogoRows(row)&lt;/code&gt; は &lt;code&gt;ListBox.ItemRenderer&lt;/code&gt;
+で、行ごとにロゴと、折り返されるタイトルおよびサブタイトルを描きます（&lt;code&gt;row(i)&lt;/code&gt; は&lt;code&gt;LogoRow{Doc, Title, Subtitle}&lt;/code&gt; を返します）。固定の行高さに収まらない場合に限り、テキストは省略記号で切り詰められます。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;tabler-icons&lt;/code&gt; v0.2.0 で 13 個のアイコンが加わりました。&lt;code&gt;PlugConnected&lt;/code&gt;、&lt;code&gt;PlugConnectedX&lt;/code&gt;、&lt;code&gt;Login&lt;/code&gt;、&lt;code&gt;Logout&lt;/code&gt;、&lt;code&gt;Pencil&lt;/code&gt;、&lt;code&gt;Refresh&lt;/code&gt;、&lt;code&gt;ExternalLink&lt;/code&gt;、&lt;code&gt;X&lt;/code&gt;、&lt;code&gt;Trash&lt;/code&gt;、&lt;code&gt;ArrowLeft&lt;/code&gt;、&lt;code&gt;ArrowRight&lt;/code&gt;、&lt;code&gt;Check&lt;/code&gt;、&lt;code&gt;Plus&lt;/code&gt; です。&lt;/p&gt;
 &lt;h2 data-hextra-search-id="binary-size"&gt;バイナリサイズ：プログラムは使うものだけをリンクする&lt;span class="hx:absolute hx:-mt-20" id="binary-size"&gt;&lt;/span&gt;
 &lt;a href="#binary-size" class="subheading-anchor" aria-label="このセクションへのパーマリンク"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;ツールキットは 1 つの大きなパッケージですが、リンカにとっては問題ありません。Go のデッドコード除去は、&lt;code&gt;main.main&lt;/code&gt; &lt;strong&gt;と、インポートされたすべてのパッケージの init タスク&lt;/strong&gt;から到達できるものだけを残します。プログラムが一度も使わないウィジェットは削除されます。削除されないのは、パッケージレベルの初期化子や、インポートされたパッケージの &lt;code&gt;init&lt;/code&gt; が到達するものです。そのため v0.345.0 以降、ツールキットは自身の初期化子から処理を取り除き、&lt;code&gt;init&lt;/code&gt; がコードを引き込むパッケージのインポートを避けています。&lt;/p&gt;
 &lt;ul&gt;

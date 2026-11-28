@@ -361,6 +361,34 @@ data-copied-label="Kopiert!"
 &lt;/div&gt;
 &lt;p&gt;&lt;code&gt;SVGGlyph&lt;/code&gt; braucht toolkit v0.402.0 oder neuer. Eine &lt;code&gt;ListPane&lt;/code&gt; nimmt solche Buttons
 in ihrem Feld &lt;code&gt;Extra&lt;/code&gt; auf, neben ihren eigenen Buttons zum Hinzufügen und Entfernen.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="wrap-logo"&gt;Umbrochener Text und Logos&lt;span class="hx:absolute hx:-mt-20" id="wrap-logo"&gt;&lt;/span&gt;
+&lt;a href="#wrap-logo" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Seit v0.404.0 bricht ein &lt;code&gt;Label&lt;/code&gt; mit &lt;code&gt;Wrap = true&lt;/code&gt; seinen Text an seinen Grenzen
+um, und &lt;code&gt;Label.HeightFor(width)&lt;/code&gt; und &lt;code&gt;Button.HeightFor(width)&lt;/code&gt; liefern die bei
+einer Breite nötige Höhe. Auch eine &lt;code&gt;Button&lt;/code&gt;-Beschriftung, die breiter als der
+Button ist, wird umbrochen. &lt;code&gt;toolkit.WrapLines(font, text, width)&lt;/code&gt; ist der
+zugrunde liegende Umbruch: Er trennt an Leerzeichen und Zeilenumbrüchen sowie
+zwischen Runen in einem Wort, das breiter als die Zeile ist.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;lbl&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewLabel&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Eine lange Beschriftung ohne Auslassungspunkte&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;lbl&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Wrap&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;h&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;lbl&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;HeightFor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;240&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// bei 240 Pixel Breite nötige Höhe&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Code kopieren"
+aria-label="Code kopieren"
+data-copied-label="Kopiert!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;toolkit.NewLogo(name, docFunc)&lt;/code&gt; ist ein quadratisches Widget mit der Rolle&lt;code&gt;image&lt;/code&gt;; ein leeres Dokument zeichnet das Programmzeichen. &lt;code&gt;toolkit.LogoRows(row)&lt;/code&gt;
+ist ein &lt;code&gt;ListBox.ItemRenderer&lt;/code&gt;, der je Zeile ein Logo mit umbrochenem Titel und
+Untertitel zeichnet (&lt;code&gt;row(i)&lt;/code&gt; liefert ein &lt;code&gt;LogoRow{Doc, Title, Subtitle}&lt;/code&gt;); Text
+wird nur dann mit Auslassungspunkten gekürzt, wenn die feste Zeilenhöhe die
+Zeilen nicht fasst.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;tabler-icons&lt;/code&gt; v0.2.0 bringt 13 Icons: &lt;code&gt;PlugConnected&lt;/code&gt;, &lt;code&gt;PlugConnectedX&lt;/code&gt;,&lt;code&gt;Login&lt;/code&gt;, &lt;code&gt;Logout&lt;/code&gt;, &lt;code&gt;Pencil&lt;/code&gt;, &lt;code&gt;Refresh&lt;/code&gt;, &lt;code&gt;ExternalLink&lt;/code&gt;, &lt;code&gt;X&lt;/code&gt;, &lt;code&gt;Trash&lt;/code&gt;,&lt;code&gt;ArrowLeft&lt;/code&gt;, &lt;code&gt;ArrowRight&lt;/code&gt;, &lt;code&gt;Check&lt;/code&gt; und &lt;code&gt;Plus&lt;/code&gt;.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="binary-size"&gt;Binärgröße: ein Programm linkt, was es benutzt&lt;span class="hx:absolute hx:-mt-20" id="binary-size"&gt;&lt;/span&gt;
 &lt;a href="#binary-size" class="subheading-anchor" aria-label="Permalink für diesen Abschnitt"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Das Toolkit ist ein großes Paket, und für den Linker ist das in Ordnung: Die
 Dead-Code-Eliminierung von Go behält nur, was von &lt;code&gt;main.main&lt;/code&gt; &lt;strong&gt;und von den

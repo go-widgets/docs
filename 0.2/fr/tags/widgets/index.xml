@@ -315,6 +315,32 @@ data-copied-label="Copié !"
 &lt;/div&gt;
 &lt;p&gt;&lt;code&gt;SVGGlyph&lt;/code&gt; demande toolkit v0.402.0 ou plus. Un &lt;code&gt;ListPane&lt;/code&gt; accepte de tels boutons
 dans son champ &lt;code&gt;Extra&lt;/code&gt;, à côté de ses propres boutons d&amp;rsquo;ajout et de retrait.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="wrap-logo"&gt;Texte à retour à la ligne et logos&lt;span class="hx:absolute hx:-mt-20" id="wrap-logo"&gt;&lt;/span&gt;
+&lt;a href="#wrap-logo" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Depuis v0.404.0, un &lt;code&gt;Label&lt;/code&gt; avec &lt;code&gt;Wrap = true&lt;/code&gt; coupe son texte à ses bornes, et&lt;code&gt;Label.HeightFor(width)&lt;/code&gt; et &lt;code&gt;Button.HeightFor(width)&lt;/code&gt; donnent la hauteur requise
+pour une largeur. Le libellé d&amp;rsquo;un &lt;code&gt;Button&lt;/code&gt; plus large que le bouton est coupé
+lui aussi. &lt;code&gt;toolkit.WrapLines(font, text, width)&lt;/code&gt; est le découpeur sous-jacent :il coupe aux espaces et aux sauts de ligne, et entre les runes à l&amp;rsquo;intérieur
+d&amp;rsquo;un mot plus large que la ligne.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;lbl&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewLabel&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Un long libellé qui n&amp;#39;a plus besoin de points de suspension&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;lbl&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Wrap&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;h&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;lbl&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;HeightFor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;240&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// pixels requis pour 240 de large&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="Copier le code"
+aria-label="Copier le code"
+data-copied-label="Copié !"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;toolkit.NewLogo(name, docFunc)&lt;/code&gt; est un widget carré de rôle &lt;code&gt;image&lt;/code&gt; ; un
+document vide dessine la marque de l&amp;rsquo;application. &lt;code&gt;toolkit.LogoRows(row)&lt;/code&gt; est un&lt;code&gt;ListBox.ItemRenderer&lt;/code&gt; qui dessine par ligne un logo avec un titre et un
+sous-titre coupés (&lt;code&gt;row(i)&lt;/code&gt; renvoie un &lt;code&gt;LogoRow{Doc, Title, Subtitle}&lt;/code&gt;) ; le
+texte n&amp;rsquo;est tronqué par des points de suspension que si la hauteur fixe de la
+ligne ne peut pas contenir les lignes.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;tabler-icons&lt;/code&gt; v0.2.0 ajoute 13 icônes : &lt;code&gt;PlugConnected&lt;/code&gt;, &lt;code&gt;PlugConnectedX&lt;/code&gt;,&lt;code&gt;Login&lt;/code&gt;, &lt;code&gt;Logout&lt;/code&gt;, &lt;code&gt;Pencil&lt;/code&gt;, &lt;code&gt;Refresh&lt;/code&gt;, &lt;code&gt;ExternalLink&lt;/code&gt;, &lt;code&gt;X&lt;/code&gt;, &lt;code&gt;Trash&lt;/code&gt;,&lt;code&gt;ArrowLeft&lt;/code&gt;, &lt;code&gt;ArrowRight&lt;/code&gt;, &lt;code&gt;Check&lt;/code&gt; et &lt;code&gt;Plus&lt;/code&gt;.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="binary-size"&gt;Taille du binaire : un programme lie ce qu&amp;rsquo;il utilise&lt;span class="hx:absolute hx:-mt-20" id="binary-size"&gt;&lt;/span&gt;
 &lt;a href="#binary-size" class="subheading-anchor" aria-label="Lien permanent vers cette section"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;La boîte à outils est un grand paquet, et l&amp;rsquo;éditeur de liens s&amp;rsquo;en accommode :l&amp;rsquo;élimination de code mort de Go ne garde que ce qui est atteignable depuis&lt;code&gt;main.main&lt;/code&gt; &lt;strong&gt;et depuis les tâches d&amp;rsquo;initialisation de chaque paquet importé&lt;/strong&gt;.Les widgets qu&amp;rsquo;un programme ne touche jamais sont retirés. Ce qui n&amp;rsquo;est pas
 retiré, c&amp;rsquo;est tout ce qu&amp;rsquo;atteint un initialiseur de niveau paquet ou le &lt;code&gt;init&lt;/code&gt;

@@ -43,8 +43,8 @@
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;a href="https://github.com/go-widgets/tabler-icons" target="_blank" rel="noopener"&gt;&lt;code&gt;tabler-icons&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
-&lt;td&gt;v0.1.0&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;toolkit.SVGGlyph&lt;/code&gt;용으로 내장된 SVG 형태의 &lt;a href="https://tabler.io/icons" target="_blank" rel="noopener"&gt;Tabler Icons&lt;/a&gt;(MIT). 현재 아이콘은 &lt;code&gt;settings&lt;/code&gt; 하나뿐입니다&lt;/td&gt;
+&lt;td&gt;v0.2.0&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;toolkit.SVGGlyph&lt;/code&gt;용으로 내장된 SVG 형태의 &lt;a href="https://tabler.io/icons" target="_blank" rel="noopener"&gt;Tabler Icons&lt;/a&gt;(MIT). 현재 아이콘 14개, &lt;code&gt;settings&lt;/code&gt;부터 &lt;code&gt;plus&lt;/code&gt;까지&lt;/td&gt;
 &lt;td&gt;&lt;a href="https://pkg.go.dev/github.com/go-widgets/tabler-icons" target="_blank" rel="noopener"&gt;pkg.go.dev&lt;/a&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;

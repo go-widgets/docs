@@ -514,6 +514,29 @@ data-copied-label="복사됨!"
 &lt;/div&gt;
 &lt;p&gt;&lt;code&gt;SVGGlyph&lt;/code&gt;에는 toolkit v0.402.0 이상이 필요합니다. &lt;code&gt;ListPane&lt;/code&gt;은 추가·제거 버튼 옆에
 이런 버튼을 &lt;code&gt;Extra&lt;/code&gt; 필드로 받습니다.&lt;/p&gt;
+&lt;h2 data-hextra-search-id="wrap-logo"&gt;줄바꿈 텍스트와 로고&lt;span class="hx:absolute hx:-mt-20" id="wrap-logo"&gt;&lt;/span&gt;
+&lt;a href="#wrap-logo" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;v0.404.0부터 &lt;code&gt;Wrap = true&lt;/code&gt;인 &lt;code&gt;Label&lt;/code&gt;은 텍스트를 자신의 영역에 맞춰 줄바꿈하고,&lt;code&gt;Label.HeightFor(width)&lt;/code&gt;와 &lt;code&gt;Button.HeightFor(width)&lt;/code&gt;는 해당 너비에서 필요한 높이를
+돌려줍니다. 버튼보다 넓은 &lt;code&gt;Button&lt;/code&gt; 캡션도 줄바꿈됩니다.&lt;code&gt;toolkit.WrapLines(font, text, width)&lt;/code&gt;가 바탕이 되는 분할기로, 공백과 줄바꿈에서
+나누고 줄보다 넓은 단어는 룬 사이에서 나눕니다.&lt;/p&gt;
+&lt;div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code"&gt;
+&lt;div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;lbl&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;toolkit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewLabel&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;말줄임표가 더는 필요 없는 긴 캡션&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;lbl&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Wrap&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;h&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;lbl&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;HeightFor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;240&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// 너비 240에서 필요한 픽셀 수&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0"&gt;
+&lt;button
+class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+title="코드 복사"
+aria-label="코드 복사"
+data-copied-label="복사됨!"
+&gt;
+&lt;div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"&gt;&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;toolkit.NewLogo(name, docFunc)&lt;/code&gt;는 역할이 &lt;code&gt;image&lt;/code&gt;인 정사각형 위젯이며, 문서가 비어
+있으면 애플리케이션 마크를 그립니다. &lt;code&gt;toolkit.LogoRows(row)&lt;/code&gt;는 &lt;code&gt;ListBox.ItemRenderer&lt;/code&gt;로,행마다 로고와 줄바꿈되는 제목·부제를 그립니다(&lt;code&gt;row(i)&lt;/code&gt;는 &lt;code&gt;LogoRow{Doc, Title, Subtitle}&lt;/code&gt;를
+돌려줍니다). 고정된 행 높이에 줄이 들어가지 않을 때만 텍스트를 말줄임표로 자릅니다.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;tabler-icons&lt;/code&gt; v0.2.0은 아이콘 13개를 추가합니다. &lt;code&gt;PlugConnected&lt;/code&gt;, &lt;code&gt;PlugConnectedX&lt;/code&gt;,&lt;code&gt;Login&lt;/code&gt;, &lt;code&gt;Logout&lt;/code&gt;, &lt;code&gt;Pencil&lt;/code&gt;, &lt;code&gt;Refresh&lt;/code&gt;, &lt;code&gt;ExternalLink&lt;/code&gt;, &lt;code&gt;X&lt;/code&gt;, &lt;code&gt;Trash&lt;/code&gt;, &lt;code&gt;ArrowLeft&lt;/code&gt;,&lt;code&gt;ArrowRight&lt;/code&gt;, &lt;code&gt;Check&lt;/code&gt;, &lt;code&gt;Plus&lt;/code&gt;입니다.&lt;/p&gt;
 &lt;h2 data-hextra-search-id="binary-size"&gt;바이너리 크기: 프로그램은 사용하는 것만 링크합니다&lt;span class="hx:absolute hx:-mt-20" id="binary-size"&gt;&lt;/span&gt;
 &lt;a href="#binary-size" class="subheading-anchor" aria-label="이 섹션에 대한 고유 링크"&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;툴킷은 하나의 큰 패키지이지만 링커에게는 문제가 되지 않습니다. Go의 데드 코드 제거는&lt;code&gt;main.main&lt;/code&gt;에서, &lt;strong&gt;그리고 가져온 모든 패키지의 init 작업에서&lt;/strong&gt; 도달할 수 있는 것만
 남깁니다. 프로그램이 건드리지 않는 위젯은 제거됩니다. 제거되지 않는 것은 패키지 수준
