@@ -16,7 +16,7 @@ API 참조 문서는 릴리스된 태그를 따라가는 [pkg.go.dev](https://pk
 | [`skin`](https://github.com/go-widgets/skin) | v0.3.0 | [데이터로 기술한 위젯]({{< relref "/rendering/skin.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/skin) |
 | [`gpupainter`](https://github.com/go-widgets/gpupainter) | v0.4.0 | GPU용으로 프레임을 기록하는 `painter.Painter`(go-gfx/gpu2d): [Metal 또는 WebGPU]({{< relref "/surfaces/browser.md" >}}), CPU 페인터와 바이트 단위로 동일 | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/gpupainter) |
 | [`shellterm`](https://github.com/go-widgets/shellterm) | v0.1.0 | 줄 단위 터미널: 툴킷의 `Terminal`과 줄 편집기를 사용자가 제공하는 셸 앞에 둡니다 | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/shellterm) |
-| [`tabler-icons`](https://github.com/go-widgets/tabler-icons) | v0.1.0 | `toolkit.SVGGlyph`용으로 내장된 SVG 형태의 [Tabler Icons](https://tabler.io/icons)(MIT). 현재 아이콘은 `settings` 하나뿐입니다 | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/tabler-icons) |
+| [`tabler-icons`](https://github.com/go-widgets/tabler-icons) | v0.2.0 | `toolkit.SVGGlyph`용으로 내장된 SVG 형태의 [Tabler Icons](https://tabler.io/icons)(MIT). 현재 아이콘 14개, `settings`부터 `plus`까지 | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/tabler-icons) |
 | [`isoicons`](https://github.com/go-widgets/isoicons) | v0.4.0 | 툴킷의 아이소메트릭 다이어그램용 아이소메트릭 아이콘 팩(클라우드 네이티브, AWS) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/isoicons) |
 | [`mvvm`](https://github.com/go-widgets/mvvm) | v0.15.0 | [옵저버블, 커맨드, 바인더, 실행 취소]({{< relref "/state/mvvm.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvm) |
 | [`mvvmtk`](https://github.com/go-widgets/mvvmtk) | v0.15.0 | [툴킷 위젯을 위한 단일 호출 바인더]({{< relref "/state/mvvm.md#mvvmtk-one-call-per-widget" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvmtk) |

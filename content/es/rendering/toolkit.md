@@ -297,6 +297,32 @@ btn.Icon = toolkit.SVGGlyph(tabler.MustSVG(tabler.Settings), 16, 24)
 `SVGGlyph` requiere toolkit v0.402.0 o posterior. Un `ListPane` admite esos botones
 en su campo `Extra`, junto a sus propios botones de añadir y quitar.
 
+## Texto con ajuste de línea y logotipos {#wrap-logo}
+
+Desde v0.404.0, un `Label` con `Wrap = true` ajusta su texto a sus límites, y
+`Label.HeightFor(width)` y `Button.HeightFor(width)` dan la altura necesaria
+para un ancho. El rótulo de un `Button` más ancho que el botón también se
+ajusta. `toolkit.WrapLines(font, text, width)` es el divisor subyacente: corta
+en espacios y saltos de línea, y entre runas dentro de una palabra más ancha que
+la línea.
+
+```go
+lbl := toolkit.NewLabel("Un rótulo largo que ya no necesita puntos suspensivos")
+lbl.Wrap = true
+h := lbl.HeightFor(240) // píxeles necesarios con 240 de ancho
+```
+
+`toolkit.NewLogo(name, docFunc)` es un widget cuadrado con el rol `image`; un
+documento vacío dibuja la marca de la aplicación. `toolkit.LogoRows(row)` es un
+`ListBox.ItemRenderer` que dibuja por fila un logotipo con título y subtítulo
+ajustados (`row(i)` devuelve un `LogoRow{Doc, Title, Subtitle}`); el texto solo
+se recorta con puntos suspensivos si la altura fija de la fila no cabe las
+líneas.
+
+`tabler-icons` v0.2.0 añade 13 iconos: `PlugConnected`, `PlugConnectedX`,
+`Login`, `Logout`, `Pencil`, `Refresh`, `ExternalLink`, `X`, `Trash`,
+`ArrowLeft`, `ArrowRight`, `Check` y `Plus`.
+
 ## Tamaño del binario: un programa enlaza lo que usa {#binary-size}
 
 El toolkit es un paquete grande, y para el enlazador eso no es un problema: la

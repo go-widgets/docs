@@ -14,7 +14,7 @@ API 参考文档由 [pkg.go.dev](https://pkg.go.dev/) 根据源码生成，并�
 | [`skin`](https://github.com/go-widgets/skin) | v0.3.0 | [以数据描述的控件]({{< relref "/rendering/skin.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/skin) |
 | [`gpupainter`](https://github.com/go-widgets/gpupainter) | v0.4.0 | 为 GPU 录制帧的 `painter.Painter`（go-gfx/gpu2d）：[Metal 或 WebGPU]({{< relref "/surfaces/browser.md" >}})，与 CPU 绘制器逐字节一致 | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/gpupainter) |
 | [`shellterm`](https://github.com/go-widgets/shellterm) | v0.1.0 | 面向行的终端：把工具包的 `Terminal` 和行编辑器放在你提供的 shell 前面 | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/shellterm) |
-| [`tabler-icons`](https://github.com/go-widgets/tabler-icons) | v0.1.0 | 以内嵌 SVG 形式提供的 [Tabler Icons](https://tabler.io/icons)（MIT），供 `toolkit.SVGGlyph` 使用；目前只有一个图标 `settings` | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/tabler-icons) |
+| [`tabler-icons`](https://github.com/go-widgets/tabler-icons) | v0.2.0 | 以内嵌 SVG 形式提供的 [Tabler Icons](https://tabler.io/icons)（MIT），供 `toolkit.SVGGlyph` 使用；目前有 14 个图标，从 `settings` 到 `plus` | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/tabler-icons) |
 | [`isoicons`](https://github.com/go-widgets/isoicons) | v0.4.0 | 等距图标包（云原生、AWS），供工具包的等距图使用 | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/isoicons) |
 | [`mvvm`](https://github.com/go-widgets/mvvm) | v0.15.0 | [可观察对象、命令、绑定器、撤销]({{< relref "/state/mvvm.md" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvm) |
 | [`mvvmtk`](https://github.com/go-widgets/mvvmtk) | v0.15.0 | [面向工具包控件的一行式绑定器]({{< relref "/state/mvvm.md#mvvmtk-one-call-per-widget" >}}) | [pkg.go.dev](https://pkg.go.dev/github.com/go-widgets/mvvmtk) |

@@ -202,6 +202,30 @@ btn.Icon = toolkit.SVGGlyph(tabler.MustSVG(tabler.Settings), 16, 24)
 `SVGGlyph` needs toolkit v0.402.0 or later. A `ListPane` takes such buttons in
 its `Extra` field, next to its own add and remove buttons.
 
+## Wrapped text and logos {#wrap-logo}
+
+Since v0.404.0 a `Label` with `Wrap = true` wraps its text to its bounds, and
+`Label.HeightFor(width)` and `Button.HeightFor(width)` give the height needed
+at a width. A `Button` caption wider than the button wraps too.
+`toolkit.WrapLines(font, text, width)` is the underlying breaker: it splits at
+spaces and newlines, and between runes inside a word wider than the line.
+
+```go
+lbl := toolkit.NewLabel("A long caption that no longer needs an ellipsis")
+lbl.Wrap = true
+h := lbl.HeightFor(240) // pixels needed at 240 wide
+```
+
+`toolkit.NewLogo(name, docFunc)` is a square widget with the role `image`; an
+empty document draws the application mark. `toolkit.LogoRows(row)` is a
+`ListBox.ItemRenderer` drawing a logo with a wrapped title and subtitle per row
+(`row(i)` returns a `LogoRow{Doc, Title, Subtitle}`); text is cut with an
+ellipsis only when the fixed row height cannot hold the lines.
+
+`tabler-icons` v0.2.0 adds 13 icons: `PlugConnected`, `PlugConnectedX`,
+`Login`, `Logout`, `Pencil`, `Refresh`, `ExternalLink`, `X`, `Trash`,
+`ArrowLeft`, `ArrowRight`, `Check` and `Plus`.
+
 ## Binary size: a program links what it uses {#binary-size}
 
 The toolkit is one large package, and that is fine for the linker: Go's
